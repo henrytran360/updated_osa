@@ -1,8 +1,37 @@
 html, body, #app {
   height: 100%;
 }
+
+@font-face {
+  font-family: "Acari Sans";
+  src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Acari Sans";
+  src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Acari Sans";
+  src: url("./assets/fonts/acari-sans/AcariSans-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: "Acari Sans";
+  src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf") format("truetype");
+  font-weight: medium;
+  font-style: normal;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: 'Acari Sans';
   margin: 0;
   padding: 0;
 }

@@ -25,7 +25,6 @@
     right: 82.37%;
     top: 52.58%;
     bottom: 45.24%;
-    font: "Acari Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 15.75px;
@@ -46,7 +45,6 @@
     right: 82.37%;
     top: 52.58%;
     bottom: 45.24%;
-    font: "Acari Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 15.75px;
@@ -69,7 +67,6 @@
     right: 82.37%;
     top: 52.58%;
     bottom: 45.24%;
-    font: "Acari Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 15.75px;
@@ -113,7 +110,6 @@
     border-radius: 5px;
 }
 .notesContent {
-    font: "Acari Sans";
     font-style: normal;
     display: flex;
     flex-direction: column;
@@ -126,7 +122,6 @@
     top: 10px;
     width: 520px;
     height: 240px;
-    font: "Acari Sans";
     font-size: 16px;
     border: transparent;
     border-radius: 5px;

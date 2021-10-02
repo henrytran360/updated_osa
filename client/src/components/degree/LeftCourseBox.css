@@ -18,7 +18,6 @@
 }
 .courseCode {
     height: 19px;
-    font: "Acari Sans";
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -28,7 +27,6 @@
 }
 .courseName {
     height: 19px;
-    font: "Acari Sans";
     font-style: normal;
     padding-top: 3px;
     font-size: 16px;
@@ -49,7 +47,6 @@
     overflow-y: auto;
 }
 .courseInfoContent {
-    font: "Acari Sans";
     font-style: normal;
     font-size: 16px;
     display: flex;
@@ -73,7 +70,6 @@
     left: -5px;
     height: 19px;
     width: 85px;
-    font: "Acari Sans";
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -88,7 +84,6 @@
 .customCourseName {
     height: 19px;
     width: 240px;
-    font: "Acari Sans";
     font-style: normal;
     padding-top: 3px;
     font-size: 16px;
