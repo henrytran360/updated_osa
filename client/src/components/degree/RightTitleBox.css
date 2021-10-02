@@ -1,0 +1,25 @@
+.rtbox {
+    position: relative;
+    width: 124px;
+    height: 44px;
+    left: 1px;
+    top: -0.5px;
+    border-right: 1.5px solid hsl(180, 3%, 89%);
+    border-bottom: 1.5px solid hsl(180, 3%, 89%);
+    border-top: 1.5px solid hsl(180, 3%, 89%);
+    box-sizing: border-box;
+    background: #ddf5f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+    font: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    letter-spacing: 0.1em;
+    color: #5b5b5b;
+    border-radius: 0px 5px 0px 0px;
+}

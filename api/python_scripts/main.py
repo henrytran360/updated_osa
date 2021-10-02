@@ -270,8 +270,8 @@ def aggregate_parsed_files(file_names):
 def main():
     print("start")
     output_dir = "./python_scripts/"
-    output_loc = os.path.join(output_dir, "output10.json") 
-    terms = ["202110"]
+    output_loc = os.path.join(output_dir, "output11.json") 
+    terms = ["202310"]
     # terms = ["201810", "201820", "201910", "201920", "202010", "202020", "202110"]
     url = "https://courses.rice.edu/courses/!swkscat.cat?format=XML&p_action=COURSE&p_term="
     # url = "https://courses.rice.edu/courses/!SWKSCAT.cat?p_action=QUERY&p_term=202110&format=XML"
@@ -281,21 +281,22 @@ def main():
 
     for term in terms:
         print(term)
-        # term_url = url + term
-        # courses = requests.get(term_url)
+        term_url = url + term
+        courses = requests.get(term_url)
         print("Made request")
-        # xml_filename = datetime.date.today()
-        # with open(output_dir + str(xml_filename) + ".xml", mode="w+") as fp:
-        # with tempfile.TemporaryFile(mode='r+') as fp:
-        with open(output_dir + "2020-05-02.xml", "r") as fp:
-            print("Writing to tempfile")
-            # fp.write(courses.text)
+        xml_filename = datetime.date.today()
+        with open(output_dir + str(xml_filename) + ".xml", mode="w+") as fp:
+            fp.write(courses.text)
             # wait for write
-            # fp.flush()
+            fp.flush()
             # reset position to start
-            # fp.seek(0)
+            fp.seek(0)
+        # with tempfile.TemporaryFile(mode='r+') as fp:
+        with open(output_dir + str(xml_filename) + ".xml", "r") as fp:
+            # print("Writing to tempfile")
 
-            print("Finishing writing to tempfile")
+
+            # print("Finishing writing to tempfile")
 
             current_data = {}
             json_data = parse_file(fp, current_data)
@@ -303,8 +304,8 @@ def main():
             # Dump to JSON
             with open(output_loc, "a+") as output_file:
                 json.dump(json_data, output_file)
-                output_file.write(",\n")
-                print("finishied writing this term")
+                # output_file.write(",\n")
+                # print("finishied writing this term")
     
     with open(output_loc, "a+") as output_file:
         output_file.write("]")

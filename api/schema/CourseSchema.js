@@ -49,8 +49,8 @@ CourseTC.addResolver({
     resolve: async ({ source, args, context, info }) => {
         const prevTermCourses = await getPreviousTermCourses(args.term);
         return prevTermCourses;
-    }
-})
+    },
+});
 
 CourseTC.addResolver({
     name: "findManyInDistribution",
@@ -62,6 +62,17 @@ CourseTC.addResolver({
         return await Course.find({ distribution: args.distribution }).sort(
             sortParam
         );
+    },
+});
+
+CourseTC.addResolver({
+    name: "findAll",
+    type: [CourseTC],
+    args: { ascending: "Boolean!" },
+    resolve: async ({ source, args, context, info }) => {
+        // -(field) puts into descending order
+        let sortParam = args.ascending ? "courseNum" : "-courseNum";
+        return await Course.find().sort(sortParam);
     },
 });
 
@@ -138,6 +149,7 @@ const CourseQuery = {
                 query.distribution = distribution;
             },
         }),
+    findAll: CourseTC.getResolver("findAll"),
     courseManyInDistribution: CourseTC.getResolver("findManyInDistribution"),
     departments: {
         name: "departments",
@@ -147,7 +159,7 @@ const CourseQuery = {
             return await getSubjects(args.term);
         },
     },
-    prevTermCourses: CourseTC.getResolver("findPreviousTermCourses")
+    prevTermCourses: CourseTC.getResolver("findPreviousTermCourses"),
 };
 
 const CourseMutation = {

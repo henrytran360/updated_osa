@@ -16,7 +16,7 @@
     "@apollo/client": "^3.0.0-beta.49",
     "@apollo/link-context": "^2.0.0-beta.3",
     "@apollo/link-ws": "^2.0.0-beta.3",
-    "@material-ui/core": "^4.9.10",
+    "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",
     "cldr-data": "^36.0.0",
     "firebase": "^8.0.0",
@@ -31,6 +31,7 @@
     "react-dom": "^16.10.2",
     "react-ga": "^2.7.0",
     "react-infinite": "^0.13.0",
+    "react-modal": "^3.14.3",
     "react-responsive": "^8.1.0",
     "react-responsive-modal": "^5.0.2",
     "react-router": "^5.1.2",
@@ -42,7 +43,7 @@
     "webpack": "^4.41.6"
   },
   "devDependencies": {
-    "nwb": "^0.23.0"
+    "nwb": "^0.25.2"
   },
   "author": "",
   "license": "MIT",

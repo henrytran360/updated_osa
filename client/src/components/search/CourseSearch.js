@@ -201,8 +201,8 @@ const GET_TIME_INTERVAL_COURSES = gql`
 
 //NEWWWWW
 const GET_INSTRUCTORS = gql`
-    query getInstructors($term:Int!) {
-        instructors(term:$term) {
+    query getInstructors($term: Int!) {
+        instructors(term: $term) {
             firstName
             lastName
         }
@@ -249,8 +249,8 @@ const COURSES_BY_INSTRUCTORS = gql`
     }
 `;
 
-const initialStartTime = "11:00"
-const initialEndTime = "12:00"
+const initialStartTime = "11:00";
+const initialEndTime = "12:00";
 
 const CourseSearch = ({ scheduleID, clickValue }) => {
     const [getDepts, setDepts] = useState([]); // Used for the entire list of departments
@@ -302,12 +302,20 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         data: { term },
     } = useQuery(GET_TERM); // Gets the term which we need to request subjects from
 
-    const { data: departmentsData, loading: departmentsLoading, error: departmentsError } = useQuery(GET_DEPARTMENTS, {
+    const {
+        data: departmentsData,
+        loading: departmentsLoading,
+        error: departmentsError,
+    } = useQuery(GET_DEPARTMENTS, {
         variables: { term },
     });
 
     //get instructor data
-    const { data: instructorData, loading: instructorsLoading, error: instructorsError } = useQuery(GET_INSTRUCTORS, {
+    const {
+        data: instructorData,
+        loading: instructorsLoading,
+        error: instructorsError,
+    } = useQuery(GET_INSTRUCTORS, {
         variables: { term },
     });
 
@@ -387,7 +395,9 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
      */
     useEffect(() => {
         if (departmentsData) {
+            console.log(term);
             let { departments } = departmentsData;
+            console.log(departments);
             setDepts(departments.map((dept) => ({ label: dept, value: dept })));
         }
     }, [departmentsData]);
@@ -432,14 +442,16 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
              * Otherwise, the button color is secondary.
              *
              */
-            const selected =
-                index === activeButtonIndex ? "selected" : "";
+            const selected = index === activeButtonIndex ? "selected" : "";
 
             return (
-                <div onClick={() => setButtonIndex(index)} className={`searchButton ${selected}`}>
+                <div
+                    onClick={() => setButtonIndex(index)}
+                    className={`searchButton ${selected}`}
+                >
                     {type}
                 </div>
-            )
+            );
         });
     };
 
@@ -487,7 +499,11 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
 
         const time = (
             <div className="selectTime">
-                {displayTimeTF("From", initialStartTime, handleStartTimeTFChange)}
+                {displayTimeTF(
+                    "From",
+                    initialStartTime,
+                    handleStartTimeTFChange
+                )}
                 {displayTimeTF("To", initialEndTime, handleEndTimeTFChange)}
             </div>
         );
@@ -522,8 +538,15 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     initGA();
 
     // Don't show anything until departments & instructors are finished loading
-    const errorMessage = (<p>Something went wrong. Please refresh the page and try again 🥺</p>);
-    if (departmentsLoading || instructorsLoading) return <div className="loadingMessage"><CircularProgress color="inherit" /></div>;
+    const errorMessage = (
+        <p>Something went wrong. Please refresh the page and try again 🥺</p>
+    );
+    if (departmentsLoading || instructorsLoading)
+        return (
+            <div className="loadingMessage">
+                <CircularProgress color="inherit" />
+            </div>
+        );
     if (departmentsError || instructorsError) return errorMessage;
 
     return (

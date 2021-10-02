@@ -278,6 +278,7 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
     // Get term from local state management
     const { data: termData } = useQuery(GET_TERM);
     let { term } = termData;
+    console.log(term);
 
     let courseResults;
     let draftSessions;
@@ -288,14 +289,22 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
     });
 
     // Fetch data required
-    const { data: courseData, loading, error } = useQuery(query, {
+    const {
+        data: courseData,
+        loading,
+        error,
+    } = useQuery(query, {
         variables: { ...searchType, term: term },
     });
+    console.log("term:", term);
+    console.log("courseData:", courseData);
     // Since searchType is passed in as an object with the value as the query returned value,
     // we need to check the object's value instead of directly checking searchType === ""
     if (Object.values(searchType)[0] === "") return <br />;
 
-    const errorMessage = (<p>Something went wrong. Please refresh the page and try again 🥺</p>);
+    const errorMessage = (
+        <p>Something went wrong. Please refresh the page and try again 🥺</p>
+    );
 
     if (loading) return <p>Loading...</p>;
     if (error) return errorMessage;
@@ -306,26 +315,28 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
     // or we get the session's course field for days and time interval selection
     switch (idx) {
         case 2:
-            courseResults = courseData.instructorOne.sessions;
+            courseResults = courseData?.instructorOne.sessions;
             break;
         case 3:
-            courseResults = courseData.sessionByTimeInterval;
+            courseResults = courseData?.sessionByTimeInterval;
             courseResults = courseResults
                 .map((session) => session.course)
                 .filter((course) => course.sessions.length > 0);
             break;
         case 4:
-            courseResults = courseData.sessionByDay;
+            courseResults = courseData?.sessionByDay;
             courseResults = courseResults
                 .map((session) => session.course)
                 .filter((course) => course.sessions.length > 0);
             break;
         default:
-            courseResults = courseData.courseMany;
+            console.log("hello");
+            courseResults = courseData?.courseMany;
             courseResults = courseResults.filter(
                 (course) => course.sessions.length > 0
             );
     }
+    console.log(courseResults);
 
     if (courseResults.length === 0)
         return <p>No Available Course In This Range</p>;
@@ -395,54 +406,60 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
     return (
         <Fragment>
             <div className="courseListContainer">
-                {courseResults.map((course, idx) => {
-                    let id = course._id;
+                {courseResults &&
+                    courseResults.map((course, idx) => {
+                        let id = course._id;
 
-                    let courseCode, longTitle;
-                    if (course.sessions) {
-                        courseCode = course.subject + " " + course.courseNum;
-                        longTitle = course.longTitle;
-                    } else {
-                        // Instructors
-                        courseCode =
-                            course.course.subject +
-                            " " +
-                            course.course.courseNum;
-                        longTitle = course.course.longTitle;
-                    }
+                        let courseCode, longTitle;
+                        if (course.sessions) {
+                            courseCode =
+                                course.subject + " " + course.courseNum;
+                            longTitle = course.longTitle;
+                        } else {
+                            // Instructors
+                            courseCode =
+                                course.course.subject +
+                                " " +
+                                course.course.courseNum;
+                            longTitle = course.course.longTitle;
+                        }
 
-                    return (
-                        <div className="courseRow">
-                            <IconButton
-                                className="courseMoreInfo"
-                                aria-label="expand row"
-                                size="small"
-                                onClick={() => toggleCourseInfo(id)}
-                            >
-                                {courseSelected.includes(id) ? (
-                                    <KeyboardArrowUpIcon />
-                                ) : (
-                                    <KeyboardArrowDownIcon />
-                                )}
-                            </IconButton>
-                            <p
-                                className="courseName"
-                                onClick={() => toggleCourseInfo(id)}
-                            >
-                                <b className="courseCode">{courseCode}</b>{" "}
-                                {longTitle}
-                            </p>
-                            <Collapse
-                                className="collapsible"
-                                in={courseSelected.includes(id) ? true : false}
-                                timeout="auto"
-                                unmountOnExit
-                            >
-                                {collapseItem(course)}
-                            </Collapse>
-                        </div>
-                    );
-                })}
+                        return (
+                            <div className="courseRow">
+                                <IconButton
+                                    className="courseMoreInfo"
+                                    aria-label="expand row"
+                                    size="small"
+                                    onClick={() => toggleCourseInfo(id)}
+                                >
+                                    {courseSelected.includes(id) ? (
+                                        <KeyboardArrowUpIcon />
+                                    ) : (
+                                        <KeyboardArrowDownIcon />
+                                    )}
+                                </IconButton>
+                                <p
+                                    className="courseName"
+                                    onClick={() => toggleCourseInfo(id)}
+                                >
+                                    <b className="courseCode">{courseCode}</b>{" "}
+                                    {longTitle}
+                                </p>
+                                <Collapse
+                                    className="collapsible"
+                                    in={
+                                        courseSelected.includes(id)
+                                            ? true
+                                            : false
+                                    }
+                                    timeout="auto"
+                                    unmountOnExit
+                                >
+                                    {collapseItem(course)}
+                                </Collapse>
+                            </div>
+                        );
+                    })}
             </div>
         </Fragment>
         // <SwipeableViews containerStyle={styles.slideContainer}>

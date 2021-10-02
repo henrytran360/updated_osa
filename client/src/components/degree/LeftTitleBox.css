@@ -1,0 +1,95 @@
+.ltbox {
+    position: relative;
+    width: 520px;
+    height: 44px;
+    left: 1px;
+    top: -0.5px;
+    border: 1.5px solid hsl(180, 3%, 89%);
+    box-sizing: border-box;
+    background: #ddf5f6;
+    display: flex;
+    align-items: center;
+    border-radius: 5px 0px 0px 0px;
+}
+.year {
+    position: relative;
+    left: 20px;
+    font: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    padding-top: 2px;
+    /* identical to box height */
+    letter-spacing: 0.05em;
+    color: #5b5b5b;
+    background-color: transparent;
+    border-color: transparent;
+}
+.yearSelect {
+    position: relative;
+    left: 20px;
+    font: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    padding-top: 2px;
+    /* identical to box height */
+    letter-spacing: 0.05em;
+    color: #5b5b5b;
+    background-color: transparent;
+    border-color: transparent;
+}
+.yearSelect:hover{
+    cursor: pointer;
+}
+.semester {
+    position: relative;
+    left: 25px;
+    font: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    padding-top: 2px;
+    /* identical to box height */
+    letter-spacing: 0.05em;
+    color: #5b5b5b;
+    background-color: transparent;
+    border-color: transparent;
+}
+.semesterSelect {
+    position: relative;
+    left: 25px;
+    font: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    padding-top: 2px;
+    /* identical to box height */
+    letter-spacing: 0.05em;
+    color: #5b5b5b;
+    background-color: transparent;
+    border-color: transparent;
+}
+.semesterSelect:hover{
+    cursor: pointer;
+}
+.saveBtn {
+    height: 25px;
+    position: relative;
+    left: 10%;
+    border: 1.5px solid #e1e3e3;
+    box-sizing: border-box;
+    background-color: white;
+    font: “Acari Sans”;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 19px;
+    z-index: 10;
+}
+.saveBtn:hover {
+    background-color: #e1e3e3;
+}

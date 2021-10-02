@@ -15,6 +15,8 @@ var DraftSessionSchema = new Schema({
 var ScheduleSchema = new Schema({
     term: { type: String, required: true },
     draftSessions: [DraftSessionSchema],
+    customCourse: { type: [String], required: false },
+    notes: { type: [String], required: false },
     user: { type: Schema.Types.ObjectID, ref: User },
 });
 

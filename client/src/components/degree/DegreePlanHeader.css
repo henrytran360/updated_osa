@@ -1,0 +1,46 @@
+.toschedule {
+    height: 35px;
+    width: 15%;
+    margin-right: 3%;
+    left: 128px;
+    top: 511px;
+    border: 1.5px solid #e1e3e3;
+    box-sizing: border-box;
+    background-color: white;
+    font: "Acari Sans";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15.75px;
+    line-height: 19px;
+    color: #149fa0;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    /* position: absolute;
+    top: 0px;
+    right: 0px; */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+}
+
+.title {
+    width: 30%;
+}
+.DegreePlanNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    width: 10%;
+    
+}
+
+.toschedule:hover {
+    background-color: #149fa0;
+    color: #e1e3e3;
+}

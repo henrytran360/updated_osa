@@ -62,7 +62,7 @@ ScheduleTC.addResolver({
 ScheduleTC.addResolver({
     name: "findManyByUser",
     type: [ScheduleTC],
-    args: { _id: "ID!", filter: ScheduleTC.getInputTypeComposer() },
+    args: { _id: "ID", filter: ScheduleTC.getInputTypeComposer() },
     resolve: async ({ source, args, context, info }) => {
         let filter = { user: args._id };
         if (args.filter) {
@@ -71,7 +71,7 @@ ScheduleTC.addResolver({
                 filter[key] = args.filter[key];
             }
         }
-        return await Schedule.find(filter);
+        return Schedule.find(filter);
     },
 });
 
@@ -143,8 +143,108 @@ ScheduleTC.addResolver({
     },
 });
 
+/**
+ * Toggles the session visibility, given a schedule and a session ID
+ */
+ScheduleTC.addResolver({
+    name: "scheduleToggleTerm",
+    type: ScheduleTC,
+    args: { scheduleID: "ID!", sessionID: "ID!" },
+    resolve: async ({ source, args, context, info }) => {
+        // Check that requested schedule and requesting user match
+        let match = checkScheduleUserMatch(args.scheduleID, context.decodedJWT);
+        if (!match) {
+            throw Error("Decoded user and Schedule do not match!");
+        }
+
+        let options = {
+            upsert: false,
+            new: true,
+            arrayFilters: [{ "elem.session": args.sessionID }],
+        };
+        // Perform update
+        await Schedule.updateOne(
+            { _id: args.scheduleID },
+            {
+                $bit: {
+                    "draftSessions.$[elem].visible": { xor: parseInt("1") },
+                },
+            },
+            options
+        );
+        // Return schedule
+        return await Schedule.findById(args.scheduleID);
+    },
+});
+
+/**
+ * Add a term from the degree planner
+ */
+ScheduleTC.addResolver({
+    name: "createNewSchedule",
+    type: ScheduleTC,
+    args: ScheduleTC.getResolver("createOne").getArgs(),
+    resolve: async ({ source, args, context, info }) => {
+        const { user } = args.filter;
+        // Create if it doesn't exist
+        // console.log(args);
+        return await Schedule.create({ term: args.record.term, user: user });
+    },
+});
+
+/**
+ * Remove a term from the degree planner
+ */
+ScheduleTC.addResolver({
+    name: "removeSchedule",
+    type: ScheduleTC,
+    args: ScheduleTC.getResolver("removeOne").getArgs(),
+    resolve: async ({ source, args, context, info }) => {
+        // Create if it doesn't exist
+        // console.log(args);
+        return await Schedule.findByIdAndRemove({ _id: args.filter._id });
+    },
+});
+
+/**
+ * Update custom courses
+ */
+ScheduleTC.addResolver({
+    name: "updateCustomCourses",
+    type: ScheduleTC,
+    args: ScheduleTC.getResolver("updateOne").getArgs(),
+    resolve: async ({ source, args, context, info }) => {
+        let CC = args.record.customCourse;
+        console.log(CC);
+        console.log(args);
+        const schedule = await Schedule.updateOne(
+            { _id: args.filter._id },
+            { $set: { customCourse: args.record.customCourse } }
+        );
+
+        if (!schedule) return null;
+        return Schedule.findById(args.filter._id);
+        // return await Schedule.findByIdAndUpdate(args.filter._id, {
+        //     customCourse: args.record.customCourse,
+        // });
+    },
+});
+
+ScheduleTC.addResolver({
+    name: "findScheduleById",
+    type: ScheduleTC,
+    args: ScheduleTC.getResolver("findOne").getArgs(),
+    resolve: async ({ source, args, context, info }) => {
+        return Schedule.findById(args.filter._id);
+    },
+});
+
 const ScheduleQuery = {
     scheduleOne: ScheduleTC.getResolver("findOrCreate", [authMiddleware]),
+    scheduleMany: ScheduleTC.getResolver("findManyByUser", [authMiddleware]),
+    findScheduleById: ScheduleTC.getResolver("findScheduleById", [
+        authMiddleware,
+    ]),
 };
 
 const ScheduleMutation = {
@@ -161,7 +261,30 @@ const ScheduleMutation = {
         rp.args.push = false;
         return next(rp);
     }),
+    // Schedule.create({ term: term, user: user })
+    createNewSchedule: ScheduleTC.getResolver("createNewSchedule", [
+        authMiddleware,
+    ]),
+    removeSchedule: ScheduleTC.getResolver("removeSchedule", [authMiddleware]),
+    degreePlanAddTerm: ScheduleTC.getResolver("createOne", [authMiddleware]),
+    degreePlanRemoveTerm: ScheduleTC.getResolver("removeOne"),
+
+    // for adding a new schedule, i can create a new term in the mutation.
+    updateCustomCourses: ScheduleTC.getResolver("updateCustomCourses", [
+        authMiddleware,
+    ]),
 };
+
+// Grab whatever the frontend saves as the custom course and add a mutation
+// here that updates customCourse.
+// Find the specific schedule ID (graphql-compose-mongoose), how to update a
+// specific field
+
+// Notes is the same thing, but just a single string
+
+// Selecting current term and unchecking the box, that displays the current
+// term.
+// Have a bunch of check boxes that you can click to display/hide terms
 
 async function authMiddleware(resolve, source, args, context, info) {
     // Without header, throw error
