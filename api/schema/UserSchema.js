@@ -95,21 +95,24 @@ UserTC.addResolver({
     args: {},
     resolve: async ({ source, args, context, info }) => {
         const profile = extractAuthenticationDetails(context.decodedJWT);
-        
         let exists = await User.exists({ netid: profile.netid });
-        
+
         let user;
         if (!exists) {
             // Create user with profile
             user = await User.create(profile);
         } else {
             // Find user and update their profile with most recent info
-            user = await User.findOneAndUpdate({ netid: profile.netid }, profile, { useFindAndModify: false });
+            user = await User.findOneAndUpdate(
+                { netid: profile.netid },
+                profile,
+                { useFindAndModify: false }
+            );
         }
 
         return user;
-    }
-})
+    },
+});
 
 // Using auth middleware for sensitive info: https://github.com/graphql-compose/graphql-compose-mongoose/issues/158
 const UserQuery = {
@@ -127,10 +130,16 @@ async function authMiddleware(resolve, source, args, context, info) {
     }
 
     const profile = extractAuthenticationDetails(context.decodedJWT);
+    console.log(profile);
     const { netid } = profile;
 
     // Allows a user to only access THEIR user object
-    return resolve(source, { ...args, filter: { netid: netid } }, context, info);
+    return resolve(
+        source,
+        { ...args, filter: { netid: netid } },
+        context,
+        info
+    );
 }
 
 export { UserQuery, UserMutation };
