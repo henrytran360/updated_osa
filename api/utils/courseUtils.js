@@ -65,7 +65,7 @@ export const getInstructors = async (term) => {
         })
     );
 
-    console.log(instructors);
+    // console.log(instructors);
 
     // const { data } = await axios.get(
     //     "https://courses.rice.edu/courses/!SWKSCAT.info?action=INSTRUCTORS&term=" +
@@ -76,14 +76,14 @@ export const getInstructors = async (term) => {
 
     // let instructors = parsed["INSTRUCTORS"]["INSTRUCTOR"];
 
-    instructors = instructors.map((instructor) => {
-        const fullName = instructor["_"];
-        const [lastName, firstName] = fullName.split(", ");
-        return {
-            firstName,
-            lastName,
-        };
-    });
+    // instructors = instructors.map((instructor) => {
+    //     const fullName = instructor["_"];
+    //     const [lastName, firstName] = fullName.split(", ");
+    //     return {
+    //         firstName,
+    //         lastName,
+    //     };
+    // });
 
     return instructors;
 };
