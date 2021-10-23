@@ -14,7 +14,6 @@
 .year {
     position: relative;
     left: 20px;
-    font: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -47,7 +46,6 @@
 .semester {
     position: relative;
     left: 25px;
-    font: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -62,7 +60,6 @@
 .semesterSelect {
     position: relative;
     left: 25px;
-    font: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -84,7 +81,6 @@
     border: 1.5px solid #e1e3e3;
     box-sizing: border-box;
     background-color: white;
-    font: “Acari Sans”;
     font-style: normal;
     font-size: 15px;
     line-height: 19px;
