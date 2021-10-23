@@ -12,7 +12,7 @@ import DraftCourseItem from "./DraftCourseItem";
 import { CircularProgress, TableBody } from "@material-ui/core";
 
 import "./ClassSelector.global.css";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 const useStyles = makeStyles({
     table: {
@@ -131,6 +131,9 @@ const ClassSelector = ({ draftSessions, scheduleID }) => {
         "Instructor(s)": true,
         Remove: false,
     };
+
+    // Ensure that all sessions in a user's draft sessions are still valid; otherwise, filter them out
+    draftSessions = draftSessions.filter(draft => draft.session);
 
     // Calculate total credit hours visible
     let visibleCreditTotal = draftSessions.reduce(

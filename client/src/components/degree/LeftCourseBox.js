@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import './LeftCourseBox.css'
 import Modal from 'react-modal';
 
+const createURL = (courseNum, subject) =>{
+    return `https://courses.rice.edu/courses/courses/!SWKSCAT.cat?p_action=CATALIST&p_acyr_code=2022&p_crse_numb=${courseNum}&p_subj=${subject}`
+}
+
 const LeftCourseBox = (props) => {
 
     //for the course info modal
@@ -33,10 +37,12 @@ const LeftCourseBox = (props) => {
                 {/* <pre class="text"><b>  Course Instructor:</b> <ul> {props['instructorName'].map((name)=>{
                     <li>{name}</li>
                 })} </ul></pre> */}
-                <pre class="text"><b>  Course Instructor:</b> {props['instructorFN']} {props['instructorLN']}</pre>
-                <pre class="text"><b>  Max Enrollment:   </b> {props["maxEnrollment"]}</pre>
-                <pre class="text"><b>  Prerequisites:    </b> {prereqs}</pre>
-                <pre class="text"><b>  Corerequisites:   </b> {coreqs}</pre>
+                <pre class="text"><b>Course Instructor:</b> {props['instructorFN']} {props['instructorLN']}</pre>
+                <pre class="text"><b>Max Enrollment:   </b> {props["maxEnrollment"]}</pre>
+                <pre class="text"><b>Prerequisites:    </b> {prereqs}</pre>
+                <pre class="text"><b>Corerequisites:   </b> {coreqs}</pre>
+                <pre class="text"><b>Corerequisites:   </b> {coreqs}</pre>
+                <pre class="text"><a style={{textDecoration: "underline", fontWeight: 900, color: "#12B0B2"}} href={createURL(props.courseNum, props.subject)} target="_blank">More Info</a></pre>
             </div>
             </div>
         </Modal>

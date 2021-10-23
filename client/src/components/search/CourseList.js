@@ -184,6 +184,9 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
 
     const bottomModeContext = useContext(BottomModeContext);
 
+    // Update draft sessions to only include valid sessions
+    draftSessions = draftSessions.filter(draft => draft.session);
+
     // Check if this course is in draftSessions
     for (let draftSession of draftSessions) {
         if (draftSession.session._id == session._id) {

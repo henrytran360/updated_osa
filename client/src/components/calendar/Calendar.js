@@ -53,7 +53,7 @@ const courseToTooltipLabel = (session) => {
 
 const convertSectionToEvents = (section, session) => {
     let events = [];
-    if (!section.startTime || !section.endTime) {
+    if (!section || (!section.startTime || !section.endTime)) {
         return events;
     }
 

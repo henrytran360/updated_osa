@@ -46,23 +46,44 @@ export const getInstructors = async (term) => {
         throw Error("No term specified.");
     }
 
-    const { data } = await axios.get(
-        "https://courses.rice.edu/courses/!SWKSCAT.info?action=INSTRUCTORS&term=" +
-            String(term)
+    const allSessions = await Session.find({ term }).populate("instructors");
+
+    const instructorMap = new Map();
+    const instructors = [];
+
+    // Add each instructor to the instructors Set (ensures no duplicates)
+    allSessions.forEach((session) =>
+        session.instructors.forEach((instructor) => {
+            if (!instructorMap.has(instructor._id)) {
+                instructorMap.set(instructor._id, true);
+                instructors.push({
+                    id: instructor._id,
+                    firstName: instructor.firstName,
+                    lastName: instructor.lastName,
+                });
+            }
+        })
     );
 
-    const parsed = await parser.parseStringPromise(data);
+    // console.log(instructors);
 
-    let instructors = parsed["INSTRUCTORS"]["INSTRUCTOR"];
+    // const { data } = await axios.get(
+    //     "https://courses.rice.edu/courses/!SWKSCAT.info?action=INSTRUCTORS&term=" +
+    //         String(term)
+    // );
 
-    instructors = instructors.map((instructor) => {
-        const fullName = instructor["_"];
-        const [lastName, firstName] = fullName.split(", ");
-        return {
-            firstName,
-            lastName,
-        };
-    });
+    // const parsed = await parser.parseStringPromise(data);
+
+    // let instructors = parsed["INSTRUCTORS"]["INSTRUCTOR"];
+
+    // instructors = instructors.map((instructor) => {
+    //     const fullName = instructor["_"];
+    //     const [lastName, firstName] = fullName.split(", ");
+    //     return {
+    //         firstName,
+    //         lastName,
+    //     };
+    // });
 
     return instructors;
 };

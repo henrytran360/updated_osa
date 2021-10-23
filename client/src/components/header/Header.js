@@ -127,7 +127,7 @@ function Header() {
             <div className="logoContainer">
                 <img
                     src={RiceAppsLogo}
-                    style={{ minWidth: 75 }}//added due to Degree Plan Button
+                    style={{ minWidth: 75 }} //added due to Degree Plan Button
                     // style={styles.logo}
                     onClick={() => handleLogoClick()}
                 />
