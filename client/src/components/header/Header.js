@@ -109,6 +109,7 @@ function Header() {
                 {location.pathname == "/schedule" ? (
                     <div className="select">
                         <Select
+                            defaultValue={termOptions[3]}
                             value={formatTerm(term)}
                             onChange={handleTermChange}
                             options={termOptions}
