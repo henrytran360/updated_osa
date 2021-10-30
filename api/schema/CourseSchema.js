@@ -45,7 +45,7 @@ CourseTC.addFields({
 CourseTC.addResolver({
     name: "findPreviousTermCourses",
     type: "JSON",
-    args: { term: "Int!" },
+    args: { term: "Float!" },
     resolve: async ({ source, args, context, info }) => {
         const prevTermCourses = await getPreviousTermCourses(args.term);
         return prevTermCourses;
@@ -62,17 +62,6 @@ CourseTC.addResolver({
         return await Course.find({ distribution: args.distribution }).sort(
             sortParam
         );
-    },
-});
-
-CourseTC.addResolver({
-    name: "findAll",
-    type: [CourseTC],
-    args: { ascending: "Boolean!" },
-    resolve: async ({ source, args, context, info }) => {
-        // -(field) puts into descending order
-        let sortParam = args.ascending ? "courseNum" : "-courseNum";
-        return await Course.find().sort(sortParam);
     },
 });
 
@@ -149,7 +138,6 @@ const CourseQuery = {
                 query.distribution = distribution;
             },
         }),
-    findAll: CourseTC.getResolver("findAll"),
     courseManyInDistribution: CourseTC.getResolver("findManyInDistribution"),
     departments: {
         name: "departments",
