@@ -110,10 +110,10 @@ const ClassSelector = ({ draftSessions, scheduleID }) => {
     /**
      * Get last semester's courses for the purposes of course evaluations
      */
-    const {
-        data: prevTermCourses,
-        loading,
-    } = useQuery(GET_PREVIOUS_TERM_COURSES, { variables: { term: term } });
+    const { data: prevTermCourses, loading } = useQuery(
+        GET_PREVIOUS_TERM_COURSES,
+        { variables: { term: term } }
+    );
 
     const { data: instructorsList } = useQuery(FETCH_INSTRUCTORS, {
         variables: { termcode: String(term) },
@@ -133,7 +133,7 @@ const ClassSelector = ({ draftSessions, scheduleID }) => {
     };
 
     // Ensure that all sessions in a user's draft sessions are still valid; otherwise, filter them out
-    draftSessions = draftSessions.filter(draft => draft.session);
+    draftSessions = draftSessions.filter((draft) => draft.session);
 
     // Calculate total credit hours visible
     let visibleCreditTotal = draftSessions.reduce(
@@ -163,20 +163,24 @@ const ClassSelector = ({ draftSessions, scheduleID }) => {
                         <p>{headers[headerKey] ? headerKey : null}</p>
                     ))}
                 </div>
-                {loading
-                    ? <div className="loadingMessage"><CircularProgress color="inherit" /></div>
-                    : draftSessions.map((draftSession, idx) => (
-                          <DraftCourseItem
-                              //replace key with uuid
-                              key={idx}
-                              visible={draftSession.visible}
-                              session={draftSession.session}
-                              course={draftSession.session.course}
-                              prevTermCourses={prevTermCourses.prevTermCourses}
-                              instructorsList={instructorsList}
-                              scheduleID={scheduleID}
-                          />
-                      ))}
+                {loading ? (
+                    <div className="loadingMessage">
+                        <CircularProgress color="inherit" />
+                    </div>
+                ) : (
+                    draftSessions.map((draftSession, idx) => (
+                        <DraftCourseItem
+                            //replace key with uuid
+                            key={idx}
+                            visible={draftSession.visible}
+                            session={draftSession.session}
+                            course={draftSession.session.course}
+                            prevTermCourses={prevTermCourses.prevTermCourses}
+                            instructorsList={instructorsList}
+                            scheduleID={scheduleID}
+                        />
+                    ))
+                )}
                 <div className="tableFooter">
                     Visible Credit Hours: {visibleCreditTotal}
                     <hr />

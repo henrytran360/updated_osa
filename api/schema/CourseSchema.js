@@ -53,19 +53,15 @@ CourseTC.addResolver({
 });
 
 CourseTC.addResolver({
-    name: "findAllHighLevelCourse",
+    name: "findManyInDistribution",
     type: [CourseTC],
-    args: { isHighLevel: "Boolean!", ascending: "Boolean!", term: "Float!" },
+    args: { distribution: "String!", ascending: "Boolean!" },
     resolve: async ({ source, args, context, info }) => {
         // -(field) puts into descending order
         let sortParam = args.ascending ? "courseNum" : "-courseNum";
-        if (args.isHighLevel) {
-            return await Course.find({ courseNum: { $gt: 299 } }).sort(
-                sortParam
-            );
-        } else {
-            return await Course.find().sort(sortParam);
-        }
+        return await Course.find({ distribution: args.distribution }).sort(
+            sortParam
+        );
     },
 });
 
@@ -154,7 +150,7 @@ const CourseQuery = {
             },
         }),
     findAll: CourseTC.getResolver("findAll"),
-    // courseManyInDistribution: CourseTC.getResolver("findManyInDistribution"),
+    courseManyInDistribution: CourseTC.getResolver("findManyInDistribution"),
     departments: {
         name: "departments",
         type: "[String]",
