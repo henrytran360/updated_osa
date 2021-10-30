@@ -27,13 +27,13 @@
 }
 
 .profile > .profileName {
-    font: normal normal bold 23px/15px Acari Sans;
+    font: normal normal bold 23px/15px;
 }
 
 .profile > .profileTitle {
-    font: normal normal bold 15px/10px Acari Sans;
+    font: normal normal bold 15px/10px;
 }
 
 .profile > .profileDesc {
-    font: normal normal 15px/10px Acari Sans;
+    font: normal normal 15px/10px;
 }

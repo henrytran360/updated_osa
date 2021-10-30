@@ -53,7 +53,7 @@ const courseToTooltipLabel = (session) => {
 
 const convertSectionToEvents = (section, session) => {
     let events = [];
-    if (!section.startTime || !section.endTime) {
+    if (!section || (!section.startTime || !section.endTime)) {
         return events;
     }
 
@@ -148,7 +148,7 @@ const draftSessionsToEvents = (draftSessions) => {
 
 const slotStyleGetter = (date) => {
     var style = {
-        font: "Medium 23px/26px Acari Sans",
+        font: "Medium 23px/26px",
         letterSpacing: "0px",
         color: "#8E9EB2",
         opacity: 1,
@@ -162,7 +162,7 @@ const slotStyleGetter = (date) => {
 const dayStyleGetter = (date) => {
     var style = {
         textAlign: "center",
-        font: "Medium 23px/26px Acari Sans",
+        font: "Medium 23px/26px",
         letterSpacing: "0px",
         color: "#8E9EB2",
         opacity: 1,
