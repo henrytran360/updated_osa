@@ -120,6 +120,7 @@ export const getInstructors = async (term) => {
 // };
 
 export const getPreviousTermCourses = async (term) => {
+    console.log(term);
     const { data } = await axios.get(
         "https://esther.rice.edu/selfserve/!swkscmp.ajax?p_data=COURSES&p_term=" +
             String(term - 100)
