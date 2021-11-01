@@ -2,8 +2,7 @@
 
 const { MongoClient } = require("mongodb");
 async function main() {
-    const uri =
-        "mongodb+srv://tigerking:wphPpplcHRwNdv29@riceapps2020-21-ppsrv.gcp.mongodb.net/hatch_staging?retryWrites=true&w=majority";
+    const uri = process.env.MONGODB_CONNECTION_STRING;
     const client = new MongoClient(uri);
     try {
         await client.connect();
