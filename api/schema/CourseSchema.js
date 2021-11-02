@@ -137,6 +137,17 @@ const CourseQuery = {
                 let distribution = value;
                 query.distribution = distribution;
             },
+        })
+        .addFilterArg({
+            name: "courseNumRegExp", // From here: https://github.com/graphql-compose/graphql-compose-examples/blob/master/examples/northwind/models/product.js#L38,L49
+            type: "Float",
+            description: "Search for a course by its distribution",
+            query: (query, value) => {
+                let courseNum = value;
+                if (value > 300) {
+                    query.courseNum = courseNum;
+                }
+            },
         }),
     courseManyInDistribution: CourseTC.getResolver("findManyInDistribution"),
     departments: {
