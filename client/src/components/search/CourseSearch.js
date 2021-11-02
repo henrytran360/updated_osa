@@ -395,9 +395,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
      */
     useEffect(() => {
         if (departmentsData) {
-            console.log(term);
             let { departments } = departmentsData;
-            console.log(departments);
             setDepts(departments.map((dept) => ({ label: dept, value: dept })));
         }
     }, [departmentsData]);

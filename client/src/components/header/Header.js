@@ -78,8 +78,6 @@ function Header() {
         setUpdatedSchedules(tempSchedules);
     }, [loading, data, error]);
 
-    console.log("updatedschdules", updateSchedules);
-
     const formatTerm = (schedule) =>
         updateSchedules.filter((termOption) => termOption.value == schedule)[0];
 

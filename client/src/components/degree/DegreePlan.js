@@ -17,6 +17,28 @@ const handleLogoClick = () => {
     );
 };
 
+const GET_EVALUATION_CHART_BY_COURSE = gql`
+    query getEvaluationChartByCourse($course: String!) {
+        getEvaluationChartByCourse(course: $course) {
+            courseName
+            expected_pf {
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            expected_grade {
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+        }
+    }
+`;
+
 // query all of the schedules for a user
 const QUERY_ALL_USER_SCHEDULES = gql`
     query scheduleMany {
@@ -114,15 +136,21 @@ const DegreePlan = () => {
     const [userId, setUserId] = useState("");
     // get the data from the query
     const { loading, error, data } = useQuery(QUERY_ALL_USER_SCHEDULES);
+
+    const { loading3, error3, data3 } = useQuery(
+        GET_EVALUATION_CHART_BY_COURSE
+    );
     const {
         state: { term },
     } = useContext(TermContext);
 
     // add a new semester from the mutation
+
     const [mutateSemester, { loadingMutation, errorMutation, dataMutation }] =
         useMutation(MUTATION_ADD_SEMESTER, {
             refetchQueries: () => [{ query: QUERY_ALL_USER_SCHEDULES }],
         });
+
     const [
         deleteSemester,
         { loadingMutationDelete, errorMutationDelete, dataMutationDelete },

@@ -328,7 +328,7 @@ const DraftCourseItem = ({
                     </a>
                 </Tooltip>
                 <Tooltip title="View Evaluations">
-                    <ReactGA.OutboundLink
+                    {/* <ReactGA.OutboundLink
                         eventLabel="course_evaluation"
                         to={createURL(
                             String(term),
@@ -340,7 +340,10 @@ const DraftCourseItem = ({
                         <IconButton aria-label="evaluations">
                             <QuestionAnswerIcon />
                         </IconButton>
-                    </ReactGA.OutboundLink>
+                    </ReactGA.OutboundLink> */}
+                    <IconButton aria-label="evaluations">
+                        <QuestionAnswerIcon />
+                    </IconButton>
                 </Tooltip>
                 <IconButton
                     aria-label="expand row"
@@ -356,7 +359,13 @@ const DraftCourseItem = ({
             {createSectionTimeCells(session.class)}
             {createSectionTimeCells(session.lab)}
             <p>
-                {instructorTooltips.length != 0 ? instructorTooltips.reduce((acc, newInstructor) => <React.Fragment>{acc}, {newInstructor}</React.Fragment>) : null}
+                {instructorTooltips.length != 0
+                    ? instructorTooltips.reduce((acc, newInstructor) => (
+                          <React.Fragment>
+                              {acc}, {newInstructor}
+                          </React.Fragment>
+                      ))
+                    : null}
             </p>
             <p>
                 <Tooltip className="iconButton" title="Delete">
