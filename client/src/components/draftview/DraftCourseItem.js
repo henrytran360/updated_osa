@@ -3,6 +3,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 // Course evals
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
+import Modal from "react-modal";
 // Course visible
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
@@ -294,6 +295,23 @@ const DraftCourseItem = ({
 
     const instructorTooltips = instructorsToTooltips(session.instructors);
 
+    function ToggleEvals() {
+        let subtitle;
+        const [modalIsOpen, setIsOpen] = React.useState(false);
+      
+        function openModal() {
+          setIsOpen(true);
+        }
+      
+        function afterOpenModal() {
+          // references are now sync'd and can be accessed.
+          subtitle.style.color = '#f00';
+        }
+      
+        function closeModal() {
+          setIsOpen(false);
+        }
+
     return (
         <div className={`tableRow ${boolVisible ? "selected" : ""}`}>
             {/* <Checkbox
@@ -341,9 +359,17 @@ const DraftCourseItem = ({
                             <QuestionAnswerIcon />
                         </IconButton>
                     </ReactGA.OutboundLink> */}
-                    <IconButton aria-label="evaluations">
+                    <IconButton
+                        aria-label="evaluations">
+                        onClick={() => toggleEvals()}
                         <QuestionAnswerIcon />
                     </IconButton>
+
+                    
+                    {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                        Course Eval Modal
+                    </Modal> */}
+
                 </Tooltip>
                 <IconButton
                     aria-label="expand row"
