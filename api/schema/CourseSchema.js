@@ -143,10 +143,7 @@ const CourseQuery = {
             type: "Float",
             description: "Search for a course by its distribution",
             query: (query, value) => {
-                let courseNum = value;
-                if (value > 300) {
-                    query.courseNum = courseNum;
-                }
+                query.courseNum.$gte = 300;
             },
         }),
     courseManyInDistribution: CourseTC.getResolver("findManyInDistribution"),
