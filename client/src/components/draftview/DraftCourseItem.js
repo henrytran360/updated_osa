@@ -298,22 +298,22 @@ const DraftCourseItem = ({
 
     const instructorTooltips = instructorsToTooltips(session.instructors);
 
-    function ToggleEvals() {
-        let subtitle;
-        const [modalIsOpen, setIsOpen] = React.useState(false);
+    // function ToggleEvals() {
+    //     let subtitle;
+    //     const [modalIsOpen, setIsOpen] = React.useState(false);
       
-        function openModal() {
-          setIsOpen(true);
-        }
+    //     function openModal() {
+    //       setIsOpen(true);
+    //     }
       
-        function afterOpenModal() {
-          // references are now sync'd and can be accessed.
-          subtitle.style.color = '#f00';
-        }
+    //     function afterOpenModal() {
+    //       // references are now sync'd and can be accessed.
+    //       subtitle.style.color = '#f00';
+    //     }
       
-        function closeModal() {
-          setIsOpen(false);
-        }
+    //     function closeModal() {
+    //       setIsOpen(false);
+    //     }
 
     return (
         <div className={`tableRow ${boolVisible ? "selected" : ""}`}>
@@ -364,7 +364,7 @@ const DraftCourseItem = ({
                     </ReactGA.OutboundLink> */}
                     <IconButton
                         aria-label="evaluations">
-                        onClick={() => toggleEvals()}
+                        {/* onClick={() => toggleEvals()} */}
                         <QuestionAnswerIcon />
                     </IconButton>
 
