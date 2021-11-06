@@ -65,6 +65,7 @@ export const GET_USER_SCHEDULE = gql`
     }
 `;
 
+
 /**
  * This simply fetches from our cache whether a recent update has occurred
  * TODO: CREATE FRAGMENTS / PLACE TO STORE ALL OF THESE SINCE THIS ONE IS ALSO IN ROUTES.JS
