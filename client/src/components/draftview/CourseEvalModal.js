@@ -1,11 +1,17 @@
 import React from 'react'
+import Modal from 'react-modal';
 
-export default function Modal({open, children, onClose}) {
-    if (!open) return null
-    
-    return(<div>
-        <IconButton onClick={onClose}> Close Modal </IconButton>
-        {children}
+const CourseEvalModal = (props) => {
+    console.log("test");
+    return(
+    <div>
+        <Modal isOpen={props.modalState} className='modal' onRequestClose={props.closeModal}> /*style={{wordWrap: "break-all", whiteSpace: 'unset'}}*/
+            {/* <IconButton onClick={onClose}> Close Modal </IconButton> */}
+            <div>
+                <div className='courseCode'>{props.subject} {props.courseNum}</div>
+            </div>
+        </Modal>
     </div>
     )
 }
+export default CourseEvalModal;
