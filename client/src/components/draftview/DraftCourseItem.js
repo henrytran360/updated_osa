@@ -4,6 +4,7 @@ import TableRow from "@material-ui/core/TableRow";
 // Course evals
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
 import Modal from "react-modal";
+import CourseEvalModal from "./CourseEvalModal";
 // Course visible
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
@@ -23,6 +24,7 @@ import { TableBody, withStyles } from "@material-ui/core";
 import CourseDetail from "./CourseDetail";
 import Detail from "../search/Detail";
 import { graphqlSync } from "graphql";
+import { selectionSetMatchesResult } from "@apollo/client/cache/inmemory/helpers";
 
 const detailStyle = {
     background: "#F6F8FC",
@@ -164,6 +166,23 @@ const REMOVE_DRAFT_SESSION = gql`
                 }
                 visible
             }
+        }
+    }
+`;
+
+const GET_EVALUATION_BY_COURSE = gql`
+    query getEvaluationByCourse($course: String!) {
+        getEvaluationByCourse(course: $course) {
+            course
+            evalInfo {
+                Term
+                CRN
+                Reviews
+                title
+                Instructor
+                Department
+                yearID
+            }   
         }
     }
 `;
@@ -314,6 +333,42 @@ const DraftCourseItem = ({
     //     function closeModal() {
     //       setIsOpen(false);
     //     }
+    // }
+    
+    //for the course info modal
+    const [modalState, setModal] = useState(false);
+    const openModal = () => {
+        setModal(true);
+    }
+    const closeModal = () => {
+        setModal(false);
+    }
+
+    // const {loadingEval, errorEval, dataEval} = useQuery(GET_EVALUATION_BY_COURSE, {
+
+    // });
+    //console.log(dataEval);
+
+    let courseName = course.subject + " " + course.courseNum
+
+    const {loadingEval, errorEval, dataEval} = useQuery(GET_EVALUATION_BY_COURSE, {
+            variables: {course: course.subject + " " + course.courseNum},
+        });
+    
+    console.log(courseName);
+    console.log(dataEval);
+
+    const toggleEvals = (courseInfo) => {
+        
+        return (
+            <CourseEvalModal
+                modalState = {modalState}
+                closeModal = {closeModal}
+                subject = {dataEval["title"]}
+                courseNum = {dataEval["CRN"]}
+            />
+        );
+    };
 
     return (
         <div className={`tableRow ${boolVisible ? "selected" : ""}`}>
@@ -363,8 +418,9 @@ const DraftCourseItem = ({
                         </IconButton>
                     </ReactGA.OutboundLink> */}
                     <IconButton
-                        aria-label="evaluations">
-                        {/* onClick={() => toggleEvals()} */}
+                        aria-label="evaluations"
+                        // onClick={ () => setModal(true) }
+                        onClick={() => toggleEvals(dataEval)}>
                         <QuestionAnswerIcon />
                     </IconButton>
 
