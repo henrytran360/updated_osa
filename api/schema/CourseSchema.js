@@ -140,11 +140,12 @@ const CourseQuery = {
         })
         .addFilterArg({
             name: "courseNumRegExp", // From here: https://github.com/graphql-compose/graphql-compose-examples/blob/master/examples/northwind/models/product.js#L38,L49
-            type: "Float",
-            description: "Get all the high level courses > 300",
+            type: "String",
+            description: "Get all the high level courses > 300 from a subject",
             query: (query, value) => {
                 query.courseNum = {};
                 query.courseNum.$gte = 300;
+                query.subject = value;
             },
         }),
     courseManyInDistribution: CourseTC.getResolver("findManyInDistribution"),
