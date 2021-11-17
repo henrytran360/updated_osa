@@ -39,11 +39,11 @@ EvaluationChartTC.addResolver({
 
 EvaluationChartTC.addResolver({
     name: "getEvaluationChartByCourse",
-    type: EvaluationChartTC,
+    type: [EvaluationChartTC],
     args: { course: "String!" },
     resolve: async ({ source, args, context, info }) => {
         // -(field) puts into descending order
-        return await EvaluationChart.findOne({ courseName: args.course });
+        return await EvaluationChart.find({ courseName: args.course });
     },
 });
 
