@@ -99,6 +99,34 @@ const GET_LOCAL_DATA = gql`
     }
 `;
 
+const GET_EVALUATION_CHART_BY_COURSE = gql`
+    query getEvaluationChartByCourse($course: String!) {
+        getEvaluationChartByCourse(course: $course) {
+            courseName
+            expected_pf {
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            expected_grade {
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            comments {
+                text
+                time
+            }
+            term
+            enrolled_amount
+        }
+    }
+`;
+
 const ClassSelector = ({ draftSessions, scheduleID }) => {
     const classes = useStyles();
 
@@ -177,6 +205,9 @@ const ClassSelector = ({ draftSessions, scheduleID }) => {
                             course={draftSession.session.course}
                             prevTermCourses={prevTermCourses.prevTermCourses}
                             instructorsList={instructorsList}
+                            getEvaluationByCourse={
+                                GET_EVALUATION_CHART_BY_COURSE
+                            }
                             scheduleID={scheduleID}
                         />
                     ))

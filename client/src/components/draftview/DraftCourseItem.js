@@ -170,23 +170,6 @@ const REMOVE_DRAFT_SESSION = gql`
     }
 `;
 
-const GET_EVALUATION_BY_COURSE = gql`
-    query getEvaluationByCourse($course: String!) {
-        getEvaluationByCourse(course: $course) {
-            course
-            evalInfo {
-                Term
-                CRN
-                Reviews
-                title
-                Instructor
-                Department
-                yearID
-            }   
-        }
-    }
-`;
-
 /**
  * GraphQL Queries
  */
@@ -209,6 +192,7 @@ const DraftCourseItem = ({
     course,
     prevTermCourses,
     instructorsList,
+    getEvaluationByCourse,
     idx,
 }) => {
     const emptyCellGenerator = (count) => {
@@ -317,54 +301,42 @@ const DraftCourseItem = ({
     // function ToggleEvals() {
     //     let subtitle;
     //     const [modalIsOpen, setIsOpen] = React.useState(false);
-      
+
     //     function openModal() {
     //       setIsOpen(true);
     //     }
-      
+
     //     function afterOpenModal() {
     //       // references are now sync'd and can be accessed.
     //       subtitle.style.color = '#f00';
     //     }
-      
+
     //     function closeModal() {
     //       setIsOpen(false);
     //     }
     // }
-    
+
     //for the course info modal
     const [modalState, setModal] = useState(false);
     const openModal = () => {
         setModal(true);
-    }
+    };
     const closeModal = () => {
         setModal(false);
-    }
+    };
 
     // const {loadingEval, errorEval, dataEval} = useQuery(GET_EVALUATION_BY_COURSE, {
 
     // });
     //console.log(dataEval);
 
-    let courseName = course.subject + " " + course.courseNum
+    const { data: dataEval } = useQuery(getEvaluationByCourse, {
+        variables: { course: "COMP 140" },
+    });
+    console.log(dataEval.getEvaluationChartByCourse);
 
-    const {loadingEval, errorEval, dataEval} = useQuery(GET_EVALUATION_BY_COURSE, {
-            variables: {course: course.subject + " " + course.courseNum},
-        });
-    
-    console.log(courseName);
-    console.log(dataEval);
-
-    const toggleEvals = (courseInfo) => {
-        
-        return (
-            <CourseEvalModal
-                modalState = {modalState}
-                closeModal = {closeModal}
-                subject = {dataEval["title"]}
-                courseNum = {dataEval["CRN"]}
-            />
-        );
+    const toggleEvals = (dataEval) => {
+        setModal(!modalState);
     };
 
     return (
@@ -417,15 +389,18 @@ const DraftCourseItem = ({
                     <IconButton
                         aria-label="evaluations"
                         // onClick={ () => setModal(true) }
-                        onClick={() => toggleEvals(dataEval)}>
+                        onClick={() => toggleEvals(dataEval)}
+                    >
                         <QuestionAnswerIcon />
+                        <CourseEvalModal
+                            modalState={modalState}
+                            closeModal={closeModal}
+                        />
                     </IconButton>
 
-                    
                     {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
                         Course Eval Modal
                     </Modal> */}
-
                 </Tooltip>
                 <IconButton
                     aria-label="expand row"
