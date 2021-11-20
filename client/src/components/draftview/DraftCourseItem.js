@@ -333,7 +333,8 @@ const DraftCourseItem = ({
     const { data: dataEval } = useQuery(getEvaluationByCourse, {
         variables: { course: "COMP 140" },
     });
-    console.log(dataEval.getEvaluationChartByCourse);
+    // Bottom line crashes evals?
+    // console.log(dataEval.getEvaluationChartByCourse);
 
     const toggleEvals = (dataEval) => {
         setModal(!modalState);
