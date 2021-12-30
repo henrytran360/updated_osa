@@ -200,6 +200,27 @@ DegreePlanTC.addResolver({
 });
 
 /**
+ * Remove a term from the degree planner
+ */
+DegreePlanTC.addResolver({
+    name: "removeDegreePlan",
+    type: DegreePlanTC,
+    args: DegreePlanTC.getResolver("removeOne").getArgs(),
+    resolve: async ({ source, args, context, info }) => {
+        // Create if it doesn't exist
+        // console.log(args);
+        return await DegreePlan.findByIdAndRemove({ _id: args.filter._id });
+    },
+});
+
+DegreePlanTC.addResolver({
+    name: "findAllDegreePlansForUsers",
+    type: [DegreePlanTC],
+    resolve: async ({ source, args, context, info }) => {
+        return await DegreePlan.find({});
+    },
+});
+/**
  * Add a term from the degree planner
  */
 DegreePlanTC.addResolver({
@@ -251,6 +272,15 @@ DegreePlanTC.addResolver({
     },
 });
 
+DegreePlanTC.addResolver({
+    name: "findDegreePlanById",
+    type: DegreePlanTC,
+    args: DegreePlanTC.getResolver("findOne").getArgs(),
+    resolve: async ({ source, args, context, info }) => {
+        return DegreePlan.findById(args.filter._id);
+    },
+});
+
 /**
  * Remove a term from the degree planner
  */
@@ -268,21 +298,20 @@ ScheduleTC.addResolver({
 /**
  * Update custom courses
  */
-ScheduleTC.addResolver({
+DegreePlanTC.addResolver({
     name: "updateCustomCourses",
-    type: ScheduleTC,
-    args: ScheduleTC.getResolver("updateOne").getArgs(),
+    type: DegreePlanTC,
+    args: DegreePlanTC.getResolver("updateOne").getArgs(),
     resolve: async ({ source, args, context, info }) => {
         let CC = args.record.customCourse;
         console.log(CC);
         console.log(args);
-        const schedule = await Schedule.updateOne(
+        const degreeplan = await DegreePlan.updateOne(
             { _id: args.filter._id },
             { $set: { customCourse: args.record.customCourse } }
         );
-
-        if (!schedule) return null;
-        return Schedule.findById(args.filter._id);
+        if (!degreeplan) return null;
+        return DegreePlan.findById(args.filter._id);
         // return await Schedule.findByIdAndUpdate(args.filter._id, {
         //     customCourse: args.record.customCourse,
         // });
@@ -304,6 +333,13 @@ const DegreePlanQuery = {
     findScheduleById: ScheduleTC.getResolver("findScheduleById", [
         authMiddleware,
     ]),
+    findDegreePlanById: DegreePlanTC.getResolver("findDegreePlanById", [
+        authMiddleware,
+    ]),
+    findAllDegreePlansForUsers: DegreePlanTC.getResolver(
+        "findAllDegreePlansForUsers",
+        [authMiddleware]
+    ),
 };
 
 const DegreePlanMutation = {
@@ -336,7 +372,7 @@ const DegreePlanMutation = {
     ),
 
     // for adding a new schedule, i can create a new term in the mutation.
-    updateCustomCourses: ScheduleTC.getResolver("updateCustomCourses", [
+    updateCustomCourses: DegreePlanTC.getResolver("updateCustomCourses", [
         authMiddleware,
     ]),
 };

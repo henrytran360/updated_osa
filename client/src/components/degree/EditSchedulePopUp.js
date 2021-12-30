@@ -19,7 +19,18 @@ const FIND_ALL_FOR_DEGREE_PLAN = gql`
     }
 `;
 
-const EditSchedulePopUp = ({ term }) => {
+const FIND_DEGREE_PLAN_BY_ID = gql`
+    query findDegreePlan($_id: MongoID!) {
+        findDegreePlanById(filter: { _id: $_id }) {
+            user {
+                firstName
+            }
+            term
+        }
+    }
+`;
+
+const EditSchedulePopUp = ({ term, _id }) => {
     const [courseName, setCourseName] = useState("");
     const [value, setValue] = useState("");
     const [courseList, setCourseList] = useState([]);
@@ -32,6 +43,18 @@ const EditSchedulePopUp = ({ term }) => {
             ascending: true,
         },
     });
+
+    const {
+        loading: degreePlanLoading,
+        error: degreePlanError,
+        data: degreePlanData,
+    } = useQuery(FIND_DEGREE_PLAN_BY_ID, {
+        variables: {
+            _id: _id,
+        },
+    });
+
+    console.log(_id);
 
     useEffect(() => {
         if (courseData) {

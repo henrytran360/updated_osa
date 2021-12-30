@@ -68,7 +68,7 @@ const SemesterBox = (props) => {
         }
     };
     useEffect(() => {
-        const customCoursesFromDatabase = data?.findScheduleById.customCourse;
+        const customCoursesFromDatabase = data?.findDegreePlanById.customCourse;
         setDatabaseCustomCourse(customCoursesFromDatabase);
     }, [loading, data, error]);
 
@@ -142,49 +142,24 @@ const SemesterBox = (props) => {
 
     // console.log("check", props["draftSessions"]);
     // console.log('check1', props["draftSessions"][6].session.instructors)
-
-    const defaultDraftSessions = props["draftSessions"].map((sessions) => {
-        return sessions.session
+    console.log(props.draftCourses);
+    const defaultDraftSessions = props["draftCourses"].map((courses) => {
+        return courses.course
             ? {
-                  subject: sessions.session.course
-                      ? sessions.session.course.subject
-                      : "N/A",
-                  courseNum: sessions.session.course
-                      ? sessions.session.course.courseNum
-                      : "N/A",
-                  longTitle: sessions.session.course
-                      ? sessions.session.course.longTitle
-                      : "N/A",
-                  credits: sessions.session.course
-                      ? sessions.session.course.creditsMin
-                      : 0,
-                  // "instructors": (sessions.session.instructors.length != 0) ? sessions.session.instructors : "N/A",
-                  instructorFN:
-                      sessions.session.instructors.length != 0
-                          ? sessions.session.instructors[0].firstName
-                          : "N/A",
-                  instructorLN:
-                      sessions.session.instructors.length != 0
-                          ? sessions.session.instructors[0].lastName
-                          : "",
-                  prereqs: sessions.session.course
-                      ? sessions.session.course.prereqs
-                      : "N/A",
-                  coreqs: sessions.session.course
-                      ? sessions.session.course.coreqs
-                      : "N/A",
-                  maxEnrollment: sessions.session.maxEnrollment,
+                  subject: courses.course ? courses.course.subject : "N/A",
+                  courseNum: courses.course ? courses.course.courseNum : "N/A",
+                  longTitle: courses.course ? courses.course.longTitle : "N/A",
+                  credits: courses.course ? courses.course.creditsMin : 0,
+                  prereqs: courses.course ? courses.course.prereqs : "N/A",
+                  coreqs: courses.course ? courses.course.coreqs : "N/A",
               }
             : {
                   subject: "N/A",
                   courseNum: "N/A",
                   longTitle: "N/A",
                   credits: 0,
-                  instructorFN: "N/A",
-                  instructorLN: "N/A",
                   prereqs: "N/A",
                   coreqs: "N/A",
-                  maxEnrollment: "N/A",
               };
     });
 
@@ -263,7 +238,7 @@ const SemesterBox = (props) => {
                     className="modalDegreePlan"
                     onRequestClose={closeModal2}
                 >
-                    <EditSchedulePopUp term={props.term} />
+                    <EditSchedulePopUp term={props.term} _id={props._id} />
                 </Modal>
 
                 <button
