@@ -2,13 +2,14 @@
 
 const { MongoClient } = require("mongodb");
 async function main() {
-    const uri = process.env.MONGODB_CONNECTION_STRING;
+    const uri =
+        "mongodb+srv://tigerking:wphPpplcHRwNdv29@riceapps2020-21-ppsrv.gcp.mongodb.net/hatch_staging?retryWrites=true&w=majority";
     const client = new MongoClient(uri);
     try {
         await client.connect();
         // await listDatabases(client);
         // await testCollection(client);
-        // await addCourseName(client);
+        await addCourseName(client);
         // await updateName(client);
     } catch (e) {
         console.log(e);
@@ -113,23 +114,24 @@ async function updateName(client) {
 async function addCourseName(client) {
     await client
         .db("hatch_staging")
-        .collection("course_evaluations_new")
+        .collection("courses")
         .find()
         .snapshot()
         .forEach(function (elem) {
-            let s = elem.name;
-            let a = s.split(" ");
-            let b = a[0] + " " + a[1];
+            let a = elem.longTitle;
+            let b = elem.subject;
+            let c = elem.courseNum.toString();
+            let fullName = b + " " + c + " " + a;
             client
                 .db("hatch_staging")
-                .collection("course_evaluations_new")
+                .collection("courses")
                 .updateOne(
                     {
                         _id: elem._id,
                     },
                     {
                         $set: {
-                            courseName: b,
+                            fullCourseName: fullName,
                         },
                     }
                 );

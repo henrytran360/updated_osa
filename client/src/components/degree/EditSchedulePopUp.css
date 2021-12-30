@@ -1,0 +1,114 @@
+.container2 {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.SearchBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    width: 90%;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.button-search {
+    width: 100px;
+    height: 60%;
+}
+.bottomContainer {
+    display: flex;
+    flex-direction: row;
+    height: 90%;
+    width: 95%;
+    justify-content: space-around;
+}
+.SearchResult {
+    width: 35%;
+    height: 100%;
+    background-color: blue;
+    box-shadow: rgb(0 0 0 / 9%) 0px 5px 14px 0px;
+    padding: 1.25rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.Cart {
+    width: 55%;
+    height: 100%;
+    background-color: green;
+    box-shadow: rgb(0 0 0 / 9%) 0px 5px 14px 0px;
+    padding: 1.25rem;
+    border-radius: 4px;
+}
+
+.header-search {
+    width: 300px;
+    height: 60%;
+}
+
+.SearchHeader {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.nameHead {
+    height: 100%;
+    width: 65%;
+    color: gray;
+}
+.creditsHead {
+    height: 100%;
+    width: 11.7%;
+    color: gray;
+}
+.distributionHead {
+    height: 100%;
+    width: 11.7%;
+    color: gray;
+}
+.checkBoxHead {
+    height: 100%;
+    width: 11.7%;
+    color: gray;
+}
+
+.CartHeader {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.codeCartHead {
+    height: 100%;
+    width: 15%;
+    color: gray;
+}
+.creditsCartHead {
+    height: 100%;
+    width: 15%;
+    color: gray;
+}
+.titleCartHead {
+    height: 100%;
+    width: 40%;
+    color: gray;
+}
+.preReqCartHead {
+    height: 100%;
+    width: 30%;
+    color: gray;
+}

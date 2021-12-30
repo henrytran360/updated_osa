@@ -7,6 +7,7 @@ import Modal from "react-modal";
 import CustomCourseRow from "./CustomCourseRow";
 import { Context as CustomCourseContext } from "../../contexts/customCourseContext";
 import { gql, useQuery, useMutation } from "@apollo/client";
+import EditSchedulePopUp from "./EditSchedulePopUp";
 
 // import CustomCourse from "./CustomCourse";
 
@@ -17,11 +18,18 @@ const SemesterBox = (props) => {
     const history = useHistory();
     // for the notes modal
     const [modalState, setModal] = useState(false);
+    const [modalState2, setModal2] = useState(false);
     const openModal = () => {
         setModal(true);
     };
+    const openModal2 = () => {
+        setModal2(true);
+    };
     const closeModal = () => {
         setModal(false);
+    };
+    const closeModal2 = () => {
+        setModal2(false);
     };
     // for the notes content
     const [inputVal, changeInputVal] = useState("");
@@ -244,10 +252,19 @@ const SemesterBox = (props) => {
                 <button
                     className="button"
                     // style={{ width: "170px" }}
-                    onClick={() => history.push(`/schedule`)}
+                    // onClick={() => history.push(`/schedule`)}
+                    onClick={openModal2}
                 >
                     Edit Schedule
                 </button>
+
+                <Modal
+                    isOpen={modalState2}
+                    className="modalDegreePlan"
+                    onRequestClose={closeModal2}
+                >
+                    <EditSchedulePopUp term={props.term} />
+                </Modal>
 
                 <button
                     className="button"
