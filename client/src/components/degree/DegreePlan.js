@@ -126,8 +126,8 @@ const MUTATION_ADD_DEGREE_PLAN = gql`
 `;
 
 const DELETE_DEGREE_PLAN = gql`
-    mutation removeSchedule($_id: MongoID!) {
-        removeSchedule(filter: { _id: $_id }) {
+    mutation removeDegreePlan($_id: MongoID!) {
+        removeDegreePlan(filter: { _id: $_id }) {
             term
             _id
             customCourse
@@ -162,8 +162,24 @@ const FIND_DEGREE_PLAN_BY_ID = gql`
     query findDegreePlan($_id: MongoID!) {
         findDegreePlanById(filter: { _id: $_id }) {
             user {
+                _id
                 firstName
             }
+            customCourse
+            draftCourses {
+                _id
+                course {
+                    _id
+                    courseNum
+                    subject
+                    creditsMin
+                    longTitle
+                    fullCourseName
+                    distribution
+                    prereqs
+                }
+            }
+            notes
             term
         }
     }
@@ -175,7 +191,6 @@ const DegreePlan = () => {
     const [userId, setUserId] = useState("");
     // get the data from the query
     const { loading, error, data } = useQuery(QUERY_ALL_USER_DEGREE_PLANS);
-    console.log(data);
     const { loading3, error3, data3 } = useQuery(
         GET_EVALUATION_CHART_BY_COURSE
     );
@@ -207,14 +222,6 @@ const DegreePlan = () => {
     // if (!data) return <p>Error</p>;
 
     useEffect(() => {
-        // get only the data we need
-        // const defaultSchedule = data.scheduleMany.map(schedule =>
-        //     (
-        //         {"term": schedule.term,
-        //         "draftSessions": schedule.draftSessions,
-        //         "notes": schedule.notes}
-        //     )
-        // );
         const user_id = data?.findAllDegreePlansForUsers[0].user._id;
         const defaultSchedule = data?.findAllDegreePlansForUsers.map(
             (schedule) => ({

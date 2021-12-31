@@ -142,7 +142,6 @@ const SemesterBox = (props) => {
 
     // console.log("check", props["draftSessions"]);
     // console.log('check1', props["draftSessions"][6].session.instructors)
-    console.log(props.draftCourses);
     const defaultDraftSessions = props["draftCourses"].map((courses) => {
         return courses.course
             ? {
@@ -163,37 +162,6 @@ const SemesterBox = (props) => {
               };
     });
 
-    // useEffect(() => {
-    //     console.log("enter the use effect")
-    //     defaultDraftSessions && defaultDraftSessions.map((session) => {
-    //     const instructorsPerSession = []
-    //     console.log('entered')
-    //     if (session['instructors'].length != 0) {
-    //         console.log("hi")
-    //         session['instructors'] && session['instructors'].map((instructor) => (
-    //             instructorsPerSession.push({
-    //                 'instructorName': instructor.firstName + ' ' + instructor.lastName
-    //             })
-    //         ))
-    //     } else {
-    //         instructorsPerSession.push({'instructorName': "N/A"})
-    //     }
-    //     setInstructorList([...instructorList, instructorsPerSession])
-    // })
-    // })
-
-    // if (defaultDraftSessions[0]["instructors"].length != 0){
-    //     instructorList = defaultDraftSessions["instructors"].map((instructor) => (
-    //         {
-    //             'instructorName' : instructor.firstName + ' ' + instructor.lastName,
-    //         }
-    //     ))
-    // } else {
-    //     instructorDict = {
-    //         'instructorName' : "N/A",
-    //     }
-    //     instructorList.push(instructorDict)
-    // }
     useEffect(() => {
         if (defaultDraftSessions && extractedCustomCourseList) {
             let creditSum = defaultDraftSessions.reduce(function (sum, arr) {
@@ -209,11 +177,7 @@ const SemesterBox = (props) => {
             setCreditSumState(creditSum + creditSumCustomCourse);
         }
     }, [defaultDraftSessions, extractedCustomCourseList]);
-    // creditSum = defaultDraftSessions.reduce(function (sum, arr) {
-    //     return sum + arr.credits;
-    // }, 0);
 
-    // console.log('instructor list', instructorList)
     return (
         <div className="bigBox">
             <div className="buttonNav">

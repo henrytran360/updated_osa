@@ -1,6 +1,6 @@
 import React from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import "./CourseSearchRow.css";
+import "./DraftCourseDegreePlanRow.css";
 
 const ADD_NEW_COURSE_TO_DEGREE_PLAN = gql`
     mutation addNewCourse($degreePlanID: ID!, $push: Boolean, $courseID: ID!) {
@@ -51,9 +51,9 @@ const QUERY_ALL_USER_DEGREE_PLANS = gql`
     }
 `;
 
-const CourseSearchRow = ({ course, degreePlanID, queryAdd }) => {
-    const addNewCourseToDegreePlan = (degreePlanID, push, courseID) => {
-        addNewCourseMutation({
+const DraftCourseDegreePlanRow = ({ course, degreePlanID, queryRemove }) => {
+    const removeCourseFromDegreePlan = (degreePlanID, push, courseID) => {
+        removeCourseMutation({
             variables: {
                 degreePlanID: degreePlanID,
                 push: push,
@@ -62,12 +62,12 @@ const CourseSearchRow = ({ course, degreePlanID, queryAdd }) => {
         });
     };
     const [
-        addNewCourseMutation,
+        removeCourseMutation,
         { loadingMutationAdd, errorMutationAdd, dataMutationAdd },
     ] = useMutation(ADD_NEW_COURSE_TO_DEGREE_PLAN, {
         refetchQueries: () => [
             {
-                query: queryAdd,
+                query: queryRemove,
                 variables: {
                     _id: degreePlanID,
                 },
@@ -78,40 +78,44 @@ const CourseSearchRow = ({ course, degreePlanID, queryAdd }) => {
         ],
     });
     return (
-        <div className="row-container">
-            <div className="name">
+        <div className="row-container-draft">
+            <div className="code-draft">
                 <div>
                     <span
-                        style={{ fontSize: "1rem", color: "rgb(54, 54, 54)" }}
+                        style={{ fontSize: "0.9rem", color: "rgb(54, 54, 54)" }}
                     >
                         {course.subject} {course.courseNum}
                     </span>
                 </div>
-                <div>
-                    <span
-                        style={{
-                            fontSize: "0.7em",
-                            color: "rgb(136, 136, 136)",
-                        }}
-                    >
-                        {course.longTitle}
-                    </span>
-                </div>
             </div>
-            <div className="credits">{course.creditsMin}</div>
-            <div className="checkbox">
+            <div className="credits-draft">
+                <span style={{ fontSize: "0.9rem" }}>{course.creditsMin}</span>
+            </div>
+            <div className="title-draft">
+                <span style={{ fontSize: "0.9rem" }}>{course.longTitle}</span>
+            </div>
+            <div className="prereqs-draft">
+                <span style={{ fontSize: "0.9rem", textOverflow: "ellipsis" }}>
+                    {course.prereqs}
+                </span>
+            </div>
+            <div className="removeCourse-draft">
                 <button
                     // style={{ width: "35px" }}
-                    className="addButtonEachCourse"
+                    className="deleteButtonEachCourse"
                     onClick={() =>
-                        addNewCourseToDegreePlan(degreePlanID, true, course._id)
+                        removeCourseFromDegreePlan(
+                            degreePlanID,
+                            false,
+                            course._id
+                        )
                     }
                 >
-                    <span style={{ fontSize: 16 }}>✓</span>
+                    <span style={{ fontSize: 16 }}>x</span>
                 </button>
             </div>
         </div>
     );
 };
 
-export default CourseSearchRow;
+export default DraftCourseDegreePlanRow;
