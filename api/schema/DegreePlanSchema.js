@@ -250,6 +250,7 @@ DegreePlanTC.addResolver({
         // Execute update
         const checkPlan = await DegreePlan.find({
             "draftCourses.course": args.courseID,
+            _id: args.degreePlanID,
         }).exec();
         let degreePlan;
         console.log(checkPlan);
@@ -373,6 +374,9 @@ const DegreePlanMutation = {
 
     // for adding a new schedule, i can create a new term in the mutation.
     updateCustomCourses: DegreePlanTC.getResolver("updateCustomCourses", [
+        authMiddleware,
+    ]),
+    removeDegreePlan: DegreePlanTC.getResolver("removeDegreePlan", [
         authMiddleware,
     ]),
 };
