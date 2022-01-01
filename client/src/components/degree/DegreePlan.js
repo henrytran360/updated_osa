@@ -235,15 +235,21 @@ const DegreePlan = () => {
         setUserId(user_id);
         setSemesterList(defaultSchedule);
     }, [loading, data, error]);
-
     // adding new semester to semester list (state variable)
     const addNewSem = () => {
-        mutateSemester({
-            variables: {
-                term: term,
-                draftCourses: [],
-            },
-        });
+        if (
+            semesterList &&
+            !semesterList.map((ele) => ele.term).includes(term)
+        ) {
+            mutateSemester({
+                variables: {
+                    term: term,
+                    draftCourses: [],
+                },
+            });
+        } else {
+            alert("You have already created a schedule of this term");
+        }
         // const newSem = { term: term, draftSessions: [], notes: "", _id: "" };
         // setSemesterList([...semesterList, newSem]);
     };

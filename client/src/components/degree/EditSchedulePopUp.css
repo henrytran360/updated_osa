@@ -129,7 +129,6 @@
     width: 10%;
     color: gray;
     display: flex;
-    justify-content: center;
 }
 .creditsCartHead {
     height: 100%;
@@ -143,12 +142,10 @@
     width: 45%;
     color: gray;
     display: flex;
-    justify-content: center;
 }
 .preReqCartHead {
     height: 100%;
     width: 25%;
     color: gray;
     display: flex;
-    justify-content: center;
 }

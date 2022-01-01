@@ -75,6 +75,12 @@ const EditSchedulePopUp = ({ term, _id }) => {
         },
     });
 
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            setCourseName(value);
+        }
+    };
+
     useEffect(() => {
         if (courseData) {
             setCourseList(courseData.findAllForDegreePlan);
@@ -120,6 +126,7 @@ const EditSchedulePopUp = ({ term, _id }) => {
                         name="s"
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
+                        onKeyUp={handleKeyPress}
                     />
                     <div className="searchIcon">
                         <AiOutlineSearch size={25} />
@@ -136,28 +143,39 @@ const EditSchedulePopUp = ({ term, _id }) => {
                     <div className="listCourseSearch">
                         {courseList &&
                             (courseName
-                                ? courseList
-                                      .filter((course) =>
-                                          course.fullCourseName
-                                              .replace(/\s+/g, "")
-                                              .toLowerCase()
-                                              .includes(
-                                                  courseName
-                                                      .toLowerCase()
-                                                      .replace(/\s+/g, "")
-                                              )
-                                      )
-                                      .map((course) => {
-                                          return (
-                                              <CourseSearchRow
-                                                  course={course}
-                                                  degreePlanID={_id}
-                                                  queryAdd={
-                                                      FIND_DEGREE_PLAN_BY_ID
-                                                  }
-                                              />
-                                          );
-                                      })
+                                ? courseList.filter((course) =>
+                                      course.fullCourseName
+                                          .replace(/\s+/g, "")
+                                          .toLowerCase()
+                                          .includes(
+                                              courseName
+                                                  .toLowerCase()
+                                                  .replace(/\s+/g, "")
+                                          )
+                                  )
+                                    ? courseList
+                                          .filter((course) =>
+                                              course.fullCourseName
+                                                  .replace(/\s+/g, "")
+                                                  .toLowerCase()
+                                                  .includes(
+                                                      courseName
+                                                          .toLowerCase()
+                                                          .replace(/\s+/g, "")
+                                                  )
+                                          )
+                                          .map((course) => {
+                                              return (
+                                                  <CourseSearchRow
+                                                      course={course}
+                                                      degreePlanID={_id}
+                                                      queryAdd={
+                                                          FIND_DEGREE_PLAN_BY_ID
+                                                      }
+                                                  />
+                                              );
+                                          })
+                                    : "There are no courses that match your search"
                                 : courseList.slice(100, 150).map((course) => {
                                       return (
                                           <CourseSearchRow

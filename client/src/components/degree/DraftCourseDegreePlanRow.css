@@ -14,7 +14,6 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
 }
 .credits-draft {
     height: 100%;
@@ -30,7 +29,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 .prereqs-draft {
@@ -39,7 +37,6 @@
     flex-direction: row;
     display: flex;
     justify-content: center;
-    align-items: center;
     overflow-y: auto;
 }
 
