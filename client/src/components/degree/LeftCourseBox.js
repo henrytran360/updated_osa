@@ -69,7 +69,7 @@ const LeftCourseBox = (props) => {
                             href={createURL(props.courseNum, props.subject)}
                             target="_blank"
                         >
-                            More Info
+                            MORE INFO
                         </a>
                     </pre>
                 </div>

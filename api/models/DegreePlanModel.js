@@ -16,7 +16,7 @@ var DegreePlanSchema = new Schema({
     term: { type: String, required: true },
     draftCourses: [DraftCourseSchema],
     customCourse: { type: [String], required: false },
-    notes: { type: [String], required: false },
+    notes: { type: String, default: "", required: false },
     user: { type: Schema.Types.ObjectID, ref: User },
 });
 

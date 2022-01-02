@@ -98,15 +98,6 @@
     margin-left: 50px;
     margin-right: 25px;
 }
-.modal {
-    margin-top: 15%;
-    margin-left: 30%;
-    width: 545px;
-    height: 270px;
-    box-sizing: border-box;
-    border-color: transparent;
-    border-radius: 5px;
-}
 
 .modalDegreePlan {
     width: 1300px;
@@ -118,17 +109,24 @@
     top: 50%;
     transform: translate(-50%, -50%);
     overflow-y: auto;
-    background-color: white;
+    background-color: #ddf5f6;
+    z-index: -99;
 }
 
-.notesContent {
-    font-style: normal;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.modalNotes {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    box-sizing: border-box;
     border-color: transparent;
+    border-radius: 5px;
+    overflow-y: auto;
+    border: 2px solid #149fa0;
 }
+
 .textbox {
     position: relative;
     top: 10px;

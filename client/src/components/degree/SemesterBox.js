@@ -8,14 +8,14 @@ import CustomCourseRow from "./CustomCourseRow";
 import { Context as CustomCourseContext } from "../../contexts/customCourseContext";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import EditSchedulePopUp from "./EditSchedulePopUp";
+import EditorJS from "@editorjs/editorjs";
+import NotesModal from "./NotesModal";
 
 // import CustomCourse from "./CustomCourse";
 
 let creditSum;
 
 const SemesterBox = (props) => {
-    // for the edit schedule button
-    const history = useHistory();
     // for the notes modal
     const [modalState, setModal] = useState(false);
     const [modalState2, setModal2] = useState(false);
@@ -222,18 +222,11 @@ const SemesterBox = (props) => {
                 </button>
                 <Modal
                     isOpen={modalState}
-                    className="modal"
+                    className="modalNotes"
+                    ariaHideApp={false}
                     onRequestClose={closeModal}
                 >
-                    <div className="notesContent">
-                        <textarea
-                            maxlength="689"
-                            placeholder="Write your notes here..."
-                            className="textbox"
-                            value={inputVal}
-                            onChange={(e) => changeInputVal(e.target.value)}
-                        ></textarea>
-                    </div>
+                    <NotesModal _id={props._id} term={props.term} />
                 </Modal>
                 <button
                     className="customButton"

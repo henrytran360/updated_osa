@@ -319,6 +319,29 @@ DegreePlanTC.addResolver({
     },
 });
 
+/**
+ * Update notes
+ */
+DegreePlanTC.addResolver({
+    name: "updateNotes",
+    type: DegreePlanTC,
+    args: DegreePlanTC.getResolver("updateOne").getArgs(),
+    resolve: async ({ source, args, context, info }) => {
+        let CC = args.record.notes;
+        console.log(CC);
+        console.log(args);
+        const degreeplan = await DegreePlan.updateOne(
+            { _id: args.filter._id },
+            { $set: { notes: args.record.notes } }
+        );
+        if (!degreeplan) return null;
+        return DegreePlan.findById(args.filter._id);
+        // return await Schedule.findByIdAndUpdate(args.filter._id, {
+        //     customCourse: args.record.customCourse,
+        // });
+    },
+});
+
 ScheduleTC.addResolver({
     name: "findScheduleById",
     type: ScheduleTC,
@@ -373,6 +396,7 @@ const DegreePlanMutation = {
     ),
 
     // for adding a new schedule, i can create a new term in the mutation.
+    updateNotes: DegreePlanTC.getResolver("updateNotes", [authMiddleware]),
     updateCustomCourses: DegreePlanTC.getResolver("updateCustomCourses", [
         authMiddleware,
     ]),
