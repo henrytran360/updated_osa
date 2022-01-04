@@ -25,7 +25,7 @@ import CourseDetail from "./CourseDetail";
 import Detail from "../search/Detail";
 import { graphqlSync } from "graphql";
 import { selectionSetMatchesResult } from "@apollo/client/cache/inmemory/helpers";
-
+import "./DraftCourseItem.css";
 const detailStyle = {
     background: "#F6F8FC",
     color: "#6C7488",
@@ -396,11 +396,14 @@ const DraftCourseItem = ({
                         onClick={() => toggleEvals(dataEval)}
                     >
                         <QuestionAnswerIcon />
-                        <CourseEvalModal
-                            modalState={modalState}
-                            closeModal={closeModal}
-                        />
                     </IconButton>
+                    {/* <Modal
+                        isOpen={modalState}
+                        className="modalEval"
+                        onRequestClose={closeModal}
+                    >
+                        <CourseEvalModal />
+                    </Modal> */}
 
                     {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
                         Course Eval Modal
