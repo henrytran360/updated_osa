@@ -3,10 +3,12 @@ import { Switch, Route, Redirect, useHistory } from "react-router";
 import Auth from "./auth/Auth";
 import Login from "./login/Login";
 import Main from "./main/Main";
+import MainWithTerm from "./main/MainWithTerm";
 import { gql, useQuery, useApolloClient } from "@apollo/client";
 import LoadingScreen from "./LoadingScreen";
 import About from "./about/About";
 import NewAuth from "./auth/Auth";
+import DegreePlan from "./degree/DegreePlan";
 
 // This import loads the firebase namespace along with all its type information.
 import firebase from "firebase/app";
@@ -62,8 +64,8 @@ const PrivateRoute = ({ children, ...rest }) => {
     }, []);
 
     if (isWaiting) return <LoadingScreen />;
-    if (getLoggedIn) return <Route {...rest} render={(props) => children} />
-    if (!getLoggedIn) return <Redirect to="login" />
+    if (getLoggedIn) return <Route {...rest} render={(props) => children} />;
+    if (!getLoggedIn) return <Redirect to="login" />;
 
     return <LoadingScreen />;
 };
@@ -87,8 +89,14 @@ const Routes = ({}) => {
             <PrivateRoute path="/schedule">
                 <Main />
             </PrivateRoute>
+            <PrivateRoute path="/schedule/:term">
+                <MainWithTerm />
+            </PrivateRoute>
             <PrivateRoute exact path="/">
                 <Redirect to="/schedule" />
+            </PrivateRoute>
+            <PrivateRoute path="/degree_plan">
+                <DegreePlan />
             </PrivateRoute>
             <Route>
                 <Error />

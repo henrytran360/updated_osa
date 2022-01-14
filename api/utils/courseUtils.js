@@ -30,22 +30,14 @@ export const getSubjects = async (term) => {
         throw Error("No term specified.");
     }
 
-    const allSessions = (await Session.find({ term }).populate('course'));
-
-    const subjects = new Set([]);
-
-    // Add each subject to the subjects Set (ensures no duplicates)
-    allSessions.forEach((session) => subjects.add(session.course.subject));
-
-    console.log(subjects);
-
-    // const { data } = await axios.get(
-    //     "https://courses.rice.edu/courses/!SWKSCAT.info?action=SUBJECTS&term=" +
-    //         String(term)
-    // );
-    // const parsed = await parser.parseStringPromise(data);
-    // let subjects = parsed["SUBJECTS"]["SUBJECT"];
-    // subjects = subjects.map((subject) => subject["$"].code);
+    const { data } = await axios.get(
+        "https://courses.rice.edu/courses/!SWKSCAT.info?action=SUBJECTS&term=" +
+            String(term)
+    );
+    const parsed = await parser.parseStringPromise(data);
+    console.log(parsed);
+    let subjects = parsed["SUBJECTS"]["SUBJECT"];
+    subjects = subjects.map((subject) => subject["$"].code);
     return subjects;
 };
 
@@ -54,24 +46,26 @@ export const getInstructors = async (term) => {
         throw Error("No term specified.");
     }
 
-    const allSessions = (await Session.find({ term }).populate('instructors'));
+    const allSessions = await Session.find({ term }).populate("instructors");
 
     const instructorMap = new Map();
     const instructors = [];
 
     // Add each instructor to the instructors Set (ensures no duplicates)
-    allSessions.forEach((session) => session.instructors.forEach(instructor => {
-        if (!instructorMap.has(instructor._id)) {
-            instructorMap.set(instructor._id, true);
-            instructors.push({
-                id: instructor._id,
-                firstName: instructor.firstName,
-                lastName: instructor.lastName,
-            });
-        }
-    }));
+    allSessions.forEach((session) =>
+        session.instructors.forEach((instructor) => {
+            if (!instructorMap.has(instructor._id)) {
+                instructorMap.set(instructor._id, true);
+                instructors.push({
+                    id: instructor._id,
+                    firstName: instructor.firstName,
+                    lastName: instructor.lastName,
+                });
+            }
+        })
+    );
 
-    console.log(instructors);
+    // console.log(instructors);
 
     // const { data } = await axios.get(
     //     "https://courses.rice.edu/courses/!SWKSCAT.info?action=INSTRUCTORS&term=" +
@@ -89,8 +83,8 @@ export const getInstructors = async (term) => {
     //         firstName,
     //         lastName,
     //     };
-	// });
-	
+    // });
+
     return instructors;
 };
 
@@ -126,6 +120,7 @@ export const getInstructors = async (term) => {
 // };
 
 export const getPreviousTermCourses = async (term) => {
+    console.log(term);
     const { data } = await axios.get(
         "https://esther.rice.edu/selfserve/!swkscmp.ajax?p_data=COURSES&p_term=" +
             String(term - 100)

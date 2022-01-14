@@ -1,0 +1,153 @@
+.container2 {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.searchInputs {
+    display: flex;
+    border-radius: 2px;
+    border: 1px solid rgb(55, 54, 54);
+    height: 60%;
+}
+.searchInputs input {
+    border: 0;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-size: 18px;
+    padding: 15px;
+    height: auto;
+    width: 400px;
+}
+
+.searchIcon {
+    height: 100%;
+    width: 45px;
+    background-color: white;
+    display: grid;
+    place-items: center;
+}
+
+.SearchBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 15%;
+    width: 90%;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.header-search-button {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.header-semester-name {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.button-search {
+    width: 100px;
+    height: 60%;
+}
+.bottomContainer {
+    display: flex;
+    flex-direction: row;
+    height: 85%;
+    width: 95%;
+    justify-content: space-around;
+}
+.SearchResult {
+    width: 35%;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.255) 0px 5px 14px 0px;
+    padding: 1.25rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.Cart {
+    width: 65%;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.255) 0px 5px 14px 0px;
+    padding: 1.25rem;
+    border-radius: 4px;
+    background-color: white;
+    overflow-y: scroll;
+}
+
+.SearchHeader {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.nameHead {
+    height: 100%;
+    width: 65%;
+    color: gray;
+}
+.creditsHead {
+    height: 100%;
+    width: 11.7%;
+    color: gray;
+    display: flex;
+    justify-content: center;
+}
+.checkBoxHead {
+    height: 100%;
+    width: 11.7%;
+    color: gray;
+    display: flex;
+    justify-content: center;
+}
+
+.CartHeader {
+    height: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.codeCartHead {
+    height: 100%;
+    width: 10%;
+    color: gray;
+    display: flex;
+}
+.creditsCartHead {
+    height: 100%;
+    width: 10%;
+    color: gray;
+    display: flex;
+    justify-content: center;
+}
+.titleCartHead {
+    height: 100%;
+    width: 45%;
+    color: gray;
+    display: flex;
+}
+.preReqCartHead {
+    height: 100%;
+    width: 25%;
+    color: gray;
+    display: flex;
+}

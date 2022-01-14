@@ -8,14 +8,17 @@ import re
 import datetime
 import os
 
+
 def check_days(course):
-    day_tags = ["mon_day", "tue_day", "wed_day", "thu_day", "fri_day", "sat_day", "sun_day"]
+    day_tags = ["mon_day", "tue_day", "wed_day",
+                "thu_day", "fri_day", "sat_day", "sun_day"]
     days = []
     for day_tag in day_tags:
         day_node = course.find(day_tag)
         if (day_node):
             days.append(day_node.text)
     return days
+
 
 def convert_term(number):
     readable = ""
@@ -28,6 +31,7 @@ def convert_term(number):
         readable = "Summer " + number[:4]
     return readable
 
+
 def convert_prereqs(prereq_str):
     # If empty, return empty list
     if (len(prereq_str) < 1):
@@ -38,9 +42,9 @@ def convert_prereqs(prereq_str):
         prereq_sets = prereq_str.split(" AND ")
     else:
         prereq_sets = [prereq_str]
-    
+
     all_preqs = []
-    
+
     for prereq_set in prereq_sets:
         possible_courses = prereq_set.split(" OR ")
         # Strip out "(" or ")"
@@ -48,8 +52,9 @@ def convert_prereqs(prereq_str):
         for possible_course in possible_courses:
             new_set.append(possible_course.replace("(", "").replace(")", ""))
         all_preqs.append(new_set)
-    
+
     return all_preqs
+
 
 def convert_distribution(distribution_str):
     if (distribution_str == "GRP1"):
@@ -60,6 +65,7 @@ def convert_distribution(distribution_str):
         return "Distribution III"
     # Sum ting wong
     return ""
+
 
 def parse_file(file, current_data):
     # file = open(filename, "r").read()
@@ -93,26 +99,33 @@ def parse_file(file, current_data):
                 sched_node = meeting_node.find("sched")
                 if (type_node and type_node.get("code") == "CLAS"):
                     if (not class_time_set):
-                        session_info["class_start_time"] = meeting_node.get("begin-time")
-                        session_info["class_end_time"] = meeting_node.get("end-time")
+                        session_info["class_start_time"] = meeting_node.get(
+                            "begin-time")
+                        session_info["class_end_time"] = meeting_node.get(
+                            "end-time")
                         # Set days
-                        day_nodes = meeting_node.find_all(re.compile("_day")) # Get all day nodes
+                        day_nodes = meeting_node.find_all(
+                            re.compile("_day"))  # Get all day nodes
                         for day_node in day_nodes:
                             class_days.append(day_node.text)
                         session_info["class_days"] = class_days
                         class_time_set = True
                     else:
                         # Class time already set, this must be the lab
-                        session_info["lab_start_time"] = meeting_node.get("begin-time")
-                        session_info["lab_end_time"] = meeting_node.get("end-time")
+                        session_info["lab_start_time"] = meeting_node.get(
+                            "begin-time")
+                        session_info["lab_end_time"] = meeting_node.get(
+                            "end-time")
                         # Set days
-                        day_nodes = meeting_node.find_all(re.compile("_day")) # Get all day nodes
+                        day_nodes = meeting_node.find_all(
+                            re.compile("_day"))  # Get all day nodes
                         for day_node in day_nodes:
                             lab_days.append(day_node.text)
                         session_info["lab_days"] = lab_days
                         lab_time_set = True
         session_info["crn"] = course.find("crn").text
-        session_info["instructors"] = [instructor.text for instructor in course.find_all("name")]
+        session_info["instructors"] = [
+            instructor.text for instructor in course.find_all("name")]
 
         # Additional info to get
         '''
@@ -135,20 +148,23 @@ def parse_file(file, current_data):
         '''
         # Dist fetch
         dist_node = course.find("dists")
+        print(course)
         if (dist_node):
-            course_invariants["distribution"] = convert_distribution(dist_node.find("dist").get("code"))
+            course_invariants["distribution"] = convert_distribution(
+                dist_node.find("dist").get("code"))
         else:
             # Not part of a distribution
             course_invariants["distribution"] = ""
-        
+
         # Credit fetch
         course_invariants["credits_low"] = course.find("credits").get("low")
         try:
             # some courses have a max # of credits; so a range
-            course_invariants["credits_high"] = course.find("credits").get("high")
+            course_invariants["credits_high"] = course.find(
+                "credits").get("high")
         except:
             course_invariants["credits_high"] = ""
-        
+
         # there are level, major, class restrictions
         restrictions_node = course.find("restrictions")
         if (restrictions_node):
@@ -164,7 +180,8 @@ def parse_file(file, current_data):
                     # Create new restriction object
                     restrictions_set = {
                         "type": restriction_node.get("type"),
-                        "setting": restriction_node.get("ind"), # I = inclusive, E = exclusive
+                        # I = inclusive, E = exclusive
+                        "setting": restriction_node.get("ind"),
                         "params": []
                     }
                 else:
@@ -185,7 +202,7 @@ def parse_file(file, current_data):
         except:
             # Course has no listed prereqs
             course_invariants["prereqs"] = ""
-        
+
         try:
             coreq_list = []
             coreqs_node = course.find("coreqs")
@@ -198,7 +215,7 @@ def parse_file(file, current_data):
             course_invariants["coreqs"] = coreq_list
         except:
             course_invariants["coreqs"] = []
-        
+
         # Mutual exclusions
         me_node = course.find("mutual-exclusions")
         if (me_node):
@@ -206,7 +223,7 @@ def parse_file(file, current_data):
             # Need this recursive=false to ONLY get child nodes
             for excl_node in me_node.findChildren(recursive=False):
                 # Get the subject, course #
-                subj =  excl_node.find("subject").get("code")
+                subj = excl_node.find("subject").get("code")
                 # Ex: <SUBJECT code="BIOC">Biochemistry &amp; Cell Biology</SUBJECT>
                 numb = excl_node.find("crse_numb").text
                 # Ex: <CRSE_NUMB>464</CRSE_NUMB>
@@ -234,9 +251,11 @@ def parse_file(file, current_data):
             session_info["crosslists"] = crosslists
 
             # Now add xlst enrollments
-            session_info["max_cross_enroll"] = course.find("xlst_max_enrl").text
+            session_info["max_cross_enroll"] = course.find(
+                "xlst_max_enrl").text
             try:
-                session_info["cur_cross_enroll"] = course.find("xlst_enrl").text
+                session_info["cur_cross_enroll"] = course.find(
+                    "xlst_enrl").text
             except:
                 # Sometimes there isn't a xlst_enrl, so we just make both blank
                 session_info["cur_cross_enroll"] = ""
@@ -246,7 +265,8 @@ def parse_file(file, current_data):
             session_info["cur_cross_enroll"] = ""
             session_info["max_cross_enroll"] = ""
 
-        name = course.find("subject")["code"] + " " + course.find("crse_numb").text + " : " + course.find("crse_title").text
+        name = course.find("subject")[
+            "code"] + " " + course.find("crse_numb").text + " : " + course.find("crse_title").text
 
         if name not in current_data.keys():
             current_data[name] = {
@@ -270,8 +290,8 @@ def aggregate_parsed_files(file_names):
 def main():
     print("start")
     output_dir = "./python_scripts/"
-    output_loc = os.path.join(output_dir, "output10.json") 
-    terms = ["202110"]
+    output_loc = os.path.join(output_dir, "output12.json")
+    terms = ["202310"]
     # terms = ["201810", "201820", "201910", "201920", "202010", "202020", "202110"]
     url = "https://courses.rice.edu/courses/!swkscat.cat?format=XML&p_action=COURSE&p_term="
     # url = "https://courses.rice.edu/courses/!SWKSCAT.cat?p_action=QUERY&p_term=202110&format=XML"
@@ -281,40 +301,39 @@ def main():
 
     for term in terms:
         print(term)
-        # term_url = url + term
-        # courses = requests.get(term_url)
+        term_url = url + term
+        courses = requests.get(term_url)
         print("Made request")
-        # xml_filename = datetime.date.today()
-        # with open(output_dir + str(xml_filename) + ".xml", mode="w+") as fp:
-        # with tempfile.TemporaryFile(mode='r+') as fp:
-        with open(output_dir + "2020-05-02.xml", "r") as fp:
-            print("Writing to tempfile")
-            # fp.write(courses.text)
+        xml_filename = datetime.date.today()
+        with open(output_dir + str(xml_filename) + ".xml", mode="w+") as fp:
+            fp.write(courses.text)
             # wait for write
-            # fp.flush()
+            fp.flush()
             # reset position to start
-            # fp.seek(0)
+            fp.seek(0)
+        # with tempfile.TemporaryFile(mode='r+') as fp:
+        with open(output_dir + str(xml_filename) + ".xml", "r") as fp:
+            # print("Writing to tempfile")
 
-            print("Finishing writing to tempfile")
+            # print("Finishing writing to tempfile")
 
             current_data = {}
             json_data = parse_file(fp, current_data)
-            
+
             # Dump to JSON
-            with open(output_loc, "a+") as output_file:
-                json.dump(json_data, output_file)
-                output_file.write(",\n")
-                print("finishied writing this term")
-    
-    with open(output_loc, "a+") as output_file:
-        output_file.write("]")
+    #         with open(output_loc, "a+") as output_file:
+    #             json.dump(json_data, output_file)
+    #             # output_file.write(",\n")
+    #             # print("finishied writing this term")
+
+    # with open(output_loc, "a+") as output_file:
+    #     output_file.write("]")
 
     # XML is destroyed
 
-
     # with open("courses.xml", 'w') as file:
     #     file.write(courses.text)
-    
+
     # Use temporary file to create JSON file
     # current_data = {}
     # json_data = parse_file(temp.name, current_data)
@@ -323,8 +342,6 @@ def main():
     # temp.close()
 
     # json_data = aggregate_parsed_files(["./data/Fall2018.xml", "./data/Fall2019.xml", "./data/Spring2019.xml", "./data/Spring2020.xml"])
-    
-
 
 
 if __name__ == '__main__':

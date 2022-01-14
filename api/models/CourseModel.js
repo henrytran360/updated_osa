@@ -23,12 +23,13 @@ var CourseSchema = new Schema({
     coreqs: [String],
     mutualExclusions: [String],
     distribution: String,
+    fullCourseName: String,
 });
 
 export const Course = mongoose.model("courses", CourseSchema);
-export const CourseTC = composeWithDataloader(composeWithMongoose(Course), {
-    cacheExpiration: 3000,
-    removeProjection: true,
-    debug: true,
-});
-// export const CourseTC = composeWithMongoose(Course);
+// export const CourseTC = composeWithDataloader(composeWithMongoose(Course), {
+//     cacheExpiration: 3000,
+//     removeProjection: true,
+//     debug: true,
+// });
+export const CourseTC = composeWithMongoose(Course);

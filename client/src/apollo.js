@@ -1,10 +1,5 @@
 // Apollo Client Setup
-import {
-    ApolloClient,
-    HttpLink,
-    InMemoryCache,
-    gql,
-} from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache, gql } from "@apollo/client";
 import { setContext } from "@apollo/link-context";
 
 // Need firebase for token authentication
@@ -17,6 +12,7 @@ const authLink = setContext(async (_, { headers }) => {
     // get the authentication token from firebase if it exists
     const token = await firebase.auth().currentUser.getIdToken();
     // return the headers to the context so httpLink can read them
+    console.log(token);
     return {
         headers: {
             ...headers,
@@ -27,8 +23,8 @@ const authLink = setContext(async (_, { headers }) => {
 
 // HTTP Backend Link
 const httpLink = new HttpLink({
-    // uri: "http://localhost:3000/graphql",
-    uri: "/graphql",
+    uri: "http://localhost:3000/graphql",
+    // uri: "/graphql",
 });
 
 // WebSocket Backend Link

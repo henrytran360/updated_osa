@@ -1,13 +1,13 @@
 // This will be created when the user logs in
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-import axios from 'axios';
+import axios from "axios";
 
-var xml2js = require('xml2js');
-var stripPrefix = require('xml2js').processors.stripPrefix;
+var xml2js = require("xml2js");
+var stripPrefix = require("xml2js").processors.stripPrefix;
 
-import { SERVICE_URL } from '../config';
-import { User } from '../models';
+import { SERVICE_URL } from "../config";
+import { User } from "../models";
 
 import * as admin from "firebase-admin";
 
@@ -16,7 +16,7 @@ import * as admin from "firebase-admin";
  */
 const parser = new xml2js.Parser({
     tagNameProcessors: [stripPrefix],
-    explicitArray: false
+    explicitArray: false,
 });
 
 /**
@@ -25,21 +25,26 @@ const parser = new xml2js.Parser({
 const failureResponse = { success: false };
 
 let config = {
-    CASValidateURL: 'https://idp.rice.edu/idp/profile/cas/serviceValidate',
+    CASValidateURL: "https://idp.rice.edu/idp/profile/cas/serviceValidate",
     // thisServiceURL: 'http://localhost:3001/auth',
-    secret: 'testsec'
-}
+    secret: "testsec",
+};
 
 /**
  * Given a user, creates a new token for them.
  */
 export const createToken = (user) => {
-    let token = jwt.sign({
-        id: user._id,
-        netid: user.netid
-    }, config.secret, { expiresIn: 129600 });
+    let token = jwt.sign(
+        {
+            id: user._id,
+            netid: user.netid,
+        },
+        config.secret,
+        { expiresIn: 129600 }
+    );
+    console.log(token);
     return token;
-}
+};
 
 /**
  * Given a token, finds the associated user.
@@ -47,7 +52,7 @@ export const createToken = (user) => {
 export const getUserFromToken = async (token) => {
     let user = await User.find({ token: token });
     return user;
-}
+};
 
 /**
  * Given a token, verifies that it is still valid.
@@ -62,7 +67,7 @@ export const verifyToken = async (token) => {
     } catch (e) {
         return failureResponse;
     }
-}
+};
 
 export const extractAuthenticationDetails = (decodedToken) => {
     const uid = decodedToken.uid;
@@ -76,7 +81,7 @@ export const extractAuthenticationDetails = (decodedToken) => {
         college: samlProfile["urn:oid:1.3.6.1.4.1.134.1.1.1.1.15"],
         affiliation: samlProfile["urn:oid:1.3.6.1.4.1.5923.1.1.1.5"],
     };
-}
+};
 
 /**
  * Given a ticket, authenticates it and returns the corresponding netid of the now-authenticated user.
@@ -88,7 +93,7 @@ export const authenticateTicket = async (ticket) => {
 
         // First validate ticket against CAS, get a data object back
         let { data } = await axios.get(url);
-        
+
         // Parse returned XML data with xml2js parser
         return parser.parseStringPromise(data).then(
             (parsedResponse) => {
@@ -112,4 +117,4 @@ export const authenticateTicket = async (ticket) => {
         console.log("Something went wrong.");
         return failureResponse;
     }
-}
+};

@@ -1,0 +1,64 @@
+.rcbox {
+    position: relative;
+    width: 124px;
+    height: 47px;
+    left: 1px;
+    top: -1px;
+    border-bottom: 1.5px solid #e1e3e3;
+    border-left: 1.5px solid #e1e3e3;
+    border-right: 1.5px solid #e1e3e3;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    color: #5b5b5b;
+}
+
+.courseCredit {
+    height: 19px;
+    font-style: normal;
+    padding-top: 3px;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.rccbox {
+    position: relative;
+    width: 105px;
+    height: 47px;
+    left: 1px;
+    top: -1px;
+    border-bottom: 1.5px solid #e1e3e3;
+    border-left: 1.5px solid #e1e3e3;
+    border-right: 1.5px solid #e1e3e3;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    color: #5b5b5b;
+}
+
+.customCredit {
+    position: relative;
+    left: 10px;
+
+    height: 19px;
+    width: 30px;
+    font-style: normal;
+    font-size: 16px;
+
+    border-color: transparent;
+    border-radius: 5px;
+}

@@ -1,0 +1,44 @@
+.rowBox {
+    width: 545px;
+    height: 44px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.outerRowBox {
+    width: 650px;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+}
+
+.button-container {
+    width: 85px;
+    height: 110%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.deleteButton {
+    width: 35px;
+    height: 35px;
+    border: 1.5px solid #e1e3e3;
+    box-sizing: border-box;
+    background-color: white;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15.75px;
+    line-height: 19px;
+    color: #149fa0;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.deleteButton:hover {
+    background-color: #149fa0;
+    color: #e1e3e3;
+}

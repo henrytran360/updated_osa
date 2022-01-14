@@ -12,7 +12,7 @@ import ListIcon from "@material-ui/icons/List";
 
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
-import './Main.global.css';
+import "./Main.global.css";
 import Error from "../error/Error";
 
 export const BottomModeContext = createContext("Calendar");
@@ -85,12 +85,12 @@ const SEEN_RECENT_UPDATE = gql`
 `;
 
 // Toast for notifications
-const Main = ({ }) => {
+const Main = ({}) => {
     // Check for recent update from cache
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     let { term, recentUpdate } = storeData;
     const [bottomMode, setBottomMode] = useState("Calendar");
-
+    console.log(term);
     // Need to be able to update recentUpdate field on the user when they dismiss
     let [seenRecentUpdate] = useMutation(SEEN_RECENT_UPDATE);
 
@@ -130,44 +130,51 @@ const Main = ({ }) => {
             return (
                 <div className="Container">
                     <div style={{ float: "right", width: "100%" }}>
-                        <CourseSearch scheduleID={schedule._id} clickValue={bottomMode} />
+                        <CourseSearch
+                            scheduleID={schedule._id}
+                            clickValue={bottomMode}
+                        />
                     </div>
                 </div>
-            )
+            );
         } else {
             return (
                 <div className="Container">
-                    <div style={{width: "30%" }}>
-                        <CourseSearch scheduleID={schedule._id} clickValue={bottomMode} />
+                    <div style={{ width: "30%" }}>
+                        <CourseSearch
+                            scheduleID={schedule._id}
+                            clickValue={bottomMode}
+                        />
                     </div>
-                    <div style={{width: "70%"}}>
+                    <div style={{ width: "70%" }}>
                         <CourseCalendar
                             draftSessions={schedule.draftSessions}
                         />
                     </div>
                 </div>
-            )
+            );
         }
-    }
+    };
 
     const renderIcons = () => {
-        const icons = [<DateRangeIcon />, <ListIcon />]
-        const values = ["Calendar", "Details"]
+        const icons = [<DateRangeIcon />, <ListIcon />];
+        const values = ["Calendar", "Details"];
 
-        return (
-            icons.map((icon, index) =>
-                <IconButton
-                    className="iconButton"
-                    onClick={handleClick}
-                    value={values[index]}
-                    style={{ backgroundColor: bottomMode == values[index] ? "#697e99" : ""}}
-                >
-                    {console.log(bottomMode)}
-                    {icon}
-                </IconButton>
-            )
-        )
-    }
+        return icons.map((icon, index) => (
+            <IconButton
+                className="iconButton"
+                onClick={handleClick}
+                value={values[index]}
+                style={{
+                    backgroundColor:
+                        bottomMode == values[index] ? "#697e99" : "",
+                }}
+            >
+                {console.log(bottomMode)}
+                {icon}
+            </IconButton>
+        ));
+    };
 
     return (
         <div className="App" style={{ display: "inline", color: "#272D2D" }}>
@@ -179,14 +186,11 @@ const Main = ({ }) => {
                 />
             </div>
 
-            <ButtonGroup className="buttonGroup">
-                {renderIcons()}
-            </ButtonGroup>
+            <ButtonGroup className="buttonGroup">{renderIcons()}</ButtonGroup>
 
             <BottomModeContext.Provider value={bottomMode}>
                 {renderContent()}
             </BottomModeContext.Provider>
-
         </div>
     );
 };
