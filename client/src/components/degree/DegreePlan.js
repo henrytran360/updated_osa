@@ -255,18 +255,8 @@ const DegreePlan = () => {
     const [semesterList, setSemesterList] = useState([]);
     const [userId, setUserId] = useState("");
     // get the data from the query
-    const { loading, error, data } = useQuery(QUERY_ALL_USER_DEGREE_PLANS, {
-        variables: {
-            _id: userId,
-        },
-    });
-    const {
-        loading: loading4,
-        error: error4,
-        data: data4,
-    } = useQuery(VERIFY_TOKEN);
-
-    const { loadingEvaluationChart, errorEvaluationChart, dataEvaluationChart } = useQuery(
+    const { loading, error, data } = useQuery(QUERY_ALL_USER_DEGREE_PLANS);
+    const { loading3, error3, data3 } = useQuery(
         GET_EVALUATION_CHART_BY_COURSE
     );
 
