@@ -25,3 +25,4 @@ const CourseRowBox = (props) => {
 };
 
 export default CourseRowBox;
+

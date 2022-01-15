@@ -32,15 +32,16 @@ const QUERY_USER_SCHEDULES = gql`
         }
     }
 `;
-const termOptions = [
-    { label: "Spring 2021", value: 202120 },
-    { label: "Summer 2021", value: 202130 },
-    { label: "Fall 2021", value: 202210 },
-    { label: "Spring 2022", value: 202220 },
-];
 
-const formatTerm = (term) =>
-    termOptions.filter((termOption) => termOption.value == term)[0];
+// const termOptions = [
+//     { label: "Spring 2021", value: 202120 },
+//     { label: "Summer 2021", value: 202130 },
+//     { label: "Fall 2021", value: 202210 },
+//     { label: "Spring 2022", value: 202220 },
+// ];
+
+// const formatTerm = (term) =>
+//     termOptions.filter((termOption) => termOption.value == term)[0];
 
 // This import loads the firebase namespace along with all its type information.
 // const termOptions = [
@@ -49,7 +50,9 @@ const formatTerm = (term) =>
 // ];
 
 function Header() {
-    const [updateSchedules, setUpdatedSchedules] = useState([]);
+    const [updateSchedules, setUpdatedSchedules] = useState([
+        { label: "Spring 2022", value: 202220 },
+    ]);
 
     const { loading, error, data } = useQuery(QUERY_USER_SCHEDULES);
 

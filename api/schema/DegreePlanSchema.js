@@ -231,6 +231,7 @@ DegreePlanTC.addResolver({
 });
 
 /**
+
  * Add a term from the degree planner
  */
 DegreePlanTC.addResolver({
@@ -264,6 +265,7 @@ DegreePlanTC.addResolver({
 //         return await DegreePlan.find({});
 //     },
 // });
+
 /**
  * Add a term from the degree planner
  */

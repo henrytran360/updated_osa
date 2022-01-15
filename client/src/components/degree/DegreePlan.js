@@ -163,6 +163,7 @@ const UPDATE_CUSTOM_COURSES = gql`
     }
 `;
 
+
 const FIND_DEGREE_PLAN_BY_ID = gql`
     query findDegreePlan($_id: MongoID!) {
         findDegreePlanById(filter: { _id: $_id }) {
@@ -205,6 +206,7 @@ const DegreePlan = () => {
         error: error4,
         data: data4,
     } = useQuery(VERIFY_TOKEN);
+
     const { loading3, error3, data3 } = useQuery(
         GET_EVALUATION_CHART_BY_COURSE
     );

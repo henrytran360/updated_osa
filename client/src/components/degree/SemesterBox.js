@@ -154,6 +154,7 @@ const SemesterBox = (props) => {
                   distribution: courses.course
                       ? courses.course.distribution
                       : "N/A",
+
               }
             : {
                   subject: "N/A",
@@ -180,6 +181,7 @@ const SemesterBox = (props) => {
             setCreditSumState(creditSum + creditSumCustomCourse);
         }
     }, [defaultDraftSessions, extractedCustomCourseList]);
+
     return (
         <div className="bigBox">
             <div className="buttonNav">
