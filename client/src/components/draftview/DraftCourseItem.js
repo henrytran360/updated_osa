@@ -336,9 +336,18 @@ const DraftCourseItem = ({
     // Bottom line crashes evals?
     // console.log(dataEval.getEvaluationChartByCourse);
 
-    const toggleEvals = (dataEval) => {
-        setModal(!modalState);
+    const [showEvalModal, setShowEvalModal] = useState(false);
+
+    const openEvalModal = () => {
+        setShowEvalModal(prev => !prev);
     };
+
+    // const toggleEvals = (dataEval) => {
+    //     setModal(!modalState);
+    //     return (
+    //         <CourseEvalModal/>
+    //     );
+    // };
 
     return (
         <div className={`tableRow ${boolVisible ? "selected" : ""}`}>
@@ -390,10 +399,11 @@ const DraftCourseItem = ({
                     <IconButton
                         aria-label="evaluations"
                         // onClick={ () => setModal(true) }
-                        onClick={() => toggleEvals(dataEval)}
+                        onClick={openEvalModal}
                     >
-                        <QuestionAnswerIcon />
+                        <QuestionAnswerIcon />  
                     </IconButton>
+                    {/* <CourseEvalModal showModal={showEvalModal} setShowModal={setShowEvalModal} /> */}
 
                     {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
                         Course Eval Modal
