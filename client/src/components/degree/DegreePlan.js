@@ -133,6 +133,34 @@ const QUERY_ALL_USER_SCHEDULES = gql`
     }
 `;
 
+const QUERY_ALL_USER_DEGREE_PLANS = gql`
+    query QUERY_ALL_USER_SCHEDULES {
+        findAllDegreePlansForUsers {
+            _id
+            term
+            user {
+                _id
+                firstName
+            }
+            customCourse
+            notes
+            draftCourses {
+                _id
+                course {
+                    _id
+                    courseNum
+                    subject
+                    creditsMin
+                    longTitle
+                    fullCourseName
+                    distribution
+                    prereqs
+                }
+            }
+        }
+    }
+`;
+
 // mutation to add semester, call from onclick the buttons
 // const MUTATION_ADD_SEMESTER = gql`
 //     mutation degreePlanAddTerm($term: String!) {
@@ -145,20 +173,20 @@ const QUERY_ALL_USER_SCHEDULES = gql`
 //     }
 // `;
 
-const MUTATION_ADD_SEMESTER = gql`
-    mutation createNewSchedule($term: String!) {
-        createNewSchedule(record: { term: $term }) {
+const MUTATION_ADD_DEGREE_PLAN = gql`
+    mutation createNewDegreePlan($term: String!) {
+        createNewDegreePlan(record: { term: $term }) {
             term
             user {
-                _id
+                firstName
             }
         }
     }
 `;
 
-const DELETE_SEMESTER = gql`
-    mutation removeSchedule($_id: MongoID!) {
-        removeSchedule(filter: { _id: $_id }) {
+const DELETE_DEGREE_PLAN = gql`
+    mutation removeDegreePlan($_id: MongoID!) {
+        removeDegreePlan(filter: { _id: $_id }) {
             term
             _id
             customCourse
@@ -189,14 +217,46 @@ const FIND_SCHEDULE_BY_ID = gql`
     }
 `;
 
+const FIND_DEGREE_PLAN_BY_ID = gql`
+    query findDegreePlan($_id: MongoID!) {
+        findDegreePlanById(filter: { _id: $_id }) {
+            user {
+                _id
+                firstName
+            }
+            customCourse
+            draftCourses {
+                _id
+                course {
+                    _id
+                    courseNum
+                    subject
+                    creditsMin
+                    longTitle
+                    fullCourseName
+                    distribution
+                    prereqs
+                }
+            }
+            notes
+            term
+        }
+    }
+`;
+
 const DegreePlan = () => {
     // to keep the semester in a list to order them
     const [semesterList, setSemesterList] = useState([]);
     const [userId, setUserId] = useState("");
     // get the data from the query
+<<<<<<< HEAD
     const { loading, error, data } = useQuery(QUERY_ALL_USER_SCHEDULES);
 
     const { loadingEvaluationChart, errorEvaluationChart, dataEvaluationChart } = useQuery(
+=======
+    const { loading, error, data } = useQuery(QUERY_ALL_USER_DEGREE_PLANS);
+    const { loading3, error3, data3 } = useQuery(
+>>>>>>> develop
         GET_EVALUATION_CHART_BY_COURSE
     );
 
@@ -213,15 +273,15 @@ const DegreePlan = () => {
     // add a new semester from the mutation
 
     const [mutateSemester, { loadingMutation, errorMutation, dataMutation }] =
-        useMutation(MUTATION_ADD_SEMESTER, {
-            refetchQueries: () => [{ query: QUERY_ALL_USER_SCHEDULES }],
+        useMutation(MUTATION_ADD_DEGREE_PLAN, {
+            refetchQueries: () => [{ query: QUERY_ALL_USER_DEGREE_PLANS }],
         });
 
     const [
         deleteSemester,
         { loadingMutationDelete, errorMutationDelete, dataMutationDelete },
-    ] = useMutation(DELETE_SEMESTER, {
-        refetchQueries: () => [{ query: QUERY_ALL_USER_SCHEDULES }],
+    ] = useMutation(DELETE_DEGREE_PLAN, {
+        refetchQueries: () => [{ query: QUERY_ALL_USER_DEGREE_PLANS }],
     });
 
     const [updateCustomCourses, { loading2, error2, data2 }] = useMutation(
@@ -234,52 +294,53 @@ const DegreePlan = () => {
     // if (!data) return <p>Error</p>;
 
     useEffect(() => {
-        // get only the data we need
-        // const defaultSchedule = data.scheduleMany.map(schedule =>
-        //     (
-        //         {"term": schedule.term,
-        //         "draftSessions": schedule.draftSessions,
-        //         "notes": schedule.notes}
-        //     )
-        // );
-        const user_id = data?.scheduleMany[0].user._id;
-        const defaultSchedule = data?.scheduleMany.map((schedule) => ({
-            term: schedule.term,
-            draftSessions: schedule.draftSessions,
-            notes: schedule.notes,
-            _id: schedule._id,
-            customCourses: schedule.customCourse,
-        }));
+        const user_id = data?.findAllDegreePlansForUsers[0].user._id;
+        const defaultSchedule = data?.findAllDegreePlansForUsers.map(
+            (schedule) => ({
+                term: schedule.term,
+                draftCourses: schedule.draftCourses,
+                notes: schedule.notes,
+                _id: schedule._id,
+                customCourses: schedule.customCourse,
+            })
+        );
         setUserId(user_id);
         setSemesterList(defaultSchedule);
     }, [loading, data, error]);
-
     // adding new semester to semester list (state variable)
     const addNewSem = () => {
-        mutateSemester({
-            variables: {
-                term: term,
-                draftSessions: [],
-            },
-        });
+        if (
+            semesterList &&
+            !semesterList.map((ele) => ele.term).includes(term)
+        ) {
+            mutateSemester({
+                variables: {
+                    term: term,
+                    draftCourses: [],
+                },
+            });
+        } else {
+            alert("You have already created a schedule of this term");
+        }
         // const newSem = { term: term, draftSessions: [], notes: "", _id: "" };
         // setSemesterList([...semesterList, newSem]);
     };
 
     // delete a semester
     const deleteSem = (term, _id) => {
-        const updated_list = semesterList.filter(
-            (semester) => semester._id != _id
-        );
-        deleteSemester({
-            variables: {
-                _id: _id,
-            },
-        });
-        setSemesterList(updated_list);
+        if (semesterList.length > 1) {
+            const updated_list = semesterList.filter(
+                (semester) => semester._id != _id
+            );
+            deleteSemester({
+                variables: {
+                    _id: _id,
+                },
+            });
+            setSemesterList(updated_list);
+        }
     };
 
-    const history = useHistory();
     return (
         <div>
             <DegreePlanNav />
@@ -293,14 +354,14 @@ const DegreePlan = () => {
                             <SemesterBox
                                 _id={semester._id}
                                 term={semester.term}
-                                draftSessions={semester.draftSessions}
+                                draftCourses={semester.draftCourses}
                                 notes={semester.notes}
                                 //  id={semester.id}
                                 customCourses={semester.customCourses}
                                 deleteSem={() =>
                                     deleteSem(semester.term, semester._id)
                                 }
-                                query={FIND_SCHEDULE_BY_ID}
+                                query={FIND_DEGREE_PLAN_BY_ID}
                                 mutation={UPDATE_CUSTOM_COURSES}
                                 selector={false}
                             />

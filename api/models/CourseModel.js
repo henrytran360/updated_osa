@@ -23,6 +23,7 @@ var CourseSchema = new Schema({
     coreqs: [String],
     mutualExclusions: [String],
     distribution: String,
+    fullCourseName: String,
 });
 
 export const Course = mongoose.model("courses", CourseSchema);

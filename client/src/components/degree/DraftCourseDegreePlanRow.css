@@ -1,0 +1,72 @@
+.row-container-draft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.code-draft {
+    height: 100%;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.credits-draft {
+    height: 100%;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.title-draft {
+    height: 100%;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.prereqs-draft {
+    height: 100%;
+    width: 30%;
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    overflow-y: auto;
+}
+
+.removeCourse-draft {
+    height: 100%;
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.deleteButtonEachCourse:hover {
+    background-color: #149fa0;
+    color: #e1e3e3;
+}
+
+.deleteButtonEachCourse {
+    width: 35px;
+    height: 35px;
+    border: 1.5px solid #e1e3e3;
+    box-sizing: border-box;
+    background-color: white;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15.75px;
+    line-height: 19px;
+    color: #149fa0;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

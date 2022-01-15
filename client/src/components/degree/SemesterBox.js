@@ -7,21 +7,29 @@ import Modal from "react-modal";
 import CustomCourseRow from "./CustomCourseRow";
 import { Context as CustomCourseContext } from "../../contexts/customCourseContext";
 import { gql, useQuery, useMutation } from "@apollo/client";
+import EditSchedulePopUp from "./EditSchedulePopUp";
+import EditorJS from "@editorjs/editorjs";
+import NotesModal from "./NotesModal";
 
 // import CustomCourse from "./CustomCourse";
 
 let creditSum;
 
 const SemesterBox = (props) => {
-    // for the edit schedule button
-    const history = useHistory();
     // for the notes modal
     const [modalState, setModal] = useState(false);
+    const [modalState2, setModal2] = useState(false);
     const openModal = () => {
         setModal(true);
     };
+    const openModal2 = () => {
+        setModal2(true);
+    };
     const closeModal = () => {
         setModal(false);
+    };
+    const closeModal2 = () => {
+        setModal2(false);
     };
     // for the notes content
     const [inputVal, changeInputVal] = useState("");
@@ -60,7 +68,7 @@ const SemesterBox = (props) => {
         }
     };
     useEffect(() => {
-        const customCoursesFromDatabase = data?.findScheduleById.customCourse;
+        const customCoursesFromDatabase = data?.findDegreePlanById.customCourse;
         setDatabaseCustomCourse(customCoursesFromDatabase);
     }, [loading, data, error]);
 
@@ -134,83 +142,26 @@ const SemesterBox = (props) => {
 
     // console.log("check", props["draftSessions"]);
     // console.log('check1', props["draftSessions"][6].session.instructors)
-
-    const defaultDraftSessions = props["draftSessions"].map((sessions) => {
-        return sessions.session
+    const defaultDraftSessions = props["draftCourses"].map((courses) => {
+        return courses.course
             ? {
-                  subject: sessions.session.course
-                      ? sessions.session.course.subject
-                      : "N/A",
-                  courseNum: sessions.session.course
-                      ? sessions.session.course.courseNum
-                      : "N/A",
-                  longTitle: sessions.session.course
-                      ? sessions.session.course.longTitle
-                      : "N/A",
-                  credits: sessions.session.course
-                      ? sessions.session.course.creditsMin
-                      : 0,
-                  // "instructors": (sessions.session.instructors.length != 0) ? sessions.session.instructors : "N/A",
-                  instructorFN:
-                      sessions.session.instructors.length != 0
-                          ? sessions.session.instructors[0].firstName
-                          : "N/A",
-                  instructorLN:
-                      sessions.session.instructors.length != 0
-                          ? sessions.session.instructors[0].lastName
-                          : "",
-                  prereqs: sessions.session.course
-                      ? sessions.session.course.prereqs
-                      : "N/A",
-                  coreqs: sessions.session.course
-                      ? sessions.session.course.coreqs
-                      : "N/A",
-                  maxEnrollment: sessions.session.maxEnrollment,
+                  subject: courses.course ? courses.course.subject : "N/A",
+                  courseNum: courses.course ? courses.course.courseNum : "N/A",
+                  longTitle: courses.course ? courses.course.longTitle : "N/A",
+                  credits: courses.course ? courses.course.creditsMin : 0,
+                  prereqs: courses.course ? courses.course.prereqs : "N/A",
+                  coreqs: courses.course ? courses.course.coreqs : "N/A",
               }
             : {
                   subject: "N/A",
                   courseNum: "N/A",
                   longTitle: "N/A",
                   credits: 0,
-                  instructorFN: "N/A",
-                  instructorLN: "N/A",
                   prereqs: "N/A",
                   coreqs: "N/A",
-                  maxEnrollment: "N/A",
               };
     });
 
-    // useEffect(() => {
-    //     console.log("enter the use effect")
-    //     defaultDraftSessions && defaultDraftSessions.map((session) => {
-    //     const instructorsPerSession = []
-    //     console.log('entered')
-    //     if (session['instructors'].length != 0) {
-    //         console.log("hi")
-    //         session['instructors'] && session['instructors'].map((instructor) => (
-    //             instructorsPerSession.push({
-    //                 'instructorName': instructor.firstName + ' ' + instructor.lastName
-    //             })
-    //         ))
-    //     } else {
-    //         instructorsPerSession.push({'instructorName': "N/A"})
-    //     }
-    //     setInstructorList([...instructorList, instructorsPerSession])
-    // })
-    // })
-
-    // if (defaultDraftSessions[0]["instructors"].length != 0){
-    //     instructorList = defaultDraftSessions["instructors"].map((instructor) => (
-    //         {
-    //             'instructorName' : instructor.firstName + ' ' + instructor.lastName,
-    //         }
-    //     ))
-    // } else {
-    //     instructorDict = {
-    //         'instructorName' : "N/A",
-    //     }
-    //     instructorList.push(instructorDict)
-    // }
     useEffect(() => {
         if (defaultDraftSessions && extractedCustomCourseList) {
             let creditSum = defaultDraftSessions.reduce(function (sum, arr) {
@@ -226,11 +177,7 @@ const SemesterBox = (props) => {
             setCreditSumState(creditSum + creditSumCustomCourse);
         }
     }, [defaultDraftSessions, extractedCustomCourseList]);
-    // creditSum = defaultDraftSessions.reduce(function (sum, arr) {
-    //     return sum + arr.credits;
-    // }, 0);
 
-    // console.log('instructor list', instructorList)
     return (
         <div className="bigBox">
             <div className="buttonNav">
@@ -244,10 +191,19 @@ const SemesterBox = (props) => {
                 <button
                     className="button"
                     // style={{ width: "170px" }}
-                    onClick={() => history.push(`/schedule`)}
+                    // onClick={() => history.push(`/schedule`)}
+                    onClick={openModal2}
                 >
                     Edit Schedule
                 </button>
+
+                <Modal
+                    isOpen={modalState2}
+                    className="modalDegreePlan"
+                    onRequestClose={closeModal2}
+                >
+                    <EditSchedulePopUp term={props.term} _id={props._id} />
+                </Modal>
 
                 <button
                     className="button"
@@ -266,18 +222,11 @@ const SemesterBox = (props) => {
                 </button>
                 <Modal
                     isOpen={modalState}
-                    className="modal"
+                    className="modalNotes"
+                    ariaHideApp={false}
                     onRequestClose={closeModal}
                 >
-                    <div className="notesContent">
-                        <textarea
-                            maxlength="689"
-                            placeholder="Write your notes here..."
-                            className="textbox"
-                            value={inputVal}
-                            onChange={(e) => changeInputVal(e.target.value)}
-                        ></textarea>
-                    </div>
+                    <NotesModal _id={props._id} term={props.term} />
                 </Modal>
                 <button
                     className="customButton"

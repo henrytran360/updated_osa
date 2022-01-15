@@ -4,3 +4,4 @@ node_modules/
 dist/
 .gcloudignore
 package-lock.json
+.env.local

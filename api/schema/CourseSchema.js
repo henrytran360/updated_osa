@@ -65,6 +65,19 @@ CourseTC.addResolver({
     },
 });
 
+CourseTC.addResolver({
+    name: "findAllForDegreePlan",
+    type: [CourseTC],
+    args: { ascending: "Boolean!" },
+    resolve: async ({ source, args, context, info }) => {
+        // -(field) puts into descending order
+        let sortParam = args.ascending ? "courseNum" : "-courseNum";
+        return await Course.find({})
+            .sort(sortParam)
+            .sort({ longTitle: "ascending" });
+    },
+});
+
 // CourseTC.addResolver({
 //     name: "findManyInTime",
 //     type: [CourseTC],
@@ -140,10 +153,12 @@ const CourseQuery = {
         })
         .addFilterArg({
             name: "courseNumRegExp", // From here: https://github.com/graphql-compose/graphql-compose-examples/blob/master/examples/northwind/models/product.js#L38,L49
-            type: "Float",
-            description: "Search for a course by its distribution",
+            type: "String",
+            description: "Get all the high level courses > 300 from a subject",
             query: (query, value) => {
+                query.courseNum = {};
                 query.courseNum.$gte = 300;
+                query.subject = value;
             },
         }),
     courseManyInDistribution: CourseTC.getResolver("findManyInDistribution"),
@@ -156,6 +171,7 @@ const CourseQuery = {
         },
     },
     prevTermCourses: CourseTC.getResolver("findPreviousTermCourses"),
+    findAllForDegreePlan: CourseTC.getResolver("findAllForDegreePlan"),
 };
 
 const CourseMutation = {
