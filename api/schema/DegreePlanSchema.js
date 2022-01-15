@@ -187,6 +187,50 @@ ScheduleTC.addResolver({
 });
 
 /**
+ * When a user requests their schedule for a term, this will find it or create it if it does not
+ * already exist
+ */
+// DegreePlanTC.addResolver({
+//     name: "createNewDegreePlan",
+//     type: DegreePlanTC,
+//     args: DegreePlanTC.getResolver("findOne").getArgs(),
+//     resolve: async ({ source, args, context, info }) => {
+//         let { user } = args.filter;
+//         const term = args.record.term;
+//         // Find schedule for the term for the user
+//         let degreePlan = await DegreePlan.findOne({
+//             term: term,
+//             user: user,
+//         }).exec();
+
+//         // Return it if it exists
+//         if (degreePlan) return degreePlan;
+
+//         // Create if it doesn't exist
+//         return await DegreePlan.create({ term: term, user: user });
+//     },
+// });
+
+/**
+ * Used to find all schedules for a particular user
+ */
+DegreePlanTC.addResolver({
+    name: "findAllDegreePlansForUsers",
+    type: [DegreePlanTC],
+    args: { _id: "ID", filter: DegreePlanTC.getInputTypeComposer() },
+    resolve: async ({ source, args, context, info }) => {
+        let filter = { user: args._id };
+        if (args.filter) {
+            // For all fields in the filter, add them to our filter
+            for (let key of Object.keys(args.filter)) {
+                filter[key] = args.filter[key];
+            }
+        }
+        return DegreePlan.find(filter);
+    },
+});
+
+/**
  * Add a term from the degree planner
  */
 DegreePlanTC.addResolver({
@@ -213,13 +257,13 @@ DegreePlanTC.addResolver({
     },
 });
 
-DegreePlanTC.addResolver({
-    name: "findAllDegreePlansForUsers",
-    type: [DegreePlanTC],
-    resolve: async ({ source, args, context, info }) => {
-        return await DegreePlan.find({});
-    },
-});
+// DegreePlanTC.addResolver({
+//     name: "findAllDegreePlansForUsers",
+//     type: [DegreePlanTC],
+//     resolve: async ({ source, args, context, info }) => {
+//         return await DegreePlan.find({});
+//     },
+// });
 /**
  * Add a term from the degree planner
  */
