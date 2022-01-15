@@ -3,8 +3,8 @@ module.exports = {
     webpack: {
         define: {
             "process.env.REACT_APP_SERVICE_URL": JSON.stringify(
-                "http://localhost:3001/auth"
-                // "https://develop-dot-ultrascheduler.uc.r.appspot.com/auth"
+                // "http://localhost:3001/auth"
+                "https://develop-dot-ultrascheduler.uc.r.appspot.com/auth"
             ),
             "process.env.REACT_APP_BACKEND_URL": JSON.stringify(
                 "https://api-develop-dot-ultrascheduler.uc.r.appspot.com/api"
