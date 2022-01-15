@@ -32,6 +32,7 @@ const QUERY_USER_SCHEDULES = gql`
         }
     }
 `;
+
 // const termOptions = [
 //     { label: "Spring 2021", value: 202120 },
 //     { label: "Summer 2021", value: 202130 },
