@@ -23,7 +23,8 @@ const authLink = setContext(async (_, { headers }) => {
 
 // HTTP Backend Link
 const httpLink = new HttpLink({
-    uri: "http://localhost:3000/graphql",
+    uri: process.env.REACT_APP_GRAPHQL_URL
+    // uri: "http://localhost:3000/graphql",
     // uri: "/graphql",
 });
 
