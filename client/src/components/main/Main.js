@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import Header from "../header/Header";
 import CourseCalendar from "../calendar/Calendar";
 import ClassSelector from "../draftview/ClassSelector";
+import SemesterSelect from "../draftview/SemesterSelect";
 import CourseSearch from "../search/CourseSearch";
 import { useToasts } from "react-toast-notifications";
 import { useQuery, gql, useMutation } from "@apollo/client";
@@ -85,7 +86,7 @@ const SEEN_RECENT_UPDATE = gql`
 `;
 
 // Toast for notifications
-const Main = ({}) => {
+const Main = ({ }) => {
     // Check for recent update from cache
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     let { term, recentUpdate } = storeData;
@@ -178,7 +179,7 @@ const Main = ({}) => {
 
     return (
         <div className="App" style={{ display: "inline", color: "#272D2D" }}>
-            <Header />
+            <SemesterSelect></SemesterSelect>
             <div style={{ padding: "2%" }}>
                 <ClassSelector
                     scheduleID={schedule._id}

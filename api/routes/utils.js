@@ -46,14 +46,15 @@ var jsonToSchema = async (jsonObj) => {
         // Create update object
         let courseSingleUpdate = {
             // Honestly add the name here too
-            creditsMin: courseDetails["credits_low"],
-            creditsMax: courseDetails["credits_high"],
-            restrictions: courseDetails["restrictions"],
-            prereqs: courseDetails["prereqs"],
-            coreqs: courseDetails["coreqs"],
-            mutualExclusions: courseDetails["mutual_exclusives"],
-            distribution: courseDetails["distribution"],
-        };
+            "description": courseDetails["crs_text"],
+            "creditsMin": courseDetails["credits_low"],
+            "creditsMax": courseDetails["credits_high"],
+            "restrictions": courseDetails["restrictions"],
+            "prereqs": courseDetails["prereqs"],
+            "coreqs": courseDetails["coreqs"],
+            "mutualExclusions": courseDetails["mutual_exclusives"],
+            "distribution": courseDetails["distribution"]
+        }
 
         // Update course object
         let courseUpdateOptions = {

@@ -1,6 +1,7 @@
 import "./index.css";
 
 import React, { Component } from "react";
+import Header from "./components/header/Header";
 import { render } from "react-dom";
 import { Router } from "react-router";
 import Routes from "./components/Routes";
@@ -27,6 +28,7 @@ render(
             <ApolloProvider client={client}>
                 <Router history={history}>
                     <ToastProvider>
+                        <Header />
                         <Routes />
                     </ToastProvider>
                 </Router>

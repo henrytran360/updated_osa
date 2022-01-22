@@ -106,7 +106,6 @@ function About() {
 
     return (
         <div className="aboutContainer">
-            <Header />
             <h2>about us</h2>
             <p>an ambitious team of students from <b>riceapps</b> that set out to build a course scheduler for the students, by the students.</p>
             <div className="aboutProfiles">

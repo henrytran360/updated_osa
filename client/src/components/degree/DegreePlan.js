@@ -290,7 +290,7 @@ const DegreePlan = () => {
 
     return (
         <div>
-            <DegreePlanNav />
+            {/* <DegreePlanNav /> */}
             <div className="layout">
                 {/* {defaultSchedule.map((semester) => {
                 return (<SemesterBox term={semester.term} draftSessions={semester.draftSessions} notes={semester.notes} />)

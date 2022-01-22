@@ -1,5 +1,5 @@
 .headerContainer {
-    display: grid;
+    display: inline-block;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
 }
@@ -22,21 +22,17 @@
     text-align: center;
 }
 
-.buttonsContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
+.leftAlign {
+    justify-content: left;
 }
 
-.buttonsContainer > button {
-    width: 100px;
-    margin: 10px;
+.rightAlign {
+    justify-content: right;
 }
 
-.buttonsContainer > .select {
-    width: 150px;
-    margin: 10px;
+.leftAlign > button {
+    width: auto;
+    margin-left: 10px;
+    /* margin: 0% 2% 0% 2%; */
 }
+
