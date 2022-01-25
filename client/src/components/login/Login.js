@@ -1,15 +1,11 @@
 import React from "react";
-
 // Load CSS
 import "./Login.global.css";
-import LoginButton from './LoginButton'
-
+import LoginButton from "./LoginButton";
 // componentDidMount(){
 //     this.loginButton.current.focus();
 // }
-
 const Login = () => {
-
     return (
         <div className="loginContainer">
             <div className="loginText">
@@ -20,5 +16,4 @@ const Login = () => {
         </div>
     );
 };
-
 export default Login;
