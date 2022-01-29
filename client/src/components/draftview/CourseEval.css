@@ -3,10 +3,22 @@
     padding: 1rem;
 }
 
-.modal-tabs {
+.eval-tabs {
     border: none;
     font-family: "Acari Sans";
+    font-size: medium;
+    color: #c3c6c8;
+    background: none;
+    padding: 5px 7px;
+}
+
+.eval-tabs-clicked {
+    border: none;
+    border-bottom: 3px solid #1dc2c4;
+    border-radius: 2px;
+    font-family: "Acari Sans";
+    font-size: medium;
     color: #1dc2c4;
     background: none;
-    padding: 2px;
+    padding: 5px 7px;
 }
