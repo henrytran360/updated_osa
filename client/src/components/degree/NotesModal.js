@@ -13,6 +13,10 @@ import "draft-js/dist/Draft.css";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import "./NotesModal.css";
 
+
+
+
+
 const BLOCK_TYPES = [
     { label: "H1", style: "header-one" },
     { label: "H2", style: "header-two" },
@@ -145,6 +149,7 @@ const UPDATE_NOTES = gql`
 `;
 
 export default function NotesModal(props) {
+
     const { loading, error, data } = useQuery(FIND_DEGREE_PLAN_BY_ID, {
         variables: { _id: props._id },
     });

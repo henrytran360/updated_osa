@@ -253,8 +253,6 @@ const DegreePlan = () => {
     const { loading3, error3, data3 } = useQuery(
         GET_EVALUATION_CHART_BY_COURSE
     );
-
-    console.log(dataEvaluationChart);
     
     const { loadingEvaluation, errorEvaluation, dataEvaluation } = useQuery(
         GET_EVALUATION_BY_COURSE
