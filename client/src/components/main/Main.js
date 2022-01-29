@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import Header from "../header/Header";
 import CourseCalendar from "../calendar/Calendar";
 import ClassSelector from "../draftview/ClassSelector";
@@ -12,9 +12,11 @@ import DateRangeIcon from "@material-ui/icons/DateRange";
 import ListIcon from "@material-ui/icons/List";
 
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { Context as BottomModeContexts } from "../../contexts/bottomModeContext";
 
 import "./Main.global.css";
 import Error from "../error/Error";
+import NewClassSelector from "../draftview/NewClassSelector";
 
 export const BottomModeContext = createContext("Calendar");
 
@@ -86,7 +88,7 @@ const SEEN_RECENT_UPDATE = gql`
 `;
 
 // Toast for notifications
-const Main = ({ }) => {
+const Main = ({}) => {
     // Check for recent update from cache
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     let { term, recentUpdate } = storeData;
@@ -126,14 +128,58 @@ const Main = ({ }) => {
         setBottomMode(e.currentTarget.value);
     };
 
+    const {
+        state: { bottomMode2 },
+        changeBottomMode,
+    } = useContext(BottomModeContexts);
+    console.log(bottomMode2);
+
     const renderContent = () => {
-        if (bottomMode === "Details") {
+        if (bottomMode2 === "Search") {
             return (
                 <div className="Container">
-                    <div style={{ float: "right", width: "100%" }}>
+                    <div style={{ width: "60%" }}>
+                        <CourseCalendar
+                            draftSessions={schedule.draftSessions}
+                        />
+                    </div>
+                    <div style={{ width: "40%" }}>
+                        <NewClassSelector
+                            scheduleID={schedule._id}
+                            draftSessions={schedule.draftSessions}
+                        />
+                    </div>
+                </div>
+            );
+        } else if (bottomMode2 === "Calendar") {
+            return (
+                <div className="Container">
+                    <div style={{ width: "50%", height: "100%" }}>
                         <CourseSearch
                             scheduleID={schedule._id}
                             clickValue={bottomMode}
+                        />
+                    </div>
+                    <div style={{ width: "50%" }}>
+                        <NewClassSelector
+                            scheduleID={schedule._id}
+                            draftSessions={schedule.draftSessions}
+                        />
+                    </div>
+                </div>
+            );
+        } else if (bottomMode2 === "Details") {
+            return (
+                <div className="Container">
+                    <div style={{ width: "40%", height: "100%" }}>
+                        <CourseSearch
+                            scheduleID={schedule._id}
+                            clickValue={bottomMode}
+                        />
+                    </div>
+                    <div style={{ width: "60%" }}>
+                        <CourseCalendar
+                            draftSessions={schedule.draftSessions}
                         />
                     </div>
                 </div>
@@ -141,14 +187,20 @@ const Main = ({ }) => {
         } else {
             return (
                 <div className="Container">
-                    <div style={{ width: "30%" }}>
+                    <div style={{ width: "25%", height: "100%" }}>
                         <CourseSearch
                             scheduleID={schedule._id}
                             clickValue={bottomMode}
                         />
                     </div>
-                    <div style={{ width: "70%" }}>
+                    <div style={{ width: "45%" }}>
                         <CourseCalendar
+                            draftSessions={schedule.draftSessions}
+                        />
+                    </div>
+                    <div style={{ width: "30%" }}>
+                        <NewClassSelector
+                            scheduleID={schedule._id}
                             draftSessions={schedule.draftSessions}
                         />
                     </div>
@@ -178,16 +230,23 @@ const Main = ({ }) => {
     };
 
     return (
-        <div className="App" style={{ display: "inline", color: "#272D2D" }}>
-            <SemesterSelect></SemesterSelect>
-            <div style={{ padding: "2%" }}>
+        <div
+            className="App"
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                color: "#272D2D",
+                height: "93%",
+            }}
+        >
+            {/* <div style={{ padding: "2%" }}>
                 <ClassSelector
                     scheduleID={schedule._id}
                     draftSessions={schedule.draftSessions}
                 />
-            </div>
+            </div> */}
 
-            <ButtonGroup className="buttonGroup">{renderIcons()}</ButtonGroup>
+            {/* <ButtonGroup className="buttonGroup">{renderIcons()}</ButtonGroup> */}
 
             <BottomModeContext.Provider value={bottomMode}>
                 {renderContent()}

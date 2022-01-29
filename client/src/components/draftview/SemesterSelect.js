@@ -14,9 +14,36 @@ const QUERY_USER_SCHEDULES = gql`
         }
     }
 `;
+
+const customStyles = {
+    option: (provided, state) => ({
+        ...provided,
+        // borderBottom: "1px dotted pink",
+        color: "#1DC2C4",
+    }),
+    control: (base, state) => ({
+        ...base,
+        color: "#1DC2C4",
+        borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+        borderColor: state.isFocused ? "#BEECED" : "#BEECED",
+        boxShadow: state.isFocused ? null : null,
+        "&:hover": {
+            borderColor: state.isFocused ? "#1DC2C4" : "#BEECED",
+        },
+    }),
+    singleValue: (provided, state) => {
+        const opacity = state.isDisabled ? 0.5 : 1;
+        const transition = "opacity 300ms";
+
+        return { ...provided, opacity, transition };
+    },
+};
+
 const SemesterSelect = () => {
     const client = useApolloClient();
-    const [updateSchedules, setUpdatedSchedules] = useState([]);
+    const [updateSchedules, setUpdatedSchedules] = useState([
+        { label: "Spring 2022", value: 202220 },
+    ]);
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     // Get the term
     let { term } = storeData;
@@ -50,7 +77,8 @@ const SemesterSelect = () => {
             } else continue;
             tempSchedules.push({ label: label, value: parseInt(value) });
         }
-        setUpdatedSchedules(tempSchedules);
+
+        setUpdatedSchedules(tempSchedules.reverse());
     }, [loading, data, error]);
     console.log("updatedschdules", updateSchedules);
     const formatTerm = (schedule) =>
@@ -64,9 +92,19 @@ const SemesterSelect = () => {
         <div className="buttonsContainer">
             <div className="select">
                 <Select
+                    className="react-select-container"
                     value={formatTerm(term)}
                     onChange={handleTermChange}
                     options={updateSchedules}
+                    theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                            text: "red",
+                            primary25: "#BBECED",
+                            primary: "#BBECED",
+                        },
+                    })}
+                    styles={customStyles}
                 />
             </div>
         </div>

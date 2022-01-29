@@ -183,7 +183,7 @@ const ClassSelector = ({ draftSessions, scheduleID }) => {
                 )}
                 <div className="tableFooter">
                     Visible Credit Hours: {visibleCreditTotal}
-                    <hr />
+                    <br />
                     Total Credit Hours: {absoluteCreditTotal}
                 </div>
             </div>
