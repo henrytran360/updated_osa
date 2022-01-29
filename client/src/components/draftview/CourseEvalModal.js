@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import SemesterBox from "../degree/SemesterBox";
 import "./CourseEval.css"
@@ -22,9 +22,8 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 //     }
 // `;
 
-
-export const GET_EVALUATION_CHART_BY_COURSE = gql`
-query getEvaluationChartByCourse($course: String!){
+const GET_EVALUATION_CHART_BY_COURSE = gql
+`query getEvaluationChartByCourse($course: String!){
     getEvaluationChartByCourse(course: $course){
     	courseName
     	expected_pf{
@@ -49,38 +48,49 @@ query getEvaluationChartByCourse($course: String!){
     	enrolled_amount
     
   }
-}
-`;
+}`
 
 const CourseEvalModal = (props) => {
-    // const { loading3, error3, data3 } = useQuery(
-    //     GET_EVALUATION_CHART_BY_COURSE
-    // );
 
+  const thisCourse = props.courseSubject + " " + props.courseNum;
 
-    const modalRef = useRef();
-    const closeModal = e => {
-        if (modalRef.current === e.target) {
-          props.setShowModal(false);
-        }
-      };
+  const { loading:evalLoading, error:errorLoading, data:evalData } = useQuery(props.query, {
+    variables: { course: "COMP 140" },
+});
+
+  console.log(evalData);
+
+  useEffect(() => {
+      if (evalData) {
+          setEvalDataState(evalData.getEvaluationChartByCourse);
+      }
+  }, [evalLoading, errorLoading, evalData]);
+
+  const [evalDataState, setEvalDataState] = useState([]);
+  //console.log(evalDataState);
+
+  const [responseState, setResponseState] = useState(true);
+
+  const openComments = () => {
+    setResponseState(false);
+  };
+  const openResponse = () => {
+    setResponseState(true);
+  };
     
     return ( 
-        <>
-        {props.showModal ? (
-          <Background onClick={closeModal} ref={modalRef}>
-              <ModalWrapper showModal={props.showModal}>
-                <ModalContent>
-                  <h1>modal</h1>
-                </ModalContent>
-                <button
-                  aria-label='Close modal'
-                  onClick={() => props.setShowModal(prev => !prev)}
-                >close</button>
-              </ModalWrapper>
-          </Background>
-        ) : null}
-      </>
+        <div className="modal-container">
+          <h1>{props.courseSubject}&nbsp;{props.courseNum}&nbsp;{props.courseTitle}</h1>
+          <h3>Term:</h3>
+          <h3>Instructor:</h3>
+
+          <button className='modal-tabs' onClick={openResponse}>Numeric Responses</button>
+          <button onClick={openComments}>Comments</button>
+          {responseState ? <p>response</p> : <p>comments</p> }
+
+
+        </div>
+
     );
 };
 export default CourseEvalModal;

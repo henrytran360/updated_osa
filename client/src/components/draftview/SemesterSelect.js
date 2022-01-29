@@ -24,6 +24,7 @@ const customStyles = {
     control: (base, state) => ({
         ...base,
         color: "#1DC2C4",
+        zIndex: 0,
         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
         borderColor: state.isFocused ? "#BEECED" : "#BEECED",
         boxShadow: state.isFocused ? null : null,

@@ -1,0 +1,12 @@
+.modal-container {
+    z-index: 1;
+    padding: 1rem;
+}
+
+.modal-tabs {
+    border: none;
+    font-family: "Acari Sans";
+    color: #1dc2c4;
+    background: none;
+    padding: 2px;
+}
