@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
 import "./NewDraftCourseItem.css";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,6 +9,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import CourseEvalModal from "./CourseEvalModal";
 
 const colorCombos = [
     ["#F2F9FF", "#00A2F2"], // blue
@@ -47,6 +49,34 @@ const REMOVE_DRAFT_SESSION = gql`
     }
 `;
 
+const GET_EVALUATION_CHART_BY_COURSE = gql
+`query getEvaluationChartByCourse($course: String!){
+    getEvaluationChartByCourse(course: $course){
+    	courseName
+    	expected_pf{
+        score_1
+        score_2
+        score_3
+        score_4
+        score_5
+      }
+    	expected_grade{
+        score_1
+        score_2
+        score_3
+        score_4
+        score_5
+      }
+    	comments{
+        text
+        time
+      }
+    	term
+    	enrolled_amount
+    
+  }
+}`
+
 /**
  * Toggles the visibility setting for this draft session
  */
@@ -66,7 +96,26 @@ const TOGGLE_DRAFT_SESSION_VISIBILITY = gql`
     }
 `;
 
+
 const NewDraftCourseItem = (props) => {
+
+
+    const { loading:evalLoading, error:errorLoading, data:evalData } = useQuery(GET_EVALUATION_CHART_BY_COURSE, {
+        variables: { course: "COMP 140" },
+    });
+
+    console.log(evalData.getEvaluationChartByCourse);
+
+    useEffect(() => {
+        if (evalData) {
+            setEvalDataState(evalData);
+        }
+    }, [evalLoading, errorLoading, evalData]);
+
+    const [evalDataState, setEvalDataState] = useState([]);
+
+
+
     const [firstInstructor, setFirstInstructor] = useState({});
     let moduloValue = props.index % colorCombos.length;
     var backgroundColor = colorCombos[moduloValue][0];
@@ -93,6 +142,16 @@ const NewDraftCourseItem = (props) => {
     });
 
     const boolVisible = props.visible ? true : false;
+
+    const [modalState, setModal] = useState(false);
+    const openModal = () => {
+        setModal(true);
+    };
+    const closeModal = () => {
+        setModal(false);
+    };
+
+    console.log(props.session.course.subject);
 
     return (
         <div
@@ -130,12 +189,30 @@ const NewDraftCourseItem = (props) => {
                         alignItems: "center",
                     }}
                 >
+<<<<<<< HEAD
                     <Tooltip className="iconButton" title="Evaluation">
+=======
+                    <Modal
+                        isOpen={modalState}
+                        className="evaluation-modal"
+                        ariaHideApp={false}
+                        onRequestClose={closeModal}
+                    >
+                        <CourseEvalModal    
+                            query={GET_EVALUATION_CHART_BY_COURSE}
+                            courseSubject = {props.session.course.subject}
+                            courseNum = {props.session.course.courseNum}
+                            courseTitle = {props.session.course.longTitle}
+                        />
+                    </Modal>
+                    <Tooltip className="iconButton" title="Evaluations">
+>>>>>>> 266963d (created eval modal popup)
                         <IconButton
                             disableFocusRipple
                             disableRipple
                             size="small"
                             style={{ backgroundColor: "transparent" }}
+                            onClick={openModal}
                         >
                             <ListAltIcon />
                         </IconButton>

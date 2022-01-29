@@ -26,3 +26,18 @@
     align-items: center;
     margin-left: 10px;
 }
+
+.evaluation-modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    box-sizing: border-box;
+    border-color: transparent;
+    border-radius: 5px;
+    overflow-y: auto;
+    border: 2px solid #149fa0;
+    background-color: white;
+}
