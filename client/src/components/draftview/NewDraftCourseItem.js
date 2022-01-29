@@ -7,6 +7,7 @@ import { classTimeString } from "../../utils/CourseTimeTransforms";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 
 const colorCombos = [
     ["#F2F9FF", "#00A2F2"], // blue
@@ -102,7 +103,7 @@ const NewDraftCourseItem = (props) => {
             <div className="draft-course-top">
                 <div
                     style={{
-                        width: "75%",
+                        width: "72%",
                         height: "100%",
                         display: "flex",
                         justifyContent: "flex-start",
@@ -122,7 +123,7 @@ const NewDraftCourseItem = (props) => {
                 </div>
                 <div
                     style={{
-                        width: "25%",
+                        width: "28%",
                         height: "100%",
                         display: "flex",
                         justifyContent: "center",
@@ -131,9 +132,20 @@ const NewDraftCourseItem = (props) => {
                 >
                     <Tooltip className="iconButton" title="Hide">
                         <IconButton
+                            disableFocusRipple
+                            disableRipple
+                            size="small"
+                            style={{ backgroundColor: "transparent" }}
+                        >
+                            <ListAltIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip className="iconButton" title="Hide">
+                        <IconButton
                             className="visibilityOn"
                             disableFocusRipple
                             disableRipple
+                            size="small"
                             style={{ backgroundColor: "transparent" }}
                             onClick={() => toggleVisibility()}
                         >
@@ -148,6 +160,8 @@ const NewDraftCourseItem = (props) => {
                         <IconButton
                             aria-label="delete"
                             size="small"
+                            disableFocusRipple
+                            disableRipple
                             onClick={() => removeDraftSession()}
                         >
                             <RemoveCircleOutlineIcon color="warning" />
