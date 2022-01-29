@@ -1,8 +1,8 @@
 :root {
-    --main-text-color: #1DC2C45A;
-    --bold-text-color: #12B0B2;
-    --secondary-text-color: #898E91;
-    --main-bg-color: #F2FAFC;
+    --main-text-color: #1dc2c45a;
+    --bold-text-color: #12b0b2;
+    --secondary-text-color: #898e91;
+    --main-bg-color: #f2fafc;
     --secondary-bg-color: #485888;
 }
 
@@ -22,7 +22,7 @@
     color: var(--secondary-text-color);
     opacity: 1;
 
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     z-index: 1;
 }
 
@@ -58,7 +58,8 @@
     color: var(--bold-text-color);
 }
 
-.selected p, .selected a {
+.selected p,
+.selected a {
     font-weight: 600;
     color: var(--bold-text-color);
 }
@@ -73,13 +74,13 @@
 
     width: 90%;
 
-    text-align: center;
+    /* text-align: center; */
     font: Medium 23px/15px;
     letter-spacing: 0px;
     color: var(--bold-text-color);
     opacity: 1;
 
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     z-index: 1;
 }
 
@@ -92,7 +93,7 @@ a {
 }
 
 .iconButton {
-    color: #8E9EB2 !important;
+    color: #8e9eb2 !important;
     background-color: transparent;
 }
 
@@ -102,6 +103,24 @@ a {
 }
 
 .visibilityOff {
-    color: #8E9EB2;
+    color: #8e9eb2;
     opacity: 0.5;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    padding: 0% 2% 0% 2%;
+    /* width: 100%; */
+    justify-content: space-between;
+}
+
+.buttonsContainer > .select {
+    width: 150px;
+    margin: 10px;
+    z-index: 2;
 }

@@ -151,6 +151,10 @@ const SemesterBox = (props) => {
                   credits: courses.course ? courses.course.creditsMin : 0,
                   prereqs: courses.course ? courses.course.prereqs : "N/A",
                   coreqs: courses.course ? courses.course.coreqs : "N/A",
+                  distribution: courses.course
+                      ? courses.course.distribution
+                      : "N/A",
+
               }
             : {
                   subject: "N/A",
@@ -251,6 +255,7 @@ const SemesterBox = (props) => {
                                 courseNum={session["courseNum"]}
                                 longTitle={session["longTitle"]}
                                 credits={session["credits"]}
+                                distribution={session["distribution"]}
                                 instructorFN={session["instructorFN"]}
                                 instructorLN={session["instructorLN"]}
                                 prereqs={session["prereqs"]}

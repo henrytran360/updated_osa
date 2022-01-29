@@ -53,7 +53,7 @@ const courseToTooltipLabel = (session) => {
 
 const convertSectionToEvents = (section, session) => {
     let events = [];
-    if (!section || (!section.startTime || !section.endTime)) {
+    if (!section || !section.startTime || !section.endTime) {
         return events;
     }
 
@@ -128,9 +128,14 @@ const draftSessionsToEvents = (draftSessions) => {
 
     for (let draftSession of draftSessions) {
         // Check that session is visible. If not, don't show on calendar
+        let courseNumId = draftSession.session.crn;
         if (draftSession.visible) {
             // Also add hexId to object for consistent color
-            let session = {...draftSession.session, hexId: hexId };
+            let session = {
+                ...draftSession.session,
+                hexId: hexId,
+                courseNumId: courseNumId,
+            };
             // First convert classes
             events = events.concat(
                 convertSectionToEvents(session.class, session)
@@ -150,7 +155,7 @@ const slotStyleGetter = (date) => {
     var style = {
         font: "Medium 23px/26px",
         letterSpacing: "0px",
-        color: "#8E9EB2",
+        color: "#338182",
         opacity: 1,
     };
 
@@ -164,10 +169,11 @@ const dayStyleGetter = (date) => {
         textAlign: "center",
         font: "Medium 23px/26px",
         letterSpacing: "0px",
-        color: "#8E9EB2",
+        color: "#1DC2C4",
         opacity: 1,
         border: "1px dashed #E4E8EE",
         paddingTop: "16.5px",
+        textTransform: "uppercase",
     };
 
     return {
@@ -222,8 +228,9 @@ const CourseCalendar = ({ draftSessions }) => {
             <Calendar
                 components={{ event: CustomClassEvent }}
                 events={draftSessionsToEvents(draftSessions)}
-                step={15}
+                step={20}
                 timeslots={2}
+                length={30}
                 localizer={localizer}
                 defaultView={Views.WEEK}
                 formats={{ dayFormat: "ddd" }} // Calendar columns show "MON", "TUES", ...

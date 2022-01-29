@@ -1,7 +1,9 @@
 .headerContainer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
     width: 100%;
+    height: 7%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .logoContainer {
@@ -18,25 +20,70 @@
 }
 
 .titleContainer {
-    align-self: center;
-    text-align: center;
-}
-
-.buttonsContainer {
+    width: 10%;
+    height: 100%;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    z-index: 2;
 }
 
-.buttonsContainer > button {
-    width: 100px;
-    margin: 10px;
+.leftAlign {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.buttonsContainer > .select {
-    width: 150px;
-    margin: 10px;
+.buttonSelect {
+    width: 8%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid #bbeced;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.buttonGroup {
+    width: 100%;
+    height: 100%;
+    /* display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; */
+    border: 1px solid #bbeced;
+}
+
+.buttonGroup > .iconButton2 {
+    border: 1px solid;
+    height: 15px;
+    border-radius: 5px 0px 0px 5px;
+    color: "red";
+}
+
+.iconButton2:first-child {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.iconButton2:last-child {
+    border-radius: 0px 5px 5px 0px;
+}
+
+.rightAlign {
+    width: 50%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.leftAlign > button {
+    width: auto;
+    margin-left: 10px;
+    /* margin: 0% 2% 0% 2%; */
+}
+.MuiTabs-scrollButtons.Mui-disabled {
+    opacity: 0.3;
 }

@@ -3,12 +3,15 @@ import Selection from "./Selection";
 import { initGA } from "../../utils/analytics";
 import { useQuery, gql } from "@apollo/client";
 import Button from "@material-ui/core/Button";
-import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import "./CourseSearch.global.css";
 import CompiledLists from "./CompiledLists";
 import { CircularProgress } from "@material-ui/core";
+import Select from "react-select";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { IconButton } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 /**
  * TODO: MAKE A FRAGMENT! THIS IS USED IN TWO PLACES
@@ -252,6 +255,42 @@ const COURSES_BY_INSTRUCTORS = gql`
 const initialStartTime = "11:00";
 const initialEndTime = "12:00";
 
+const customStyles = {
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+        return {
+            ...styles,
+            width: 140,
+            backgroundColor: isFocused ? "#1DC2C4" : "#BBECED",
+            color: "#FFF",
+            cursor: isDisabled ? "not-allowed" : "default",
+        };
+    },
+    control: (base, state) => ({
+        ...base,
+        color: "white",
+        width: 140,
+        borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+        backgroundColor: "#1EBFC2",
+        borderColor: state.isFocused ? "#BEECED" : "#BEECED",
+        boxShadow: state.isFocused ? null : null,
+        "&:hover": {
+            borderColor: state.isFocused ? "#1DC2C4" : "#BEECED",
+        },
+    }),
+    singleValue: (provided, state) => {
+        const opacity = state.isDisabled ? 0.5 : 1;
+        const transition = "opacity 300ms";
+
+        return { ...provided, opacity, transition };
+    },
+};
+
+const useStyles = makeStyles((theme) => ({
+    searchIconStyle: {
+        color: "#1DC2C4",
+    },
+}));
+
 const CourseSearch = ({ scheduleID, clickValue }) => {
     const [getDepts, setDepts] = useState([]); // Used for the entire list of departments
     const [getDept, setDept] = useState([]); // Used for selection of a particular department
@@ -260,8 +299,15 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     //INSTRUCTOR SEARCH
     const [getInstruct, setInstruct] = useState([]); // Used for the entire list of instructors
     const [getInst, setInst] = useState([]); // Used for selection of a particular instructor
+    const [value, setValue] = useState("");
     const formatTime = (time) => {
         return time.replace(":", "");
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            setCourseName(value);
+        }
     };
 
     const allDistributions = [
@@ -297,7 +343,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
 
     // Represents which button is currently clicked for styling and returning data
     const [activeButtonIndex, setButtonIndex] = useState(0);
-
+    const classes = useStyles();
     const {
         data: { term },
     } = useQuery(GET_TERM); // Gets the term which we need to request subjects from
@@ -350,11 +396,11 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     // These variables are used in displaySearch function and displayCourseList function:
     // Department is used as a placeholder for Instructors for now
     const searchTypes = [
-        "Department",
-        "Distribution",
-        "Instructors",
-        "Course Time",
-        "Course Day",
+        { label: "Department", value: 0 },
+        { label: "Distribution", value: 1 },
+        { label: "Instructors", value: 2 },
+        { label: "Course Time", value: 3 },
+        { label: "Course Day", value: 4 },
     ];
     const allOptions = [
         getDepts,
@@ -447,7 +493,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                     onClick={() => setButtonIndex(index)}
                     className={`searchButton ${selected}`}
                 >
-                    {type}
+                    {type.label}
                 </div>
             );
         });
@@ -481,7 +527,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
      * Displays the search component based on the user's search option
      */
     const displaySearch = () => {
-        const searchType = searchTypes[activeButtonIndex];
+        const searchType = searchTypes[activeButtonIndex].label;
         const option = allOptions[activeButtonIndex];
         const selected = allSelected[activeButtonIndex];
         const selection = (
@@ -547,12 +593,64 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         );
     if (departmentsError || instructorsError) return errorMessage;
 
+    const handleSearchChange = (newFilter) => {
+        setButtonIndex(newFilter.value);
+    };
+
     return (
         <div className="searchBar">
             <div className="searchBar-content">
-                <div className="filter">{displaySearch()}</div>
-                <div className="searchText">Search By:</div>
-                <div className="buttons">{renderSearchOptions()}</div>
+                <div className="seachCourseContainer">
+                    <div className="searchInputsCourse">
+                        <input
+                            type="text"
+                            className="header-search"
+                            placeholder="Search courses"
+                            name="s"
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
+                            onKeyUp={handleKeyPress}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            width: "10%",
+                            height: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginLeft: 10,
+                        }}
+                    >
+                        <IconButton
+                            size="large"
+                            // onClick={handleClick}
+                            value={"Search"}
+                            className={classes.searchIconStyle}
+                        >
+                            <SearchOutlinedIcon />
+                        </IconButton>
+                    </div>
+                </div>
+
+                <div className="searchText">Additional search filters:</div>
+                <div className="button-and-search">
+                    <Select
+                        // className="react-select-container"
+                        value={searchTypes[activeButtonIndex]}
+                        onChange={handleSearchChange}
+                        options={searchTypes}
+                        theme={(theme) => ({
+                            ...theme,
+                            colors: {
+                                text: "white",
+                            },
+                        })}
+                        styles={customStyles}
+                    />
+                    <div className="filter2">{displaySearch()}</div>
+                </div>
+                {/* <div className="buttons">{renderSearchOptions()}</div> */}
                 <CompiledLists
                     scheduleID={scheduleID}
                     selectedOptions={allSelected[activeButtonIndex]}

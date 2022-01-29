@@ -161,6 +161,21 @@ const QUERY_ALL_USER_DEGREE_PLANS = gql`
     }
 `;
 
+const VERIFY_TOKEN = gql`
+    query VerifyToken {
+        verifyToken {
+            _id
+            firstName
+            lastName
+            netid
+            majors
+            college
+            affiliation
+            token
+        }
+    }
+`;
+
 // mutation to add semester, call from onclick the buttons
 // const MUTATION_ADD_SEMESTER = gql`
 //     mutation degreePlanAddTerm($term: String!) {
@@ -207,15 +222,6 @@ const UPDATE_CUSTOM_COURSES = gql`
     }
 `;
 
-const FIND_SCHEDULE_BY_ID = gql`
-    query findScheduleById($_id: MongoID!) {
-        findScheduleById(filter: { _id: $_id }) {
-            _id
-            customCourse
-            term
-        }
-    }
-`;
 
 const FIND_DEGREE_PLAN_BY_ID = gql`
     query findDegreePlan($_id: MongoID!) {
@@ -249,7 +255,17 @@ const DegreePlan = () => {
     const [semesterList, setSemesterList] = useState([]);
     const [userId, setUserId] = useState("");
     // get the data from the query
-    const { loading, error, data } = useQuery(QUERY_ALL_USER_DEGREE_PLANS);
+    const { loading, error, data } = useQuery(QUERY_ALL_USER_DEGREE_PLANS, {
+        variables: {
+            _id: userId,
+        },
+    });
+    const {
+        loading: loading4,
+        error: error4,
+        data: data4,
+    } = useQuery(VERIFY_TOKEN);
+
     const { loading3, error3, data3 } = useQuery(
         GET_EVALUATION_CHART_BY_COURSE
     );
@@ -286,7 +302,11 @@ const DegreePlan = () => {
     // if (!data) return <p>Error</p>;
 
     useEffect(() => {
-        const user_id = data?.findAllDegreePlansForUsers[0].user._id;
+        if (data4) {
+            setUserId(data4.verifyToken._id);
+        }
+    }, [loading4, data4, error4]);
+    useEffect(() => {
         const defaultSchedule = data?.findAllDegreePlansForUsers.map(
             (schedule) => ({
                 term: schedule.term,
@@ -296,7 +316,6 @@ const DegreePlan = () => {
                 customCourses: schedule.customCourse,
             })
         );
-        setUserId(user_id);
         setSemesterList(defaultSchedule);
     }, [loading, data, error]);
     // adding new semester to semester list (state variable)
@@ -335,7 +354,7 @@ const DegreePlan = () => {
 
     return (
         <div>
-            <DegreePlanNav />
+            {/* <DegreePlanNav /> */}
             <div className="layout">
                 {/* {defaultSchedule.map((semester) => {
                 return (<SemesterBox term={semester.term} draftSessions={semester.draftSessions} notes={semester.notes} />)

@@ -54,7 +54,7 @@ const LeftCourseBox = (props) => {
                         <b>DISTRIBUTION: </b> {props.distribution}
                     </pre>
                     <pre class="text">
-                        <b>CREDITS: </b> {props.creditsMin}
+                        <b>CREDITS: </b> {props.credits}
                     </pre>
                     <pre class="text">
                         <b>PREREQS: </b> {props.prereqs}

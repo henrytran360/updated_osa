@@ -293,8 +293,11 @@ const DraftCourseItem = ({
     };
 
     const togglePrereq = () => setOpen(!open);
-
-    const boolVisible = visible ? true : false;
+    const [boolVisible, setBoolVisible] = useState(true);
+    useEffect(() => {
+        setBoolVisible(visible ? true : false);
+    }, [visible]);
+    // const boolVisible = visible ? true : false;
 
     const instructorTooltips = instructorsToTooltips(session.instructors);
 
