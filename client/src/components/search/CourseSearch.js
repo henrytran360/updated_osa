@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Selection from "./Selection";
 import { initGA } from "../../utils/analytics";
 import { useQuery, gql } from "@apollo/client";
@@ -12,6 +12,7 @@ import Select from "react-select";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Context as CourseSearchContext } from "../../contexts/courseSearchContext";
 
 /**
  * TODO: MAKE A FRAGMENT! THIS IS USED IN TWO PLACES
@@ -300,6 +301,13 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     const [getInstruct, setInstruct] = useState([]); // Used for the entire list of instructors
     const [getInst, setInst] = useState([]); // Used for selection of a particular instructor
     const [value, setValue] = useState("");
+    const {
+        state: { course },
+        courseSearchAction,
+    } = useContext(CourseSearchContext);
+
+    console.log(course);
+
     const formatTime = (time) => {
         return time.replace(":", "");
     };
@@ -627,6 +635,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                             // onClick={handleClick}
                             value={"Search"}
                             className={classes.searchIconStyle}
+                            onClick={() => courseSearchAction(value)}
                         >
                             <SearchOutlinedIcon />
                         </IconButton>

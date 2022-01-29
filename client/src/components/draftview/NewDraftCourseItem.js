@@ -130,7 +130,7 @@ const NewDraftCourseItem = (props) => {
                         alignItems: "center",
                     }}
                 >
-                    <Tooltip className="iconButton" title="Hide">
+                    <Tooltip className="iconButton" title="Evaluation">
                         <IconButton
                             disableFocusRipple
                             disableRipple

@@ -187,18 +187,18 @@ const Main = ({}) => {
         } else {
             return (
                 <div className="Container">
-                    <div style={{ width: "25%", height: "100%" }}>
+                    <div style={{ width: "30%", height: "100%" }}>
                         <CourseSearch
                             scheduleID={schedule._id}
                             clickValue={bottomMode}
                         />
                     </div>
-                    <div style={{ width: "45%" }}>
+                    <div style={{ width: "43%" }}>
                         <CourseCalendar
                             draftSessions={schedule.draftSessions}
                         />
                     </div>
-                    <div style={{ width: "30%" }}>
+                    <div style={{ width: "27%" }}>
                         <NewClassSelector
                             scheduleID={schedule._id}
                             draftSessions={schedule.draftSessions}

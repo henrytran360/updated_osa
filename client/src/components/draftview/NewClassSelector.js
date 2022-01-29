@@ -11,7 +11,41 @@ const GET_LOCAL_DATA = gql`
     }
 `;
 
+const get_eval = gql`
+    query getEvaluationChartByCourse($course: String!) {
+        getEvaluationChartByCourse(course: $course) {
+            courseName
+            expected_pf {
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            expected_grade {
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            comments {
+                text
+                time
+            }
+            term
+            enrolled_amount
+        }
+    }
+`;
+
 const NewClassSelector = ({ draftSessions, scheduleID }) => {
+    const { loading, error, data } = useQuery(get_eval, {
+        variables: {
+            course: "COMP 540",
+        },
+    });
+    console.log(data);
     let visibleCreditTotal = draftSessions.reduce(
         (totalCredits, draftSession) => {
             if (draftSession.visible) {
