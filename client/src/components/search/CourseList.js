@@ -185,7 +185,7 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
     const bottomModeContext = useContext(BottomModeContext);
 
     // Update draft sessions to only include valid sessions
-    draftSessions = draftSessions.filter(draft => draft.session);
+    draftSessions = draftSessions.filter((draft) => draft.session);
 
     // Check if this course is in draftSessions
     for (let draftSession of draftSessions) {
@@ -296,8 +296,6 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
     } = useQuery(query, {
         variables: { ...searchType, term: term },
     });
-    console.log("term:", term);
-    console.log("courseData:", courseData);
     // Since searchType is passed in as an object with the value as the query returned value,
     // we need to check the object's value instead of directly checking searchType === ""
     if (Object.values(searchType)[0] === "") return <br />;
@@ -336,7 +334,7 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
                 (course) => course.sessions.length > 0
             );
     }
-    console.log(courseResults);
+    console.log("courseResults", courseResults);
 
     if (courseResults.length === 0)
         return <p>No Available Course In This Range</p>;

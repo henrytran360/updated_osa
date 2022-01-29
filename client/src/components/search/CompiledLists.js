@@ -87,7 +87,6 @@ const CompiledLists = ({
     }
 
     let optionValues = getValues(selectedOptions, searchKey, queryFilters);
-
     return (
         <SwipeableViews containerStyle={styles.slideContainerNoHeight}>
             <div className="courseListsContainer">

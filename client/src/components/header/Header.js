@@ -174,7 +174,6 @@ function Header() {
                     />
                 </Tabs>
             </div>
-            <div className="buttonSelect">{renderIcons()}</div>
             {/* <Button
                         variant="outlined"
                         onClick={() => handleLogoClick()}
@@ -186,6 +185,7 @@ function Header() {
                         />
                     </Button> */}
             <SemesterSelect></SemesterSelect>
+            <div className="buttonSelect">{renderIcons()}</div>
 
             <LoginButton></LoginButton>
         </div>

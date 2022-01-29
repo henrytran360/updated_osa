@@ -83,11 +83,13 @@ const SemesterSelect = () => {
     console.log("updatedschdules", updateSchedules);
     const formatTerm = (schedule) =>
         updateSchedules.filter((termOption) => termOption.value == schedule)[0];
-    const handleTermChange = (newTermObject) =>
+    const handleTermChange = (newTermObject) => {
         client.writeQuery({
             query: GET_LOCAL_DATA,
             data: { term: newTermObject.value },
         });
+    };
+
     return (
         <div className="buttonsContainer">
             <div className="select">
