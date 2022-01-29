@@ -53,6 +53,8 @@ const GET_EVALUATION_CHART_BY_COURSE = gql
 `query getEvaluationChartByCourse($course: String!){
     getEvaluationChartByCourse(course: $course){
     	courseName
+        instructor
+        term
     	expected_pf{
         score_1
         score_2
@@ -98,22 +100,6 @@ const TOGGLE_DRAFT_SESSION_VISIBILITY = gql`
 
 
 const NewDraftCourseItem = (props) => {
-
-
-    const { loading:evalLoading, error:errorLoading, data:evalData } = useQuery(GET_EVALUATION_CHART_BY_COURSE, {
-        variables: { course: "COMP 140" },
-    });
-
-    console.log(evalData.getEvaluationChartByCourse);
-
-    useEffect(() => {
-        if (evalData) {
-            setEvalDataState(evalData);
-        }
-    }, [evalLoading, errorLoading, evalData]);
-
-    const [evalDataState, setEvalDataState] = useState([]);
-
 
 
     const [firstInstructor, setFirstInstructor] = useState({});
