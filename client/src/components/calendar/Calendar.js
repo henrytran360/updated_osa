@@ -171,7 +171,7 @@ const dayStyleGetter = (date) => {
         letterSpacing: "0px",
         color: "#1DC2C4",
         opacity: 1,
-        border: "1px dashed #E4E8EE",
+        // border: "1px dashed #E4E8EE",
         paddingTop: "16.5px",
         textTransform: "uppercase",
     };
