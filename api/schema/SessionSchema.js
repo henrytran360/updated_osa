@@ -120,6 +120,28 @@ SessionTC.addResolver({
     },
 });
 
+// Find session through time interval
+SessionTC.addResolver({
+    name: "findByInputName",
+    type: [SessionTC],
+    args: {
+        inputName: "String",
+        term: "Float!",
+    },
+    resolve: async ({ source, args, context, info }) => {
+        const trimmedName = args.inputName.toLowerCase().replace(/\s+/g, "");
+        console.log(trimmedName);
+        let filter = {
+            fullCourseName: { $regex: `.*${trimmedName}.*` },
+            term: args.term,
+        };
+        return await Session.find(filter).sort({
+            "course.courseNum": 1,
+            subject: 1,
+        });
+    },
+});
+
 // SessionTC.addResolver({
 //     name: "findManyBySubjects",
 //     type: [SessionTC],
@@ -136,6 +158,7 @@ const SessionQuery = {
     sessionsByCourse: SessionTC.getResolver("findByCourse"),
     sessionByDay: SessionTC.getResolver("findByDay"),
     sessionByTimeInterval: SessionTC.getResolver("findByTimeInterval"),
+    sessionByInputName: SessionTC.getResolver("findByInputName"),
 
     // sessionManyBySubject: SessionTC.getResolver("findManyBySubjects"),
 };

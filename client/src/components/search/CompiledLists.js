@@ -38,7 +38,8 @@ const displayDaysCourseList = (
     query,
     selectedOptions,
     convertDays,
-    idx
+    idx,
+    getByName
 ) => {
     if (selectedOptions && selectedOptions.length) {
         let daysArray = convertDays(selectedOptions);
@@ -53,6 +54,39 @@ const displayDaysCourseList = (
                         searchType={searchType}
                         key={idx}
                         idx={idx}
+                        getByName={getByName}
+                    />
+                </div>
+            </SwipeableViews>
+        );
+    }
+    // This is to ensure that the search result section will always show up even though there's nothing yet
+    return (
+        <SwipeableViews containerStyle={styles.slideContainerNoHeight}>
+            <div></div>
+        </SwipeableViews>
+    );
+};
+
+const displayNameSearchCourseList = (
+    scheduleID,
+    query,
+    idx,
+    getByName,
+    courseName
+) => {
+    if (courseName) {
+        let searchType = { inputName: courseName };
+        return (
+            <SwipeableViews containerStyle={styles.slideContainerNoHeight}>
+                <div className="courseListsContainer">
+                    <CourseList
+                        scheduleID={scheduleID}
+                        query={query}
+                        searchType={searchType}
+                        key={idx}
+                        idx={idx}
+                        getByName={getByName}
                     />
                 </div>
             </SwipeableViews>
@@ -68,12 +102,14 @@ const displayDaysCourseList = (
 
 const CompiledLists = ({
     scheduleID,
+    getByName,
     selectedOptions,
     searchKey,
     query,
     queryFilters,
     convertDays,
     idx,
+    courseName,
 }) => {
     // If the search option is by days, we need to convert the query variables to an array i.e. {days: ["M", "W", "F"]}
     if (idx === 4) {
@@ -82,11 +118,22 @@ const CompiledLists = ({
             query,
             selectedOptions,
             convertDays,
-            idx
+            idx,
+            getByName
+        );
+    }
+    if (idx === 5) {
+        return displayNameSearchCourseList(
+            scheduleID,
+            query,
+            idx,
+            getByName,
+            courseName
         );
     }
 
     let optionValues = getValues(selectedOptions, searchKey, queryFilters);
+
     return (
         <SwipeableViews containerStyle={styles.slideContainerNoHeight}>
             <div className="courseListsContainer">
@@ -104,6 +151,7 @@ const CompiledLists = ({
                                 searchType={searchType}
                                 key={option[searchKey[0]]}
                                 idx={idx}
+                                getByName={getByName}
                             />
                         );
                     })

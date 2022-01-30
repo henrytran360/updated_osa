@@ -18,6 +18,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 
 import "./CourseList.global.css";
 import { BottomModeContext } from "../main/Main";
+import { Context as CourseSearchContext } from "../../contexts/courseSearchContext";
 
 const detailStyle = {
     fontSize: "10px",
@@ -158,6 +159,51 @@ const QUERY_DRAFT_SESSIONS = gql`
     }
 `;
 
+const GET_COURES_BY_NAME = gql`
+    query GetCourseByName($inputName: String!, $term: Float!) {
+        courseMany(
+            filter: { courseNameRegExp: $inputName }
+            sort: COURSE_NUM_ASC
+        ) {
+            _id
+            subject
+            courseNum
+            longTitle
+            sessions(filter: { term: $term }) {
+                _id
+                term
+                crn
+                class {
+                    days
+                    startTime
+                    endTime
+                }
+                lab {
+                    days
+                    startTime
+                    endTime
+                }
+                instructors {
+                    firstName
+                    lastName
+                }
+                course {
+                    distribution
+                    prereqs
+                    coreqs
+                }
+                enrollment
+                maxEnrollment
+                crossEnrollment
+                maxCrossEnrollment
+                waitlisted
+                maxWaitlisted
+                instructionMethod
+            }
+        }
+    }
+`;
+
 /**
  * This is found in DraftCourseItem.js too; should be in utils
  */
@@ -272,13 +318,19 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
     );
 };
 
-const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
+const CourseList = ({
+    clickValue,
+    scheduleID,
+    query,
+    searchType,
+    idx,
+    getByName,
+}) => {
     const [courseSelected, setCourseSelected] = useState([]);
 
     // Get term from local state management
     const { data: termData } = useQuery(GET_TERM);
     let { term } = termData;
-    console.log(term);
 
     let courseResults;
     let draftSessions;
@@ -296,6 +348,7 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
     } = useQuery(query, {
         variables: { ...searchType, term: term },
     });
+
     // Since searchType is passed in as an object with the value as the query returned value,
     // we need to check the object's value instead of directly checking searchType === ""
     if (Object.values(searchType)[0] === "") return <br />;

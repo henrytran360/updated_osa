@@ -44,13 +44,13 @@ async function testCollection(client) {
 
 async function updateName(client) {
     await client
-        .db("hatch_staging")
+        .db("hatch_prod")
         .collection("course_evaluations_new")
         .find()
         .snapshot()
         .forEach(function (elem) {
             client
-                .db("hatch_staging")
+                .db("hatch_prod")
                 .collection("course_evaluations_new")
                 .updateMany(
                     { _id: elem._id },
@@ -124,14 +124,16 @@ async function addCourseName(client) {
             let fullName = b + " " + c + " " + a;
             client
                 .db("hatch_staging")
-                .collection("courses")
+                .collection("sessions")
                 .updateOne(
                     {
-                        _id: elem._id,
+                        course: elem._id,
                     },
                     {
                         $set: {
-                            fullCourseName: fullName,
+                            fullCourseName: fullName
+                                .replace(/\s+/g, "")
+                                .toLowerCase(),
                         },
                     }
                 );

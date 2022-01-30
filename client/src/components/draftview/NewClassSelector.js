@@ -45,7 +45,7 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
             course: "COMP 540",
         },
     });
-    console.log(data);
+
     let visibleCreditTotal = draftSessions.reduce(
         (totalCredits, draftSession) => {
             if (draftSession.visible) {

@@ -80,7 +80,7 @@ const SemesterSelect = () => {
 
         setUpdatedSchedules(tempSchedules.reverse());
     }, [loading, data, error]);
-    console.log("updatedschdules", updateSchedules);
+
     const formatTerm = (schedule) =>
         updateSchedules.filter((termOption) => termOption.value == schedule)[0];
     const handleTermChange = (newTermObject) => {
