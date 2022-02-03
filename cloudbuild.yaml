@@ -16,7 +16,7 @@ steps:
   args: ['install']
   dir: 'client'
 - name: 'gcr.io/cloud-builders/npm'
-  args: ['run', 'build', '--config.process.env.REACT_APP_SERVICE_URL=${_REACT_APP_SERVICE_URL}', '--config.process.env.REACT_APP_GRAPHQL_URL=${_REACT_APP_GRAPHQL_URL}']
+  args: ['run', 'prod-build']
   dir: 'client'
 - name: "gcr.io/cloud-builders/gcloud"
   args: ["app", "deploy", "client/client.yaml", "-v", "$_GAE_VERSION"]
