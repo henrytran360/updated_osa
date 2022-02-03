@@ -6,8 +6,6 @@ steps:
   args: ["run", "create-env"]
   env:
     - 'MONGODB_CONNECTION_STRING=${_MONGODB_CONNECTION_STRING}'
-    - 'REACT_APP_SERVICE_URL=${_REACT_APP_SERVICE_URL}'
-    - 'REACT_APP_GRAPHQL_URL=${_REACT_APP_GRAPHQL_URL}'
     - 'FIREBASE_PROJECT_ID=${_FIREBASE_PROJECT_ID}'
     - 'FIREBASE_CLIENT_EMAIL=${_FIREBASE_CLIENT_EMAIL}'
     - 'FIREBASE_PRIVATE_KEY=${_FIREBASE_PRIVATE_KEY}'
@@ -19,6 +17,9 @@ steps:
   dir: 'client'
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run', 'build']
+  env:
+    - 'REACT_APP_SERVICE_URL=${_REACT_APP_SERVICE_URL}'
+    - 'REACT_APP_GRAPHQL_URL=${_REACT_APP_GRAPHQL_URL}'
   dir: 'client'
 - name: "gcr.io/cloud-builders/gcloud"
   args: ["app", "deploy", "client/client.yaml", "-v", "$_GAE_VERSION"]
