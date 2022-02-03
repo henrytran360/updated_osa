@@ -254,6 +254,7 @@ const DegreePlan = () => {
         );
         setSemesterList(defaultSchedule);
     }, [loading, data, error]);
+
     // adding new semester to semester list (state variable)
     const addNewSem = () => {
         if (

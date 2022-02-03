@@ -11,6 +11,16 @@
     display: none;
 }
 
+/* Hide the current time indicator */
+.rbc-current-time-indicator {
+    display: none;
+}
+
+/* Don't highlight the current day */
+.rbc-today {
+    background-color: white;
+}
+
 /* Styles for calendar events (courses/labs) on the calendar */
 .courseEventWrapper {
     height: 100%;
