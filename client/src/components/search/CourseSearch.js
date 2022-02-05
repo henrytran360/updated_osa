@@ -348,7 +348,6 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     const [getByName, setByName] = useState([]);
     const [value, setValue] = useState("");
     const [courseName, setCourseName] = useState("");
-
     const formatTime = (time) => {
         return time.replace(":", "");
     };

@@ -15,6 +15,10 @@ import { ItemQuery, ItemMutation } from "./ItemSchema";
 import { ListingMutation, ListingQuery } from "./ListingSchema";
 import { EvaluationMutation, EvaluationQuery } from "./EvaluationSchema";
 import { DegreePlanMutation, DegreePlanQuery } from "./DegreePlanSchema";
+import {
+    DegreePlanParentMutation,
+    DegreePlanParentQuery,
+} from "./DegreePlanParentSchema";
 
 schemaComposer.Query.addFields({
     ...UserQuery,
@@ -28,6 +32,7 @@ schemaComposer.Query.addFields({
     ...ListingQuery,
     ...EvaluationQuery,
     ...DegreePlanQuery,
+    ...DegreePlanParentQuery,
 });
 
 schemaComposer.Mutation.addFields({
@@ -42,6 +47,7 @@ schemaComposer.Mutation.addFields({
     ...ListingMutation,
     ...EvaluationMutation,
     ...DegreePlanMutation,
+    ...DegreePlanParentMutation,
 });
 
 schemaComposer.Subscription.addFields({});

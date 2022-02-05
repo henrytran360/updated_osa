@@ -7,6 +7,7 @@ import { StudyGroup, StudyGroupTC } from "./StudyGroupModel";
 import { Item, ItemTC } from "./ItemModel";
 import { Listing, ListingTC } from "./ListingModel";
 import { DegreePlan, DegreePlanTC } from "./DegreePlanModel";
+import { DegreePlanParent, DegreePlanParentTC } from "./DegreePlanParentModel";
 
 export {
     Course,
@@ -27,4 +28,6 @@ export {
     ListingTC,
     DegreePlan,
     DegreePlanTC,
+    DegreePlanParent,
+    DegreePlanParentTC,
 };

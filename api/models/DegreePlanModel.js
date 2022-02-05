@@ -6,6 +6,7 @@ require("../db");
 import { composeWithMongoose } from "graphql-compose-mongoose";
 import { User } from "./UserModel";
 import { Course } from "./CourseModel";
+import { DegreePlanParent } from "./DegreePlanParentModel";
 
 var DraftCourseSchema = new Schema({
     visible: { type: Number, enum: [0, 1], default: 1 },
@@ -14,6 +15,7 @@ var DraftCourseSchema = new Schema({
 
 var DegreePlanSchema = new Schema({
     term: { type: String, required: true },
+    degreeplanparent: { type: Schema.Types.ObjectID, ref: DegreePlanParent },
     draftCourses: [DraftCourseSchema],
     customCourse: { type: [String], required: false },
     notes: { type: String, default: "", required: false },

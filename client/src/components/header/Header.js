@@ -24,6 +24,7 @@ import firebase from "firebase/app";
 // These imports load individual services into the firebase namespace.
 import "firebase/auth";
 import SemesterSelect from "../draftview/SemesterSelect";
+import DegreePlanSelect from "../draftview/DegreePlanSelect";
 
 const useStyles = makeStyles({
     button: {
@@ -91,6 +92,7 @@ function Header() {
             changeBottomMode(e.currentTarget.value);
         }
     };
+    const location = useLocation();
 
     // Where we collect feedback
     const isDesktopOrLaptop = useMediaQuery({
@@ -184,8 +186,16 @@ function Header() {
                         // style={styles.logo}
                         />
                     </Button> */}
-            <SemesterSelect></SemesterSelect>
-            <div className="buttonSelect">{renderIcons()}</div>
+            {location.pathname == "/schedule" ? (
+                <>
+                    <SemesterSelect></SemesterSelect>
+                    <div className="buttonSelect">{renderIcons()}</div>
+                </>
+            ) : (
+                <div>
+                    <DegreePlanSelect></DegreePlanSelect>
+                </div>
+            )}
 
             <LoginButton></LoginButton>
         </div>
