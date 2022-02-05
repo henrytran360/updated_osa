@@ -53,29 +53,84 @@ const GET_EVALUATION_CHART_BY_COURSE = gql
 `query getEvaluationChartByCourse($course: String!){
     getEvaluationChartByCourse(course: $course){
     	courseName
-        instructor
         term
-    	expected_pf{
-        score_1
-        score_2
-        score_3
-        score_4
-        score_5
-      }
-    	expected_grade{
-        score_1
-        score_2
-        score_3
-        score_4
-        score_5
-      }
-    	comments{
-        text
-        time
-      }
-    	term
     	enrolled_amount
-    
+        organization{
+            class_mean
+            responses
+            score_1
+            score_2
+            score_3
+            score_4
+            score_5
+          }
+          assignments{
+            class_mean
+            responses
+            score_1
+            score_2
+            score_3
+            score_4
+            score_5
+          }
+          overall{
+            class_mean
+            responses
+            score_1
+            score_2
+            score_3
+            score_4
+            score_5
+          }
+          challenge{
+            class_mean
+            responses
+            score_1
+            score_2
+            score_3
+            score_4
+            score_5
+          }
+          workload{
+            class_mean
+            responses
+            score_1
+            score_2
+            score_3
+            score_4
+            score_5
+          }
+          why_taking{
+            class_mean
+            responses
+            score_1
+            score_2
+            score_3
+            score_4
+            score_5
+          }
+          expected_grade{
+            class_mean
+            responses
+            score_1
+            score_2
+            score_3
+            score_4
+            score_5
+          }
+          expected_pf{
+            class_mean
+            responses
+            score_1
+            score_2
+            score_3
+            score_4
+            score_5
+          }
+    	comments{
+            text
+            time
+        }
   }
 }`
 
@@ -100,7 +155,6 @@ const TOGGLE_DRAFT_SESSION_VISIBILITY = gql`
 
 
 const NewDraftCourseItem = (props) => {
-
 
     const [firstInstructor, setFirstInstructor] = useState({});
     let moduloValue = props.index % colorCombos.length;
@@ -175,9 +229,6 @@ const NewDraftCourseItem = (props) => {
                         alignItems: "center",
                     }}
                 >
-<<<<<<< HEAD
-                    <Tooltip className="iconButton" title="Evaluation">
-=======
                     <Modal
                         isOpen={modalState}
                         className="evaluation-modal"
@@ -189,10 +240,10 @@ const NewDraftCourseItem = (props) => {
                             courseSubject = {props.session.course.subject}
                             courseNum = {props.session.course.courseNum}
                             courseTitle = {props.session.course.longTitle}
+                            courseProf = {firstInstructor}
                         />
                     </Modal>
                     <Tooltip className="iconButton" title="Evaluations">
->>>>>>> 266963d (created eval modal popup)
                         <IconButton
                             disableFocusRipple
                             disableRipple

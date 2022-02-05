@@ -9,28 +9,13 @@ import {
   ValueAxis,
   Chart,
   BarSeries,
+  Title
 } from '@devexpress/dx-react-chart-material-ui';
-
-// Query
-// const GET_EVALUATION_BY_COURSE = gql`
-//     query getEvaluationByCourse($course: String!) {
-//         getEvaluationByCourse(course: $course) {
-//             course
-//             evalInfo {
-//                 Term
-//                 CRN
-//                 Reviews
-//                 title
-//                 Instructor
-//                 Department
-//                 yearID
-//             }
-//         }
-//     }
-// `;
+import { ValueScale, ArgumentScale } from '@devexpress/dx-react-chart';
 
 
 const CourseEvalModal = (props) => {
+
 
   const thisCourse = props.courseSubject + " " + props.courseNum;
 
@@ -48,7 +33,7 @@ const CourseEvalModal = (props) => {
 
   const [responseState, setResponseState] = useState(true);
 
-  console.log(evalDataState);
+  //console.log(evalDataState);
 
   const openComments = () => {
     setResponseState(false);
@@ -56,30 +41,69 @@ const CourseEvalModal = (props) => {
   const openResponse = () => {
     setResponseState(true);
   };
+
+  const [expectedGrade, setExpectedGrade] = useState([]);
+  const [expectedGradeMean, setExpectedGradeMean] = useState(0.0);
+  const [expectedGradeRes, setExpectedGradeRes] = useState(0.0);
+  useEffect(() => {
+    if (evalDataState) {
+      let curExpectedGrade = evalDataState.expected_grade
+      let expectedGradeMeanT = curExpectedGrade ? parseFloat(curExpectedGrade.class_mean) : 0;
+      let expectedGradeResT = curExpectedGrade ? parseFloat(curExpectedGrade.responses) : 0;
+      let expectedGradeArr = [
+        { argument: 'A', value: curExpectedGrade ? parseInt(curExpectedGrade.score_1) : 0},
+        { argument: 'B', value: curExpectedGrade ? parseInt(curExpectedGrade.score_2) : 0},
+        { argument: 'C', value: curExpectedGrade ? parseInt(curExpectedGrade.score_3)  : 0},
+        { argument: 'D', value: curExpectedGrade ? parseInt(curExpectedGrade.score_4) : 0},
+        { argument: 'F', value: curExpectedGrade ? parseInt(curExpectedGrade.score_5)  : 0}
+      ];
+      setExpectedGrade(expectedGradeArr);
+      setExpectedGradeMean(expectedGradeMeanT);
+      setExpectedGradeRes(expectedGradeResT);
+
+    }
+}, [evalDataState, evalData]);
+    
+    const [state, setState] = useState({});
+    const setChartRange = () => setState({chart_visualRange: [0, 100]} );
     
     return ( 
         <div className="modal-container">
           <h1>{props.courseSubject}&nbsp;{props.courseNum}&nbsp;{props.courseTitle}</h1>
           <h3>Term: {evalDataState.term}</h3>
-          <h3>Instructor: {evalDataState.instructor != "" ? evalDataState.instructor : "No Instructor Listed"}
+          <h3>Instructor: {props.courseProf ? props.courseProf &&
+                          props.courseProf.firstName +
+                              " " +
+                              props.courseProf.lastName
+                        : "No Instructors"}
           </h3>
           {responseState ? 
           <div>
           <button className="eval-tabs-clicked" onClick={openResponse}>Numeric Responses</button>
           <button className='eval-tabs' onClick={openComments}>Comments</button>
           
-          {/* <Paper>
-            <Chart 
-              data={evalDataState.expected_pf}>
-                <ArgumentAxis />
-                  <ValueAxis max={5} />
+        <p>Responses:&nbsp;{expectedGradeRes}&nbsp;&nbsp;Class Mean:&nbsp;{expectedGradeMean}</p>
+          
+          <Paper>
+          <Chart
+              data={expectedGrade}
+            >
+              {/* <ValueScale factory={{
+                range: () => [0, 100],
+                domain: () => [0, 100]
+              }}/> */}
+              <ArgumentAxis />
+              <ValueAxis 
+                type = {'continuous'}
+                visualRange = {state.chart_visualRange}
+              
+                />
 
-                  <BarSeries
-                    valueField="population"
-                    argumentField="year"
-                  />
+              <Title text="Expected Grade" />
+              <BarSeries valueField="value" argumentField="argument" />
             </Chart>
-          </Paper> */}
+          </Paper>
+
 
           </div>
           : 
