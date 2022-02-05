@@ -356,7 +356,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
             loadData();
-            setCourseName(value);
+            setCourseName(value.replace(/\s+/g, "").toLowerCase());
             setButtonIndex(5);
         }
     };
@@ -420,7 +420,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         { data: courseDataByName, loading: loading2, error: error2 },
     ] = useLazyQuery(GET_COURES_BY_NAME, {
         variables: {
-            inputName: courseName,
+            inputName: courseName.replace(/\s+/g, "").toLowerCase(),
             term: term,
         },
     });
