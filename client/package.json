@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "build": "nwb build-react-app",
+    "prod-build": "nwb build-react-app --config ./prod-nwb.config.js",
     "clean": "nwb clean-app",
     "start": "nwb serve-react-app --port $PORT",
     "test": "nwb test-react",
