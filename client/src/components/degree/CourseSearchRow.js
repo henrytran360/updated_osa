@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import "./CourseSearchRow.css";
 
@@ -24,8 +24,11 @@ const ADD_NEW_COURSE_TO_DEGREE_PLAN = gql`
 `;
 
 const QUERY_ALL_USER_DEGREE_PLANS = gql`
-    query QUERY_ALL_USER_SCHEDULES {
-        findAllDegreePlansForUsers {
+    query QUERY_ALL_USER_DEGREE_PLANS($_id: ID, $degreeplanparent: ID) {
+        findAllDegreePlansForUsers(
+            _id: $_id
+            degreeplanparent: $degreeplanparent
+        ) {
             _id
             term
             user {
@@ -47,6 +50,32 @@ const QUERY_ALL_USER_DEGREE_PLANS = gql`
                     prereqs
                 }
             }
+            degreeplanparent {
+                name
+                _id
+            }
+        }
+    }
+`;
+const GET_LOCAL_DATA = gql`
+    query GetLocalData {
+        term @client
+        recentUpdate @client
+        degreeplanparent @client
+    }
+`;
+
+const VERIFY_TOKEN = gql`
+    query VerifyToken {
+        verifyToken {
+            _id
+            firstName
+            lastName
+            netid
+            majors
+            college
+            affiliation
+            token
         }
     }
 `;
@@ -61,6 +90,19 @@ const CourseSearchRow = ({ course, degreePlanID, queryAdd }) => {
             },
         });
     };
+    const [userId, setUserId] = useState("");
+    let { data: storeData } = useQuery(GET_LOCAL_DATA);
+    let { degreeplanparent } = storeData;
+    const {
+        loading: loading4,
+        error: error4,
+        data: data4,
+    } = useQuery(VERIFY_TOKEN);
+    useEffect(() => {
+        if (data4) {
+            setUserId(data4.verifyToken._id);
+        }
+    }, [loading4, data4, error4]);
     const [
         addNewCourseMutation,
         { loadingMutationAdd, errorMutationAdd, dataMutationAdd },
@@ -74,6 +116,10 @@ const CourseSearchRow = ({ course, degreePlanID, queryAdd }) => {
             },
             {
                 query: QUERY_ALL_USER_DEGREE_PLANS,
+                variables: {
+                    _id: userId,
+                    degreeplanparent: degreeplanparent,
+                },
             },
         ],
     });

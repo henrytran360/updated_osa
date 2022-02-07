@@ -28,7 +28,7 @@
 }
 
 .leftAlign {
-    width: 50%;
+    width: 40%;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -86,4 +86,18 @@
 }
 .MuiTabs-scrollButtons.Mui-disabled {
     opacity: 0.3;
+}
+
+.modalDegreePlanHeader {
+    width: 400px;
+    height: 150px;
+    border: 2px solid #149fa0;
+    border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    background-color: #ddf5f6;
+    z-index: -99;
 }

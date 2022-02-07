@@ -23,7 +23,7 @@ const authLink = setContext(async (_, { headers }) => {
 
 // HTTP Backend Link
 const httpLink = new HttpLink({
-    uri: process.env.REACT_APP_GRAPHQL_URL
+    uri: process.env.REACT_APP_GRAPHQL_URL,
     // uri: "http://localhost:3000/graphql",
     // uri: "/graphql",
 });
@@ -64,6 +64,7 @@ const initialState = {
     service: process.env.REACT_APP_SERVICE_URL,
     recentUpdate: false,
     term: 202220,
+    degreeplanparent: "",
 };
 
 // Initialize cache with a state
@@ -73,6 +74,7 @@ client.writeQuery({
             service
             recentUpdate
             term
+            degreeplanparent
         }
     `,
     data: initialState,

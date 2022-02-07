@@ -4,19 +4,19 @@ import LoginButton from "../login/LoginButton";
 import { Button, ButtonGroup, IconButton } from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
-import ReactGA from "react-ga";
 import { useMediaQuery } from "react-responsive";
-import RiceAppsLogo from "../../riceappslogo.png";
 import { initGA, OutboundLink } from "../../utils/analytics";
 import { useHistory, useLocation } from "react-router";
 import { gql, useApolloClient, useQuery } from "@apollo/client";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 import ListIcon from "@material-ui/icons/List";
-import SearchIcon from "@mui/icons-material/Search";
-import EventNoteIcon from "@mui/icons-material/EventNote";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Context as BottomModeContext } from "../../contexts/bottomModeContext";
+import Modal from "react-modal";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { GoDiffAdded } from "react-icons/go";
+import { AiOutlineEdit } from "react-icons/ai";
 
 import "./Header.global.css";
 // This import loads the firebase namespace along with all its type information.
@@ -25,29 +25,20 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import SemesterSelect from "../draftview/SemesterSelect";
 import DegreePlanSelect from "../draftview/DegreePlanSelect";
+import { flexbox } from "@mui/system";
 
 const useStyles = makeStyles({
     button: {
         color: "#1DC2C4",
         fontSize: 15,
     },
+    button2: {
+        color: "#1DC2C4",
+        border: "1px solid #BBECED",
+        width: 150,
+    },
 });
 
-// const termOptions = [
-//     { label: "Spring 2021", value: 202120 },
-//     { label: "Summer 2021", value: 202130 },
-//     { label: "Fall 2021", value: 202210 },
-//     { label: "Spring 2022", value: 202220 },
-// ];
-
-// const formatTerm = (term) =>
-//     termOptions.filter((termOption) => termOption.value == term)[0];
-
-// This import loads the firebase namespace along with all its type information.
-// const termOptions = [
-//     { label: "Spring 2021", value: 202120 },
-//     { label: "Fall 2021", value: 202110 },
-// ];
 function LinkTab(props) {
     return (
         <StyledTab
@@ -94,6 +85,22 @@ function Header() {
     };
     const location = useLocation();
 
+    const [modalState, setModal] = useState(false);
+    const openModal = () => {
+        setModal(true);
+    };
+
+    const closeModal = () => {
+        setModal(false);
+    };
+
+    const [inputName, setInputName] = useState("");
+    const [degreeName, setDegreeName] = useState("");
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            setDegreeName(inputName);
+        }
+    };
     // Where we collect feedback
     const isDesktopOrLaptop = useMediaQuery({
         query: "(min-device-width: 608px)",
@@ -170,10 +177,10 @@ function Header() {
                         label="About"
                         onClick={() => history.push("/about")}
                     />
-                    <LinkTab
+                    {/* <LinkTab
                         label="Feedback"
                         onClick={() => window.open(feedbackURL, "_blank")}
-                    />
+                    /> */}
                 </Tabs>
             </div>
             {/* <Button
@@ -192,8 +199,72 @@ function Header() {
                     <div className="buttonSelect">{renderIcons()}</div>
                 </>
             ) : (
-                <div>
-                    <DegreePlanSelect></DegreePlanSelect>
+                <div
+                    style={{
+                        width: "30%",
+                        height: "100%",
+                        marginRight: 50,
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                    }}
+                >
+                    <div style={{ width: "65%", height: "100%" }}>
+                        <DegreePlanSelect></DegreePlanSelect>
+                    </div>
+                    <div
+                        style={{
+                            width: "35%",
+                            display: "flex",
+                            justifyContent: "space-around",
+                            alignItems: "center",
+                        }}
+                    >
+                        <div>
+                            <RiDeleteBinLine />
+                        </div>
+
+                        <div>
+                            <GoDiffAdded />
+                        </div>
+                        <div>
+                            <AiOutlineEdit />
+                        </div>
+                        {/* <Button
+                            style={{
+                                color: "#1DC2C4",
+                                border: "1px solid 1DC2C4",
+                            }}
+                            className={classes.button2}
+                            variant="outlined"
+                            onClick={() => setModal(true)}
+                        >
+                            {" "}
+                            Add Plans
+                        </Button>
+                        <Modal
+                            isOpen={modalState}
+                            className="modalDegreePlanHeader"
+                            onRequestClose={closeModal}
+                            ariaHideApp={false}
+                        >
+                            <div>
+                                <div>Create a new Degree Plan</div>
+                                <input
+                                    type="text"
+                                    className="header-search"
+                                    placeholder="Search courses"
+                                    name="s"
+                                    value={inputName}
+                                    onChange={(e) =>
+                                        setInputName(e.target.value)
+                                    }
+                                    onKeyUp={handleKeyPress}
+                                />
+                            </div>
+                        </Modal> */}
+                    </div>
                 </div>
             )}
 

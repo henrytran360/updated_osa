@@ -6,6 +6,7 @@ const GET_LOCAL_DATA = gql`
     query GetLocalData {
         term @client
         recentUpdate @client
+        degreeplanparent @client
     }
 `;
 
@@ -37,11 +38,15 @@ const QUERY_USER_DEGREE_PLAN_LIST = gql`
 `;
 
 const customStyles = {
-    option: (provided, state) => ({
-        ...provided,
-        // borderBottom: "1px dotted pink",
-        color: "#1DC2C4",
-    }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+        return {
+            ...styles,
+            width: 200,
+            backgroundColor: isFocused ? "#1DC2C4" : "#BBECED",
+            color: "#FFF",
+            cursor: isDisabled ? "not-allowed" : "default",
+        };
+    },
     control: (base, state) => ({
         ...base,
         color: "#1DC2C4",
@@ -51,6 +56,7 @@ const customStyles = {
         "&:hover": {
             borderColor: state.isFocused ? "#1DC2C4" : "#BEECED",
         },
+        width: 200,
     }),
     singleValue: (provided, state) => {
         const opacity = state.isDisabled ? 0.5 : 1;
@@ -65,6 +71,8 @@ const DegreePlanSelect = () => {
     const [userId, setUserId] = useState("");
     const [degreePlanList, setDegreePlanList] = useState([]);
 
+    let { data: storeData } = useQuery(GET_LOCAL_DATA);
+    let { degreeplanparent } = storeData;
     const { loading, error, data } = useQuery(QUERY_USER_DEGREE_PLAN_LIST, {
         variables: {
             _id: userId,
@@ -82,29 +90,51 @@ const DegreePlanSelect = () => {
         }
     }, [loading4, data4, error4]);
 
-    console.log(data);
+    useEffect(() => {
+        if (data) {
+            const updatedDegreePlanList =
+                data.findAllDegreePlansListForUsers.map((plan) => {
+                    return {
+                        label: plan.name,
+                        value: plan._id,
+                    };
+                });
+            client.writeQuery({
+                query: GET_LOCAL_DATA,
+                data: {
+                    degreeplanparent: updatedDegreePlanList[0].value,
+                },
+            });
+            setDegreePlanList(updatedDegreePlanList);
+        }
+    }, [data]);
 
-    // const [updateSchedules, setUpdatedSchedules] = useState([
-    //     { label: "Spring 2022", value: 202220 },
-    // ]);
-
-    // const formatTerm = (schedule) =>
-    //     updateSchedules.filter((termOption) => termOption.value == schedule)[0];
-    // const handleTermChange = (newTermObject) => {
-    //     client.writeQuery({
-    //         query: GET_LOCAL_DATA,
-    //         data: { term: newTermObject.value },
-    //     });
-    // };
+    const formatTerm = (degreePlan) => {
+        if (degreePlan) {
+            return degreePlanList.filter(
+                (termOption) => termOption.value == degreePlan
+            )[0];
+        } else {
+            return degreePlanList[0];
+        }
+    };
+    const handleTermChange = (newTermObject) => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                degreeplanparent: newTermObject.value,
+            },
+        });
+    };
 
     return (
         <div className="buttonsContainer">
-            {/* <div className="select">
+            <div className="select">
                 <Select
                     className="react-select-container"
-                    value={formatTerm(term)}
+                    value={formatTerm(degreeplanparent)}
                     onChange={handleTermChange}
-                    options={updateSchedules}
+                    options={degreePlanList}
                     theme={(theme) => ({
                         ...theme,
                         colors: {
@@ -115,7 +145,7 @@ const DegreePlanSelect = () => {
                     })}
                     styles={customStyles}
                 />
-            </div> */}
+            </div>
         </div>
     );
 };

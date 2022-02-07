@@ -11,7 +11,6 @@ import { DegreePlan } from "./DegreePlanModel";
 var DegreePlanParentSchema = new Schema({
     name: { type: String, default: "New Degree Plan", required: false },
     user: { type: Schema.Types.ObjectID, ref: User },
-    degreePlansList: [{ type: Schema.Types.ObjectID, ref: DegreePlan }],
 });
 
 export const DegreePlanParent = mongoose.model(

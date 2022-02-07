@@ -61,6 +61,46 @@ DegreePlanParentTC.addResolver({
         const { user } = args.filter;
         return await DegreePlanParent.create({
             user: user,
+            name: args.record.name,
+        });
+    },
+});
+
+/**
+ * Update notes
+ */
+DegreePlanParentTC.addResolver({
+    name: "updateDegreePlanParentName",
+    type: DegreePlanParentTC,
+    args: DegreePlanParentTC.getResolver("updateOne").getArgs(),
+    resolve: async ({ source, args, context, info }) => {
+        let CC = args.record.name;
+        console.log(CC);
+        console.log(args);
+        const degreeplanparent = await DegreePlanParent.updateOne(
+            { _id: args.filter._id },
+            { $set: { name: args.record.name } }
+        );
+        if (!degreeplanparent) return null;
+        return DegreePlanParent.findById(args.filter._id);
+        // return await Schedule.findByIdAndUpdate(args.filter._id, {
+        //     customCourse: args.record.customCourse,
+        // });
+    },
+});
+
+/**
+ * Remove a term from the degree planner
+ */
+DegreePlanParentTC.addResolver({
+    name: "removeDegreePlanParent",
+    type: DegreePlanParentTC,
+    args: DegreePlanParentTC.getResolver("removeOne").getArgs(),
+    resolve: async ({ source, args, context, info }) => {
+        // Create if it doesn't exist
+        // console.log(args);
+        return await DegreePlanParent.findByIdAndRemove({
+            _id: args.filter._id,
         });
     },
 });
@@ -76,6 +116,14 @@ const DegreePlanParentMutation = {
     // Schedule.create({ term: term, user: user })
     createNewDegreePlanList: DegreePlanParentTC.getResolver(
         "createNewDegreePlanList",
+        [authMiddleware]
+    ),
+    removeDegreePlanParent: DegreePlanParentTC.getResolver(
+        "removeDegreePlanParent",
+        [authMiddleware]
+    ),
+    updateDegreePlanParentName: DegreePlanParentTC.getResolver(
+        "updateDegreePlanParentName",
         [authMiddleware]
     ),
 };

@@ -11,7 +11,7 @@ import { useHistory } from "react-router";
 const useStyles = makeStyles({
     button: {
         color: "#1DC2C4",
-        backgroundColor: "red",
+        border: "1px solid #BBECED",
     },
 });
 
@@ -19,6 +19,7 @@ let user_email = localStorage.getItem("user_email");
 let logoutURL = "https://idp.rice.edu/idp/profile/cas/logout";
 function LoginButton() {
     // Get history object for redirection to auth page
+    const classes = useStyles();
     const history = useHistory();
     const signInSAML = async () => {
         await firebase
@@ -68,6 +69,7 @@ function LoginButton() {
                     color: "#1DC2C4",
                     border: "1px solid 1DC2C4",
                 }}
+                className={classes.button}
                 variant="outlined"
                 onClick={signInSAML}
             >
@@ -82,6 +84,7 @@ function LoginButton() {
                         color: "#1DC2C4",
                         border: "1px solid 1DC2C4",
                     }}
+                    className={classes.button}
                     variant="outlined"
                     onClick={handleLogoutClick}
                 >
@@ -95,7 +98,7 @@ function LoginButton() {
     return (
         <div
             style={{
-                width: "20%",
+                width: "15%",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",

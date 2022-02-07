@@ -1,16 +1,19 @@
 //RUNNING THIS SCRIPT WILL CHANGE THE DATA IN MONGODB! DONT RUN IF YOU ARE NOT SURE
 
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 async function main() {
     const uri =
         "mongodb+srv://tigerking:wphPpplcHRwNdv29@riceapps2020-21-ppsrv.gcp.mongodb.net/hatch_staging?retryWrites=true&w=majority";
     const client = new MongoClient(uri);
     try {
         await client.connect();
+        //DO NOT RUN THESE FILES
         // await listDatabases(client);
         // await testCollection(client);
-        await addCourseName(client);
+        // await addCourseName(client);
         // await updateName(client);
+        // await addDefaultDegreePlanForAll(client);
+        //await dropDegreePlanParentCollection(client);
     } catch (e) {
         console.log(e);
     } finally {
@@ -138,6 +141,31 @@ async function addCourseName(client) {
                     }
                 );
         });
+}
+
+async function addDefaultDegreePlanForAll(client) {
+    await client
+        .db("hatch_staging")
+        .collection("users")
+        .find()
+        .snapshot()
+        .forEach(function (user) {
+            let userId = user._id;
+            client
+                .db("hatch_staging")
+                .collection("degreeplanparents")
+                .insertOne({
+                    name: "Main Degree Plan",
+                    user: ObjectId(userId),
+                });
+        });
+}
+
+async function dropDegreePlanParentCollection(client) {
+    await client
+        .db("hatch_staging")
+        .collection("degreeplanparents")
+        .deleteMany({});
 }
 // let mongoose = require("mongoose");
 // let { MONGODB_CONNECTION_STRING } = require("./config");

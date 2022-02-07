@@ -77,9 +77,16 @@ DraftCourseTC.addRelation("course", {
 DegreePlanTC.addResolver({
     name: "findAllDegreePlansForUsers",
     type: [DegreePlanTC],
-    args: { _id: "ID", filter: DegreePlanTC.getInputTypeComposer() },
+    args: {
+        _id: "ID",
+        degreeplanparent: "ID",
+        filter: DegreePlanTC.getInputTypeComposer(),
+    },
     resolve: async ({ source, args, context, info }) => {
-        let filter = { user: args._id };
+        let filter = {
+            user: args._id,
+            degreeplanparent: args.degreeplanparent,
+        };
         if (args.filter) {
             // For all fields in the filter, add them to our filter
             for (let key of Object.keys(args.filter)) {
