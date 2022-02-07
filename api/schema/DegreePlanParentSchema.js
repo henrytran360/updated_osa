@@ -105,9 +105,22 @@ DegreePlanParentTC.addResolver({
     },
 });
 
+DegreePlanParentTC.addResolver({
+    name: "findDegreePlanParentById",
+    type: DegreePlanParentTC,
+    args: { _id: "ID", filter: DegreePlanParentTC.getInputTypeComposer() },
+    resolve: async ({ source, args, context, info }) => {
+        return DegreePlanParent.findById(args._id);
+    },
+});
+
 const DegreePlanParentQuery = {
     findAllDegreePlansListForUsers: DegreePlanParentTC.getResolver(
         "findAllDegreePlansListForUsers",
+        [authMiddleware]
+    ),
+    findDegreePlanParentById: DegreePlanParentTC.getResolver(
+        "findDegreePlanParentById",
         [authMiddleware]
     ),
 };

@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useContext, useReducer } from "react";
 import SemesterBox from "./SemesterBox";
 import "./DegreePlan.css";
-import { gql, useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import {
+    gql,
+    useQuery,
+    useMutation,
+    useLazyQuery,
+    useApolloClient,
+} from "@apollo/client";
 import { useHistory } from "react-router";
 import { Context as TermContext } from "../../contexts/termContext";
 import TitleBox from "./TitleBox";
@@ -16,63 +22,6 @@ const handleLogoClick = () => {
         window.open("https://medium.com/riceapps", "_blank")
     );
 };
-
-const GET_EVALUATION_CHART_BY_COURSE = gql`
-    query getEvaluationChartByCourse($course: String!) {
-        getEvaluationChartByCourse(course: $course) {
-            courseName
-            expected_pf {
-                score_1
-                score_2
-                score_3
-                score_4
-                score_5
-            }
-            expected_grade {
-                score_1
-                score_2
-                score_3
-                score_4
-                score_5
-            }
-        }
-    }
-`;
-
-// query all of the schedules for a user
-const QUERY_ALL_USER_SCHEDULES = gql`
-    query scheduleMany {
-        scheduleMany {
-            _id
-            term
-            user {
-                _id
-            }
-            draftSessions {
-                session {
-                    course {
-                        subject
-                        longTitle
-                        courseNum
-                        creditsMin
-                        creditsMax
-                        prereqs
-                        coreqs
-                        distribution
-                    }
-                    instructors {
-                        firstName
-                        lastName
-                    }
-                    maxEnrollment
-                }
-                visible
-            }
-            customCourse
-            notes
-        }
-    }
-`;
 
 const QUERY_ALL_USER_DEGREE_PLANS = gql`
     query QUERY_ALL_USER_DEGREE_PLANS($_id: ID, $degreeplanparent: ID) {
@@ -209,6 +158,16 @@ const GET_LOCAL_DATA = gql`
         term @client
         recentUpdate @client
         degreeplanparent @client
+        degreeplanname @client
+    }
+`;
+
+const QUERY_USER_DEGREE_PLAN_LIST_BY_ID = gql`
+    query findDegreePlanParentById($_id: ID) {
+        findDegreePlanParentById(_id: $_id) {
+            _id
+            name
+        }
     }
 `;
 
@@ -219,7 +178,7 @@ const DegreePlan = () => {
     const [degreePlanName, setDegreePlanName] = useState("");
 
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { degreeplanparent } = storeData;
+    let { degreeplanparent, degreeplanname } = storeData;
 
     const [loadDegreePlanData, { loading, error, data }] = useLazyQuery(
         QUERY_ALL_USER_DEGREE_PLANS,
@@ -230,7 +189,6 @@ const DegreePlan = () => {
             },
         }
     );
-
     useEffect(() => {
         if (degreeplanparent) {
             loadDegreePlanData();
@@ -243,9 +201,6 @@ const DegreePlan = () => {
         data: data4,
     } = useQuery(VERIFY_TOKEN);
 
-    const { loading3, error3, data3 } = useQuery(
-        GET_EVALUATION_CHART_BY_COURSE
-    );
     const {
         state: { term },
     } = useContext(TermContext);
@@ -301,9 +256,7 @@ const DegreePlan = () => {
                 degreeplanparent: schedule.degreeplanparent,
             })
         );
-        setDegreePlanName(
-            defaultSchedule && defaultSchedule[0].degreeplanparent.name
-        );
+        setDegreePlanName(degreeplanname && degreeplanname);
         setSemesterList(defaultSchedule);
     }, [degreeplanparent, loading, data, error]);
 
@@ -323,8 +276,6 @@ const DegreePlan = () => {
         } else {
             alert("You have already created a schedule of this term");
         }
-        // const newSem = { term: term, draftSessions: [], notes: "", _id: "" };
-        // setSemesterList([...semesterList, newSem]);
     };
 
     // delete a semester
