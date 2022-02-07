@@ -159,6 +159,7 @@ const GET_LOCAL_DATA = gql`
         recentUpdate @client
         degreeplanparent @client
         degreeplanname @client
+        degreeplanlist @client
     }
 `;
 

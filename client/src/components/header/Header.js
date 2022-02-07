@@ -120,6 +120,7 @@ const GET_LOCAL_DATA = gql`
         recentUpdate @client
         degreeplanparent @client
         degreeplanname @client
+        degreeplanlist @client
     }
 `;
 
@@ -176,7 +177,7 @@ function Header() {
     } = useQuery(VERIFY_TOKEN);
 
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { degreeplanparent } = storeData;
+    let { degreeplanparent, degreeplanlist } = storeData;
 
     useEffect(() => {
         if (data4) {
@@ -292,6 +293,18 @@ function Header() {
             </IconButton>
         ));
     };
+    const handleDeletePlan = () => {
+        if (degreeplanlist.findAllDegreePlansListForUsers.length > 1) {
+            deleteDegreePlan({
+                variables: {
+                    _id: degreeplanparent,
+                },
+            });
+            setModal3(false);
+        } else {
+            alert("You must have at least 1 degree plan");
+        }
+    };
     return (
         <div className="headerContainer">
             <div className="titleContainer">
@@ -326,16 +339,6 @@ function Header() {
                     /> */}
                 </Tabs>
             </div>
-            {/* <Button
-                        variant="outlined"
-                        onClick={() => handleLogoClick()}
-                    >
-                        <img
-                            src={RiceAppsLogo}
-                            style={{ minWidth: 75 }}//added due to Degree Plan Button
-                        // style={styles.logo}
-                        />
-                    </Button> */}
             {location.pathname == "/schedule" ? (
                 <>
                     <SemesterSelect></SemesterSelect>
@@ -509,14 +512,7 @@ function Header() {
                                     <Button
                                         className={classes.button4}
                                         variant="outlined"
-                                        onClick={() => {
-                                            deleteDegreePlan({
-                                                variables: {
-                                                    _id: degreeplanparent,
-                                                },
-                                            });
-                                            setModal3(false);
-                                        }}
+                                        onClick={handleDeletePlan}
                                     >
                                         {" "}
                                         Remove

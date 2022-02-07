@@ -16,11 +16,15 @@ const QUERY_USER_SCHEDULES = gql`
 `;
 
 const customStyles = {
-    option: (provided, state) => ({
-        ...provided,
-        // borderBottom: "1px dotted pink",
-        color: "#1DC2C4",
-    }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+        return {
+            ...styles,
+            width: 200,
+            backgroundColor: isFocused ? "#1DC2C4" : "#BBECED",
+            color: "#FFF",
+            cursor: isDisabled ? "not-allowed" : "default",
+        };
+    },
     control: (base, state) => ({
         ...base,
         color: "#1DC2C4",

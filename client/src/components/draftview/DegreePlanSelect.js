@@ -8,6 +8,7 @@ const GET_LOCAL_DATA = gql`
         recentUpdate @client
         degreeplanparent @client
         degreeplanname @client
+        degreeplanlist @client
     }
 `;
 
@@ -73,7 +74,7 @@ const DegreePlanSelect = () => {
     const [degreePlanList, setDegreePlanList] = useState([]);
 
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { degreeplanparent, degreeplanname } = storeData;
+    let { degreeplanparent } = storeData;
     const { loading, error, data } = useQuery(QUERY_USER_DEGREE_PLAN_LIST, {
         variables: {
             _id: userId,
@@ -106,6 +107,7 @@ const DegreePlanSelect = () => {
                 data: {
                     degreeplanparent: updatedDegreePlanList[0].value,
                     degreeplanname: updatedDegreePlanList[0].label,
+                    degreeplanlist: data,
                 },
             });
             setDegreePlanList(updatedDegreePlanList);
@@ -127,6 +129,7 @@ const DegreePlanSelect = () => {
             data: {
                 degreeplanparent: newTermObject.value,
                 degreeplanname: newTermObject.label,
+                degreeplanlist: data,
             },
         });
     };

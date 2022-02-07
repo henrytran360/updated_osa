@@ -66,6 +66,7 @@ const initialState = {
     term: 202220,
     degreeplanparent: "",
     degreeplanname: "",
+    degreeplanlist: {},
 };
 
 // Initialize cache with a state
@@ -77,6 +78,7 @@ client.writeQuery({
             term
             degreeplanparent
             degreeplanname
+            degreeplanlist
         }
     `,
     data: initialState,
