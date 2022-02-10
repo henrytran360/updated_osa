@@ -30,6 +30,8 @@
     "@mui/icons-material": "^5.3.0",
     "@mui/material": "^5.3.0",
     "cldr-data": "^36.0.0",
+    "devextreme": "21.2.5",
+    "devextreme-react": "21.2.5",
     "draft-convert": "^2.1.12",
     "draft-js": "^0.11.7",
     "firebase": "^8.0.0",

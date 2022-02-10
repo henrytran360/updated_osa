@@ -32,7 +32,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
+    width: 800px;
     height: 500px;
     box-sizing: border-box;
     border-color: transparent;
@@ -40,4 +40,5 @@
     overflow-y: auto;
     border: 2px solid #149fa0;
     background-color: white;
+    z-index: 99;
 }
