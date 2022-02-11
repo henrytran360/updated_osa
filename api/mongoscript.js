@@ -14,6 +14,7 @@ async function main() {
         // await updateName(client);
         // await addDefaultDegreePlanForAll(client);
         //await dropDegreePlanParentCollection(client);
+        await addCourseNameEvals(client);
     } catch (e) {
         console.log(e);
     } finally {
@@ -137,6 +138,32 @@ async function addCourseName(client) {
                             fullCourseName: fullName
                                 .replace(/\s+/g, "")
                                 .toLowerCase(),
+                        },
+                    }
+                );
+        });
+}
+
+async function addCourseNameEvals(client) {
+    await client
+        .db("hatch_staging")
+        .collection("course_evaluations_new")
+        .find()
+        .snapshot()
+        .forEach(function (elem) {
+            let a = elem.name;
+            let b = a.split(" ");
+            let courseName = b[0] + " " + b[1];
+            client
+                .db("hatch_staging")
+                .collection("course_evaluations_new")
+                .updateMany(
+                    {
+                        _id: elem._id,
+                    },
+                    {
+                        $set: {
+                            courseName: courseName,
                         },
                     }
                 );
