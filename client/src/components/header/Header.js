@@ -13,8 +13,8 @@ import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 import ListIcon from "@material-ui/icons/List";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Context as BottomModeContext } from "../../contexts/bottomModeContext";
-import SettingsModal from "./SettingsModal"
-import ThemeToggle from "./ThemeToggle"
+import SettingsModal from "./SettingsModal";
+import ThemeToggle from "./ThemeToggle";
 import Modal from "react-modal";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { GoDiffAdded } from "react-icons/go";
@@ -162,12 +162,16 @@ function Header() {
         state: { bottomMode2 },
         changeBottomMode,
     } = useContext(BottomModeContext);
-
     const handleClick = (e) => {
-        if (bottomMode2) {
-            changeBottomMode("");
+        if (e.currentTarget.value == "Search") {
+            changeBottomMode({ ...bottomMode2, Search: !bottomMode2.Search });
+        } else if (e.currentTarget.value == "Calendar") {
+            changeBottomMode({
+                ...bottomMode2,
+                Calendar: !bottomMode2.Calendar,
+            });
         } else {
-            changeBottomMode(e.currentTarget.value);
+            changeBottomMode({ ...bottomMode2, Details: !bottomMode2.Details });
         }
     };
     const location = useLocation();
@@ -282,7 +286,7 @@ function Header() {
         return icons.map((icon, index) => (
             <div
                 className={`icon-container-2${
-                    bottomMode2 != values[index] ? "-color" : ""
+                    bottomMode2[`${values[index]}`] ? "-color" : ""
                 }`}
             >
                 <IconButton
@@ -291,8 +295,6 @@ function Header() {
                     onClick={handleClick}
                     value={values[index]}
                     style={{
-                        backgroundColor:
-                            bottomMode2 != values[index] ? "#BBECED" : "",
                         textDecoration: "none",
                     }}
                 >
@@ -300,18 +302,6 @@ function Header() {
                 </IconButton>
             </div>
         ));
-    };
-    const handleDeletePlan = () => {
-        if (degreeplanlist.findAllDegreePlansListForUsers.length > 1) {
-            deleteDegreePlan({
-                variables: {
-                    _id: degreeplanparent,
-                },
-            });
-            setModal3(false);
-        } else {
-            alert("You must have at least 1 degree plan");
-        }
     };
     return (
         <div className="headerContainer">
@@ -324,7 +314,9 @@ function Header() {
                     onChange={handleChange}
                     indicatorColor="primary"
                     TabIndicatorProps={{
-                        style: { backgroundColor: "var(--search-background-focused)" },
+                        style: {
+                            backgroundColor: "var(--search-background-focused)",
+                        },
                     }}
                     tabItemContainerStyle={{ width: 50 }}
                     aria-label="nav tabs"
@@ -442,6 +434,7 @@ function Header() {
                                                         name: inputName,
                                                     },
                                                 });
+                                                setInputName("");
                                                 setModal(false);
                                             }}
                                         >
@@ -496,6 +489,7 @@ function Header() {
                                                             inputName,
                                                     },
                                                 });
+                                                setInputName("");
                                                 setModal2(false);
                                             }}
                                         >
@@ -530,7 +524,24 @@ function Header() {
                                     <Button
                                         className={classes.button4}
                                         variant="outlined"
-                                        onClick={handleDeletePlan}
+                                        onClick={() => {
+                                            if (
+                                                degreeplanlist
+                                                    .findAllDegreePlansListForUsers
+                                                    .length > 1
+                                            ) {
+                                                deleteDegreePlan({
+                                                    variables: {
+                                                        _id: degreeplanparent,
+                                                    },
+                                                });
+                                                setModal3(false);
+                                            } else {
+                                                alert(
+                                                    "You must have at least 1 degree plan"
+                                                );
+                                            }
+                                        }}
                                     >
                                         {" "}
                                         Remove

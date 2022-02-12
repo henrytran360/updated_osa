@@ -102,15 +102,18 @@ const DegreePlanSelect = () => {
                         value: plan._id,
                     };
                 });
-            client.writeQuery({
-                query: GET_LOCAL_DATA,
-                data: {
-                    degreeplanparent: updatedDegreePlanList[0].value,
-                    degreeplanname: updatedDegreePlanList[0].label,
-                    degreeplanlist: data,
-                },
-            });
-            setDegreePlanList(updatedDegreePlanList);
+            if (updatedDegreePlanList.length > 0) {
+                console.log("hello");
+                client.writeQuery({
+                    query: GET_LOCAL_DATA,
+                    data: {
+                        degreeplanparent: updatedDegreePlanList[0].value,
+                        degreeplanname: updatedDegreePlanList[0].label,
+                        degreeplanlist: data,
+                    },
+                });
+                setDegreePlanList(updatedDegreePlanList);
+            }
         }
     }, [data]);
 

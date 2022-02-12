@@ -12,9 +12,9 @@ async function main() {
         // await testCollection(client);
         // await addCourseName(client);
         // await updateName(client);
-        // await addDefaultDegreePlanForAll(client);
+        await addDefaultDegreePlanForAll(client);
         //await dropDegreePlanParentCollection(client);
-        await addCourseNameEvals(client);
+        // await addCourseNameEvals(client);
     } catch (e) {
         console.log(e);
     } finally {
@@ -182,7 +182,7 @@ async function addDefaultDegreePlanForAll(client) {
                 .db("hatch_staging")
                 .collection("degreeplanparents")
                 .insertOne({
-                    name: "Main Degree Plan",
+                    name: "Default Plan",
                     user: ObjectId(userId),
                 });
         });

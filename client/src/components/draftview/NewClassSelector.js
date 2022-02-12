@@ -40,6 +40,7 @@ const get_eval = gql`
 `;
 
 const NewClassSelector = ({ draftSessions, scheduleID }) => {
+    console.log(draftSessions);
     const { loading, error, data } = useQuery(get_eval, {
         variables: {
             course: "COMP 540",

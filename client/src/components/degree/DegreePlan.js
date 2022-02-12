@@ -275,7 +275,11 @@ const DegreePlan = () => {
                 },
             });
         } else {
-            alert("You have already created a schedule of this term");
+            if (degreeplanparent) {
+                alert("You have already created a schedule of this term");
+            } else {
+                alert("You have to create a new plan");
+            }
         }
     };
 

@@ -1,7 +1,11 @@
 import createDataContext from "./createDataContext";
 
 const initialState = {
-    bottomMode2: "",
+    bottomMode2: {
+        Search: true,
+        Calendar: true,
+        Details: true,
+    },
 };
 
 const bottomModeReducer = (prevState, action) => {
