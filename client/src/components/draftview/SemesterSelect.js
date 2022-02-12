@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { gql, useApolloClient, useQuery } from "@apollo/client";
+
 const GET_LOCAL_DATA = gql`
     query GetLocalData {
         term @client

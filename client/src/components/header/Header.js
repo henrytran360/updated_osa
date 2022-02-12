@@ -279,18 +279,25 @@ function Header() {
         const values = ["Search", "Calendar", "Details"];
 
         return icons.map((icon, index) => (
-            <IconButton
-                className={classes.button}
-                size="small"
-                onClick={handleClick}
-                value={values[index]}
-                style={{
-                    backgroundColor:
-                        bottomMode2 != values[index] ? "#BBECED" : "",
-                }}
+            <div
+                className={`icon-container-2${
+                    bottomMode2 != values[index] ? "-color" : ""
+                }`}
             >
-                {icon}
-            </IconButton>
+                <IconButton
+                    className={classes.button}
+                    size="small"
+                    onClick={handleClick}
+                    value={values[index]}
+                    style={{
+                        backgroundColor:
+                            bottomMode2 != values[index] ? "#BBECED" : "",
+                        textDecoration: "none",
+                    }}
+                >
+                    {icon}
+                </IconButton>
+            </div>
         ));
     };
     const handleDeletePlan = () => {
@@ -340,10 +347,20 @@ function Header() {
                 </Tabs>
             </div>
             {location.pathname == "/schedule" ? (
-                <>
+                <div
+                    style={{
+                        width: "30%",
+                        height: "100%",
+                        marginRight: 50,
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                    }}
+                >
                     <SemesterSelect></SemesterSelect>
                     <div className="buttonSelect">{renderIcons()}</div>
-                </>
+                </div>
             ) : (
                 <div
                     style={{
