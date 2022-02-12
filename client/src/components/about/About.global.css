@@ -22,7 +22,7 @@
 .profile > p {
     text-align: center;
     letter-spacing: 0px;
-    color: #8e9eb2;
+    color: var(--tertiary-color);
     opacity: 1;
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import Select from "react-select";
+import { customStylesNoWidth } from "./SelectStyles";
 
 const style = {
     width: "100%",
@@ -23,6 +24,7 @@ function Selection({ options, selected, show, handleChange }) {
                     onChange={handleChange}
                     options={options}
                     isMulti={true}
+                    styles={customStylesNoWidth}
                 />
             </div>
         );

@@ -31,5 +31,5 @@
     height: 100%;
     /* overflow-y: hidden; */
     overflow-x: hidden;
-    border-top: 0.5px solid #73c8c9;
+    border-top: 0.5px solid var(--border-color);
 }

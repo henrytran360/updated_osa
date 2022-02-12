@@ -31,10 +31,10 @@ const customStyles = {
         color: "#1DC2C4",
         zIndex: 0,
         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-        borderColor: state.isFocused ? "#BEECED" : "#BEECED",
+        borderColor: state.isFocused ? "var(--border-color)" : "var(--border-color)",
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
-            borderColor: state.isFocused ? "#1DC2C4" : "#BEECED",
+            borderColor: state.isFocused ? "var(--search-background-focused)" : "var(--border-color)",
         },
     }),
     singleValue: (provided, state) => {
@@ -108,8 +108,8 @@ const SemesterSelect = () => {
                         ...theme,
                         colors: {
                             text: "red",
-                            primary25: "#BBECED",
-                            primary: "#BBECED",
+                            primary25: "var(--border-color)",
+                            primary: "var(--border-color)",
                         },
                     })}
                     styles={customStyles}

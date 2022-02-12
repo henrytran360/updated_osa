@@ -1,13 +1,13 @@
-:root {
-    --search-button-bg: #42bebf60;
-}
-
 .filter {
     width: 100%;
 }
 
 .filter2 {
     width: 350px;
+}
+
+.css-2613qy-menu { /* need to style this with variables rather than inline string styles that react seems to love */
+    background-color: var(--background-color);
 }
 
 .buttons {
@@ -24,24 +24,24 @@
 }
 
 .searchButton {
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: var(--background-color) 0% 0% no-repeat padding-box;
     border-radius: 20px;
     opacity: 1;
     margin: 5px;
     padding: 8px;
     line-height: 20px;
     letter-spacing: 0px;
-    color: var(--bold-text-color);
+    color: var(--secondary-color);
     cursor: pointer;
 }
 
 .searchButton.selected {
     background: var(--search-button-bg);
-    color: #ffffff;
+    color: var(--background-color);
 }
 
 .searchBar {
-    background: var(--main-bg-color);
+    background: var(--background-color);
     border-radius: 15px 0px 0px 15px;
     box-sizing: border-box;
     height: 940px;
@@ -63,7 +63,7 @@
     text-align: left;
     font: normal normal medium 17px/15px;
     letter-spacing: 0px;
-    color: #898e91;
+    color: var(--tertiary-color);
     opacity: 1;
 
     margin-top: 10px;
@@ -99,11 +99,16 @@
     flex-direction: row;
 }
 
+#searchInput {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+}
+
 .searchInputsCourse {
     display: flex;
     height: 40px;
     border-radius: 12px;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: var(--shadow-color) 1.95px 1.95px 2.6px;
     width: 90%;
 }
 .searchInputsCourse input {

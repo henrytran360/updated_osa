@@ -1,26 +1,128 @@
-html,
-body,
-#app {
+html, body, #app {
     height: 100%;
 }
 
+:root {
+    --background-color: #fff;
+    /* used for most backgrounds */
+    --secondary-bg-color: #485888;
+    --tertiary-bg-color: #F2FAFC;
+    --quaternary-bg-color: #e35f4980;
+    --primary-color: #1EBFC2;
+    /* used for p tags */
+    --secondary-color: #12B0B2;
+    /* used for headings, navbar tabs */
+    --tertiary-color: #8E9EB2;
+    /* used for icon, course time */
+    --quaternary-color: #384569;
+    /* used for course code, course instructor, course event, login buttons */
+    --quinary-color: #42BEBF60;
+    /* used for search button */
+    --link-color: #543fd7;
+    /* used for a tags */
+    --selection-color: #9595ff;
+    /* used for text selection */
+    --border-color: #bbeced;
+    /* used for button borders */
+    --search-button-bg: #42bebf60;
+    --shadow-color: rgba(0,0,0,0.15);
+    --search-background-focused: #1dc2c4;
+}
+
+html[data-theme='Color Blind'] {
+    /* Design this theme */
+    --background-color: #fff;
+    --secondary-bg-color: #485888;
+    --tertiary-bg-color: #F2FAFC;
+    --primary-color: #107577;
+    --secondary-color: #12B0B2;
+    --tertiary-color: #8E9EB2;
+    --quaternary-color: #384569;
+    --quinary-color: #42BEBF60;
+    --link-color: #543fd7;
+    --selection-color: #9595ff;
+    --border-color: #bbeced;
+    --search-button-bg: #42bebf60;
+    --shadow-color: whitesmoke
+}
+
+html[data-theme='Dark'] {
+    --background-color: #242222;
+    --secondary-bg-color: #374058;
+    --tertiary-bg-color: #303435;
+    --primary-color: #b0f4f5;
+    --secondary-color: #5ccfd1;
+    --tertiary-color: #8E9EB2;
+    --quaternary-color: #868faa;
+    --quinary-color: #42BEBF60;
+    --link-color: #7b6ddb;
+    --selection-color: #9595ff;
+    --border-color: #bbeced;
+    --search-button-bg: #42bebf60;
+    --shadow-color: rgba(255, 255, 255, 0.5);
+}
+
+html[data-theme='High Contrast'] {
+    --background-color: #000000;
+    --secondary-bg-color: #292c35;
+    --tertiary-bg-color: #303131;
+    --primary-color: #fcff4e;
+    --secondary-color: #81cdff;
+    --tertiary-color: #d0e5fd;
+    --quaternary-color: #9aaeec;
+    --quinary-color: #4affffa4;
+    --link-color: #a99bff;
+    --selection-color: #a1a1c9;
+    --border-color: #bbeced;
+    --search-button-bg: #4bdd37fb;
+    --shadow-color: whitesmoke
+}
+
+#app {
+    transition: all 0.5s ease-in-out;
+}
+
+body {
+    font-family: "Acari Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--secondary-color)
+}
+
+p {
+    color: var(--primary-color)
+}
+
+a {
+    color: var(--link-color)
+}
+
+::selection {
+    background-color: var(--selection-color)
+}
+
 * {
-    scrollbar-width: 18px; /*thin;*/
-    scrollbar-color: skyblue #000066;
+    scrollbar-width: 18px;
+    /*thin;*/
+    /* scrollbar-color: skyblue #000066; */
 }
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf")
-        format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf")
-        format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf") format("truetype");
     font-weight: normal;
     font-style: italic;
 }
@@ -34,14 +136,7 @@ body,
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf")
-        format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf") format("truetype");
     font-weight: medium;
     font-style: normal;
-}
-
-body {
-    font-family: "Acari Sans";
-    margin: 0;
-    padding: 0;
 }

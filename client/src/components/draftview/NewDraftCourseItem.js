@@ -16,7 +16,7 @@ const colorCombos = [
     ["#FFFFF2", "#E8B134"], // yellow
     ["#FFFCFB", "#EC3F63"], // orange
     ["#FDFFFE", "#1EBFC2"], // light green
-    ["#FFFFFF", "#000000FF"], // white / black
+    ["#FFFFFF", "#696969"], // white / darkgrey
 ];
 
 // const colorCombos = [
@@ -198,8 +198,9 @@ const NewDraftCourseItem = (props) => {
             className={`draft-course-item-container ${
                 boolVisible ? "" : "selected2"
             }`}
+            style={{'box-shadow': 'var(--shadow-color) 0 1.95px 0'}}
         >
-            <div className="draft-course-top">
+            <div className="draft-course-top" >
                 <div
                     style={{
                         width: "72%",
@@ -286,7 +287,7 @@ const NewDraftCourseItem = (props) => {
             <div className="draft-course-bottom">
                 <span
                     style={{
-                        color: "898E91",
+                        color: "var(--tertiary-color)",
                         fontSize: 12,
                     }}
                 >

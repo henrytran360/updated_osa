@@ -10,8 +10,8 @@ import { useHistory } from "react-router";
 
 const useStyles = makeStyles({
     button: {
-        color: "#1DC2C4",
-        border: "1px solid #BBECED",
+        color: "var(--search-background-focused)",
+        backgroundColor: "red",
     },
 });
 
@@ -66,8 +66,8 @@ function LoginButton() {
         let ll_button = (
             <Button
                 style={{
-                    color: "#1DC2C4",
-                    border: "1px solid 1DC2C4",
+                    color: "var(--search-background-focused)",
+                    border: "1px solid var(--search-background-focused)",
                 }}
                 className={classes.button}
                 variant="outlined"
@@ -81,8 +81,8 @@ function LoginButton() {
             ll_button = (
                 <Button
                     style={{
-                        color: "#1DC2C4",
-                        border: "1px solid 1DC2C4",
+                        color: "var(--search-background-focused)",
+                        border: "1px solid var(--search-background-focused)",
                     }}
                     className={classes.button}
                     variant="outlined"
@@ -104,7 +104,7 @@ function LoginButton() {
                 alignItems: "center",
             }}
         >
-            <span style={{ color: "#1DC2C4", marginRight: 20 }}>
+            <span style={{ color: "var(--search-background-focused)", marginRight: 20 }}>
                 {user_email}
             </span>
             <div

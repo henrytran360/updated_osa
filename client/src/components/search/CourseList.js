@@ -482,6 +482,10 @@ const CourseList = ({
                                     aria-label="expand row"
                                     size="small"
                                     onClick={() => toggleCourseInfo(id)}
+                                    style={{
+                                        color: "var(--quaternary-color)",
+                                        fontSize: 15,
+                                    }}
                                 >
                                     {courseSelected.includes(id) ? (
                                         <KeyboardArrowUpIcon />

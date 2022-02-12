@@ -3,6 +3,7 @@ import Selection from "./Selection";
 import { initGA } from "../../utils/analytics";
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import Button from "@material-ui/core/Button";
+import customStyles from "./SelectStyles";
 import { ThemeProvider } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import "./CourseSearch.global.css";
@@ -301,39 +302,39 @@ const GET_COURES_BY_NAME = gql`
 const initialStartTime = "11:00";
 const initialEndTime = "12:00";
 
-const customStyles = {
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-        return {
-            ...styles,
-            width: 140,
-            backgroundColor: isFocused ? "#1DC2C4" : "#BBECED",
-            color: "#FFF",
-            cursor: isDisabled ? "not-allowed" : "default",
-        };
-    },
-    control: (base, state) => ({
-        ...base,
-        color: "white",
-        width: 140,
-        borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-        backgroundColor: "#1EBFC2",
-        borderColor: state.isFocused ? "#BEECED" : "#BEECED",
-        boxShadow: state.isFocused ? null : null,
-        "&:hover": {
-            borderColor: state.isFocused ? "#1DC2C4" : "#BEECED",
-        },
-    }),
-    singleValue: (provided, state) => {
-        const opacity = state.isDisabled ? 0.5 : 1;
-        const transition = "opacity 300ms";
+// const customStyles = {
+//     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+//         return {
+//             ...styles,
+//             width: 140,
+//             backgroundColor: isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+//             color: "var(--background-color)",
+//             cursor: isDisabled ? "not-allowed" : "default",
+//         };
+//     },
+//     control: (base, state) => ({
+//         ...base,
+//         color: "var(--background-color)",
+//         width: 140,
+//         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+//         backgroundColor: "var(--primary-color)",
+//         borderColor: "var(--border-color)",
+//         boxShadow: state.isFocused ? null : null,
+//         "&:hover": {
+//             borderColor: state.isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+//         },
+//     }),
+//     singleValue: (provided, state) => {
+//         const opacity = state.isDisabled ? 0.5 : 1;
+//         const transition = "opacity 300ms";
 
-        return { ...provided, opacity, transition };
-    },
-};
+//         return { ...provided, opacity, transition };
+//     },
+// };
 
 const useStyles = makeStyles((theme) => ({
     searchIconStyle: {
-        color: "#1DC2C4",
+        color: "var(--search-background-focused)",
     },
 }));
 
@@ -672,6 +673,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                 <div className="seachCourseContainer">
                     <div className="searchInputsCourse">
                         <input
+                            id="searchInput"
                             type="text"
                             className="header-search"
                             placeholder="Search courses"

@@ -18,7 +18,7 @@
 
 /* Don't highlight the current day */
 .rbc-today {
-    background-color: white;
+    background-color: var(--background-color);
 }
 
 /* Styles for calendar events (courses/labs) on the calendar */
@@ -42,7 +42,7 @@
 
 .courseEventBar {
     width: 4px;
-    background-color: #e35f4980;
+    background-color: var(--quaternary-bg-color);
     border: 0px;
     border-radius: 10px;
     opacity: 1;
@@ -52,13 +52,13 @@
 
 .courseEvent > #courseCode {
     text-decoration: underline;
-    color: #384569;
+    color: var(--quaternary-color);
     font-size: 1em;
     line-height: 3px;
 }
 
 .courseEvent > #courseTime {
-    color: #8e9eb2;
+    color: var(--tertiary-color);
     margin-top: 2px;
     flex-grow: 1;
     font-size: 0.7em;

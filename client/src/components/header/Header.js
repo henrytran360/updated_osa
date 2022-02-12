@@ -13,6 +13,8 @@ import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 import ListIcon from "@material-ui/icons/List";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Context as BottomModeContext } from "../../contexts/bottomModeContext";
+import SettingsModal from "./SettingsModal"
+import ThemeToggle from "./ThemeToggle"
 import Modal from "react-modal";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { GoDiffAdded } from "react-icons/go";
@@ -29,7 +31,7 @@ import { flexbox } from "@mui/system";
 
 const useStyles = makeStyles({
     button: {
-        color: "#1DC2C4",
+        color: "var(--search-background-focused)",
         fontSize: 15,
     },
     button2: {
@@ -140,7 +142,7 @@ function LinkTab(props) {
 const StyledTab = withStyles((theme) => ({
     root: {
         textTransform: "none",
-        color: "#1DC2C4",
+        color: "var(--search-background-focused)",
         fontWeight: theme.typography.fontWeightRegular,
         fontSize: theme.typography.pxToRem(15),
         marginRight: theme.spacing(1),
@@ -260,7 +262,6 @@ function Header() {
     const isDesktopOrLaptop = useMediaQuery({
         query: "(min-device-width: 608px)",
     });
-    let feedbackURL = "https://forms.gle/gSJp5Dy9a2WH7Nk1A";
     // This initializes Google Analytics
     initGA();
     // Redirects people to our Medium page on a new page if they click our logo to learn more about us
@@ -323,7 +324,7 @@ function Header() {
                     onChange={handleChange}
                     indicatorColor="primary"
                     TabIndicatorProps={{
-                        style: { backgroundColor: "#1DC2C4" },
+                        style: { backgroundColor: "var(--search-background-focused)" },
                     }}
                     tabItemContainerStyle={{ width: 50 }}
                     aria-label="nav tabs"
@@ -553,6 +554,8 @@ function Header() {
                 </div>
             )}
 
+            <ThemeToggle />
+            <SettingsModal />
             <LoginButton></LoginButton>
         </div>
     );
