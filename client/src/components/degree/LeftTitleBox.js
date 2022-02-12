@@ -7,7 +7,7 @@ const LeftTitleBox = (props) => {
     // for the drop-down box for semester selection
     const { getTerm } = useContext(TermContext);
     // 2021 and Fall are the current year default value
-    const [year, setYear] = useState(2021);
+    const [year, setYear] = useState(2022);
     const [sem, setSem] = useState("Fall");
     const saveSelections = (e) => {
         setYear(e.target.value);
@@ -36,11 +36,11 @@ const LeftTitleBox = (props) => {
                         className="yearSelect"
                         onChange={(e) => setYear(e.target.value)}
                     >
-                                      <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
+                                      <option value="2022">2022</option>
                                         <option value="2023">2023</option>
                                         <option value="2024">2024</option>
                                         <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
                     </select>
                                 
                     <select

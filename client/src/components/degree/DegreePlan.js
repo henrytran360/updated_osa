@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useContext, useReducer } from "react";
 import SemesterBox from "./SemesterBox";
 import "./DegreePlan.css";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import {
+    gql,
+    useQuery,
+    useMutation,
+    useLazyQuery,
+    useApolloClient,
+} from "@apollo/client";
 import { useHistory } from "react-router";
 import { Context as TermContext } from "../../contexts/termContext";
 import TitleBox from "./TitleBox";
@@ -17,125 +23,12 @@ const handleLogoClick = () => {
     );
 };
 
-const GET_EVALUATION_BY_COURSE = gql`
-    query getEvaluationByCourse($course: String!) {
-        getEvaluationByCourse(course: $course) {
-            course
-            evalInfo {
-                Term
-                CRN
-                Reviews
-                title
-                Instructor
-                Department
-                yearID
-            }
-        }
-    }
-`;
-  
-  export const GET_EVALUATION_CHART_BY_COURSE = gql`
-  query getEvaluationChartByCourse($course: String!){
-      getEvaluationChartByCourse(course: $course){
-          courseName
-          organization{
-              score_1
-              score_2
-              score_3
-              score_4
-              score_5
-          }
-          assignments{
-              score_1
-              score_2
-              score_3
-              score_4
-              score_5
-          }
-          overall{
-              score_1
-              score_2
-              score_3
-              score_4
-              score_5
-          }
-          challenge{
-              score_1
-              score_2
-              score_3
-              score_4
-              score_5
-          }
-          workload{
-              score_1
-              score_2
-              score_3
-              score_4
-              score_5
-          }
-          why_taking{
-              score_1
-              score_2
-              score_3
-              score_4
-              score_5
-          }
-          expected_pf{
-              score_1
-              score_2
-              score_3
-              score_4
-              score_5
-          }
-              expected_grade{
-              score_1
-              score_2
-              score_3
-              score_4
-              score_5
-          }
-      }
-  }
-`;
-
-// query all of the schedules for a user
-const QUERY_ALL_USER_SCHEDULES = gql`
-    query scheduleMany {
-        scheduleMany {
-            _id
-            term
-            user {
-                _id
-            }
-            draftSessions {
-                session {
-                    course {
-                        subject
-                        longTitle
-                        courseNum
-                        creditsMin
-                        creditsMax
-                        prereqs
-                        coreqs
-                        distribution
-                    }
-                    instructors {
-                        firstName
-                        lastName
-                    }
-                    maxEnrollment
-                }
-                visible
-            }
-            customCourse
-            notes
-        }
-    }
-`;
-
 const QUERY_ALL_USER_DEGREE_PLANS = gql`
-    query QUERY_ALL_USER_SCHEDULES {
-        findAllDegreePlansForUsers {
+    query QUERY_ALL_USER_DEGREE_PLANS($_id: ID, $degreeplanparent: ID) {
+        findAllDegreePlansForUsers(
+            _id: $_id
+            degreeplanparent: $degreeplanparent
+        ) {
             _id
             term
             user {
@@ -156,6 +49,10 @@ const QUERY_ALL_USER_DEGREE_PLANS = gql`
                     distribution
                     prereqs
                 }
+            }
+            degreeplanparent {
+                name
+                _id
             }
         }
     }
@@ -189,12 +86,19 @@ const VERIFY_TOKEN = gql`
 // `;
 
 const MUTATION_ADD_DEGREE_PLAN = gql`
-    mutation createNewDegreePlan($term: String!) {
-        createNewDegreePlan(record: { term: $term }) {
-            term
+    mutation createNewDegreePlan($term: String!, $degreeplanparent: MongoID!) {
+        createNewDegreePlan(
+            record: { term: $term, degreeplanparent: $degreeplanparent }
+        ) {
+            degreeplanparent {
+                _id
+                name
+            }
+            _id
             user {
                 firstName
             }
+            term
         }
     }
 `;
@@ -221,7 +125,6 @@ const UPDATE_CUSTOM_COURSES = gql`
         }
     }
 `;
-
 
 const FIND_DEGREE_PLAN_BY_ID = gql`
     query findDegreePlan($_id: MongoID!) {
@@ -250,19 +153,54 @@ const FIND_DEGREE_PLAN_BY_ID = gql`
     }
 `;
 
+const GET_LOCAL_DATA = gql`
+    query GetLocalData {
+        term @client
+        recentUpdate @client
+        degreeplanparent @client
+        degreeplanname @client
+        degreeplanlist @client
+    }
+`;
+
+const QUERY_USER_DEGREE_PLAN_LIST_BY_ID = gql`
+    query findDegreePlanParentById($_id: ID) {
+        findDegreePlanParentById(_id: $_id) {
+            _id
+            name
+        }
+    }
+`;
+
 const DegreePlan = () => {
     // to keep the semester in a list to order them
     const [semesterList, setSemesterList] = useState([]);
     const [userId, setUserId] = useState("");
-    // get the data from the query
-    const { loading, error, data } = useQuery(QUERY_ALL_USER_DEGREE_PLANS);
-    const { loading3, error3, data3 } = useQuery(
-        GET_EVALUATION_CHART_BY_COURSE
+    const [degreePlanName, setDegreePlanName] = useState("");
+
+    let { data: storeData } = useQuery(GET_LOCAL_DATA);
+    let { degreeplanparent, degreeplanname } = storeData;
+
+    const [loadDegreePlanData, { loading, error, data }] = useLazyQuery(
+        QUERY_ALL_USER_DEGREE_PLANS,
+        {
+            variables: {
+                _id: userId,
+                degreeplanparent: degreeplanparent,
+            },
+        }
     );
-    
-    const { loadingEvaluation, errorEvaluation, dataEvaluation } = useQuery(
-        GET_EVALUATION_BY_COURSE
-    );
+    useEffect(() => {
+        if (degreeplanparent) {
+            loadDegreePlanData();
+        }
+    }, [degreeplanparent]);
+
+    const {
+        loading: loading4,
+        error: error4,
+        data: data4,
+    } = useQuery(VERIFY_TOKEN);
 
     const {
         state: { term },
@@ -272,19 +210,31 @@ const DegreePlan = () => {
 
     const [mutateSemester, { loadingMutation, errorMutation, dataMutation }] =
         useMutation(MUTATION_ADD_DEGREE_PLAN, {
-            refetchQueries: () => [{ query: QUERY_ALL_USER_DEGREE_PLANS }],
+            refetchQueries: () => [
+                {
+                    query: QUERY_ALL_USER_DEGREE_PLANS,
+                    variables: {
+                        _id: userId,
+                        degreeplanparent: degreeplanparent,
+                    },
+                },
+            ],
         });
 
     const [
         deleteSemester,
         { loadingMutationDelete, errorMutationDelete, dataMutationDelete },
     ] = useMutation(DELETE_DEGREE_PLAN, {
-        refetchQueries: () => [{ query: QUERY_ALL_USER_DEGREE_PLANS }],
+        refetchQueries: () => [
+            {
+                query: QUERY_ALL_USER_DEGREE_PLANS,
+                variables: {
+                    _id: userId,
+                    degreeplanparent: degreeplanparent,
+                },
+            },
+        ],
     });
-
-    const [updateCustomCourses, { loading2, error2, data2 }] = useMutation(
-        UPDATE_CUSTOM_COURSES
-    );
 
     // print status to page (NOTE: Raises Rending more hooks than previous... error)
     // if (loading) return <p>Loading</p>;
@@ -304,10 +254,12 @@ const DegreePlan = () => {
                 notes: schedule.notes,
                 _id: schedule._id,
                 customCourses: schedule.customCourse,
+                degreeplanparent: schedule.degreeplanparent,
             })
         );
+        setDegreePlanName(degreeplanname && degreeplanname);
         setSemesterList(defaultSchedule);
-    }, [loading, data, error]);
+    }, [degreeplanparent, loading, data, error]);
 
     // adding new semester to semester list (state variable)
     const addNewSem = () => {
@@ -319,13 +271,12 @@ const DegreePlan = () => {
                 variables: {
                     term: term,
                     draftCourses: [],
+                    degreeplanparent: degreeplanparent && degreeplanparent,
                 },
             });
         } else {
             alert("You have already created a schedule of this term");
         }
-        // const newSem = { term: term, draftSessions: [], notes: "", _id: "" };
-        // setSemesterList([...semesterList, newSem]);
     };
 
     // delete a semester
@@ -345,7 +296,7 @@ const DegreePlan = () => {
 
     return (
         <div>
-            {/* <DegreePlanNav /> */}
+            <DegreePlanNav degreePlanName={degreePlanName} />
             <div className="layout">
                 {/* {defaultSchedule.map((semester) => {
                 return (<SemesterBox term={semester.term} draftSessions={semester.draftSessions} notes={semester.notes} />)

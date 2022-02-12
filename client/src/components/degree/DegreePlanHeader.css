@@ -24,19 +24,20 @@
 }
 
 .title {
-    width: 30%;
+    width: 50%;
 }
 .DegreePlanNav {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    
+    margin-right: 25px;
+    justify-content: center; /* horizontal, equidistant */
+    flex-direction: row;
 }
 .logoContainer {
     display: flex;
     flex-direction: row;
     width: 10%;
-    
 }
 
 .toschedule:hover {
