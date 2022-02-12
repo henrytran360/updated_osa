@@ -17,26 +17,85 @@ const handleLogoClick = () => {
     );
 };
 
-const GET_EVALUATION_CHART_BY_COURSE = gql`
-    query getEvaluationChartByCourse($course: String!) {
-        getEvaluationChartByCourse(course: $course) {
-            courseName
-            expected_pf {
-                score_1
-                score_2
-                score_3
-                score_4
-                score_5
-            }
-            expected_grade {
-                score_1
-                score_2
-                score_3
-                score_4
-                score_5
+const GET_EVALUATION_BY_COURSE = gql`
+    query getEvaluationByCourse($course: String!) {
+        getEvaluationByCourse(course: $course) {
+            course
+            evalInfo {
+                Term
+                CRN
+                Reviews
+                title
+                Instructor
+                Department
+                yearID
             }
         }
     }
+`;
+  
+  export const GET_EVALUATION_CHART_BY_COURSE = gql`
+  query getEvaluationChartByCourse($course: String!){
+      getEvaluationChartByCourse(course: $course){
+          courseName
+          organization{
+              score_1
+              score_2
+              score_3
+              score_4
+              score_5
+          }
+          assignments{
+              score_1
+              score_2
+              score_3
+              score_4
+              score_5
+          }
+          overall{
+              score_1
+              score_2
+              score_3
+              score_4
+              score_5
+          }
+          challenge{
+              score_1
+              score_2
+              score_3
+              score_4
+              score_5
+          }
+          workload{
+              score_1
+              score_2
+              score_3
+              score_4
+              score_5
+          }
+          why_taking{
+              score_1
+              score_2
+              score_3
+              score_4
+              score_5
+          }
+          expected_pf{
+              score_1
+              score_2
+              score_3
+              score_4
+              score_5
+          }
+              expected_grade{
+              score_1
+              score_2
+              score_3
+              score_4
+              score_5
+          }
+      }
+  }
 `;
 
 // query all of the schedules for a user
@@ -196,20 +255,15 @@ const DegreePlan = () => {
     const [semesterList, setSemesterList] = useState([]);
     const [userId, setUserId] = useState("");
     // get the data from the query
-    const { loading, error, data } = useQuery(QUERY_ALL_USER_DEGREE_PLANS, {
-        variables: {
-            _id: userId,
-        },
-    });
-    const {
-        loading: loading4,
-        error: error4,
-        data: data4,
-    } = useQuery(VERIFY_TOKEN);
-
+    const { loading, error, data } = useQuery(QUERY_ALL_USER_DEGREE_PLANS);
     const { loading3, error3, data3 } = useQuery(
         GET_EVALUATION_CHART_BY_COURSE
     );
+    
+    const { loadingEvaluation, errorEvaluation, dataEvaluation } = useQuery(
+        GET_EVALUATION_BY_COURSE
+    );
+
     const {
         state: { term },
     } = useContext(TermContext);
