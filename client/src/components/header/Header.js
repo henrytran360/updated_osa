@@ -344,7 +344,7 @@ function Header() {
                     style={{
                         width: "30%",
                         height: "100%",
-                        marginRight: 50,
+                        marginRight: 30,
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-around",
@@ -359,7 +359,7 @@ function Header() {
                     style={{
                         width: "30%",
                         height: "100%",
-                        marginRight: 50,
+                        marginRight: 30,
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-around",
@@ -565,7 +565,7 @@ function Header() {
                 </div>
             )}
 
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             <SettingsModal />
             <LoginButton></LoginButton>
         </div>

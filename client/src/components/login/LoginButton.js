@@ -11,8 +11,8 @@ import { useHistory } from "react-router";
 const useStyles = makeStyles({
     button: {
         color: "var(--search-background-focused)",
-        backgroundColor: "red",
     },
+    marginRight: 10,
 });
 
 let user_email = localStorage.getItem("user_email");
@@ -98,18 +98,23 @@ function LoginButton() {
     return (
         <div
             style={{
-                width: "15%",
+                width: "20%",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
             }}
         >
-            <span style={{ color: "var(--search-background-focused)", marginRight: 20 }}>
+            <span
+                style={{
+                    color: "var(--search-background-focused)",
+                    marginRight: 20,
+                }}
+            >
                 {user_email}
             </span>
             <div
                 style={{
-                    width: "100%",
+                    width: "90%",
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
