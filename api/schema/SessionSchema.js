@@ -130,7 +130,6 @@ SessionTC.addResolver({
     },
     resolve: async ({ source, args, context, info }) => {
         const trimmedName = args.inputName.toLowerCase().replace(/\s+/g, "");
-        console.log(trimmedName);
         let filter = {
             fullCourseName: { $regex: `.*${trimmedName}.*` },
             term: args.term,

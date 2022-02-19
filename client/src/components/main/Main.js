@@ -93,7 +93,6 @@ const Main = ({}) => {
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     let { term, recentUpdate } = storeData;
     const [bottomMode, setBottomMode] = useState("Calendar");
-    console.log(term);
     // Need to be able to update recentUpdate field on the user when they dismiss
     let [seenRecentUpdate] = useMutation(SEEN_RECENT_UPDATE);
 

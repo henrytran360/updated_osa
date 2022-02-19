@@ -28,6 +28,9 @@ import "firebase/auth";
 import SemesterSelect from "../draftview/SemesterSelect";
 import DegreePlanSelect from "../draftview/DegreePlanSelect";
 import { flexbox } from "@mui/system";
+import CreateModal from "./CreateModal";
+import UpdateModal from "./UpdateModal";
+import DeleteModal from "./DeleteModal";
 
 const useStyles = makeStyles({
     button: {
@@ -355,214 +358,82 @@ function Header() {
                     <div className="buttonSelect">{renderIcons()}</div>
                 </div>
             ) : (
-                <div
-                    style={{
-                        width: "30%",
-                        height: "100%",
-                        marginRight: 30,
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-around",
-                        alignItems: "center",
-                    }}
-                >
+                location.pathname == "/degree_plan" && (
                     <div
                         style={{
-                            width: "65%",
+                            width: "30%",
                             height: "100%",
-                            zIndex:
-                                modalState || modalState2 || modalState3
-                                    ? -99
-                                    : 10,
+                            marginRight: 30,
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-around",
+                            alignItems: "center",
                         }}
                     >
-                        <DegreePlanSelect></DegreePlanSelect>
+                        <div
+                            style={{
+                                width: "65%",
+                                height: "100%",
+                                display: "flex",
+                                justifyContent: "",
+                                alignItems: "center",
+                                zIndex:
+                                    modalState || modalState2 || modalState3
+                                        ? -99
+                                        : 10,
+                            }}
+                        >
+                            <DegreePlanSelect></DegreePlanSelect>
+                        </div>
+                        <div className="icon-box">
+                            <div className="icon-container">
+                                <RiDeleteBinLine
+                                    onClick={() => setModal3(true)}
+                                    size={20}
+                                />
+                            </div>
+
+                            <div className="icon-container">
+                                <AiOutlineEdit
+                                    onClick={() => setModal2(true)}
+                                    size={20}
+                                />
+                            </div>
+
+                            <div className="icon-container">
+                                <GoDiffAdded
+                                    onClick={() => setModal(true)}
+                                    size={20}
+                                />
+                            </div>
+                        </div>
+                        <CreateModal
+                            modalState={modalState}
+                            setModal={setModal}
+                            closeModal={closeModal}
+                            addDegreePlan={addDegreePlan}
+                        />
+
+                        <UpdateModal
+                            modalState2={modalState2}
+                            setModal2={setModal2}
+                            closeModal2={closeModal2}
+                            mutateDegreePlan={mutateDegreePlan}
+                            query={GET_LOCAL_DATA}
+                            degreeplanparent={degreeplanparent}
+                        />
+
+                        <DeleteModal
+                            modalState3={modalState3}
+                            setModal3={setModal3}
+                            closeModal3={closeModal3}
+                            deleteDegreePlan={deleteDegreePlan}
+                            query={GET_LOCAL_DATA}
+                            degreeplanparent={degreeplanparent}
+                            degreeplanlist={degreeplanlist}
+                        />
                     </div>
-                    <div className="icon-box">
-                        <div className="icon-container">
-                            <RiDeleteBinLine
-                                onClick={() => setModal3(true)}
-                                size={20}
-                            />
-                        </div>
-
-                        <div className="icon-container">
-                            <AiOutlineEdit
-                                onClick={() => setModal2(true)}
-                                size={20}
-                            />
-                        </div>
-
-                        <div className="icon-container">
-                            <GoDiffAdded
-                                onClick={() => setModal(true)}
-                                size={20}
-                            />
-                        </div>
-                        <Modal
-                            isOpen={modalState}
-                            className="modalDegreePlanHeader"
-                            onRequestClose={closeModal}
-                            ariaHideApp={false}
-                        >
-                            <div className="contentContainer">
-                                <div className="nameContainer">
-                                    Create a new Degree Plan
-                                </div>
-                                <div className="inputContainer">
-                                    <input
-                                        type="text"
-                                        className="header-search"
-                                        placeholder="Name of your plan"
-                                        name="s"
-                                        value={inputName}
-                                        onChange={(e) =>
-                                            setInputName(e.target.value)
-                                        }
-                                    />
-                                    <div className="buttonContainer">
-                                        <Button
-                                            style={{
-                                                color: "#1DC2C4",
-                                                border: "1px solid 1DC2C4",
-                                            }}
-                                            className={classes.button3}
-                                            variant="outlined"
-                                            onClick={() => {
-                                                addDegreePlan({
-                                                    variables: {
-                                                        name: inputName,
-                                                    },
-                                                });
-                                                setInputName("");
-                                                setModal(false);
-                                            }}
-                                        >
-                                            {" "}
-                                            Save
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </Modal>
-
-                        <Modal
-                            isOpen={modalState2}
-                            className="modalDegreePlanHeader"
-                            onRequestClose={closeModal2}
-                            ariaHideApp={false}
-                        >
-                            <div className="contentContainer">
-                                <div className="nameContainer">
-                                    Change your plan's name
-                                </div>
-                                <div className="inputContainer">
-                                    <input
-                                        type="text"
-                                        className="header-search"
-                                        placeholder="New name of your plan"
-                                        name="s"
-                                        value={inputName}
-                                        onChange={(e) =>
-                                            setInputName(e.target.value)
-                                        }
-                                    />
-                                    <div className="buttonContainer">
-                                        <Button
-                                            style={{
-                                                color: "#1DC2C4",
-                                                border: "1px solid 1DC2C4",
-                                            }}
-                                            className={classes.button3}
-                                            variant="outlined"
-                                            onClick={() => {
-                                                mutateDegreePlan({
-                                                    variables: {
-                                                        _id: degreeplanparent,
-                                                        name: inputName,
-                                                    },
-                                                });
-                                                client.writeQuery({
-                                                    query: GET_LOCAL_DATA,
-                                                    data: {
-                                                        degreeplanname:
-                                                            inputName,
-                                                    },
-                                                });
-                                                setInputName("");
-                                                setModal2(false);
-                                            }}
-                                        >
-                                            {" "}
-                                            Save
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </Modal>
-
-                        <Modal
-                            isOpen={modalState3}
-                            className="modalDegreePlanHeader"
-                            onRequestClose={closeModal3}
-                            ariaHideApp={false}
-                        >
-                            <div className="contentContainer">
-                                <div className="nameContainerDelete">
-                                    Are you sure you want to remove the current
-                                    degree plan ?
-                                </div>
-                                <div
-                                    style={{
-                                        width: "90%",
-                                        height: "50%",
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "space-around",
-                                    }}
-                                >
-                                    <Button
-                                        className={classes.button4}
-                                        variant="outlined"
-                                        onClick={() => {
-                                            if (
-                                                degreeplanlist
-                                                    .findAllDegreePlansListForUsers
-                                                    .length > 1
-                                            ) {
-                                                deleteDegreePlan({
-                                                    variables: {
-                                                        _id: degreeplanparent,
-                                                    },
-                                                });
-                                                setModal3(false);
-                                            } else {
-                                                alert(
-                                                    "You must have at least 1 degree plan"
-                                                );
-                                            }
-                                        }}
-                                    >
-                                        {" "}
-                                        Remove
-                                    </Button>
-                                    <Button
-                                        style={{
-                                            color: "#1DC2C4",
-                                            border: "1px solid 1DC2C4",
-                                        }}
-                                        className={classes.button5}
-                                        variant="outlined"
-                                        onClick={() => setModal3(false)}
-                                    >
-                                        {" "}
-                                        Cancel
-                                    </Button>
-                                </div>
-                            </div>
-                        </Modal>
-                    </div>
-                </div>
+                )
             )}
 
             {/* <ThemeToggle /> */}

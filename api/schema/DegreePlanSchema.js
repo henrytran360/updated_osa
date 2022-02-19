@@ -24,6 +24,9 @@ DegreePlanTC.addRelation("user", {
     projection: { user: 1 },
 });
 
+/**
+ * Add a relation to the degreeplanparent collection to this degree plan
+ */
 DegreePlanTC.addRelation("degreeplanparent", {
     resolver: () => DegreePlanParentTC.getResolver("findById"),
     prepareArgs: {
@@ -50,26 +53,6 @@ DraftCourseTC.addRelation("course", {
  * When a user requests their schedule for a term, this will find it or create it if it does not
  * already exist
  */
-// DegreePlanTC.addResolver({
-//     name: "createNewDegreePlan",
-//     type: DegreePlanTC,
-//     args: DegreePlanTC.getResolver("findOne").getArgs(),
-//     resolve: async ({ source, args, context, info }) => {
-//         let { user } = args.filter;
-//         const term = args.record.term;
-//         // Find schedule for the term for the user
-//         let degreePlan = await DegreePlan.findOne({
-//             term: term,
-//             user: user,
-//         }).exec();
-
-//         // Return it if it exists
-//         if (degreePlan) return degreePlan;
-
-//         // Create if it doesn't exist
-//         return await DegreePlan.create({ term: term, user: user });
-//     },
-// });
 
 /**
  * Used to find all schedules for a particular user
@@ -129,14 +112,6 @@ DegreePlanTC.addResolver({
     },
 });
 
-// DegreePlanTC.addResolver({
-//     name: "findAllDegreePlansForUsers",
-//     type: [DegreePlanTC],
-//     resolve: async ({ source, args, context, info }) => {
-//         return await DegreePlan.find({});
-//     },
-// });
-
 /**
  * Add a term from the degree planner
  */
@@ -146,7 +121,7 @@ DegreePlanTC.addResolver({
     args: { degreePlanID: "ID!", push: "Boolean", courseID: "ID!" },
     resolve: async ({ source, args, context, info }) => {
         // This determines whether we add or remove from the array
-        console.log(args);
+        // console.log(args);
         // const degreePlan = await DegreePlan.findByIdAndUpdate(
         //     { _id: args.degreePlanID },
         //     { $push: { draftCourses: "hiii" } },
@@ -222,8 +197,6 @@ DegreePlanTC.addResolver({
     args: DegreePlanTC.getResolver("updateOne").getArgs(),
     resolve: async ({ source, args, context, info }) => {
         let CC = args.record.customCourse;
-        console.log(CC);
-        console.log(args);
         const degreeplan = await DegreePlan.updateOne(
             { _id: args.filter._id },
             { $set: { customCourse: args.record.customCourse } }
@@ -245,8 +218,6 @@ DegreePlanTC.addResolver({
     args: DegreePlanTC.getResolver("updateOne").getArgs(),
     resolve: async ({ source, args, context, info }) => {
         let CC = args.record.notes;
-        console.log(CC);
-        console.log(args);
         const degreeplan = await DegreePlan.updateOne(
             { _id: args.filter._id },
             { $set: { notes: args.record.notes } }

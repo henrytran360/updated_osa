@@ -215,8 +215,6 @@ ScheduleTC.addResolver({
     args: ScheduleTC.getResolver("updateOne").getArgs(),
     resolve: async ({ source, args, context, info }) => {
         let CC = args.record.customCourse;
-        console.log(CC);
-        console.log(args);
         const schedule = await Schedule.updateOne(
             { _id: args.filter._id },
             { $set: { customCourse: args.record.customCourse } }

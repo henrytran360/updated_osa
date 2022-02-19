@@ -75,8 +75,6 @@ DegreePlanParentTC.addResolver({
     args: DegreePlanParentTC.getResolver("updateOne").getArgs(),
     resolve: async ({ source, args, context, info }) => {
         let CC = args.record.name;
-        console.log(CC);
-        console.log(args);
         const degreeplanparent = await DegreePlanParent.updateOne(
             { _id: args.filter._id },
             { $set: { name: args.record.name } }
