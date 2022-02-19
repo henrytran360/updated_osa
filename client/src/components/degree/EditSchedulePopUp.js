@@ -4,6 +4,8 @@ import CourseSearchRow from "./CourseSearchRow";
 import DraftCourseDegreePlanRow from "./DraftCourseDegreePlanRow";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./EditSchedulePopUp.css";
+import TermName from "../../constants/TermName";
+import TermNumber from "../../constants/TermNumber";
 
 const FIND_ALL_FOR_DEGREE_PLAN = gql`
     query findAllForDegreePlan($ascending: Boolean!) {
@@ -96,13 +98,7 @@ const EditSchedulePopUp = ({ term, _id }) => {
         if (term) {
             let y = term.substring(0, 4);
             let s = term.substring(4, 6);
-            if (s == "10") {
-                setSem("Fall");
-            } else if (s == "20") {
-                setSem("Spring");
-            } else {
-                setSem("Summer");
-            }
+            setSem(TermNumber.get(s));
             setYear(y);
         }
     }, [term]);

@@ -66,6 +66,7 @@ const SemesterSelect = () => {
         for (let i = 0; i < data?.scheduleMany.length; i++) {
             let label;
             let value = data?.scheduleMany[i]["term"];
+            console.log(value);
             if (value.substring(4) == "10")
                 label = "Fall " + value.substring(0, 4);
             else if (value.substring(4) == "20")

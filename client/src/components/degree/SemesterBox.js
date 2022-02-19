@@ -198,7 +198,7 @@ const SemesterBox = (props) => {
                     // onClick={() => history.push(`/schedule`)}
                     onClick={openModal2}
                 >
-                    Edit Schedule
+                    Edit
                 </button>
 
                 <Modal
