@@ -393,7 +393,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     ]); // store the selected time interval
 
     // Represents which button is currently clicked for styling and returning data
-    const [activeButtonIndex, setButtonIndex] = useState(0);
+    const [activeButtonIndex, setButtonIndex] = useState(5);
     const classes = useStyles();
     const {
         data: { term },
@@ -622,7 +622,47 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
             </div>
         );
 
-        const displayArray = [selection, selection, selection, time, selection];
+        const search = (
+        <div className="seachCourseContainer">
+          <div className="searchInputsCourse">
+              <input
+                  type="text"
+                  className="header-search"
+                  placeholder="Search courses"
+                  name="s"
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  onKeyUp={handleKeyPress}
+              />
+          </div>
+          <div
+              style={{
+                  width: "10%",
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginLeft: 10,
+              }}
+          >
+              <IconButton
+                  size="large"
+                  // onClick={handleClick}
+                  value={"Search"}
+                  className={classes.searchIconStyle}
+                  onClick={() => {
+                      setCourseName(value);
+                      setButtonIndex(5);
+                      loadData();
+                  }}
+              >
+                  <SearchOutlinedIcon />
+              </IconButton>
+          </div>
+        </div>
+        )
+
+        const displayArray = [selection, selection, selection, time, selection, search];
 
         return displayArray[activeButtonIndex];
     };
@@ -670,46 +710,9 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     return (
         <div className="searchBar">
             <div className="searchBar-content">
-                <div className="seachCourseContainer">
-                    <div className="searchInputsCourse">
-                        <input
-                            id="searchInput"
-                            type="text"
-                            className="header-search"
-                            placeholder="Search courses"
-                            name="s"
-                            value={value}
-                            onChange={(e) => setValue(e.target.value)}
-                            onKeyUp={handleKeyPress}
-                        />
-                    </div>
-                    <div
-                        style={{
-                            width: "10%",
-                            height: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginLeft: 10,
-                        }}
-                    >
-                        <IconButton
-                            size="large"
-                            // onClick={handleClick}
-                            value={"Search"}
-                            className={classes.searchIconStyle}
-                            onClick={() => {
-                                setCourseName(value);
-                                setButtonIndex(5);
-                                loadData();
-                            }}
-                        >
-                            <SearchOutlinedIcon />
-                        </IconButton>
-                    </div>
-                </div>
 
-                <div className="searchText">Additional search filters:</div>
+
+                <div className="searchText">Search by:</div>
                 <div className="button-and-search">
                     <Select
                         // className="react-select-container"

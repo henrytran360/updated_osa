@@ -4,6 +4,7 @@
 
 .filter2 {
     width: 350px;
+    margin-left: 5px;
 }
 
 .css-2613qy-menu { /* need to style this with variables rather than inline string styles that react seems to love */
