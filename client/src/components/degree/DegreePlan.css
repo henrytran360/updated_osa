@@ -21,18 +21,18 @@
     margin-right: 50px;
     background-color: transparent;
     /* border: transparent; */
-    border: 1.5px solid #e1e3e3;
+    border: 1.5px solid var(--tertiary-bg-color);
     box-sizing: border-box;
     border-radius: 5px;
     font-size: 250px;
-    color: #e1e3e3;
+    color: var(--tertiary-bg-color);
     padding-bottom: 20%;
 }
 
 .addBtn:hover {
     cursor: pointer;
-    background-color: #e1e3e3;
-    color: white;
+    background-color: var(--background-color);
+    color: var(--tertiary-bg-color);
 }
 
 .title {
@@ -43,22 +43,22 @@
     margin-top: 47px;
     position: relative;
     text-align: center;
-    color: #149fa0;
+    color: var(--secondary-color);
 }
 
 .toschedule {
     height: 35px;
     left: 128px;
     top: 511px;
-    border: 1.5px solid #e1e3e3;
+    border: 1.5px solid var(--tertiary-bg-color);
     box-sizing: border-box;
-    background-color: white;
+    background-color: var(--background-color);
     font: "Acari Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 15.75px;
     line-height: 19px;
-    color: #149fa0;
+    color: var(--primary-color);
     margin-bottom: 10px;
     cursor: pointer;
     border-radius: 5px;
@@ -78,8 +78,8 @@
 }
 
 .toschedule:hover {
-    background-color: #149fa0;
-    color: #e1e3e3;
+    background-color: var(--primary-color);
+    color: var(--tertiary-bg-color);
 }
 .addNewScheduleContainer {
     display: flex;

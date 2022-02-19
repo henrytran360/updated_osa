@@ -21,8 +21,8 @@ const customStyles = {
         return {
             ...styles,
             width: 200,
-            backgroundColor: isFocused ? "#1DC2C4" : "#BBECED",
-            color: "#FFF",
+            backgroundColor: isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+            color: "var(--background-color)",
             cursor: isDisabled ? "not-allowed" : "default",
         };
     },
@@ -31,9 +31,7 @@ const customStyles = {
         color: "#1DC2C4",
         zIndex: 0,
         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-        borderColor: state.isFocused
-            ? "var(--border-color)"
-            : "var(--border-color)",
+        borderColor: "var(--border-color)",
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
             borderColor: state.isFocused

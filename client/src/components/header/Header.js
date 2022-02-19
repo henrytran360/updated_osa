@@ -4,6 +4,10 @@ import LoginButton from "../login/LoginButton";
 import { Button, ButtonGroup, IconButton } from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import Box from "@material-ui/core/Box";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from '@mui/material/MenuItem';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useMediaQuery } from "react-responsive";
 import { initGA, OutboundLink } from "../../utils/analytics";
 import { useHistory, useLocation } from "react-router";
@@ -288,9 +292,8 @@ function Header() {
 
         return icons.map((icon, index) => (
             <div
-                className={`icon-container-2${
-                    bottomMode2[`${values[index]}`] ? "-color" : ""
-                }`}
+                className={`icon-container-2${bottomMode2[`${values[index]}`] ? "-color" : ""
+                    }`}
             >
                 <IconButton
                     className={classes.button}
@@ -306,59 +309,57 @@ function Header() {
             </div>
         ));
     };
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
     return (
         <div className="headerContainer">
-            <div className="titleContainer">
-                <Title />
-            </div>
-            <div className="leftAlign">
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    indicatorColor="primary"
-                    TabIndicatorProps={{
-                        style: {
-                            backgroundColor: "var(--search-background-focused)",
-                        },
-                    }}
-                    tabItemContainerStyle={{ width: 50 }}
-                    aria-label="nav tabs"
-                >
-                    <LinkTab
-                        label="Schedule"
-                        onClick={() => history.push("/schedule")}
-                    />
-                    <LinkTab
-                        label="Degree Plan"
-                        onClick={() => history.push("/degree_plan")}
-                    />
-                    <LinkTab
-                        label="About"
-                        onClick={() => history.push("/about")}
-                    />
-                    {/* <LinkTab
-                        label="Feedback"
-                        onClick={() => window.open(feedbackURL, "_blank")}
-                    /> */}
-                </Tabs>
-            </div>
-            {location.pathname == "/schedule" ? (
-                <div
-                    style={{
-                        width: "30%",
-                        height: "100%",
-                        marginRight: 30,
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-around",
-                        alignItems: "center",
-                    }}
-                >
-                    <SemesterSelect></SemesterSelect>
-                    <div className="buttonSelect">{renderIcons()}</div>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} className="justifyItems">
+                <div className="titleContainer">
+                    <Title />
                 </div>
-            ) : (
-                location.pathname == "/degree_plan" && (
+                <div className="leftAlign">
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        indicatorColor="primary"
+                        TabIndicatorProps={{
+                            style: {
+                                backgroundColor: "var(--search-background-focused)",
+                            },
+                        }}
+                        tabItemContainerStyle={{ width: 50 }}
+                        aria-label="nav tabs"
+                    >
+                        <LinkTab
+                            label="Schedule"
+                            onClick={() => history.push("/schedule")}
+                        />
+                        <LinkTab
+                            label="Degree Plan"
+                            onClick={() => history.push("/degree_plan")}
+                        />
+                        <LinkTab
+                            label="About"
+                            onClick={() => history.push("/about")}
+                        />
+                    </Tabs>
+                </div>
+                {location.pathname == "/schedule" ? (
                     <div
                         style={{
                             width: "30%",
@@ -370,76 +371,235 @@ function Header() {
                             alignItems: "center",
                         }}
                     >
+                        <SemesterSelect></SemesterSelect>
+                        <div className="buttonSelect">{renderIcons()}</div>
+                    </div>
+                ) : (
+                    location.pathname == "/degree_plan" && (
                         <div
                             style={{
-                                width: "65%",
+                                width: "30%",
                                 height: "100%",
+                                marginRight: 30,
                                 display: "flex",
-                                justifyContent: "",
+                                flexDirection: "row",
+                                justifyContent: "space-around",
                                 alignItems: "center",
-                                zIndex:
-                                    modalState || modalState2 || modalState3
-                                        ? -99
-                                        : 10,
                             }}
                         >
-                            <DegreePlanSelect></DegreePlanSelect>
+                            <div
+                                style={{
+                                    width: "65%",
+                                    height: "100%",
+                                    display: "flex",
+                                    justifyContent: "",
+                                    alignItems: "center",
+                                    zIndex:
+                                        modalState || modalState2 || modalState3
+                                            ? -99
+                                            : 10,
+                                }}
+                            >
+                                <DegreePlanSelect></DegreePlanSelect>
+                            </div>
+                            <div className="icon-box">
+                                <div className="icon-container">
+                                    <RiDeleteBinLine
+                                        onClick={() => setModal3(true)}
+                                        size={20}
+                                    />
+                                </div>
+
+                                <div className="icon-container">
+                                    <AiOutlineEdit
+                                        onClick={() => setModal2(true)}
+                                        size={20}
+                                    />
+                                </div>
+
+                                <div className="icon-container">
+                                    <GoDiffAdded
+                                        onClick={() => setModal(true)}
+                                        size={20}
+                                    />
+                                </div>
+                            </div>
+                            <CreateModal
+                                modalState={modalState}
+                                setModal={setModal}
+                                closeModal={closeModal}
+                                addDegreePlan={addDegreePlan}
+                            />
+
+                            <UpdateModal
+                                modalState2={modalState2}
+                                setModal2={setModal2}
+                                closeModal2={closeModal2}
+                                mutateDegreePlan={mutateDegreePlan}
+                                query={GET_LOCAL_DATA}
+                                degreeplanparent={degreeplanparent}
+                            />
+
+                            <DeleteModal
+                                modalState3={modalState3}
+                                setModal3={setModal3}
+                                closeModal3={closeModal3}
+                                deleteDegreePlan={deleteDegreePlan}
+                                query={GET_LOCAL_DATA}
+                                degreeplanparent={degreeplanparent}
+                                degreeplanlist={degreeplanlist}
+                            />
                         </div>
-                        <div className="icon-box">
-                            <div className="icon-container">
-                                <RiDeleteBinLine
-                                    onClick={() => setModal3(true)}
-                                    size={20}
-                                />
+                    )
+                )}
+
+                {/* <ThemeToggle /> */}
+                <SettingsModal />
+                <LoginButton></LoginButton>
+            </Box >
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleOpenNavMenu}
+                    color="inherit"
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorElNav}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}
+                    open={Boolean(anchorElNav)}
+                    onClose={handleCloseNavMenu}
+                    sx={{
+                        display: { xs: 'block', md: 'none' },
+                    }}
+                >
+                    <MenuItem
+                        onClick={() => history.push("/schedule")}>
+                        <span>Schedule</span>
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => history.push("/degree_plan")}>
+                        <span>Degree Plan</span>
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => history.push("/about")}>
+                        <span>About</span>
+                    </MenuItem>
+                    <MenuItem>
+                        {location.pathname == "/schedule" ? (
+                            <div
+                                style={{
+                                    width: "30%",
+                                    height: "100%",
+                                    marginRight: 30,
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "space-around",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <SemesterSelect></SemesterSelect>
+                                <div className="buttonSelect">{renderIcons()}</div>
                             </div>
+                        ) : (
+                            location.pathname == "/degree_plan" && (
+                                <div
+                                    style={{
+                                        width: "30%",
+                                        height: "100%",
+                                        marginRight: 30,
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        justifyContent: "space-around",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            width: "65%",
+                                            height: "100%",
+                                            display: "flex",
+                                            justifyContent: "",
+                                            alignItems: "center",
+                                            zIndex:
+                                                modalState || modalState2 || modalState3
+                                                    ? -99
+                                                    : 10,
+                                        }}
+                                    >
+                                        <DegreePlanSelect></DegreePlanSelect>
+                                    </div>
+                                    <div className="icon-box">
+                                        <div className="icon-container">
+                                            <RiDeleteBinLine
+                                                onClick={() => setModal3(true)}
+                                                size={20}
+                                            />
+                                        </div>
 
-                            <div className="icon-container">
-                                <AiOutlineEdit
-                                    onClick={() => setModal2(true)}
-                                    size={20}
-                                />
-                            </div>
+                                        <div className="icon-container">
+                                            <AiOutlineEdit
+                                                onClick={() => setModal2(true)}
+                                                size={20}
+                                            />
+                                        </div>
 
-                            <div className="icon-container">
-                                <GoDiffAdded
-                                    onClick={() => setModal(true)}
-                                    size={20}
-                                />
-                            </div>
-                        </div>
-                        <CreateModal
-                            modalState={modalState}
-                            setModal={setModal}
-                            closeModal={closeModal}
-                            addDegreePlan={addDegreePlan}
-                        />
+                                        <div className="icon-container">
+                                            <GoDiffAdded
+                                                onClick={() => setModal(true)}
+                                                size={20}
+                                            />
+                                        </div>
+                                    </div>
+                                    <CreateModal
+                                        modalState={modalState}
+                                        setModal={setModal}
+                                        closeModal={closeModal}
+                                        addDegreePlan={addDegreePlan}
+                                    />
 
-                        <UpdateModal
-                            modalState2={modalState2}
-                            setModal2={setModal2}
-                            closeModal2={closeModal2}
-                            mutateDegreePlan={mutateDegreePlan}
-                            query={GET_LOCAL_DATA}
-                            degreeplanparent={degreeplanparent}
-                        />
+                                    <UpdateModal
+                                        modalState2={modalState2}
+                                        setModal2={setModal2}
+                                        closeModal2={closeModal2}
+                                        mutateDegreePlan={mutateDegreePlan}
+                                        query={GET_LOCAL_DATA}
+                                        degreeplanparent={degreeplanparent}
+                                    />
 
-                        <DeleteModal
-                            modalState3={modalState3}
-                            setModal3={setModal3}
-                            closeModal3={closeModal3}
-                            deleteDegreePlan={deleteDegreePlan}
-                            query={GET_LOCAL_DATA}
-                            degreeplanparent={degreeplanparent}
-                            degreeplanlist={degreeplanlist}
-                        />
-                    </div>
-                )
-            )}
-
-            {/* <ThemeToggle /> */}
-            <SettingsModal />
-            <LoginButton></LoginButton>
-        </div>
+                                    <DeleteModal
+                                        modalState3={modalState3}
+                                        setModal3={setModal3}
+                                        closeModal3={closeModal3}
+                                        deleteDegreePlan={deleteDegreePlan}
+                                        query={GET_LOCAL_DATA}
+                                        degreeplanparent={degreeplanparent}
+                                        degreeplanlist={degreeplanlist}
+                                    />
+                                </div>
+                            )
+                        )}
+                    </MenuItem>
+                    <MenuItem>
+                        <SettingsModal />
+                        <LoginButton></LoginButton>
+                    </MenuItem>
+                </Menu>
+            </Box>
+        </div >
     );
 }
 export default Header;

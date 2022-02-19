@@ -49,21 +49,21 @@
 }
 
 .deleteButtonEachCourse:hover {
-    background-color: #149fa0;
-    color: #e1e3e3;
+    background-color: var(--search-background-focused);
+    color: var(--tertiary-bg-color);
 }
 
 .deleteButtonEachCourse {
     width: 35px;
     height: 35px;
-    border: 1.5px solid #e1e3e3;
+    border: 1.5px solid var(--tertiary-bg-color);
     box-sizing: border-box;
-    background-color: white;
+    background-color: var(--background-color);
     font-style: normal;
     font-weight: 600;
     font-size: 15.75px;
     line-height: 19px;
-    color: #149fa0;
+    color: var(--primary-color);
     cursor: pointer;
     border-radius: 5px;
     display: flex;

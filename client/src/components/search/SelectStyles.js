@@ -55,8 +55,9 @@ function single_value() {
     return (provided, state) => {
         const opacity = state.isDisabled ? 0.5 : 1;
         const transition = "opacity 300ms";
+        const color = "var(--primary-color)"
 
-        return { ...provided, opacity, transition };
+        return { ...provided, opacity, transition, color };
     }
 }
 

@@ -20,7 +20,7 @@ html, body, #app {
     /* used for search button */
     --link-color: #543fd7;
     /* used for a tags */
-    --selection-color: #9595ff;
+    --selection-color: #7575fa;
     /* used for text selection */
     --border-color: #bbeced;
     /* used for button borders */
@@ -44,6 +44,24 @@ html[data-theme='Color Blind'] {
     --border-color: #bbeced;
     --search-button-bg: #42bebf60;
     --shadow-color: whitesmoke
+}
+
+html[data-theme='Red'] {
+    --background-color: rgb(255, 182, 182);
+    --secondary-bg-color: #886e48;
+    --tertiary-bg-color: #F2FAFC;
+    --quaternary-bg-color: #ec4f3480;
+    --primary-color: #c2371e;
+    --secondary-color: #ff0000;
+    --tertiary-color: #b28f8e;
+    --quaternary-color: #646938;
+    --quinary-color: #42bf7260;
+    --link-color: #543fd7;
+    --selection-color: #ff9595;
+    --border-color: #edbbbb;
+    --search-button-bg: #bf464260;
+    --shadow-color: rgba(0,0,0,0.15);
+    --search-background-focused: #c4441d;
 }
 
 html[data-theme='Dark'] {
@@ -76,6 +94,24 @@ html[data-theme='High Contrast'] {
     --border-color: #bbeced;
     --search-button-bg: #4bdd37fb;
     --shadow-color: whitesmoke
+}
+
+html[data-theme='Purple'] {
+    --background-color: rgb(59, 0, 77);
+    --secondary-bg-color: #794888;
+    --tertiary-bg-color: #fbf2fc;
+    --quaternary-bg-color: #c734ec80;
+    --primary-color: #e7d000;
+    --secondary-color: #fbff00;
+    --tertiary-color: #aeb28e;
+    --quaternary-color: #646938;
+    --quinary-color: #42bf4260;
+    --link-color: #3fb4d7;
+    --selection-color: #ff9595;
+    --border-color: #c3edbb;
+    --search-button-bg: #bf464260;
+    --shadow-color: rgba(0,0,0,0.15);
+    --search-background-focused: #201dc4;
 }
 
 #app {

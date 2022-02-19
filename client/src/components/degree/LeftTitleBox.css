@@ -6,7 +6,7 @@
     top: -0.5px;
     border: 1.5px solid hsl(180, 3%, 89%);
     box-sizing: border-box;
-    background: #ddf5f6;
+    background: var(--tertiary-bg-color);
     display: flex;
     align-items: center;
     border-radius: 5px 0px 0px 0px;
@@ -21,7 +21,7 @@
     padding-top: 2px;
     /* identical to box height */
     letter-spacing: 0.05em;
-    color: #5b5b5b;
+    color: var(--tertiary-color);
     background-color: transparent;
     border-color: transparent;
 }
@@ -36,7 +36,7 @@
     padding-top: 2px;
     /* identical to box height */
     letter-spacing: 0.05em;
-    color: #5b5b5b;
+    color: var(--tertiary-color);
     background-color: transparent;
     border-color: transparent;
 }
@@ -53,7 +53,7 @@
     padding-top: 2px;
     /* identical to box height */
     letter-spacing: 0.05em;
-    color: #5b5b5b;
+    color: var(--tertiary-color);
     background-color: transparent;
     border-color: transparent;
 }
@@ -67,7 +67,7 @@
     padding-top: 2px;
     /* identical to box height */
     letter-spacing: 0.05em;
-    color: #5b5b5b;
+    color: var(--tertiary-color);
     background-color: transparent;
     border-color: transparent;
 }
@@ -78,14 +78,14 @@
     height: 25px;
     position: relative;
     left: 10%;
-    border: 1.5px solid #e1e3e3;
+    border: 1.5px solid var(--tertiary-bg-color);
     box-sizing: border-box;
-    background-color: white;
+    background-color: var(--background-color);
     font-style: normal;
     font-size: 15px;
     line-height: 19px;
     z-index: 3;
 }
 .saveBtn:hover {
-    background-color: #e1e3e3;
+    background-color: var(--tertiary-bg-color);
 }

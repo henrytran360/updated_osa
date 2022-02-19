@@ -4,8 +4,8 @@
     height: 48px;
     left: 1px;
     top: -2px;
-    border-bottom: 1.5px solid #e1e3e3;
-    border-left: 1.5px solid #e1e3e3;
+    border-bottom: 1.5px solid var(--tertiary-bg-color);
+    border-left: 1.5px solid var(--tertiary-bg-color);
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -14,7 +14,7 @@
     column-gap: 0.875rem;
 }
 .courseName:hover {
-    color: #338182;
+    color: var(--quinary-color);
 }
 .courseCode {
     height: 19px;
@@ -23,7 +23,7 @@
     font-size: 16px;
     line-height: 19px;
     padding-top: 3px;
-    color: #338182;
+    color: var(--quinary-color);
 }
 .courseName {
     height: 19px;
@@ -31,14 +31,14 @@
     padding-top: 3px;
     font-size: 16px;
     line-height: 19px;
-    color: #63ccce;
+    color: var(--secondary-color);
 }
 .modal {
     width: 545px;
     height: 300px;
-    border: 2px solid #149fa0;
+    border: 2px solid var(--search-background-focused);
     border-radius: 5px;
-    background-color: #bbeced;
+    background-color: var(--border-color);
     position: absolute;
     left: 50%;
     top: 50%;
@@ -63,7 +63,7 @@
 .closeBtn:before {
     cursor: pointer;
     content: "\00d7";
-    color: black;
+    color: var(--shadow-color);
     font-size: 400;
     font-weight: 500;
     display: flex;
@@ -80,7 +80,7 @@
     font-size: 16px;
     line-height: 19px;
     padding-top: 3px;
-    color: #338182;
+    color: var(--search-button-bg);
     font-weight: bold;
     border-color: transparent;
     border-radius: 5px;
@@ -93,7 +93,7 @@
     padding-top: 3px;
     font-size: 16px;
     line-height: 19px;
-    color: #63ccce;
+    color: var(--primary-color);
     text-decoration: underline;
     border-color: transparent;
     border-radius: 5px;

@@ -8,7 +8,7 @@
     border-bottom: 1.5px solid hsl(180, 3%, 89%);
     border-top: 1.5px solid hsl(180, 3%, 89%);
     box-sizing: border-box;
-    background: #ddf5f6;
+    background: var(--tertiary-bg-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,6 +19,6 @@
     line-height: 19px;
     /* identical to box height */
     letter-spacing: 0.1em;
-    color: #5b5b5b;
+    color: var(--quaternary-color);
     border-radius: 0px 5px 0px 0px;
 }

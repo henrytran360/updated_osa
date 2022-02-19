@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import ThemeToggle from "./ThemeToggle"
 
 import { Button, IconButton } from "@material-ui/core";
 import ThemeSelect from './ThemeSelect'
@@ -59,8 +60,9 @@ function SettingsModal(props) {
                     <h2 id="modal-modal-title" variant="h6" component="h2">
                         Theme Options
                     </h2>
-                    <ThemeSelect themeCategory="Light" themeOptions={['Light', 'Color Blind']} />
-                    <ThemeSelect themeCategory="Dark" themeOptions={['Dark', 'High Contrast']} />
+                    {/* <ThemeToggle /> */}
+                    <ThemeSelect themeCategory="Light" themeOptions={[{ value: 'Light', label: 'Light' }, { value: 'Color Blind', label: 'Color Blind' }, { value: 'Red', label: 'Red' }]} />
+                    <ThemeSelect themeCategory="Dark" themeOptions={[{ value: 'Dark', label: 'Dark' }, { value: 'High Contrast', label: 'High Contrast' }, { value: 'Purple', label: 'Purple' }]} />
                 </Box>
             </Modal>
         </div>
