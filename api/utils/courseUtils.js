@@ -3,6 +3,7 @@ import { Session } from "../models/index";
 var xml2js = require("xml2js");
 var stripPrefix = require("xml2js").processors.stripPrefix;
 import axios from "axios";
+var { promises: fs } = require("fs");
 
 /**
  * Parser used for XML response by CAS
@@ -30,10 +31,12 @@ export const getSubjects = async (term) => {
         throw Error("No term specified.");
     }
 
-    const { data } = await axios.get(
-        "https://courses.rice.edu/courses/!SWKSCAT.info?action=SUBJECTS&term=" +
-            String(term)
-    );
+    // const { data } = await axios.get(
+    //     "https://courses.rice.edu/courses/!SWKSCAT.info?action=SUBJECTS&term=" +
+    //         String(term)
+    // );
+    const buffer = await fs.readFile("python_scripts/depts.xml", "utf8");
+    const data = buffer.toString();
     const parsed = await parser.parseStringPromise(data);
     console.log(parsed);
     let subjects = parsed["SUBJECTS"]["SUBJECT"];
