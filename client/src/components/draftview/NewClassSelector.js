@@ -6,8 +6,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 
 const GET_LOCAL_DATA = gql`
     query GetLocalData {
-        term @client
-        recentUpdate @client
+        evalModalState @client
     }
 `;
 
@@ -70,6 +69,10 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
             draftSessions = draftSessions.filter((draft) => draft.session);
         }
     }, [draftSessions]);
+
+    let { data: storeData } = useQuery(GET_LOCAL_DATA);
+    let { evalModalState } = storeData;
+
     return (
         <div className="classSelectorContainer">
             <div className="classSelectorContent">
@@ -97,7 +100,12 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                             scheduleID={scheduleID}
                         />
                     ))}
-                <div className="tableFooter">
+                <div
+                    className="tableFooter"
+                    style={{
+                        zIndex: evalModalState ? -99 : 10,
+                    }}
+                >
                     Visible Credit Hours: {visibleCreditTotal}
                     <br />
                     Total Credit Hours: {absoluteCreditTotal}

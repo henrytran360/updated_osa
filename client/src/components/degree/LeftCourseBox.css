@@ -23,7 +23,7 @@
     font-size: 16px;
     line-height: 19px;
     padding-top: 3px;
-    color: var(--quinary-color);
+    color: var(--secondary-color);
 }
 .courseName {
     height: 19px;

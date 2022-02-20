@@ -43,7 +43,7 @@
 .courseRow .courseCode {
     text-align: left;
     /* text-decoration: underline; */
-    color: var(--quaternary-color);
+    color: var(--secondary-color);
     opacity: 1;
 }
 
