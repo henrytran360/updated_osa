@@ -97,6 +97,8 @@ DegreePlanParentTC.addResolver({
     resolve: async ({ source, args, context, info }) => {
         // Create if it doesn't exist
         // console.log(args);
+        await DegreePlan.deleteMany({ degreeplanparent: args.filter._id });
+
         return await DegreePlanParent.findByIdAndRemove({
             _id: args.filter._id,
         });

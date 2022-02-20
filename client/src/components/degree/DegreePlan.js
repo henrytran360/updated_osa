@@ -194,7 +194,7 @@ const DegreePlan = () => {
         if (degreeplanparent) {
             loadDegreePlanData();
         }
-    }, [degreeplanparent]);
+    }, [degreeplanparent, semesterList]);
 
     const {
         loading: loading4,
@@ -274,7 +274,10 @@ const DegreePlan = () => {
                     degreeplanparent: degreeplanparent && degreeplanparent,
                 },
             });
-        } else {
+        } else if (
+            semesterList &&
+            semesterList.map((ele) => ele.term).includes(term)
+        ) {
             if (degreeplanparent) {
                 alert("You have already created a schedule of this term");
             } else {

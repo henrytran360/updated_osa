@@ -14,7 +14,6 @@ const LeftTitleBox = (props) => {
         setYear(e.target.value);
         setSem(e.target.value);
     };
-
     useEffect(() => {
         if (year && sem) {
             let curTerm = `${year}${TermName.get(sem)}`;

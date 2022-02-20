@@ -254,6 +254,8 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
         variables: { scheduleID: scheduleID, sessionID: session._id },
     });
 
+    const [count, setCount] = useState(0);
+
     return (
         <div
             className="detailBox"
@@ -263,7 +265,7 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
             <input
                 type="checkbox"
                 checked={sessionSelected}
-                onChange={() => {
+                onChange={(e) => {
                     // Simple transformation of CRN to a string
                     let crnString = String.toString(session.crn);
 
@@ -288,9 +290,13 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
                             "Add Course to Schedule: " + crnString,
                             crnString
                         );
-
+                        e.preventDefault();
                         // Execute mutation to add this session of the course to the user's draftsessions
-                        addDraftSession();
+                        if (count == 0) {
+                            addDraftSession();
+                            setCount(count + 1);
+                        }
+                        setCount(0);
                     }
                 }}
                 style={{ alignItems: "left" }}
