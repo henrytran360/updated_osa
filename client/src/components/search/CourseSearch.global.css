@@ -7,7 +7,8 @@
     margin-left: 5px;
 }
 
-.css-2613qy-menu { /* need to style this with variables rather than inline string styles that react seems to love */
+.css-2613qy-menu {
+    /* need to style this with variables rather than inline string styles that react seems to love */
     background-color: var(--background-color);
 }
 
@@ -108,13 +109,13 @@
 .searchInputsCourse {
     display: flex;
     height: 40px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-color) 1.95px 1.95px 2.6px;
+    border-radius: 4px;
+    /* box-shadow: var(--shadow-color) 1.95px 1.95px 2.6px; */
     width: 90%;
 }
 .searchInputsCourse input {
-    border: 0;
-    border-radius: 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
     font-size: 15px;
     padding-left: 10px;
     width: 100%;
