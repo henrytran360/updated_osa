@@ -8,12 +8,10 @@ import {
     useLazyQuery,
     useApolloClient,
 } from "@apollo/client";
-import { useHistory } from "react-router";
-import { Context as TermContext } from "../../contexts/termContext";
 import TitleBox from "./TitleBox";
-import RiceAppsLogo from "../../riceappslogo.png";
 import { initGA, OutboundLink } from "../../utils/analytics";
 import DegreePlanNav from "./DegreePlanHeader";
+import { Context as TermContext } from "../../contexts/termContext";
 
 // Redirects people to our Medium page on a new page if they click our logo to learn more about us
 const handleLogoClick = () => {
@@ -204,6 +202,7 @@ const DegreePlan = () => {
 
     const {
         state: { term },
+        getTerm,
     } = useContext(TermContext);
 
     // add a new semester from the mutation
@@ -285,10 +284,13 @@ const DegreePlan = () => {
             }
         }
     };
-
     // delete a semester
     const deleteSem = (term, _id) => {
         if (semesterList.length > 1) {
+            const term = semesterList.find(
+                (semester) => semester._id == _id
+            ).term;
+            getTerm(term);
             const updated_list = semesterList.filter(
                 (semester) => semester._id != _id
             );
