@@ -64,6 +64,7 @@ const initialState = {
     service: process.env.REACT_APP_SERVICE_URL,
     recentUpdate: false,
     term: 202220,
+    evalModalState: false,
     degreeplanparent: "",
     degreeplanname: "",
     degreeplanlist: {},
@@ -76,6 +77,7 @@ client.writeQuery({
             service
             recentUpdate
             term
+            evalModalState
             degreeplanparent
             degreeplanname
             degreeplanlist

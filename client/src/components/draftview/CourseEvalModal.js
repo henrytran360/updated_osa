@@ -3,6 +3,11 @@ import Modal from "react-modal";
 import SemesterBox from "../degree/SemesterBox";
 import "./CourseEval.css"
 import { gql, useQuery, useMutation } from "@apollo/client";
+import { IoCloseOutline } from "react-icons/io5";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
+
+
 
 import Chart, {
   ArgumentAxis,
@@ -11,7 +16,12 @@ import Chart, {
   Legend,
   Size,
   Title,
-  Font
+  Font,
+  Label,
+  Annotation,
+  CommonAnnotationSettings,
+  Border,
+  Shadow,
 } from 'devextreme-react/chart';
 
 
@@ -20,7 +30,7 @@ const CourseEvalModal = (props) => {
 
   const thisCourse = props.courseSubject + " " + props.courseNum;
 
-  const { loading:evalLoading, error:errorLoading, data:evalData } = useQuery(props.query, {
+  const { loading:evalLoading, error:evalError, data:evalData } = useQuery(props.query, {
     variables: { course: thisCourse },
 });
 
@@ -28,7 +38,7 @@ const CourseEvalModal = (props) => {
       if (evalData) {
           setEvalDataState(evalData.getEvaluationChartByCourse[0]);
       }
-  }, [evalLoading, errorLoading, evalData]);
+  }, [evalLoading, evalError, evalData]);
 
   const [evalDataState, setEvalDataState] = useState([]);
 
@@ -86,20 +96,26 @@ const CourseEvalModal = (props) => {
    //Data for class comments
    const [comments, setComments] = useState([]);
 
-
+   //Data for term
+   const [term, setTerm] = useState("");
 
   useEffect(() => {
     if (evalDataState) {
+      //Get term
+      let curTerm = evalDataState.term;
+      let term = curTerm ? curTerm : "";
+      setTerm(term);
+
       //Get expected grade data
       let curExpectedGrade = evalDataState.expected_grade;
       let expectedGradeMeanT = curExpectedGrade ? parseFloat(curExpectedGrade.class_mean) : 0;
       let expectedGradeResT = curExpectedGrade ? parseFloat(curExpectedGrade.responses) : 0;
       let expectedGradeArr = [
-        { argument: '1\nA', value: curExpectedGrade ? parseInt(curExpectedGrade.score_1) : 0},
-        { argument: '2\nB', value: curExpectedGrade ? parseInt(curExpectedGrade.score_2) : 0},
-        { argument: '3\nC', value: curExpectedGrade ? parseInt(curExpectedGrade.score_3)  : 0},
-        { argument: '4\nD', value: curExpectedGrade ? parseInt(curExpectedGrade.score_4) : 0},
-        { argument: '5\nF', value: curExpectedGrade ? parseInt(curExpectedGrade.score_5)  : 0}
+        { argument: 'A', value: curExpectedGrade ? parseInt(curExpectedGrade.score_1) : 0},
+        { argument: 'B', value: curExpectedGrade ? parseInt(curExpectedGrade.score_2) : 0},
+        { argument: 'C', value: curExpectedGrade ? parseInt(curExpectedGrade.score_3)  : 0},
+        { argument: 'D', value: curExpectedGrade ? parseInt(curExpectedGrade.score_4) : 0},
+        { argument: 'F', value: curExpectedGrade ? parseInt(curExpectedGrade.score_5)  : 0}
       ];
       setExpectedGrade(expectedGradeArr);
       setExpectedGradeMean(expectedGradeMeanT);
@@ -110,11 +126,11 @@ const CourseEvalModal = (props) => {
       let expectedGradePFMeanT = curExpectedGradePF ? parseFloat(curExpectedGradePF.class_mean) : 0;
       let expectedGradePFResT = curExpectedGradePF ? parseFloat(curExpectedGradePF.responses) : 0;
       let expectedGradePFArr = [
-        { argument: '1\nP', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_1) : 0},
-        { argument: '2\nF', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_2) : 0},
-        { argument: '3\nS', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_3)  : 0},
-        { argument: '4\nU', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_4) : 0},
-        { argument: '5\nN/A', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_5)  : 0}
+        { argument: 'P', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_1) : 0},
+        { argument: 'F', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_2) : 0},
+        { argument: 'S', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_3)  : 0},
+        { argument: 'U', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_4) : 0},
+        { argument: 'N/A', value: curExpectedGradePF ? parseInt(curExpectedGradePF.score_5)  : 0}
       ];
       setExpectedGradePF(expectedGradePFArr);
       setExpectedGradePFMean(expectedGradePFMeanT);
@@ -125,11 +141,11 @@ const CourseEvalModal = (props) => {
       let organizationMeanT = curOrganization ? parseFloat(curOrganization.class_mean) : 0;
       let organizationResT = curOrganization ? parseFloat(curOrganization.responses) : 0;
       let organizationArr = [
-        { argument: '1\nOutstanding', value: curOrganization ? parseInt(curOrganization.score_1) : 0},
-        { argument: '2\nGood', value: curOrganization ? parseInt(curOrganization.score_2) : 0},
-        { argument: '3\nAverage', value: curOrganization ? parseInt(curOrganization.score_3)  : 0},
-        { argument: '4\nFair', value: curOrganization ? parseInt(curOrganization.score_4) : 0},
-        { argument: '5\nPoor', value: curOrganization ? parseInt(curOrganization.score_5)  : 0}
+        { argument: 'Outstanding', value: curOrganization ? parseInt(curOrganization.score_1) : 0},
+        { argument: 'Good', value: curOrganization ? parseInt(curOrganization.score_2) : 0},
+        { argument: 'Average', value: curOrganization ? parseInt(curOrganization.score_3)  : 0},
+        { argument: 'Fair', value: curOrganization ? parseInt(curOrganization.score_4) : 0},
+        { argument: 'Poor', value: curOrganization ? parseInt(curOrganization.score_5)  : 0}
       ];
       setOrganization(organizationArr); 
       setOrganizationMean(organizationMeanT);
@@ -140,11 +156,11 @@ const CourseEvalModal = (props) => {
       let assignmentsMeanT = curAssignments ? parseFloat(curAssignments.class_mean) : 0;
       let assignmentsResT = curAssignments ? parseFloat(curAssignments.responses) : 0;
       let assignmentsArr = [
-        { argument: '1\nOutstanding', value: curAssignments ? parseInt(curAssignments.score_1) : 0},
-        { argument: '2\nGood', value: curAssignments ? parseInt(curAssignments.score_2) : 0},
-        { argument: '3\nAverage', value: curAssignments ? parseInt(curAssignments.score_3)  : 0},
-        { argument: '4\nFair', value: curAssignments ? parseInt(curAssignments.score_4) : 0},
-        { argument: '5\nPoor', value: curAssignments ? parseInt(curAssignments.score_5)  : 0}
+        { argument: 'Outstanding', value: curAssignments ? parseInt(curAssignments.score_1) : 0},
+        { argument: 'Good', value: curAssignments ? parseInt(curAssignments.score_2) : 0},
+        { argument: 'Average', value: curAssignments ? parseInt(curAssignments.score_3)  : 0},
+        { argument: 'Fair', value: curAssignments ? parseInt(curAssignments.score_4) : 0},
+        { argument: 'Poor', value: curAssignments ? parseInt(curAssignments.score_5)  : 0}
       ];
       setAssignments(assignmentsArr); 
       setAssignmentsMean(assignmentsMeanT);
@@ -155,11 +171,11 @@ const CourseEvalModal = (props) => {
       let qualityMeanT = curQuality ? parseFloat(curQuality.class_mean) : 0;
       let qualityResT = curQuality ? parseFloat(curQuality.responses) : 0;
       let qualityArr = [
-        { argument: '1\nOutstanding', value: curQuality ? parseInt(curQuality.score_1) : 0},
-        { argument: '2\nGood', value: curQuality ? parseInt(curQuality.score_2) : 0},
-        { argument: '3\nAverage', value: curQuality ? parseInt(curQuality.score_3)  : 0},
-        { argument: '4\nFair', value: curQuality ? parseInt(curQuality.score_4) : 0},
-        { argument: '5\nPoor', value: curQuality ? parseInt(curQuality.score_5)  : 0}
+        { argument: 'Outstanding', value: curQuality ? parseInt(curQuality.score_1) : 0},
+        { argument: 'Good', value: curQuality ? parseInt(curQuality.score_2) : 0},
+        { argument: 'Average', value: curQuality ? parseInt(curQuality.score_3)  : 0},
+        { argument: 'Fair', value: curQuality ? parseInt(curQuality.score_4) : 0},
+        { argument: 'Poor', value: curQuality ? parseInt(curQuality.score_5)  : 0}
       ];
       setQuality(qualityArr); 
       setQualityMean(qualityMeanT);
@@ -170,11 +186,11 @@ const CourseEvalModal = (props) => {
       let challengeMeanT = curChallege ? parseFloat(curChallege.class_mean) : 0;
       let challengeResT = curChallege ? parseFloat(curChallege.responses) : 0;
       let challengeArr = [
-        { argument: '1\nStrongly Agree', value: curChallege ? parseInt(curChallege.score_1) : 0},
-        { argument: '2\nAgree', value: curChallege ? parseInt(curChallege.score_2) : 0},
-        { argument: '3\nNeutral', value: curChallege ? parseInt(curChallege.score_3)  : 0},
-        { argument: '4\nDisagree', value: curChallege ? parseInt(curChallege.score_4) : 0},
-        { argument: '5\nStrongly Disagree', value: curChallege ? parseInt(curChallege.score_5)  : 0}
+        { argument: 'Strongly Agree', value: curChallege ? parseInt(curChallege.score_1) : 0},
+        { argument: 'Agree', value: curChallege ? parseInt(curChallege.score_2) : 0},
+        { argument: 'Neutral', value: curChallege ? parseInt(curChallege.score_3)  : 0},
+        { argument: 'Disagree', value: curChallege ? parseInt(curChallege.score_4) : 0},
+        { argument: 'Strongly Disagree', value: curChallege ? parseInt(curChallege.score_5)  : 0}
       ];
       setChallenge(challengeArr); 
       setChallengeMean(challengeMeanT);
@@ -185,11 +201,11 @@ const CourseEvalModal = (props) => {
       let workloadMeanT = curWorkload ? parseFloat(curWorkload.class_mean) : 0;
       let workloadResT = curWorkload ? parseFloat(curWorkload.responses) : 0;
       let workloadArr = [
-        { argument: '1\nMuch Lighter', value: curWorkload ? parseInt(curWorkload.score_1) : 0},
-        { argument: '2\nSomewhat Lighter', value: curWorkload ? parseInt(curWorkload.score_2) : 0},
-        { argument: '3\nAverage', value: curWorkload ? parseInt(curWorkload.score_3)  : 0},
-        { argument: '4\nSomewhat Heavier', value: curWorkload ? parseInt(curWorkload.score_4) : 0},
-        { argument: '5\nMuch Heavier', value: curWorkload ? parseInt(curWorkload.score_5)  : 0}
+        { argument: 'Much Lighter', value: curWorkload ? parseInt(curWorkload.score_1) : 0},
+        { argument: 'Somewhat Lighter', value: curWorkload ? parseInt(curWorkload.score_2) : 0},
+        { argument: 'Average', value: curWorkload ? parseInt(curWorkload.score_3)  : 0},
+        { argument: 'Somewhat Heavier', value: curWorkload ? parseInt(curWorkload.score_4) : 0},
+        { argument: 'Much Heavier', value: curWorkload ? parseInt(curWorkload.score_5)  : 0}
       ];
       setWorkload(workloadArr); 
       setWorkloadMean(workloadMeanT);
@@ -200,11 +216,11 @@ const CourseEvalModal = (props) => {
       let whyTakingMeanT = curWhyTaking ? parseFloat(curWhyTaking.class_mean) : 0;
       let whyTakingResT = curWhyTaking ? parseFloat(curWhyTaking.responses) : 0;
       let whyTakingArr = [
-        { argument: '1\nUniv or Dist Req', value: curWhyTaking ? parseInt(curWhyTaking.score_1) : 0},
-        { argument: '2\nReq for Major', value: curWhyTaking ? parseInt(curWhyTaking.score_2) : 0},
-        { argument: '3\nElective in Major', value: curWhyTaking ? parseInt(curWhyTaking.score_3)  : 0},
-        { argument: '4\nFree Elective', value: curWhyTaking ? parseInt(curWhyTaking.score_4) : 0},
-        { argument: '5\nN/A', value: curWhyTaking ? parseInt(curWhyTaking.score_5)  : 0}
+        { argument: 'Univ or Dist Req', value: curWhyTaking ? parseInt(curWhyTaking.score_1) : 0},
+        { argument: 'Req for Major', value: curWhyTaking ? parseInt(curWhyTaking.score_2) : 0},
+        { argument: 'Elective in Major', value: curWhyTaking ? parseInt(curWhyTaking.score_3)  : 0},
+        { argument: 'Free Elective', value: curWhyTaking ? parseInt(curWhyTaking.score_4) : 0},
+        { argument: 'N/A', value: curWhyTaking ? parseInt(curWhyTaking.score_5)  : 0}
       ];
       setWhyTaking(whyTakingArr); 
       setWhyTakingMean(whyTakingMeanT);
@@ -221,285 +237,723 @@ const CourseEvalModal = (props) => {
 }, [evalDataState, evalData]);
     
 
-    
+  const customizeText = (arg) => {
+    return `${arg.valueText}%`;
+  }    
+
     return ( 
         <div className="modal-container">
+          <div className="eval-exit">
+            <IconButton
+                disableFocusRipple
+                disableRipple
+                style={{ 
+                  backgroundColor: "transparent",
+                  padding:"0",
+                  margin:"0"
+                }}
+                onClick={props.closeModal}
+            >
+                <IoCloseOutline color="#898e91" size={40} className="exit-skinny"/>
+            </IconButton>
+          </div>
           <div className="course-info">
-          <h1>{props.courseSubject}&nbsp;{props.courseNum}&nbsp;{props.courseTitle}</h1>
-          <h3>Term: {evalDataState.term}</h3>
-          <h3>Instructor: {props.courseProf ? props.courseProf &&
+          
+          <div className="course-eval-header">
+          <h1 className="no-padding-no-margin">
+            <span className="course-num">{props.courseSubject}&nbsp;{props.courseNum}</span>
+            <span className="course-title">&nbsp;{props.courseTitle}</span>
+          </h1>
+          
+          </div>
+          <p className="course-details">Term: {term}</p>
+          <p className="course-details">Instructor: {props.courseProf ? props.courseProf &&
                           props.courseProf.firstName +
                               " " +
                               props.courseProf.lastName
                         : "No Instructors"}
-          </h3>
+          </p>
+          
+            <div className="eval-tabs">
+                <button className={`${responseState ? "eval-tabs-clicked" : "eval-tabs-unclicked"}`} onClick={openResponse}>Numeric Responses</button>
+                <button className={`${responseState ? "eval-tabs-unclicked" : "eval-tabs-clicked"}`} onClick={openComments}>Comments</button>
+            </div>
+            
           </div>
           {responseState ? 
-          <div>
-            <div className="eval-tabs">
-              <button className="eval-tabs-clicked" onClick={openResponse}>Numeric Responses</button>
-              <button className="eval-tabs-unclicked" onClick={openComments}>Comments</button>
-            </div>
+          <div className="chart-padding">
+            <div className="header-border"/>
             <div className="charts-display">
               <div className="chart-container">
-              <p>Responses:&nbsp;{expectedGradeRes}&nbsp;&nbsp;Class Mean:&nbsp;{expectedGradeMean}</p>
+              <p className="chart-txt">Class Mean:&nbsp;{expectedGradeMean}&nbsp;&nbsp;
+              Rice Mean: 1.34
+              <br/>Responses:&nbsp;{expectedGradeRes}</p>
               <Chart 
                 dataSource={expectedGrade}
                 height={"100px"}
               >
+              <CommonAnnotationSettings
+                type="text"
+                series="Value"
+                allowDragging={false}
+                color={"transparent"}
+
+              >
+              </CommonAnnotationSettings>
+              {expectedGrade.filter((data)=>{
+                return data.value > 0;
+              }).map((data) => (
+                <Annotation
+                  argument={data.argument}
+                  key={data.argument}
+                  text={data.value}
+                  color={"transparent"}
+                  arrowLength={0}
+                >
+                  <Font 
+                  size="17px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                  <Border visible={false}/>
+                  <Shadow opacity={0}/>
+                </Annotation>
+
+              ))}
                 <Series 
                   type="bar"
+                  hoverMode="none"
                   valueField="value"
                   argumentField="argument"
+                  color={"#1DC2C4"}
+                  name="Value"
                 />
                 <Title 
                   text="Expected Grade (Letter)" 
                 >
-                  <Font size="20px"/>
+                  <Font 
+                  size="15px"
+                  color={"#165859"}
+                  family={"Acari Sans"}
+                  />
                 </Title>
 
-                <ArgumentAxis
-                    //tickInterval={10}
-                />
+                <ArgumentAxis>
+                  <Label>
+                  <Font 
+                    size="15px"
+                    color={"#338182"}
+                    family={"Acari Sans"}
+                    />
+                  </Label>  
+                </ArgumentAxis>
+
                 <ValueAxis
                     visualRange={[0,100]}
-                    title="Percent"
-                />
+                    visible={false}
+                >
+                <Label customizeText={customizeText} >
+                <Font 
+                  size="15px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                </Label>
+                </ValueAxis>
                 <Legend visible={false} />
                 <Size
-                          height={250}
+                          height={270}
                           width={335}
                       />
               </Chart> 
               </div>
               <div className="chart-container">
-              <p>Responses:&nbsp;{expectedGradePFRes}&nbsp;&nbsp;Class Mean:&nbsp;{expectedGradePFMean}</p>
+              <p className="chart-txt">Class Mean:&nbsp;{expectedGradePFMean}&nbsp;&nbsp;
+              Rice Mean: 1.59
+              <br/>Responses:&nbsp;{expectedGradePFRes}</p>              
               <Chart 
                 dataSource={expectedGradePF}
                 height={"100px"}
               >
+              <CommonAnnotationSettings
+                type="text"
+                series="Value"
+                allowDragging={false}
+                color={"transparent"}
+
+              >
+              </CommonAnnotationSettings>
+              {expectedGradePF.filter((data)=>{
+                return data.value > 0;
+              }).map((data) => (
+                <Annotation
+                  argument={data.argument}
+                  key={data.argument}
+                  text={data.value}
+                  color={"transparent"}
+                  arrowLength={0}
+                >
+                  <Font 
+                  size="17px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                  <Border visible={false}/>
+                  <Shadow opacity={0}/>
+                </Annotation>
+
+              ))}
                 <Series 
                   type="bar"
+                  hoverMode="none"
                   valueField="value"
                   argumentField="argument"
+                  color={"#1DC2C4"}
+                  name="Value"
                 />
                 <Title 
                   text="Expected Grade (P/F)" 
                 >
-                  <Font size="20px"/>
+                  <Font 
+                  size="15px"
+                  color={"#165859"}
+                  family={"Acari Sans"}
+                  />
                 </Title>
 
-                <ArgumentAxis
-                    //tickInterval={10}
-                />
+                <ArgumentAxis>
+                  <Label>
+                  <Font 
+                    size="15px"
+                    color={"#338182"}
+                    family={"Acari Sans"}
+                    />
+                  </Label>  
+                </ArgumentAxis>
+
                 <ValueAxis
                     visualRange={[0,100]}
-                    title="Percent"
-                />
+                    visible={false}
+                >
+                <Label customizeText={customizeText} >
+                <Font 
+                  size="15px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                </Label>
+                </ValueAxis>
                 <Legend visible={false} />
                 <Size
-                          height={250}
+                          height={270}
                           width={335}
                       />
-              </Chart>  
+              </Chart> 
               </div>
               <div className="chart-container">
-              <p>Responses:&nbsp;{organizationRes}&nbsp;&nbsp;Class Mean:&nbsp;{organizationMean}</p>
+              <p className="chart-txt">Class Mean:&nbsp;{organizationMean}&nbsp;&nbsp;
+              Rice Mean: 1.73
+              <br/>Responses:&nbsp;{organizationRes}</p>     
               <Chart 
                 dataSource={organization}
                 height={"100px"}
               >
+              <CommonAnnotationSettings
+                type="text"
+                series="Value"
+                allowDragging={false}
+                color={"transparent"}
+
+              >
+              </CommonAnnotationSettings>
+              {organization.filter((data)=>{
+                return data.value > 0;
+              }).map((data) => (
+                <Annotation
+                  argument={data.argument}
+                  key={data.argument}
+                  text={data.value}
+                  color={"transparent"}
+                  arrowLength={0}
+                >
+                  <Font 
+                  size="17px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                  <Border visible={false}/>
+                  <Shadow opacity={0}/>
+                </Annotation>
+
+              ))}
                 <Series 
                   type="bar"
+                  hoverMode="none"
                   valueField="value"
                   argumentField="argument"
+                  color={"#1DC2C4"}
+                  name="Value"
                 />
                 <Title 
-                  text="Class Organization" 
-                >
-                  <Font size="20px"/>
+                  text="Organization: The organization of this course was:" 
+                >         
+                  <Font 
+                  size="15px"
+                  color={"#165859"}
+                  family={"Acari Sans"}
+                  />
                 </Title>
 
-                <ArgumentAxis
-                    //tickInterval={10}
-                />
+                <ArgumentAxis>
+                  <Label>
+                  <Font 
+                    size="12px"
+                    color={"#338182"}
+                    family={"Acari Sans"}
+                    />
+                  </Label>  
+                </ArgumentAxis>
+
                 <ValueAxis
                     visualRange={[0,100]}
-                    title="Percent"
-                />
+                    visible={false}
+                >
+                <Label customizeText={customizeText} >
+                <Font 
+                  size="15px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                </Label>
+                </ValueAxis>
                 <Legend visible={false} />
                 <Size
-                          height={250}
+                          height={270}
                           width={335}
                       />
-              </Chart>  
+              </Chart> 
               </div>
               <div className="chart-container">
-              <p>Responses:&nbsp;{assignmentsRes}&nbsp;&nbsp;Class Mean:&nbsp;{assignmentsMean}</p>
+              <p className="chart-txt">Class Mean:&nbsp;{assignmentsMean}&nbsp;&nbsp;
+              Rice Mean: 1.75
+              <br/>Responses:&nbsp;{assignmentsRes}</p>                   
               <Chart 
                 dataSource={assignments}
                 height={"100px"}
               >
+              <CommonAnnotationSettings
+                type="text"
+                series="Value"
+                allowDragging={false}
+                color={"transparent"}
+
+              >
+              </CommonAnnotationSettings>
+              {assignments.filter((data)=>{
+                return data.value > 0;
+              }).map((data) => (
+                <Annotation
+                  argument={data.argument}
+                  key={data.argument}
+                  text={data.value}
+                  color={"transparent"}
+                  arrowLength={0}
+                >
+                  <Font 
+                  size="17px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                  <Border visible={false}/>
+                  <Shadow opacity={0}/>
+                </Annotation>
+
+              ))}
                 <Series 
                   type="bar"
+                  hoverMode="none"
                   valueField="value"
                   argumentField="argument"
+                  color={"#1DC2C4"}
+                  name="Value"
                 />
                 <Title 
-                  text="Contribution of Assignments" 
-                >
-                  <Font size="20px"/>
+                  text="Assignments: The contribution that the graded work made to the learning experience was:" 
+                >           
+                  <Font 
+                  size="15px"
+                  color={"#165859"}
+                  family={"Acari Sans"}
+                  />
                 </Title>
 
-                <ArgumentAxis
-                    //tickInterval={10}
-                />
+                <ArgumentAxis>
+                  <Label>
+                  <Font 
+                    size="12px"
+                    color={"#338182"}
+                    family={"Acari Sans"}
+                    />
+                  </Label>  
+                </ArgumentAxis>
+
                 <ValueAxis
                     visualRange={[0,100]}
-                    title="Percent"
-                />
+                    visible={false}
+                >
+                <Label customizeText={customizeText} >
+                <Font 
+                  size="15px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                </Label>
+                </ValueAxis>
                 <Legend visible={false} />
                 <Size
-                          height={250}
+                          height={270}
                           width={335}
                       />
-              </Chart>  
+              </Chart> 
               </div>
               <div className="chart-container">
-              <p>Responses:&nbsp;{qualityRes}&nbsp;&nbsp;Class Mean:&nbsp;{qualityMean}</p>
+              <p className="chart-txt">Class Mean:&nbsp;{qualityMean}&nbsp;&nbsp;
+              Rice Mean: 1.75
+              <br/>Responses:&nbsp;{qualityRes}</p>               
               <Chart 
                 dataSource={quality}
                 height={"100px"}
               >
+              <CommonAnnotationSettings
+                type="text"
+                series="Value"
+                allowDragging={false}
+                color={"transparent"}
+
+              >
+              </CommonAnnotationSettings>
+              {quality.filter((data)=>{
+                return data.value > 0;
+              }).map((data) => (
+                <Annotation
+                  argument={data.argument}
+                  key={data.argument}
+                  text={data.value}
+                  color={"transparent"}
+                  arrowLength={0}
+                >
+                  <Font 
+                  size="17px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                  <Border visible={false}/>
+                  <Shadow opacity={0}/>
+                </Annotation>
+
+              ))}
                 <Series 
                   type="bar"
+                  hoverMode="none"
                   valueField="value"
                   argumentField="argument"
+                  color={"#1DC2C4"}
+                  name="Value"
                 />
                 <Title 
-                  text="Overall Quality" 
+                  text="Overall, I would rate the quality of this course as:" 
                 >
-                  <Font size="20px"/>
+                  <Font 
+                  size="15px"
+                  color={"#165859"}
+                  family={"Acari Sans"}
+                  />
                 </Title>
 
-                <ArgumentAxis
-                    //tickInterval={10}
-                />
+                <ArgumentAxis>
+                  <Label>
+                  <Font 
+                    size="12px"
+                    color={"#338182"}
+                    family={"Acari Sans"}
+                    />
+                  </Label>  
+                </ArgumentAxis>
+
                 <ValueAxis
                     visualRange={[0,100]}
-                    title="Percent"
-                />
+                    visible={false}
+                >
+                <Label customizeText={customizeText} >
+                <Font 
+                  size="15px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                </Label>
+                </ValueAxis>
                 <Legend visible={false} />
                 <Size
-                          height={250}
+                          height={270}
                           width={335}
                       />
-              </Chart>  
+              </Chart> 
               </div>
               <div className="chart-container">
-              <p>Responses:&nbsp;{challengeRes}&nbsp;&nbsp;Class Mean:&nbsp;{challengeMean}</p>
+              <p className="chart-txt">Class Mean:&nbsp;{challengeMean}&nbsp;&nbsp;
+              Rice Mean: 1.73
+              <br/>Responses:&nbsp;{challengeRes}</p>      
               <Chart 
                 dataSource={challenge}
                 height={"100px"}
               >
+              <CommonAnnotationSettings
+                type="text"
+                series="Value"
+                allowDragging={false}
+                color={"transparent"}
+
+              >
+              </CommonAnnotationSettings>
+              {challenge.filter((data)=>{
+                return data.value > 0;
+              }).map((data) => (
+                <Annotation
+                  argument={data.argument}
+                  key={data.argument}
+                  text={data.value}
+                  color={"transparent"}
+                  arrowLength={0}
+                >
+                  <Font 
+                  size="17px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                  <Border visible={false}/>
+                  <Shadow opacity={0}/>
+                </Annotation>
+
+              ))}
                 <Series 
                   type="bar"
+                  hoverMode="none"
                   valueField="value"
                   argumentField="argument"
+                  color={"#1DC2C4"}
+                  name="Value"
                 />
                 <Title 
-                  text="I was challenged" 
-                >
-                  <Font size="20px"/>
+                  text="Challenge: I was challenged to extend my capabilities or to develop new ones:" 
+                >        
+                  <Font 
+                  size="15px"
+                  color={"#165859"}
+                  family={"Acari Sans"}
+                  />
                 </Title>
 
-                <ArgumentAxis
-                    //tickInterval={10}
-                />
+                <ArgumentAxis>
+                  <Label>
+                  <Font 
+                    size="11px"
+                    color={"#338182"}
+                    family={"Acari Sans"}
+                    />
+                  </Label>  
+                </ArgumentAxis>
+
                 <ValueAxis
                     visualRange={[0,100]}
-                    title="Percent"
-                />
+                    visible={false}
+                >
+                <Label customizeText={customizeText} >
+                <Font 
+                  size="15px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                </Label>
+                </ValueAxis>
                 <Legend visible={false} />
                 <Size
-                          height={250}
+                          height={270}
                           width={335}
                       />
-              </Chart>  
+              </Chart> 
               </div>
               <div className="chart-container">
-              <p>Responses:&nbsp;{whyTakingRes}&nbsp;&nbsp;Class Mean:&nbsp;{whyTakingMean}</p>
+              <p className="chart-txt">Class Mean:&nbsp;{whyTakingMean}&nbsp;&nbsp;
+              Rice Mean: 2.18
+              <br/>Responses:&nbsp;{whyTakingRes}</p>        
               <Chart 
                 dataSource={whyTaking}
                 height={"100px"}
               >
+              <CommonAnnotationSettings
+                type="text"
+                series="Value"
+                allowDragging={false}
+                color={"transparent"}
+
+              >
+              </CommonAnnotationSettings>
+              {whyTaking.filter((data)=>{
+                return data.value > 0;
+              }).map((data) => (
+                <Annotation
+                  argument={data.argument}
+                  key={data.argument}
+                  text={data.value}
+                  color={"transparent"}
+                  arrowLength={0}
+                >
+                  <Font 
+                  size="17px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                  <Border visible={false}/>
+                  <Shadow opacity={0}/>
+                </Annotation>
+
+              ))}
                 <Series 
                   type="bar"
+                  hoverMode="none"
                   valueField="value"
                   argumentField="argument"
+                  color={"#1DC2C4"}
+                  name="Value"
                 />
                 <Title 
-                  text="I am taking this course because" 
-                >
-                  <Font size="20px"/>
+                  text="I am taking this course because it satisfies:" 
+                >      
+                  <Font 
+                  size="15px"
+                  color={"#165859"}
+                  family={"Acari Sans"}
+                  />
                 </Title>
 
-                <ArgumentAxis
-                    //tickInterval={10}
-                />
+                <ArgumentAxis>
+                  <Label>
+                  <Font 
+                    size="12px"
+                    color={"#338182"}
+                    family={"Acari Sans"}
+                    />
+                  </Label>  
+                </ArgumentAxis>
+
                 <ValueAxis
                     visualRange={[0,100]}
-                    title="Percent"
-                />
+                    visible={false}
+                >
+                <Label customizeText={customizeText} >
+                <Font 
+                  size="15px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                </Label>
+                </ValueAxis>
                 <Legend visible={false} />
                 <Size
-                          height={250}
+                          height={270}
                           width={335}
                       />
-              </Chart>  
+              </Chart>   
               </div>
               <div className="chart-container">
-              <p>Responses:&nbsp;{workloadRes}&nbsp;&nbsp;Class Mean:&nbsp;{workloadMean}</p>
+              <p className="chart-txt">Class Mean:&nbsp;{workloadMean}&nbsp;&nbsp;
+              Rice Mean: 2.78
+              <br/>Responses:&nbsp;{workloadRes}</p>    
               <Chart 
                 dataSource={workload}
                 height={"100px"}
               >
+              <CommonAnnotationSettings
+                type="text"
+                series="Value"
+                allowDragging={false}
+                color={"transparent"}
+
+              >
+              </CommonAnnotationSettings>
+              {workload.filter((data)=>{
+                return data.value > 0;
+              }).map((data) => (
+                <Annotation
+                  argument={data.argument}
+                  key={data.argument}
+                  text={data.value}
+                  color={"transparent"}
+                  arrowLength={0}
+                >
+                  <Font 
+                  size="17px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                  <Border visible={false}/>
+                  <Shadow opacity={0}/>
+                </Annotation>
+
+              ))}
                 <Series 
                   type="bar"
+                  hoverMode="none"
                   valueField="value"
                   argumentField="argument"
+                  color={"#1DC2C4"}
+                  name="Value"
                 />
                 <Title 
-                  text="The workload was" 
-                >
-                  <Font size="20px"/>
+                  text="Workload: The workload for this course compared to others at Rice was:" 
+                >          
+                  <Font 
+                  size="15px"
+                  color={"#165859"}
+                  family={"Acari Sans"}
+                  />
                 </Title>
 
-                <ArgumentAxis
-                    //tickInterval={10}
-                />
+                <ArgumentAxis>
+                  <Label>
+                  <Font 
+                    size="10.5px"
+                    color={"#338182"}
+                    family={"Acari Sans"}
+                    />
+                  </Label>  
+                </ArgumentAxis>
+
                 <ValueAxis
                     visualRange={[0,100]}
-                    title="Percent"
-                />
+                    visible={false}
+                >
+                <Label customizeText={customizeText} >
+                <Font 
+                  size="15px"
+                  color={"#338182"}
+                  family={"Acari Sans"}
+                  />
+                </Label>
+                </ValueAxis>
                 <Legend visible={false} />
                 <Size
-                          height={250}
+                          height={270}
                           width={335}
                       />
-              </Chart>  
+              </Chart> 
               </div>
             </div>
 
 
           </div>
           : 
-          <div>
-            <div className="eval-tabs">
-              <button className="eval-tabs-unclicked" onClick={openResponse}>Numeric Responses</button>
-              <button className="eval-tabs-clicked" onClick={openComments}>Comments</button>
-            </div>
-            
+          <div>            
             {
             comments.map((item, index) => {
                 return(

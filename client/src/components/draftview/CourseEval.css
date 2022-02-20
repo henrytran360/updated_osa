@@ -1,16 +1,48 @@
 .modal-container {
     z-index: 1;
+}
+
+.course-eval-header {
+    display: flex;
+    flex-direction: row;
     padding: 1rem;
     background-color: var(--background-color);
 }
 
 .course-info {
-    padding: 0 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.no-padding-no-margin {
+    padding: 0;
+    margin: 0;
+}
+
+.course-num {
+    color: #338182;
+}
+
+.course-title {
+    color: #1dc2c4;
+}
+
+.eval-exit {
+    text-align: right;
+    align-items: right;
+    font-weight: 100;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+}
+
+.course-details {
+    color: #898e91;
+    font-size: 20px;
 }
 
 .eval-tabs {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .eval-tabs-unclicked {
@@ -20,6 +52,7 @@
     color: var(--tertiary-color);
     background: none;
     padding: 5px 7px;
+    cursor: pointer;
 }
 
 .eval-tabs-clicked {
@@ -31,6 +64,12 @@
     color: var(--search-background-focused);
     background: none;
     padding: 5px 7px;
+    cursor: pointer;
+}
+
+.header-border {
+    border: 1px solid #f2f3f3;
+    margin-bottom: 2rem;
 }
 
 .charts-display {
@@ -39,10 +78,23 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+.chart-padding {
+    padding-bottom: 2rem;
+}
 
 .chart-container {
-    height: 300px;
-    padding: 1rem;
+    height: 320px;
+    width: auto;
+    padding: 0.5rem;
+    border: 1.5px solid #c3c6c8;
+    margin: 0.5rem;
+    border-radius: 1px;
+}
+
+.chart-txt {
+    color: #165859;
+    padding: 5px;
+    margin: 0;
 }
 
 .comment-container {

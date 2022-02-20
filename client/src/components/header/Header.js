@@ -130,6 +130,7 @@ const GET_LOCAL_DATA = gql`
         degreeplanparent @client
         degreeplanname @client
         degreeplanlist @client
+        evalModalState @client
     }
 `;
 
@@ -190,7 +191,7 @@ function Header() {
     } = useQuery(VERIFY_TOKEN);
 
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { degreeplanparent, degreeplanlist } = storeData;
+    let { degreeplanparent, degreeplanlist, evalModalState } = storeData;
 
     useEffect(() => {
         if (data4) {

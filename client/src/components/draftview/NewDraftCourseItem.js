@@ -5,7 +5,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import { classTimeString } from "../../utils/CourseTimeTransforms";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
@@ -153,8 +153,16 @@ const TOGGLE_DRAFT_SESSION_VISIBILITY = gql`
     }
 `;
 
+const GET_LOCAL_DATA = gql`
+    query GetLocalData{
+        evalModalState @client
+    }
+`;
+
 
 const NewDraftCourseItem = (props) => {
+
+    const client = useApolloClient();
 
     const [firstInstructor, setFirstInstructor] = useState({});
     let moduloValue = props.index % colorCombos.length;
@@ -183,15 +191,29 @@ const NewDraftCourseItem = (props) => {
 
     const boolVisible = props.visible ? true : false;
 
+
+    //open course evaluation modal
     const [modalState, setModal] = useState(false);
+    
     const openModal = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA, 
+            data: {
+                evalModalState: true, 
+            },
+        });
         setModal(true);
     };
     const closeModal = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA, 
+            data: {
+                evalModalState: false, 
+            },
+        });
         setModal(false);
     };
 
-    console.log(props.session.course.subject);
 
     return (
         <div
@@ -242,6 +264,7 @@ const NewDraftCourseItem = (props) => {
                             courseNum = {props.session.course.courseNum}
                             courseTitle = {props.session.course.longTitle}
                             courseProf = {firstInstructor}
+                            closeModal = {closeModal}
                         />
                     </Modal>
                     <Tooltip className="iconButton" title="Evaluations">
