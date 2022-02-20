@@ -108,10 +108,10 @@ html[data-theme='Purple'] {
     --quinary-color: #42bf4260;
     --link-color: #3fb4d7;
     --selection-color: #ff9595;
-    --border-color: #c3edbb;
+    --border-color: #d9bbed;
     --search-button-bg: #bf464260;
-    --shadow-color: rgba(0,0,0,0.15);
-    --search-background-focused: #201dc4;
+    --shadow-color: rgba(221, 221, 221, 0.952);
+    --search-background-focused: #fff23a;
 }
 
 #app {

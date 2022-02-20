@@ -8,7 +8,7 @@ import ThemeSelect from './ThemeSelect'
 import SettingsIcon from "@mui/icons-material/Settings";
 
 function SettingsModal(props) {
-    let feedbackURL = "https://forms.gle/gSJp5Dy9a2WH7Nk1A";
+    let feedbackURL = "https://forms.gle/tUiboF8FAQE4AjLs9";
     const style = {
         position: 'absolute',
         top: '50%',

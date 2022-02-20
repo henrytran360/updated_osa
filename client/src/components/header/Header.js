@@ -498,8 +498,27 @@ function Header() {
                         onClick={() => history.push("/about")}>
                         <span>About</span>
                     </MenuItem>
-                    <MenuItem>
-                        {location.pathname == "/schedule" ? (
+                    {location.pathname == "/schedule" ? (
+                        <div
+                            style={{
+                                width: "30%",
+                                height: "100%",
+                                marginRight: 30,
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-around",
+                                alignItems: "center",
+                            }}
+                        >
+                            <MenuItem>
+                                <SemesterSelect></SemesterSelect>
+                            </MenuItem>
+                            <MenuItem>
+                                <div className="buttonSelect">{renderIcons()}</div>
+                            </MenuItem>
+                        </div>
+                    ) : (
+                        location.pathname == "/degree_plan" && (
                             <div
                                 style={{
                                     width: "30%",
@@ -511,66 +530,54 @@ function Header() {
                                     alignItems: "center",
                                 }}
                             >
-                                <SemesterSelect></SemesterSelect>
-                                <div className="buttonSelect">{renderIcons()}</div>
-                            </div>
-                        ) : (
-                            location.pathname == "/degree_plan" && (
                                 <div
                                     style={{
-                                        width: "30%",
+                                        width: "65%",
                                         height: "100%",
-                                        marginRight: 30,
                                         display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "space-around",
+                                        justifyContent: "",
                                         alignItems: "center",
+                                        zIndex:
+                                            modalState || modalState2 || modalState3
+                                                ? -99
+                                                : 10,
                                     }}
                                 >
-                                    <div
-                                        style={{
-                                            width: "65%",
-                                            height: "100%",
-                                            display: "flex",
-                                            justifyContent: "",
-                                            alignItems: "center",
-                                            zIndex:
-                                                modalState || modalState2 || modalState3
-                                                    ? -99
-                                                    : 10,
-                                        }}
-                                    >
+                                    <MenuItem>
                                         <DegreePlanSelect></DegreePlanSelect>
+                                    </MenuItem>
+                                </div>
+                                <div className="icon-box">
+                                    <div className="icon-container">
+                                        <RiDeleteBinLine
+                                            onClick={() => setModal3(true)}
+                                            size={20}
+                                        />
                                     </div>
-                                    <div className="icon-box">
-                                        <div className="icon-container">
-                                            <RiDeleteBinLine
-                                                onClick={() => setModal3(true)}
-                                                size={20}
-                                            />
-                                        </div>
 
-                                        <div className="icon-container">
-                                            <AiOutlineEdit
-                                                onClick={() => setModal2(true)}
-                                                size={20}
-                                            />
-                                        </div>
-
-                                        <div className="icon-container">
-                                            <GoDiffAdded
-                                                onClick={() => setModal(true)}
-                                                size={20}
-                                            />
-                                        </div>
+                                    <div className="icon-container">
+                                        <AiOutlineEdit
+                                            onClick={() => setModal2(true)}
+                                            size={20}
+                                        />
                                     </div>
+
+                                    <div className="icon-container">
+                                        <GoDiffAdded
+                                            onClick={() => setModal(true)}
+                                            size={20}
+                                        />
+                                    </div>
+                                </div>
+                                <MenuItem>
                                     <CreateModal
                                         modalState={modalState}
                                         setModal={setModal}
                                         closeModal={closeModal}
                                         addDegreePlan={addDegreePlan}
                                     />
-
+                                </MenuItem>
+                                <MenuItem>
                                     <UpdateModal
                                         modalState2={modalState2}
                                         setModal2={setModal2}
@@ -579,7 +586,8 @@ function Header() {
                                         query={GET_LOCAL_DATA}
                                         degreeplanparent={degreeplanparent}
                                     />
-
+                                </MenuItem>
+                                <MenuItem>
                                     <DeleteModal
                                         modalState3={modalState3}
                                         setModal3={setModal3}
@@ -589,10 +597,10 @@ function Header() {
                                         degreeplanparent={degreeplanparent}
                                         degreeplanlist={degreeplanlist}
                                     />
-                                </div>
-                            )
-                        )}
-                    </MenuItem>
+                                </MenuItem>
+                            </div>
+                        )
+                    )}
                     <MenuItem>
                         <SettingsModal />
                         <LoginButton></LoginButton>
