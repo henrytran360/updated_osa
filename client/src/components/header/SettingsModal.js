@@ -27,19 +27,17 @@ function SettingsModal(props) {
 
     return (
         <div>
-            <Button onClick={handleOpen}>
-                <IconButton
-                    size="small"
-                    style={{
-                        backgroundColor:
-                            "var(--border-color)",
-                        color: "var(--search-background-focused)",
-                        fontSize: 15,
-                    }}
-                >
-                    <SettingsIcon />
-                </IconButton>
-            </Button>
+            <IconButton
+                size="small"
+                style={{
+                    backgroundColor:
+                        "var(--border-color)",
+                    color: "var(--search-background-focused)",
+                    fontSize: 15,
+                }} onClick={handleOpen}
+            >
+                <SettingsIcon />
+            </IconButton>
             <Modal
                 open={open}
                 onClose={handleClose}

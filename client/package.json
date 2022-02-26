@@ -1,7 +1,7 @@
 {
-  "name": "rice-apps-redux-example",
+  "name": "hatch",
   "version": "1.0.0",
-  "description": "Describe rice-apps-redux-example here",
+  "description": "Hatch is a schedule planner made for students by Rice students.",
   "private": true,
   "scripts": {
     "build": "nwb build-react-app",
@@ -14,7 +14,7 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "@apollo/client": "^3.0.0-beta.49",
+    "@apollo/client": "^3.5.9",
     "@apollo/link-context": "^2.0.0-beta.3",
     "@apollo/link-ws": "^2.0.0-beta.3",
     "@devexpress/dx-react-chart": "^2.7.6",
@@ -62,7 +62,7 @@
   "devDependencies": {
     "nwb": "^0.25.2"
   },
-  "author": "",
+  "author": "Rice Apps",
   "license": "MIT",
   "repository": ""
 }

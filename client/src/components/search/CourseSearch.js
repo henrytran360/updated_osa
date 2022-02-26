@@ -710,8 +710,44 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     return (
         <div className="searchBar">
             <div className="searchBar-content">
-
-
+                <div className="seachCourseContainer">
+                    <div className="searchInputsCourse">
+                        <input
+                            id="searchInput"
+                            type="text"
+                            className="header-search"
+                            placeholder="Search courses"
+                            name="s"
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
+                            onKeyUp={handleKeyPress}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            width: "10%",
+                            height: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginLeft: 10,
+                        }}
+                    >
+                        <IconButton
+                            size="medium"
+                            // onClick={handleClick}
+                            value={"Search"}
+                            className={classes.searchIconStyle}
+                            onClick={() => {
+                                setCourseName(value);
+                                setButtonIndex(5);
+                                loadData();
+                            }}
+                        >
+                            <SearchOutlinedIcon />
+                        </IconButton>
+                    </div>
+                </div>
                 <div className="searchText">Search by:</div>
                 <div className="button-and-search">
                     <Select

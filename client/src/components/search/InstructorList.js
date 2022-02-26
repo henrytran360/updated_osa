@@ -205,7 +205,7 @@ const SessionItem = ({ scheduleID, course, draftSessions }) => {
                         // Execute mutation to remove this session of the course from user's draftsessions
                         removeDraftSession();
 
-                        console.log("No errors...?");
+                        console.log("No errors");
                     } else {
                         // Track add with GA
                         Event(

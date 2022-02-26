@@ -6,8 +6,8 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Box from "@material-ui/core/Box";
 import Menu from "@material-ui/core/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import MenuIcon from "@mui/icons-material/Menu";
+import MenuItem from '@mui/material/MenuItem';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useMediaQuery } from "react-responsive";
 import { initGA, OutboundLink } from "../../utils/analytics";
 import { useHistory, useLocation } from "react-router";
@@ -293,9 +293,8 @@ function Header() {
 
         return icons.map((icon, index) => (
             <div
-                className={`icon-container-2${
-                    bottomMode2[`${values[index]}`] ? "-color" : ""
-                }`}
+                className={`icon-container-2${bottomMode2[`${values[index]}`] ? "-color" : ""
+                    }`} key={index}
             >
                 <IconButton
                     className={classes.button}
@@ -330,10 +329,7 @@ function Header() {
     };
     return (
         <div className="headerContainer">
-            <Box
-                sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
-                className="justifyItems"
-            >
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} className="justifyItems">
                 <div className="titleContainer">
                     <Title />
                 </div>
@@ -344,11 +340,9 @@ function Header() {
                         indicatorColor="primary"
                         TabIndicatorProps={{
                             style: {
-                                backgroundColor:
-                                    "var(--search-background-focused)",
+                                backgroundColor: "var(--search-background-focused)",
                             },
                         }}
-                        tabItemContainerStyle={{ width: 50 }}
                         aria-label="nav tabs"
                     >
                         <LinkTab
@@ -463,10 +457,10 @@ function Header() {
                 {/* <ThemeToggle /> */}
                 <SettingsModal />
                 <LoginButton></LoginButton>
-            </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            </Box >
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
-                    size="large"
+                    size="medium"
                     aria-label="account of current user"
                     aria-controls="menu-appbar"
                     aria-haspopup="true"
@@ -479,27 +473,30 @@ function Header() {
                     id="menu-appbar"
                     anchorEl={anchorElNav}
                     anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "left",
+                        vertical: 'bottom',
+                        horizontal: 'left',
                     }}
                     keepMounted
                     transformOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
+                        vertical: 'top',
+                        horizontal: 'left',
                     }}
                     open={Boolean(anchorElNav)}
                     onClose={handleCloseNavMenu}
                     sx={{
-                        display: { xs: "block", md: "none" },
+                        display: { xs: 'block', md: 'none' },
                     }}
                 >
-                    <MenuItem onClick={() => history.push("/schedule")}>
+                    <MenuItem
+                        onClick={() => history.push("/schedule")}>
                         <span>Schedule</span>
                     </MenuItem>
-                    <MenuItem onClick={() => history.push("/degree_plan")}>
+                    <MenuItem
+                        onClick={() => history.push("/degree_plan")}>
                         <span>Degree Plan</span>
                     </MenuItem>
-                    <MenuItem onClick={() => history.push("/about")}>
+                    <MenuItem
+                        onClick={() => history.push("/about")}>
                         <span>About</span>
                     </MenuItem>
                     {location.pathname == "/schedule" ? (
@@ -518,9 +515,7 @@ function Header() {
                                 <SemesterSelect></SemesterSelect>
                             </MenuItem>
                             <MenuItem>
-                                <div className="buttonSelect">
-                                    {renderIcons()}
-                                </div>
+                                <div className="buttonSelect">{renderIcons()}</div>
                             </MenuItem>
                         </div>
                     ) : (
@@ -544,9 +539,7 @@ function Header() {
                                         justifyContent: "",
                                         alignItems: "center",
                                         zIndex:
-                                            modalState ||
-                                            modalState2 ||
-                                            modalState3
+                                            modalState || modalState2 || modalState3
                                                 ? -99
                                                 : 10,
                                     }}
@@ -615,7 +608,7 @@ function Header() {
                     </MenuItem>
                 </Menu>
             </Box>
-        </div>
+        </div >
     );
 }
 export default Header;

@@ -11,6 +11,7 @@ import { useHistory } from "react-router";
 const useStyles = makeStyles({
     button: {
         color: "var(--search-background-focused)",
+        backgroundColor: "red",
     },
     marginRight: 10,
 });

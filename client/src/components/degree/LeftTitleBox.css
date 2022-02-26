@@ -21,8 +21,7 @@
     padding-top: 2px;
     /* identical to box height */
     letter-spacing: 0.05em;
-    /* color: var(--tertiary-color); */
-    color: black;
+    color: var(--tertiary-color);
     background-color: transparent;
     border-color: transparent;
 }
@@ -54,8 +53,7 @@
     padding-top: 2px;
     /* identical to box height */
     letter-spacing: 0.05em;
-    /* color: var(--tertiary-color); */
-    color: black;
+    color: var(--tertiary-color);
     background-color: transparent;
     border-color: transparent;
 }
