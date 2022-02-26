@@ -4,11 +4,11 @@
     height: 44px;
     left: 1px;
     top: -0.5px;
-    border-right: 1.5px solid hsl(180, 3%, 89%);
-    border-bottom: 1.5px solid hsl(180, 3%, 89%);
-    border-top: 1.5px solid hsl(180, 3%, 89%);
+    border-right: 1.5px solid var(--border-color);
+    border-bottom: 1.5px solid var(--border-color);
+    border-top: 1.5px solid var(--border-color);
     box-sizing: border-box;
-    background: var(--tertiary-bg-color);
+    background: var(--bg-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,6 +19,6 @@
     line-height: 19px;
     /* identical to box height */
     letter-spacing: 0.1em;
-    color: var(--quaternary-color);
+    color: var(--secondary-color);
     border-radius: 0px 5px 0px 0px;
 }

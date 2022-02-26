@@ -20,7 +20,7 @@ html, body, #app {
     /* used for search button */
     --link-color: #543fd7;
     /* used for a tags */
-    --selection-color: #7575fa;
+    --selection-color: #5a5af7;
     /* used for text selection */
     --border-color: #bbeced;
     /* used for button borders */
@@ -106,7 +106,7 @@ html[data-theme='Purple'] {
     --tertiary-color: #aeb28e;
     --quaternary-color: #646938;
     --quinary-color: #42bf4260;
-    --link-color: #3fb4d7;
+    --link-color: #d7d43f;
     --selection-color: #ff9595;
     --border-color: #d9bbed;
     --search-button-bg: #bf464260;

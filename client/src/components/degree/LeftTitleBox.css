@@ -4,9 +4,9 @@
     height: 44px;
     left: 1px;
     top: -0.5px;
-    border: 1.5px solid hsl(180, 3%, 89%);
+    border: 1.5px solid var(--border-color);
     box-sizing: border-box;
-    background: var(--tertiary-bg-color);
+    background: var(--bg-color);
     display: flex;
     align-items: center;
     border-radius: 5px 0px 0px 0px;
@@ -43,6 +43,9 @@
 .yearSelect:hover {
     cursor: pointer;
 }
+.courseCode {
+    color: var(--primary-color)
+}
 .semester {
     position: relative;
     left: 25px;
@@ -67,7 +70,7 @@
     padding-top: 2px;
     /* identical to box height */
     letter-spacing: 0.05em;
-    color: var(--tertiary-color);
+    color: var(--primary-color);
     background-color: transparent;
     border-color: transparent;
 }
