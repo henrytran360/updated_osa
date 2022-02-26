@@ -254,8 +254,6 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
         variables: { scheduleID: scheduleID, sessionID: session._id },
     });
 
-    const [count, setCount] = useState(0);
-
     return (
         <div
             className="detailBox"
@@ -292,11 +290,7 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
                         );
                         e.preventDefault();
                         // Execute mutation to add this session of the course to the user's draftsessions
-                        if (count == 0) {
-                            addDraftSession();
-                            setCount(count + 1);
-                        }
-                        setCount(0);
+                        addDraftSession();
                     }
                 }}
                 style={{ alignItems: "left" }}
