@@ -4,6 +4,7 @@ import SemesterBox from "../degree/SemesterBox";
 import "./CourseEval.css"
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { IoCloseOutline } from "react-icons/io5";
+import { ImWarning } from "react-icons/im";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -44,14 +45,18 @@ const CourseEvalModal = (props) => {
 
   const [responseState, setResponseState] = useState(true);
 
-  //console.log(evalDataState);
-
   const openComments = () => {
     setResponseState(false);
   };
   const openResponse = () => {
     setResponseState(true);
   };
+
+  const [warningState, setWarningState] = useState(true);
+
+  const closeWarning = () => {
+    setWarningState(false);
+  }
 
   //Data for Expected Grade
   const [expectedGrade, setExpectedGrade] = useState([]);
@@ -243,8 +248,16 @@ const CourseEvalModal = (props) => {
 
     return ( 
         <div className="modal-container">
-          <div className="eval-exit">
-            <IconButton
+          { warningState ? 
+          <div className="eval-warning">
+              <div className="warning-icon">
+                <ImWarning color="#e9d50d" size={40}/>
+              </div>
+              <p className="warning-text">These evaluations are intended to be available only to Rice students, faculty and staff on its internal 
+              computer network. This information is considered confidential and is to be used solely by, within and amongst 
+              the Rice University community and its members.</p>
+            <div className="exit-warning">
+              <IconButton
                 disableFocusRipple
                 disableRipple
                 style={{ 
@@ -252,19 +265,19 @@ const CourseEvalModal = (props) => {
                   padding:"0",
                   margin:"0"
                 }}
-                onClick={props.closeModal}
+                onClick={closeWarning}
             >
-                <IoCloseOutline color="#898e91" size={40} className="exit-skinny"/>
+                <IoCloseOutline color="#898e91" size={30}/>
             </IconButton>
-          </div>
+            </div>
+          </div> : <></>
+          }
           <div className="course-info">
-          
           <div className="course-eval-header">
           <h1 className="no-padding-no-margin">
             <span className="course-num">{props.courseSubject}&nbsp;{props.courseNum}</span>
             <span className="course-title">&nbsp;{props.courseTitle}</span>
           </h1>
-          
           </div>
           <p className="course-details">Term: {term}</p>
           <p className="course-details">Instructor: {props.courseProf ? props.courseProf &&

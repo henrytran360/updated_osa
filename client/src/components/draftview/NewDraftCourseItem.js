@@ -214,8 +214,6 @@ const NewDraftCourseItem = (props) => {
         setModal(false);
     };
 
-    // console.log(props.session.course.subject);
-
     return (
         <div
             className={`draft-course-item-container ${

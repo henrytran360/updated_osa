@@ -9,9 +9,37 @@
     background-color: var(--background-color);
 }
 
+.eval-warning {
+    display: flex;
+    flex-direction: row;
+    background-color: #faf3a9;
+    padding: 0;
+    border: 2px solid #f3e12e;
+    border-radius: 5px;
+}
+
+.warning-icon {
+    display: flex;
+    width: 40px;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+.warning-text {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    margin: 0;
+    color: black;
+}
+.exit-warning {
+    float: left;
+    margin: 0.5rem;
+}
+
 .course-info {
     padding-left: 2rem;
     padding-right: 2rem;
+    padding-top: 2rem;
 }
 
 .no-padding-no-margin {
@@ -100,7 +128,7 @@
 .comment-container {
     padding: 1rem;
     color: var(--quaternary-color);
-    border-top: 1.5px solid  var(--background-color);
+    border-top: 1.5px solid var(--background-color);
 }
 .comment-even {
     background-color: var(--background-color);
