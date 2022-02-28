@@ -9,7 +9,7 @@ const LeftTitleBox = (props) => {
     const { getTerm } = useContext(TermContext);
     // 2022 and Spring are the current year default value
     const [year, setYear] = useState(2022);
-    const [sem, setSem] = useState("Spring");
+    const [sem, setSem] = useState("Fall");
     const saveSelections = (e) => {
         setYear(e.target.value);
         setSem(e.target.value);

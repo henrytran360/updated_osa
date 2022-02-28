@@ -1,7 +1,7 @@
 .rtbox {
     position: relative;
-    width: 124px;
-    height: 44px;
+    width: 20%;
+    height: 100%;
     left: 1px;
     top: -0.5px;
     border-right: 1.5px solid var(--border-color);
@@ -12,7 +12,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 2px;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;

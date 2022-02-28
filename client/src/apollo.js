@@ -12,7 +12,7 @@ const authLink = setContext(async (_, { headers }) => {
     // get the authentication token from firebase if it exists
     const token = await firebase.auth().currentUser.getIdToken();
     // return the headers to the context so httpLink can read them
-    // console.log(token);
+    console.log(token);
     return {
         headers: {
             ...headers,

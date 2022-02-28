@@ -1,7 +1,7 @@
 .ltbox {
     position: relative;
-    width: 520px;
-    height: 44px;
+    width: 81%;
+    height: 100%;
     left: 1px;
     top: -0.5px;
     border: 1.5px solid var(--border-color);
@@ -44,7 +44,7 @@
     cursor: pointer;
 }
 .courseCode {
-    color: var(--primary-color)
+    color: var(--primary-color);
 }
 .semester {
     position: relative;

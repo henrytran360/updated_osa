@@ -23,16 +23,13 @@ const LeftCourseBox = (props) => {
     if (coreqs === undefined || coreqs.length == 0) coreqs = "None";
 
     return (
-        <div>
-            <div className="lcbox">
-                <div className="courseCode">
-                    {props.subject} {props.courseNum}
-                </div>
-                <a href="#" className="courseName" onClick={openModal}>
-                    {props.longTitle}
-                </a>
+        <div className="lcbox">
+            <div className="courseCode">
+                {props.subject} {props.courseNum}
             </div>
-
+            <a href="#" className="courseName" onClick={openModal}>
+                {props.longTitle}
+            </a>
             <Modal
                 isOpen={modalState}
                 className="modal"
