@@ -623,46 +623,57 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         );
 
         const search = (
-        <div className="seachCourseContainer">
-          <div className="searchInputsCourse">
-              <input
-                  type="text"
-                  className="header-search"
-                  placeholder="Search courses"
-                  name="s"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                  onKeyUp={handleKeyPress}
-              />
-          </div>
-          <div
-              style={{
-                  width: "10%",
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginLeft: 10,
-              }}
-          >
-              <IconButton
-                  size="large"
-                  // onClick={handleClick}
-                  value={"Search"}
-                  className={classes.searchIconStyle}
-                  onClick={() => {
-                      setCourseName(value);
-                      setButtonIndex(5);
-                      loadData();
-                  }}
-              >
-                  <SearchOutlinedIcon />
-              </IconButton>
-          </div>
-        </div>
-        )
+            <div className="seachCourseContainer">
+                <div className="searchInputsCourse">
+                    <input
+                        type="text"
+                        className="header-search"
+                        placeholder="Search courses"
+                        name="s"
+                        value={value}
+                        onChange={(e) =>
+                            setValue(
+                                e.target.value.replace(/\s+/g, "").toLowerCase()
+                            )
+                        }
+                        onKeyUp={handleKeyPress}
+                    />
+                </div>
+                <div
+                    style={{
+                        width: "10%",
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginLeft: 10,
+                    }}
+                >
+                    <IconButton
+                        size="large"
+                        // onClick={handleClick}
+                        value={"Search"}
+                        className={classes.searchIconStyle}
+                        onClick={() => {
+                            setCourseName(value);
+                            setButtonIndex(5);
+                            loadData();
+                        }}
+                    >
+                        <SearchOutlinedIcon />
+                    </IconButton>
+                </div>
+            </div>
+        );
 
-        const displayArray = [selection, selection, selection, time, selection, search];
+        const displayArray = [
+            selection,
+            selection,
+            selection,
+            time,
+            selection,
+            search,
+        ];
 
         return displayArray[activeButtonIndex];
     };

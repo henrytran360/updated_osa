@@ -53,6 +53,7 @@ const courseToTooltipLabel = (session) => {
 
 const convertSectionToEvents = (section, session) => {
     let events = [];
+    let uniqueEvents;
     if (!section || !section.startTime || !section.endTime) {
         return events;
     }
@@ -147,8 +148,15 @@ const draftSessionsToEvents = (draftSessions) => {
         }
         hexId++;
     }
-
-    return events;
+    const uniqueArray = events.filter((value, index) => {
+        return (
+            index ===
+            events.findIndex((obj) => {
+                return obj.start.getTime() === value.start.getTime();
+            })
+        );
+    });
+    return uniqueArray;
 };
 
 const slotStyleGetter = (date) => {

@@ -387,7 +387,6 @@ const CourseList = ({
                 (course) => course.sessions.length > 0
             );
     }
-    console.log("courseResults", courseResults);
 
     if (courseResults.length === 0)
         return <p>No Available Course In This Range</p>;

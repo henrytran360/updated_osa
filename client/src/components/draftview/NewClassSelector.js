@@ -39,13 +39,6 @@ const get_eval = gql`
 `;
 
 const NewClassSelector = ({ draftSessions, scheduleID }) => {
-    console.log(draftSessions);
-    const { loading, error, data } = useQuery(get_eval, {
-        variables: {
-            course: "COMP 540",
-        },
-    });
-
     let visibleCreditTotal = draftSessions.reduce(
         (totalCredits, draftSession) => {
             if (draftSession.visible) {
@@ -66,6 +59,14 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
     );
     useEffect(() => {
         if (draftSessions) {
+            draftSessions = draftSessions.filter((value, index) => {
+                return (
+                    index ===
+                    draftSessions.findIndex((obj) => {
+                        return obj.session._id === value.session._id;
+                    })
+                );
+            });
             draftSessions = draftSessions.filter((draft) => draft.session);
         }
     }, [draftSessions]);
@@ -88,18 +89,31 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                     <span className="heading">SELECTED</span>
                 </div>
                 {draftSessions &&
-                    draftSessions.map((draftSession, index) => (
-                        <NewDraftCourseItem
-                            //replace key with uuid
-                            index={index}
-                            visible={draftSession.visible}
-                            session={draftSession.session}
-                            course={draftSession.session.course}
-                            // prevTermCourses={prevTermCourses.prevTermCourses}
-                            instructorsList={draftSession.session.instructors}
-                            scheduleID={scheduleID}
-                        />
-                    ))}
+                    draftSessions
+                        .filter((value, index) => {
+                            return (
+                                index ===
+                                draftSessions.findIndex((obj) => {
+                                    return (
+                                        obj.session._id === value.session._id
+                                    );
+                                })
+                            );
+                        })
+                        .map((draftSession, index) => (
+                            <NewDraftCourseItem
+                                //replace key with uuid
+                                index={index}
+                                visible={draftSession.visible}
+                                session={draftSession.session}
+                                course={draftSession.session.course}
+                                // prevTermCourses={prevTermCourses.prevTermCourses}
+                                instructorsList={
+                                    draftSession.session.instructors
+                                }
+                                scheduleID={scheduleID}
+                            />
+                        ))}
                 <div
                     className="tableFooter"
                     style={{
