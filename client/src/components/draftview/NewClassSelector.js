@@ -103,6 +103,7 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                         .map((draftSession, index) => (
                             <NewDraftCourseItem
                                 //replace key with uuid
+                                key={index}
                                 index={index}
                                 visible={draftSession.visible}
                                 session={draftSession.session}

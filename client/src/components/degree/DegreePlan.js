@@ -12,6 +12,7 @@ import TitleBox from "./TitleBox";
 import { initGA, OutboundLink } from "../../utils/analytics";
 import DegreePlanNav from "./DegreePlanHeader";
 import { Context as TermContext } from "../../contexts/termContext";
+import Header from "../header/Header";
 
 // Redirects people to our Medium page on a new page if they click our logo to learn more about us
 const handleLogoClick = () => {
@@ -304,43 +305,46 @@ const DegreePlan = () => {
     };
 
     return (
-        <div>
-            <DegreePlanNav degreePlanName={degreePlanName} />
-            <div className="layout">
-                {/* {defaultSchedule.map((semester) => {
-                return (<SemesterBox term={semester.term} draftSessions={semester.draftSessions} notes={semester.notes} />)
-            })} */}
-                {semesterList &&
-                    semesterList.map((semester, index) => {
-                        return (
-                            <SemesterBox
-                                _id={semester._id}
-                                term={semester.term}
-                                draftCourses={semester.draftCourses}
-                                notes={semester.notes}
-                                //  id={semester.id}
-                                customCourses={semester.customCourses}
-                                deleteSem={() =>
-                                    deleteSem(semester.term, semester._id)
-                                }
-                                query={FIND_DEGREE_PLAN_BY_ID}
-                                mutation={UPDATE_CUSTOM_COURSES}
-                                selector={false}
-                            />
-                        );
-                    })}
+        <div className="DegreePageContainer">
+            <Header />
+            <div className="DegreePlanContainer">
+                <DegreePlanNav degreePlanName={degreePlanName} />
+                <div className="layout">
+                    {/* {defaultSchedule.map((semester) => {
+                    return (<SemesterBox term={semester.term} draftSessions={semester.draftSessions} notes={semester.notes} />)
+                })} */}
+                    {semesterList &&
+                        semesterList.map((semester, index) => {
+                            return (
+                                <SemesterBox
+                                    _id={semester._id}
+                                    term={semester.term}
+                                    draftCourses={semester.draftCourses}
+                                    notes={semester.notes}
+                                    //  id={semester.id}
+                                    customCourses={semester.customCourses}
+                                    deleteSem={() =>
+                                        deleteSem(semester.term, semester._id)
+                                    }
+                                    query={FIND_DEGREE_PLAN_BY_ID}
+                                    mutation={UPDATE_CUSTOM_COURSES}
+                                    selector={false}
+                                />
+                            );
+                        })}
 
-                <div className="addNewScheduleContainer">
-                    <TitleBox term={""} credits={0} selector={true} />
+                    <div className="addNewScheduleContainer">
+                        <TitleBox term={""} credits={0} selector={true} />
 
-                    <button
-                        onClick={() => {
-                            addNewSem();
-                        }}
-                        className="addBtn"
-                    >
-                        +
-                    </button>
+                        <button
+                            onClick={() => {
+                                addNewSem();
+                            }}
+                            className="addBtn"
+                        >
+                            +
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

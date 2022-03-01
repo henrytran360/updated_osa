@@ -103,7 +103,6 @@ const DegreePlanSelect = () => {
                     };
                 });
             if (updatedDegreePlanList.length > 0) {
-                console.log("hello");
                 client.writeQuery({
                     query: GET_LOCAL_DATA,
                     data: {

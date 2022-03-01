@@ -32,7 +32,6 @@ render(
                     <ApolloProvider client={client}>
                         <Router history={history}>
                             <ToastProvider>
-                                <Header />
                                 <Routes />
                             </ToastProvider>
                         </Router>

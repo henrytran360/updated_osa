@@ -650,7 +650,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                     }}
                 >
                     <IconButton
-                        size="large"
+                        size="medium"
                         // onClick={handleClick}
                         value={"Search"}
                         className={classes.searchIconStyle}

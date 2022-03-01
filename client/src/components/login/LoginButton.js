@@ -29,7 +29,6 @@ function LoginButton() {
             "saml.rice-shibboleth"
         );
         const loginResult = await firebase.auth().signInWithPopup(provider);
-        console.log(loginResult);
         const net_id =
             loginResult.additionalUserInfo.profile[
                 "urn:oid:0.9.2342.19200300.100.1.1"
@@ -62,7 +61,7 @@ function LoginButton() {
     };
     const login_logout_button = () => {
         user_email = localStorage.getItem("user_email");
-        console.log("user email:", user_email);
+        // console.log("user email:", user_email);
         let ll_button = (
             <Button
                 style={{

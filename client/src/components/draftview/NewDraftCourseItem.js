@@ -49,90 +49,91 @@ const REMOVE_DRAFT_SESSION = gql`
     }
 `;
 
-const GET_EVALUATION_CHART_BY_COURSE = gql
-`query getEvaluationChartByCourse($course: String!){
-    getEvaluationChartByCourse(course: $course){
-    	courseName
-        term
-    	enrolled_amount
-        organization{
-            class_mean
-            responses
-            score_1
-            score_2
-            score_3
-            score_4
-            score_5
-          }
-          assignments{
-            class_mean
-            responses
-            score_1
-            score_2
-            score_3
-            score_4
-            score_5
-          }
-          overall{
-            class_mean
-            responses
-            score_1
-            score_2
-            score_3
-            score_4
-            score_5
-          }
-          challenge{
-            class_mean
-            responses
-            score_1
-            score_2
-            score_3
-            score_4
-            score_5
-          }
-          workload{
-            class_mean
-            responses
-            score_1
-            score_2
-            score_3
-            score_4
-            score_5
-          }
-          why_taking{
-            class_mean
-            responses
-            score_1
-            score_2
-            score_3
-            score_4
-            score_5
-          }
-          expected_grade{
-            class_mean
-            responses
-            score_1
-            score_2
-            score_3
-            score_4
-            score_5
-          }
-          expected_pf{
-            class_mean
-            responses
-            score_1
-            score_2
-            score_3
-            score_4
-            score_5
-          }
-    	comments{
-            text
-            time
+const GET_EVALUATION_CHART_BY_COURSE = gql`
+    query getEvaluationChartByCourse($course: String!) {
+        getEvaluationChartByCourse(course: $course) {
+            courseName
+            term
+            enrolled_amount
+            organization {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            assignments {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            overall {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            challenge {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            workload {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            why_taking {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            expected_grade {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            expected_pf {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            comments {
+                text
+                time
+            }
         }
-  }
-}`
+    }
+`;
 
 /**
  * Toggles the visibility setting for this draft session
@@ -154,14 +155,12 @@ const TOGGLE_DRAFT_SESSION_VISIBILITY = gql`
 `;
 
 const GET_LOCAL_DATA = gql`
-    query GetLocalData{
+    query GetLocalData {
         evalModalState @client
     }
 `;
 
-
 const NewDraftCourseItem = (props) => {
-
     const client = useApolloClient();
 
     const [firstInstructor, setFirstInstructor] = useState({});
@@ -191,24 +190,23 @@ const NewDraftCourseItem = (props) => {
 
     const boolVisible = props.visible ? true : false;
 
-
     //open course evaluation modal
     const [modalState, setModal] = useState(false);
-    
+
     const openModal = () => {
         client.writeQuery({
-            query: GET_LOCAL_DATA, 
+            query: GET_LOCAL_DATA,
             data: {
-                evalModalState: true, 
+                evalModalState: true,
             },
         });
         setModal(true);
     };
     const closeModal = () => {
         client.writeQuery({
-            query: GET_LOCAL_DATA, 
+            query: GET_LOCAL_DATA,
             data: {
-                evalModalState: false, 
+                evalModalState: false,
             },
         });
         setModal(false);
@@ -219,9 +217,9 @@ const NewDraftCourseItem = (props) => {
             className={`draft-course-item-container ${
                 boolVisible ? "" : "selected2"
             }`}
-            style={{'box-shadow': 'var(--shadow-color) 0 1.95px 0'}}
+            style={{ boxShadow: "var(--shadow-color) 0 1.95px 0" }}
         >
-            <div className="draft-course-top" >
+            <div className="draft-course-top">
                 <div
                     style={{
                         width: "72%",
@@ -257,13 +255,13 @@ const NewDraftCourseItem = (props) => {
                         ariaHideApp={false}
                         onRequestClose={closeModal}
                     >
-                        <CourseEvalModal    
+                        <CourseEvalModal
                             query={GET_EVALUATION_CHART_BY_COURSE}
-                            courseSubject = {props.session.course.subject}
-                            courseNum = {props.session.course.courseNum}
-                            courseTitle = {props.session.course.longTitle}
-                            courseProf = {firstInstructor}
-                            closeModal = {closeModal}
+                            courseSubject={props.session.course.subject}
+                            courseNum={props.session.course.courseNum}
+                            courseTitle={props.session.course.longTitle}
+                            courseProf={firstInstructor}
+                            closeModal={closeModal}
                         />
                     </Modal>
                     <Tooltip className="iconButton" title="Evaluations">

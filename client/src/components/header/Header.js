@@ -6,8 +6,8 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Box from "@material-ui/core/Box";
 import Menu from "@material-ui/core/Menu";
-import MenuItem from '@mui/material/MenuItem';
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useMediaQuery } from "react-responsive";
 import { initGA, OutboundLink } from "../../utils/analytics";
 import { useHistory, useLocation } from "react-router";
@@ -134,6 +134,15 @@ const GET_LOCAL_DATA = gql`
     }
 `;
 
+const QUERY_USER_SCHEDULES = gql`
+    query scheduleMany {
+        scheduleMany {
+            _id
+            term
+        }
+    }
+`;
+
 function LinkTab(props) {
     return (
         <StyledTab
@@ -183,21 +192,9 @@ function Header() {
         }
     };
     const location = useLocation();
-    const [userId, setUserId] = useState("");
-    const {
-        loading: loading4,
-        error: error4,
-        data: data4,
-    } = useQuery(VERIFY_TOKEN);
-
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     let { degreeplanparent, degreeplanlist, evalModalState } = storeData;
 
-    useEffect(() => {
-        if (data4) {
-            setUserId(data4.verifyToken._id);
-        }
-    }, [loading4, data4, error4]);
     const [addDegreePlan, { loadingMutation1, errorMutation1, dataMutation1 }] =
         useMutation(ADD_DEGREE_PLAN, {
             refetchQueries: () => [
@@ -293,8 +290,10 @@ function Header() {
 
         return icons.map((icon, index) => (
             <div
-                className={`icon-container-2${bottomMode2[`${values[index]}`] ? "-color" : ""
-                    }`} key={index}
+                className={`icon-container-2${
+                    bottomMode2[`${values[index]}`] ? "-color" : ""
+                }`}
+                key={index}
             >
                 <IconButton
                     className={classes.button}
@@ -329,7 +328,10 @@ function Header() {
     };
     return (
         <div className="headerContainer">
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} className="justifyItems">
+            <Box
+                sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+                className="justifyItems"
+            >
                 <div className="titleContainer">
                     <Title />
                 </div>
@@ -340,21 +342,25 @@ function Header() {
                         indicatorColor="primary"
                         TabIndicatorProps={{
                             style: {
-                                backgroundColor: "var(--search-background-focused)",
+                                backgroundColor:
+                                    "var(--search-background-focused)",
                             },
                         }}
                         aria-label="nav tabs"
                     >
                         <LinkTab
                             label="Schedule"
+                            value={0}
                             onClick={() => history.push("/schedule")}
                         />
                         <LinkTab
                             label="Degree Plan"
+                            value={1}
                             onClick={() => history.push("/degree_plan")}
                         />
                         <LinkTab
                             label="About"
+                            value={2}
                             onClick={() => history.push("/about")}
                         />
                     </Tabs>
@@ -457,8 +463,8 @@ function Header() {
                 {/* <ThemeToggle /> */}
                 <SettingsModal />
                 <LoginButton></LoginButton>
-            </Box >
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                     size="medium"
                     aria-label="account of current user"
@@ -473,30 +479,27 @@ function Header() {
                     id="menu-appbar"
                     anchorEl={anchorElNav}
                     anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
+                        vertical: "bottom",
+                        horizontal: "left",
                     }}
                     keepMounted
                     transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left',
+                        vertical: "top",
+                        horizontal: "left",
                     }}
                     open={Boolean(anchorElNav)}
                     onClose={handleCloseNavMenu}
                     sx={{
-                        display: { xs: 'block', md: 'none' },
+                        display: { xs: "block", md: "none" },
                     }}
                 >
-                    <MenuItem
-                        onClick={() => history.push("/schedule")}>
+                    <MenuItem onClick={() => history.push("/schedule")}>
                         <span>Schedule</span>
                     </MenuItem>
-                    <MenuItem
-                        onClick={() => history.push("/degree_plan")}>
+                    <MenuItem onClick={() => history.push("/degree_plan")}>
                         <span>Degree Plan</span>
                     </MenuItem>
-                    <MenuItem
-                        onClick={() => history.push("/about")}>
+                    <MenuItem onClick={() => history.push("/about")}>
                         <span>About</span>
                     </MenuItem>
                     {location.pathname == "/schedule" ? (
@@ -512,10 +515,12 @@ function Header() {
                             }}
                         >
                             <MenuItem>
-                                <SemesterSelect></SemesterSelect>
+                                <SemesterSelect />
                             </MenuItem>
                             <MenuItem>
-                                <div className="buttonSelect">{renderIcons()}</div>
+                                <div className="buttonSelect">
+                                    {renderIcons()}
+                                </div>
                             </MenuItem>
                         </div>
                     ) : (
@@ -539,7 +544,9 @@ function Header() {
                                         justifyContent: "",
                                         alignItems: "center",
                                         zIndex:
-                                            modalState || modalState2 || modalState3
+                                            modalState ||
+                                            modalState2 ||
+                                            modalState3
                                                 ? -99
                                                 : 10,
                                     }}
@@ -608,7 +615,7 @@ function Header() {
                     </MenuItem>
                 </Menu>
             </Box>
-        </div >
+        </div>
     );
 }
 export default Header;
