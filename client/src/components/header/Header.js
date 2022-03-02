@@ -42,13 +42,13 @@ const useStyles = makeStyles({
         fontSize: 15,
     },
     button2: {
-        color: "#1DC2C4",
-        border: "1px solid #BBECED",
+        color: "var(--search-background-focused)",
+        border: "1px solid var(--border-color)",
         width: 150,
     },
     button3: {
-        color: "#1DC2C4",
-        border: "1px solid #1DC2C4",
+        color: "var(--search-background-focused)",
+        border: "1px solid var(--search-background-focused)",
         width: 80,
     },
     button4: {
@@ -58,8 +58,8 @@ const useStyles = makeStyles({
     },
     button5: {
         height: 50,
-        color: "#1DC2C4",
-        border: "1px solid #1DC2C4",
+        color: "var(--search-background-focused)",
+        border: "1px solid var(--search-background-focused)",
     },
 });
 
@@ -169,10 +169,10 @@ const StyledTab = withStyles((theme) => ({
 }))((props) => <Tab {...props} />);
 
 function Header() {
-    const [value, setValue] = React.useState(0);
+    const [tab_value, setTabValue] = React.useState(0);
     const classes = useStyles();
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const handleTabChange = (event, newValue) => {
+        setTabValue(newValue);
     };
     const history = useHistory();
     const {
@@ -273,13 +273,6 @@ function Header() {
     });
     // This initializes Google Analytics
     initGA();
-    // Redirects people to our Medium page on a new page if they click our logo to learn more about us
-    const handleLogoClick = () => {
-        OutboundLink(
-            "Clicked Logo.",
-            window.open("https://medium.com/riceapps", "_blank")
-        );
-    };
     const renderIcons = () => {
         const icons = [
             <SearchOutlinedIcon />,
@@ -337,8 +330,8 @@ function Header() {
                 </div>
                 <div className="leftAlign">
                     <Tabs
-                        value={value}
-                        onChange={handleChange}
+                        value={tab_value}
+                        onChange={handleTabChange}
                         indicatorColor="primary"
                         TabIndicatorProps={{
                             style: {
@@ -350,17 +343,14 @@ function Header() {
                     >
                         <LinkTab
                             label="Schedule"
-                            value={0}
                             onClick={() => history.push("/schedule")}
                         />
                         <LinkTab
                             label="Degree Plan"
-                            value={1}
                             onClick={() => history.push("/degree_plan")}
                         />
                         <LinkTab
                             label="About"
-                            value={2}
                             onClick={() => history.push("/about")}
                         />
                     </Tabs>

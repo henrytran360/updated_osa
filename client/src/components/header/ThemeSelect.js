@@ -6,6 +6,7 @@ import Select from "react-select";
 import { customStylesNoWidth } from '../search/SelectStyles'
 
 function ThemeSelect(props) {
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
     const handleChange = (theme) => {
         localStorage.setItem(`current${props.themeCategory}Theme`, theme)
         document.documentElement.setAttribute('data-theme', theme);
