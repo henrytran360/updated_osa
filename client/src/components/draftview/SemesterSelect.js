@@ -49,6 +49,10 @@ const customStyles = {
         zIndex: 0,
         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
         borderColor: "var(--border-color)",
+        borderColor: state.isFocused
+            ? "var(--border-color)"
+            : "var(--border-color)",
+        borderColor: "var(--border-color)",
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
             borderColor: state.isFocused
