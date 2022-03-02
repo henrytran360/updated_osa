@@ -115,6 +115,7 @@ const SemesterBox = (props) => {
                 },
             });
             refetch();
+            alert("Your custom courses have been successfully saved!");
         }
     };
 
@@ -155,7 +156,6 @@ const SemesterBox = (props) => {
                   distribution: courses.course
                       ? courses.course.distribution
                       : "N/A",
-
               }
             : {
                   subject: "N/A",
@@ -223,7 +223,7 @@ const SemesterBox = (props) => {
                     // style={{ width: "170px" }}
                     onClick={saveCustomCoursesToDatabase}
                 >
-                    Save Course
+                    Save Custom
                 </button>
                 <Modal
                     isOpen={modalState}

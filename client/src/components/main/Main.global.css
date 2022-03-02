@@ -24,7 +24,6 @@
 }
 
 .Container {
-    margin-top: 0%;
     display: flex;
     opacity: 1;
     width: 100%;
@@ -36,7 +35,6 @@
 }
 
 .ContentContainer {
-    margin-top: 0%;
     display: flex;
     opacity: 1;
     width: 100%;

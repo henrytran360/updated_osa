@@ -168,13 +168,24 @@ const StyledTab = withStyles((theme) => ({
     },
 }))((props) => <Tab {...props} />);
 
+const NavBarItem = {
+    "/schedule": 0,
+    "/degree_plan": 1,
+    "/about": 2,
+};
+
 function Header() {
-    const [value, setValue] = React.useState(0);
+    const location = useLocation();
+    const history = useHistory();
+    const [value, setValue] = useState(NavBarItem[location.pathname]);
     const classes = useStyles();
-    const handleChange = (event, newValue) => {
+    const handleChange = (e, newValue) => {
         setValue(newValue);
     };
-    const history = useHistory();
+    const navigateTo = (pathname) => {
+        history.push(pathname);
+        handleChange(NavBarItem[pathname]);
+    };
     const {
         state: { bottomMode2 },
         changeBottomMode,
@@ -191,7 +202,6 @@ function Header() {
             changeBottomMode({ ...bottomMode2, Details: !bottomMode2.Details });
         }
     };
-    const location = useLocation();
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     let { degreeplanparent, degreeplanlist, evalModalState } = storeData;
 
@@ -264,7 +274,6 @@ function Header() {
         setModal3(false);
     };
 
-    const [inputName, setInputName] = useState("");
     const client = useApolloClient();
 
     // Where we collect feedback
@@ -326,6 +335,8 @@ function Header() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    console.log("VALUEEEE:", value);
+
     return (
         <div className="headerContainer">
             <Box
@@ -350,18 +361,15 @@ function Header() {
                     >
                         <LinkTab
                             label="Schedule"
-                            value={0}
-                            onClick={() => history.push("/schedule")}
+                            onClick={() => navigateTo("/schedule")}
                         />
                         <LinkTab
                             label="Degree Plan"
-                            value={1}
-                            onClick={() => history.push("/degree_plan")}
+                            onClick={() => navigateTo("/degree_plan")}
                         />
                         <LinkTab
                             label="About"
-                            value={2}
-                            onClick={() => history.push("/about")}
+                            onClick={() => navigateTo("/about")}
                         />
                     </Tabs>
                 </div>

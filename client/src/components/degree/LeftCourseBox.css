@@ -73,27 +73,23 @@
 
 .customCourseCode {
     position: relative;
-    left: -5px;
     height: 19px;
-    width: 85px;
     font-style: normal;
     font-size: 16px;
     line-height: 19px;
     padding-top: 3px;
-    color: var(--search-button-bg);
-    font-weight: bold;
+    color: var(--primary-color);
     border-color: transparent;
     border-radius: 5px;
 }
 
 .customCourseName {
     height: 19px;
-    width: 240px;
     font-style: normal;
     padding-top: 3px;
     font-size: 16px;
     line-height: 19px;
-    color: var(--primary-color);
+    color: var(--secondary-color);
     text-decoration: underline;
     border-color: transparent;
     border-radius: 5px;
