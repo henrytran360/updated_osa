@@ -703,8 +703,11 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     initGA();
 
     // Don't show anything until departments & instructors are finished loading
-    const errorMessage = (
-        <p>Something went wrong. Please refresh the page and try again 🥺</p>
+    const errorDepartMessage = (
+        <p> Departments for this term are not availble at this moment. Please try another term 🥺</p>
+    );
+    const errorInstrMessage = (
+        <p> Instructors for this term are not availble at this moment. Please try another term 🥺</p>
     );
     if (departmentsLoading || instructorsLoading)
         return (
@@ -712,7 +715,11 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                 <CircularProgress color="inherit" />
             </div>
         );
-    if (departmentsError || instructorsError) return errorMessage;
+    console.log(departmentsError);
+    console.log(instructorsError);
+    // if (departmentsError || instructorsError) return errorMessage;
+    if (departmentsError) return errorDepartMessage;
+    if (instructorsError) return errorInstrMessage;
 
     const handleSearchChange = (newFilter) => {
         setButtonIndex(newFilter.value);

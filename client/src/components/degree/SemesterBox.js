@@ -41,6 +41,7 @@ const SemesterBox = (props) => {
     const { loading, error, data, refetch } = useQuery(props.query, {
         variables: { _id: props._id },
     });
+    if (error) return <Error message={error.message}/>;
     const [updateCustomCourses, { loading2, error2, data2 }] = useMutation(
         props.mutation
     );

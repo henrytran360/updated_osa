@@ -250,10 +250,11 @@ const InstructorList = ({ scheduleID, instructor, firstName, lastName }) => {
     }
 
     // TODO: Move to shared folder; this is duplicated
-    const errorMessage = (<p>Something went wrong. Please refresh the page and try again 🥺</p>); 
+    const errorMessage = (<p> Instructors for this term are not availble at this moment. Please try another term 🥺</p>); 
 
     if (loading) return <p>Loading...</p>;
     if (error) return errorMessage;
+    // if (error) return <Error message={error.message}/>;
     if (!instCourseData) return errorMessage;
 
     // Once the data has loaded, we want to extract the course results for the department
