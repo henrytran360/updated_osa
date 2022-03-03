@@ -24,7 +24,6 @@ import { Provider as EmailProvider } from './contexts/userEmailContext'
 
 // Setup firebase for SAML
 import "./firebase";
-
 render(
     <EmailProvider>
         <CourseSearchProvider>

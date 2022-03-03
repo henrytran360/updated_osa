@@ -17,6 +17,7 @@ import { Context as BottomModeContexts } from "../../contexts/bottomModeContext"
 import "./Main.global.css";
 import Error from "../error/Error";
 import NewClassSelector from "../draftview/NewClassSelector";
+import Footer from "../footer/Footer";
 
 export const BottomModeContext = createContext("Calendar");
 
@@ -127,7 +128,7 @@ const Main = ({}) => {
     });
 
     if (loading) return <LoadingScreen />;
-    if (error) return <Error message={error.message}/>;
+    if (error) return <Error message={error.message} />;
     if (!data) return <Error />;
 
     const schedule = data.scheduleOne;
@@ -266,6 +267,7 @@ const Main = ({}) => {
                             </>
                         )}
                 </div>
+                {/* <Footer /> */}
             </div>
         );
     };
@@ -277,7 +279,7 @@ const Main = ({}) => {
                 display: "flex",
                 flexDirection: "column",
                 color: "#272D2D",
-                height: "93%",
+                height: "100%",
             }}
         >
             {/* <div style={{ padding: "2%" }}>

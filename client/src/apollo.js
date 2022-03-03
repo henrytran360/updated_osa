@@ -68,6 +68,9 @@ const initialState = {
     degreeplanparent: "",
     degreeplanname: "",
     degreeplanlist: {},
+    editModalState: false,
+    notesModalState: false,
+    eachCourseModalState: false,
 };
 
 // Initialize cache with a state
@@ -81,6 +84,9 @@ client.writeQuery({
             degreeplanparent
             degreeplanname
             degreeplanlist
+            editModalState
+            notesModalState
+            eachCourseModalState
         }
     `,
     data: initialState,
