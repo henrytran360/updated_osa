@@ -186,6 +186,7 @@ function Header() {
     const classes = useStyles();
     const handleChange = (e, newValue) => {
         setValue(newValue);
+    }
     const navigateTo = (pathname) => {
         history.push(pathname);
         handleChange(NavBarItem[pathname]);
@@ -344,8 +345,8 @@ function Header() {
                 </div>
                 <div className="leftAlign">
                     <Tabs
-                        value={tab_value}
-                        onChange={handleTabChange}
+                        value={value}
+                        onChange={handleChange}
                         indicatorColor="primary"
                         TabIndicatorProps={{
                             style: {
@@ -463,11 +464,11 @@ function Header() {
                         </div>
                     )
                 )}
-                    {/* <ThemeToggle /> */}
-                    <h3 className="emailh3">
-                        {email}
-                    </h3>
-                    <SettingsModal />
+                {/* <ThemeToggle /> */}
+                <h4 className="emailHeading">
+                    {email}
+                </h4>
+                <SettingsModal />
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
