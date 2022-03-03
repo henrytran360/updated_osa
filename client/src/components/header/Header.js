@@ -617,9 +617,9 @@ function Header() {
                     )}
                     <MenuItem>
                         <SettingsModal />
-                        <h3>
+                        <h4 className="emailHeading">
                             {email}
-                        </h3>
+                        </h4>
                     </MenuItem>
                 </Menu>
             </Box>
