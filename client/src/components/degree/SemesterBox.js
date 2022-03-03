@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import Modal from "react-modal";
 import CustomCourseRow from "./CustomCourseRow";
 import { Context as CustomCourseContext } from "../../contexts/customCourseContext";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation, useApolloClient } from "@apollo/client";
 import EditSchedulePopUp from "./EditSchedulePopUp";
 import EditorJS from "@editorjs/editorjs";
 import NotesModal from "./NotesModal";
@@ -15,20 +15,59 @@ import NotesModal from "./NotesModal";
 
 let creditSum;
 
+const GET_LOCAL_DATA = gql`
+    query GetLocalData {
+        term @client
+        recentUpdate @client
+        degreeplanparent @client
+        degreeplanname @client
+        degreeplanlist @client
+        evalModalState @client
+        editModalState @client
+        notesModalState @client
+        eachCourseModalState @client
+    }
+`;
+
 const SemesterBox = (props) => {
+    const client = useApolloClient();
     // for the notes modal
     const [modalState, setModal] = useState(false);
     const [modalState2, setModal2] = useState(false);
     const openModal = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                notesModalState: true,
+            },
+        });
         setModal(true);
     };
     const openModal2 = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                editModalState: true,
+            },
+        });
         setModal2(true);
     };
     const closeModal = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                notesModalState: false,
+            },
+        });
         setModal(false);
     };
     const closeModal2 = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                editModalState: false,
+            },
+        });
         setModal2(false);
     };
     // for the notes content
@@ -41,7 +80,7 @@ const SemesterBox = (props) => {
     const { loading, error, data, refetch } = useQuery(props.query, {
         variables: { _id: props._id },
     });
-    if (error) return <Error message={error.message}/>;
+    if (error) return <Error message={error.message} />;
     const [updateCustomCourses, { loading2, error2, data2 }] = useMutation(
         props.mutation
     );

@@ -131,6 +131,9 @@ const GET_LOCAL_DATA = gql`
         degreeplanname @client
         degreeplanlist @client
         evalModalState @client
+        editModalState @client
+        notesModalState @client
+        eachCourseModalState @client
     }
 `;
 
@@ -208,7 +211,14 @@ function Header() {
         }
     };
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { degreeplanparent, degreeplanlist, evalModalState } = storeData;
+    let {
+        degreeplanparent,
+        degreeplanlist,
+        evalModalState,
+        editModalState,
+        notesModalState,
+        eachCourseModalState,
+    } = storeData;
 
     const [addDegreePlan, { loadingMutation1, errorMutation1, dataMutation1 }] =
         useMutation(ADD_DEGREE_PLAN, {
@@ -407,7 +417,12 @@ function Header() {
                                     justifyContent: "",
                                     alignItems: "center",
                                     zIndex:
-                                        modalState || modalState2 || modalState3
+                                        modalState ||
+                                        modalState2 ||
+                                        modalState3 ||
+                                        editModalState ||
+                                        notesModalState ||
+                                        eachCourseModalState
                                             ? -99
                                             : 10,
                                 }}
