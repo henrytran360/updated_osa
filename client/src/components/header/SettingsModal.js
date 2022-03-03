@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import ThemeToggle from "./ThemeToggle";
 import LoginButton from "../login/LoginButton";
-import FormControl from '@mui/material/FormControl';
+import FormControl from "@mui/material/FormControl";
 
 import { Button, IconButton } from "@material-ui/core";
 import ThemeSelect from "./ThemeSelect";
@@ -28,7 +28,15 @@ function SettingsModal(props) {
     const handleClose = () => setOpen(false);
 
     return (
-        <div>
+        <div
+            style={{
+                width: "6%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+            }}
+        >
             <IconButton
                 size="small"
                 style={{

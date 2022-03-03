@@ -20,7 +20,7 @@ import { Provider as TermProvider } from "./contexts/termContext";
 import { Provider as CustomCourseProvider } from "./contexts/customCourseContext";
 import { Provider as BottomModeProvider } from "./contexts/bottomModeContext";
 import { Provider as CourseSearchProvider } from "./contexts/courseSearchContext";
-import { Provider as EmailProvider } from './contexts/userEmailContext'
+import { Provider as EmailProvider } from "./contexts/userEmailContext";
 
 // Setup firebase for SAML
 import "./firebase";

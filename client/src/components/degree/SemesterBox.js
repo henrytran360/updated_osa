@@ -10,6 +10,7 @@ import { gql, useQuery, useMutation, useApolloClient } from "@apollo/client";
 import EditSchedulePopUp from "./EditSchedulePopUp";
 import EditorJS from "@editorjs/editorjs";
 import NotesModal from "./NotesModal";
+import Alert from "@mui/material/Alert";
 
 // import CustomCourse from "./CustomCourse";
 
@@ -137,11 +138,14 @@ const SemesterBox = (props) => {
         setCustomCourseList(newCustomCourseList);
     };
 
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [successAlert, setSuccessAlert] = useState(false);
+
     const saveCustomCoursesToDatabase = () => {
         let checkValid = true;
         extractedCustomCourseList.forEach(function (course) {
             if (!course) {
-                alert("Please check all the custom courses");
+                setErrorAlert(true);
                 checkValid = false;
                 return;
             }
@@ -154,7 +158,7 @@ const SemesterBox = (props) => {
                 },
             });
             refetch();
-            alert("Your custom courses have been successfully saved!");
+            setSuccessAlert(true);
         }
     };
 
@@ -224,6 +228,21 @@ const SemesterBox = (props) => {
 
     return (
         <div className="bigBox">
+            {errorAlert && (
+                <Alert onClose={() => setErrorAlert(false)} severity="error">
+                    Please check all the custom courses
+                </Alert>
+            )}
+
+            {successAlert && (
+                <Alert
+                    onClose={() => setSuccessAlert(false)}
+                    severity="success"
+                >
+                    Your custom courses have been successfully saved!
+                </Alert>
+            )}
+
             <div className="buttonNav">
                 <button
                     onClick={props.deleteSem}

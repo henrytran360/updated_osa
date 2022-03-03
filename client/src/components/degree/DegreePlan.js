@@ -236,11 +236,6 @@ const DegreePlan = () => {
         ],
     });
 
-    // print status to page (NOTE: Raises Rending more hooks than previous... error)
-    // if (loading) return <p>Loading</p>;
-    // if (error) return <p>Error</p>;
-    // if (!data) return <p>Error</p>;
-
     useEffect(() => {
         if (data4) {
             setUserId(data4.verifyToken._id);

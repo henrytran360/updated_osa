@@ -22,7 +22,7 @@ import Modal from "react-modal";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { GoDiffAdded } from "react-icons/go";
 import { AiOutlineEdit } from "react-icons/ai";
-import { Context as EmailContext } from "../../contexts/userEmailContext"
+import { Context as EmailContext } from "../../contexts/userEmailContext";
 
 import "./Header.global.css";
 // This import loads the firebase namespace along with all its type information.
@@ -60,6 +60,9 @@ const useStyles = makeStyles({
         height: 50,
         color: "var(--search-background-focused)",
         border: "1px solid var(--search-background-focused)",
+    },
+    fontFam: {
+        fontFamily: `"Acari Sans", sans-serif`,
     },
 });
 
@@ -178,18 +181,33 @@ const NavBarItem = {
 };
 
 function Header() {
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+    document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("theme")
+    );
     const {
         state: { email },
         getEmail,
-    } = useContext(EmailContext)
+    } = useContext(EmailContext);
+    const [userId, setUserId] = useState("");
     const location = useLocation();
     const history = useHistory();
     const [value, setValue] = useState(NavBarItem[location.pathname]);
     const classes = useStyles();
+
+    const {
+        loading: loading4,
+        error: error4,
+        data: data4,
+    } = useQuery(VERIFY_TOKEN);
+    useEffect(() => {
+        if (data4) {
+            setUserId(data4.verifyToken._id);
+        }
+    }, [loading4, data4, error4]);
     const handleChange = (e, newValue) => {
         setValue(newValue);
-    }
+    };
     const navigateTo = (pathname) => {
         history.push(pathname);
         handleChange(NavBarItem[pathname]);
@@ -307,8 +325,9 @@ function Header() {
 
         return icons.map((icon, index) => (
             <div
-                className={`icon-container-2${bottomMode2[`${values[index]}`] ? "-color" : ""
-                    }`}
+                className={`icon-container-2${
+                    bottomMode2[`${values[index]}`] ? "-color" : ""
+                }`}
                 key={index}
             >
                 <IconButton
@@ -342,8 +361,6 @@ function Header() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-    console.log("VALUEEEE:", value);
-
     return (
         <div className="headerContainer">
             <Box
@@ -396,93 +413,91 @@ function Header() {
                         <SemesterSelect></SemesterSelect>
                         <div className="buttonSelect">{renderIcons()}</div>
                     </div>
-                ) : (
-                    location.pathname == "/degree_plan" && (
+                ) : location.pathname == "/degree_plan" ? (
+                    <div
+                        style={{
+                            width: "30%",
+                            height: "100%",
+                            marginRight: 30,
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-around",
+                            alignItems: "center",
+                        }}
+                    >
                         <div
                             style={{
-                                width: "30%",
+                                width: "65%",
                                 height: "100%",
-                                marginRight: 30,
                                 display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "space-around",
+                                justifyContent: "",
                                 alignItems: "center",
+                                zIndex:
+                                    modalState ||
+                                    modalState2 ||
+                                    modalState3 ||
+                                    editModalState ||
+                                    notesModalState ||
+                                    eachCourseModalState
+                                        ? -99
+                                        : 10,
                             }}
                         >
-                            <div
-                                style={{
-                                    width: "65%",
-                                    height: "100%",
-                                    display: "flex",
-                                    justifyContent: "",
-                                    alignItems: "center",
-                                    zIndex:
-                                        modalState ||
-                                        modalState2 ||
-                                        modalState3 ||
-                                        editModalState ||
-                                        notesModalState ||
-                                        eachCourseModalState
-                                            ? -99
-                                            : 10,
-                                }}
-                            >
-                                <DegreePlanSelect></DegreePlanSelect>
-                            </div>
-                            <div className="icon-box">
-                                <div className="icon-container">
-                                    <RiDeleteBinLine
-                                        onClick={() => setModal3(true)}
-                                        size={20}
-                                    />
-                                </div>
-
-                                <div className="icon-container">
-                                    <AiOutlineEdit
-                                        onClick={() => setModal2(true)}
-                                        size={20}
-                                    />
-                                </div>
-
-                                <div className="icon-container">
-                                    <GoDiffAdded
-                                        onClick={() => setModal(true)}
-                                        size={20}
-                                    />
-                                </div>
-                            </div>
-                            <CreateModal
-                                modalState={modalState}
-                                setModal={setModal}
-                                closeModal={closeModal}
-                                addDegreePlan={addDegreePlan}
-                            />
-
-                            <UpdateModal
-                                modalState2={modalState2}
-                                setModal2={setModal2}
-                                closeModal2={closeModal2}
-                                mutateDegreePlan={mutateDegreePlan}
-                                query={GET_LOCAL_DATA}
-                                degreeplanparent={degreeplanparent}
-                            />
-
-                            <DeleteModal
-                                modalState3={modalState3}
-                                setModal3={setModal3}
-                                closeModal3={closeModal3}
-                                deleteDegreePlan={deleteDegreePlan}
-                                query={GET_LOCAL_DATA}
-                                degreeplanparent={degreeplanparent}
-                                degreeplanlist={degreeplanlist}
-                            />
+                            <DegreePlanSelect></DegreePlanSelect>
                         </div>
-                    )
+                        <div className="icon-box">
+                            <div className="icon-container">
+                                <RiDeleteBinLine
+                                    onClick={() => setModal3(true)}
+                                    size={20}
+                                />
+                            </div>
+
+                            <div className="icon-container">
+                                <AiOutlineEdit
+                                    onClick={() => setModal2(true)}
+                                    size={20}
+                                />
+                            </div>
+
+                            <div className="icon-container">
+                                <GoDiffAdded
+                                    onClick={() => setModal(true)}
+                                    size={20}
+                                />
+                            </div>
+                        </div>
+                        <CreateModal
+                            modalState={modalState}
+                            setModal={setModal}
+                            closeModal={closeModal}
+                            addDegreePlan={addDegreePlan}
+                        />
+
+                        <UpdateModal
+                            modalState2={modalState2}
+                            setModal2={setModal2}
+                            closeModal2={closeModal2}
+                            mutateDegreePlan={mutateDegreePlan}
+                            query={GET_LOCAL_DATA}
+                            degreeplanparent={degreeplanparent}
+                        />
+
+                        <DeleteModal
+                            modalState3={modalState3}
+                            setModal3={setModal3}
+                            closeModal3={closeModal3}
+                            deleteDegreePlan={deleteDegreePlan}
+                            query={GET_LOCAL_DATA}
+                            degreeplanparent={degreeplanparent}
+                            degreeplanlist={degreeplanlist}
+                        />
+                    </div>
+                ) : (
+                    <div style={{ width: "35%" }}></div>
                 )}
                 {/* <ThemeToggle /> */}
-                <h4 className="emailHeading">
-                    {email}
-                </h4>
+                <h4 className="emailHeading">{email}</h4>
                 <SettingsModal />
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -512,6 +527,9 @@ function Header() {
                     onClose={handleCloseNavMenu}
                     sx={{
                         display: { xs: "block", md: "none" },
+                    }}
+                    MenuListProps={{
+                        classes: { fontFamily: classes.fontFam },
                     }}
                 >
                     <MenuItem onClick={() => history.push("/schedule")}>
@@ -566,8 +584,8 @@ function Header() {
                                         alignItems: "center",
                                         zIndex:
                                             modalState ||
-                                                modalState2 ||
-                                                modalState3
+                                            modalState2 ||
+                                            modalState3
                                                 ? -99
                                                 : 10,
                                     }}
@@ -632,9 +650,7 @@ function Header() {
                     )}
                     <MenuItem>
                         <SettingsModal />
-                        <h4 className="emailHeading">
-                            {email}
-                        </h4>
+                        <h4 className="emailHeading">{email}</h4>
                     </MenuItem>
                 </Menu>
             </Box>

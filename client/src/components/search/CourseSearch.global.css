@@ -62,7 +62,7 @@
     height: 100%;
 }
 
-.searchBar-content> :last-child {
+.searchBar-content > :last-child {
     flex: 1 1 auto;
 }
 
@@ -129,5 +129,6 @@
 
 .header-search {
     background-color: var(--background-color);
-    color: var(--primary-color)
+    color: var(--primary-color);
+    height: 35px;
 }

@@ -30,6 +30,7 @@
     "@material-ui/icons": "^4.9.1",
     "@mui/icons-material": "^5.3.0",
     "@mui/material": "^5.3.0",
+    "@mui/styles": "^5.4.4",
     "cldr-data": "^36.0.0",
     "devextreme": "21.2.5",
     "devextreme-react": "21.2.5",
