@@ -71,7 +71,6 @@
     letter-spacing: 0px;
     color: var(--secondary-color);
     opacity: 1;
-
     background-color: var(--background-color);
     z-index: 1;
 }

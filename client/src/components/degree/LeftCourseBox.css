@@ -54,6 +54,7 @@
 .courseInfoContent {
     width: 90%;
     height: 100%;
+    font-family: "Acari Sans";
     font-style: normal;
     font-size: 16px;
     display: flex;

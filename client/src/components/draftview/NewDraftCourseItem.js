@@ -9,6 +9,7 @@ import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import Modal from 'react-modal';
 import CourseEvalModal from "./CourseEvalModal";
 
 const colorCombos = [
@@ -190,6 +191,30 @@ const NewDraftCourseItem = (props) => {
 
     const boolVisible = props.visible ? true : false;
 
+    console.log(props.session);
+
+    const [modalState, setModal] = useState(false);
+    const openModal = () => {
+        setModal(true);
+    }
+    const closeModal = () => {
+        setModal(false);
+    }
+
+    //getting course info for the popup (expanded detail for each course)
+    const start_time = props.session.class.startTime.substring(0,2) + ":" + props.session.class.startTime.substring(2,4);
+    const end_time = props.session.class.endTime.substring(0,2) + ":" + props.session.class.endTime.substring(2,4);
+    let instructors_str = "";
+    for (let i = 0; i<props.session.instructors.length-1; i++){
+        instructors_str += props.session.instructors[i].firstName + " " + props.session.instructors[i].lastName + ", ";
+    }
+    instructors_str += props.session.instructors[props.session.instructors.length-1].firstName + " " + props.session.instructors[props.session.instructors.length-1].lastName;
+
+    let coreqs_str = "";
+    for (let j = 0; j<props.session.course.coreqs.length; j++){
+        coreqs_str += props.session.course.coreqs[j] + "\n";
+    }
+
     //open course evaluation modal
     const [modalState, setModal] = useState(false);
 
@@ -234,12 +259,39 @@ const NewDraftCourseItem = (props) => {
                             color: borderColor,
                             textDecoration: "underline",
                         }}
+                        onClick= {openModal}
                     >
                         {props.session.course.subject}{" "}
                         {props.session.course.courseNum}:{" "}
                         {props.session.course.longTitle}
                     </span>
                 </div>
+                
+                <Modal isOpen={modalState} className='model-info-content' onRequestClose={closeModal}>
+                    <div className='course-info-content'>
+                        <div className='course-title'>
+                            <b>{props.session.course.subject} {props.session.course.courseNum}: {props.session.course.longTitle}</b>
+                        </div>
+                        <div className='float-container'>
+                            <div className='float-child'>
+                                <div className="category"><b>{props.session.class.days.join('')} {start_time} - {end_time}</b></div>
+                                <div className="category"><b>CRN: </b>{props.session.crn}</div>
+                                <div className="category"><b>Credits: </b>{props.session.course.creditsMin}</div> 
+                                <div className="category"><b>Distribution: </b>{props.session.course.distribution}</div> 
+                                <div className="category"><b>Prerequisites: {props.session.course.prereqs}</b></div>
+                                <div className="category"><b>Corequisites:  {coreqs_str}</b></div>
+                            </div>
+                            <div className='float-child'>
+                                <div className="category"><b>Max Enrollment: </b>{props.session.maxEnrollment}</div>
+                                <div className="category"><b>Current Enrollment: {props.session.enrollment}</b></div>
+                                <div className="category"><b>Max Waitlisted: {props.session.maxWaitlisted}</b></div>
+                                <div className="category"><b>Waitlisted: {props.session.waitlisted}</b></div>
+                            </div>
+                        </div>
+                        <div className='course-instructor'><b>Course Instructor: </b>{instructors_str}</div>
+                    </div>
+                </Modal>
+
                 <div
                     style={{
                         width: "28%",
