@@ -4,6 +4,7 @@ import "./LeftCourseBox.css";
 import "./RightCourseBox.css";
 import SemesterBox from "./SemesterBox";
 import { Context as CustomCourseContext } from "../../contexts/customCourseContext";
+import Alert from "@mui/material/Alert";
 
 const CustomCourseRow = (props) => {
     // const courseInfo = props.customCourse ? props.customCourse.split(" ") : [];
@@ -20,6 +21,7 @@ const CustomCourseRow = (props) => {
     const customCourseDetail =
         courseDetailString && courseDetailString.split("&");
 
+    const [errorAlert, setErrorAlert] = useState(false);
     const saveCustomCourse = () => {
         if (inputCode && inputName && inputCredit) {
             editCustomCourse(
@@ -27,85 +29,100 @@ const CustomCourseRow = (props) => {
                 id + 1
             );
         } else {
-            alert("Please fill in all the information for the course");
+            setErrorAlert(true);
         }
     };
     return (
-        <div className="outerRowBox">
-            <div className="rowBox">
-                <div className="lcbox">
-                    {courseDetailString ? (
-                        <>
-                            <span className="customCourseCode">
-                                {customCourseDetail[0]}
-                            </span>
-                            <span className="customCourseName">
-                                {customCourseDetail[1]}
-                            </span>
-                        </>
-                    ) : (
-                        <>
+        <>
+            {errorAlert && (
+                <Alert onClose={() => setErrorAlert(false)} severity="error">
+                    Please fill in all the information for the course
+                </Alert>
+            )}
+            <div className="outerRowBox">
+                <div className="rowBox">
+                    <div className="lcbox">
+                        {courseDetailString ? (
+                            <>
+                                <span className="customCourseCode">
+                                    {customCourseDetail[0]}
+                                </span>
+                                <span className="customCourseName">
+                                    {customCourseDetail[1]}
+                                </span>
+                            </>
+                        ) : (
+                            <>
+                                <input
+                                    placeholder={
+                                        inputCode ? inputCode : "Enter Code"
+                                    }
+                                    className="customCourseCode"
+                                    type="text"
+                                    onChange={(e) =>
+                                        setInputCode(e.target.value)
+                                    }
+                                    maxLength="8"
+                                />
+                                <input
+                                    placeholder={
+                                        inputName ? inputName : "Enter Name"
+                                    }
+                                    className="customCourseName"
+                                    type="text"
+                                    onChange={(e) =>
+                                        setInputName(e.target.value)
+                                    }
+                                    maxLength="35"
+                                />
+                            </>
+                        )}
+                    </div>
+                    <div className="rccbox">
+                        {courseDetailString ? (
+                            <>
+                                <span className="customCredit">
+                                    {customCourseDetail[2]}
+                                </span>
+                            </>
+                        ) : (
                             <input
-                                placeholder={
-                                    inputCode ? inputCode : "Enter Code"
-                                }
-                                className="customCourseCode"
-                                type="text"
-                                onChange={(e) => setInputCode(e.target.value)}
+                                placeholder={inputCredit ? inputCredit : "#"}
+                                className="customCredit"
+                                type="number"
+                                min="1"
+                                onChange={(e) => setInputCredit(e.target.value)}
                             />
-                            <input
-                                placeholder={
-                                    inputName ? inputName : "Enter Name"
-                                }
-                                className="customCourseName"
-                                type="text"
-                                onChange={(e) => setInputName(e.target.value)}
-                            />
-                        </>
-                    )}
+                        )}
+                    </div>
                 </div>
-                <div className="rccbox">
-                    {courseDetailString ? (
-                        <>
-                            <span className="customCredit">
-                                {customCourseDetail[2]}
-                            </span>
-                        </>
-                    ) : (
-                        <input
-                            placeholder={inputCredit ? inputCredit : "#"}
-                            className="customCredit"
-                            type="number"
-                            min="1"
-                            onChange={(e) => setInputCredit(e.target.value)}
-                        />
+                <div className="button-container">
+                    {!courseDetailString && (
+                        <button
+                            // style={{ width: "35px" }}
+                            className="deleteButton"
+                            onClick={saveCustomCourse}
+                        >
+                            <span style={{ fontSize: 16 }}>✓</span>
+                        </button>
                     )}
-                </div>
-            </div>
-            <div className="button-container">
-                {!courseDetailString && (
                     <button
                         // style={{ width: "35px" }}
                         className="deleteButton"
-                        onClick={saveCustomCourse}
+                        onClick={
+                            !courseDetailString
+                                ? deleteCustomCourse
+                                : () =>
+                                      deleteCustomCourseDatabase(
+                                          courseDetailString
+                                      )
+                        }
                     >
-                        <span style={{ fontSize: 16 }}>✓</span>
+                        x
                     </button>
-                )}
-                <button
-                    // style={{ width: "35px" }}
-                    className="deleteButton"
-                    onClick={
-                        !courseDetailString
-                            ? deleteCustomCourse
-                            : () =>
-                                  deleteCustomCourseDatabase(courseDetailString)
-                    }
-                >
-                    x
-                </button>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 export default CustomCourseRow;

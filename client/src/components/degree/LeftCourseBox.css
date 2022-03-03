@@ -12,6 +12,7 @@
     justify-content: flex-start;
     padding: 20px;
     column-gap: 0.875rem;
+    text-overflow: "ellipsis";
 }
 .courseName:hover {
     color: var(--quinary-color);
@@ -74,6 +75,7 @@
 .customCourseCode {
     position: relative;
     height: 19px;
+    width: 80px;
     font-style: normal;
     font-size: 16px;
     line-height: 19px;
