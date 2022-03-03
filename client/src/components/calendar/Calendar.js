@@ -4,6 +4,8 @@ import { CourseWeek } from "./CourseWeek";
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./Calendar.css";
+import Modal from 'react-modal';
+
 
 const localizer = momentLocalizer(moment);
 
@@ -211,17 +213,47 @@ const eventStyleGetter = (event) => {
 };
 
 const CustomClassEvent = ({ event }) => {
+    console.log(event);
     let moduloValue = event.hexId % colorCombos.length;
 
     var sidebarColor = colorCombos[moduloValue][1];
 
+    const [modalState, setModal] = useState(false);
+    const openModal = () => {
+        setModal(true);
+    }
+    const closeModal = () => {
+        setModal(false);
+    }
+
+    //getting course info for the popup (expanded detail for each course)
+    const info = event.tooltip.split("\n");
+    const longTitle = info[1];
+    const CRN = info[2].split(": ")[1];
+    const maxEnroll = info[4].split(": ")[1];
+    const source = event.source.days;
+    const days = source.map((day) => dayCode2dayString[day] + " ");
+
     return (
         <div className="courseEventWrapper">
+            <Modal isOpen={modalState} className='modal' onRequestClose={closeModal}>
+                <div className='courseInfoContent'>
+                    <div>
+                        <pre class="text"><b>{event.title}: {longTitle}</b></pre>
+                        <pre class="text"><b>{days} {event.desc}</b></pre>
+                        <pre class="text"><b>  CRN: </b>{CRN} </pre>
+                        <pre class="text"><b>  Course Instructor: </b>{event.instructor} </pre>
+                        <pre class="text"><b>  Max Enrollment: </b>{maxEnroll}</pre>
+                        <pre class="text"><b>  Prerequisites: </b></pre>
+                        <pre class="text"><b>  Corerequisites:   </b> </pre>
+                    </div>
+                </div>
+            </Modal>
             <hr
                 style={{ backgroundColor: `${sidebarColor}` }}
                 className="courseEventBar"
             />
-            <div className="courseEvent">
+            <div className="courseEvent" onClick= {openModal}>
                 <p id="courseCode">{event.title}</p>
                 <p id="courseTime">{event.desc}</p>
                 <p id="courseInstructor">{event.instructor}</p>

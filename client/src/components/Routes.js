@@ -99,7 +99,7 @@ const Routes = ({}) => {
                 <DegreePlan />
             </PrivateRoute>
             <Route>
-                <Error />
+                <Error message="page"/>
             </Route>
         </Switch>
     );

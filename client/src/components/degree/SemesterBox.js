@@ -41,6 +41,7 @@ const SemesterBox = (props) => {
     const { loading, error, data, refetch } = useQuery(props.query, {
         variables: { _id: props._id },
     });
+    if (error) return <Error message={error.message}/>;
     const [updateCustomCourses, { loading2, error2, data2 }] = useMutation(
         props.mutation
     );
@@ -114,6 +115,7 @@ const SemesterBox = (props) => {
                 },
             });
             refetch();
+            alert("Your custom courses have been successfully saved!");
         }
     };
 
@@ -154,7 +156,6 @@ const SemesterBox = (props) => {
                   distribution: courses.course
                       ? courses.course.distribution
                       : "N/A",
-
               }
             : {
                   subject: "N/A",
@@ -222,7 +223,7 @@ const SemesterBox = (props) => {
                     // style={{ width: "170px" }}
                     onClick={saveCustomCoursesToDatabase}
                 >
-                    Save Course
+                    Save Custom
                 </button>
                 <Modal
                     isOpen={modalState}

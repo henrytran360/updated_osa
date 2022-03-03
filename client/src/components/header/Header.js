@@ -168,18 +168,28 @@ const StyledTab = withStyles((theme) => ({
     },
 }))((props) => <Tab {...props} />);
 
+const NavBarItem = {
+    "/schedule": 0,
+    "/degree_plan": 1,
+    "/about": 2,
+};
+
 function Header() {
     document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
     const {
         state: { email },
         getEmail,
     } = useContext(EmailContext)
-    const [tab_value, setTabValue] = React.useState(0);
-    const classes = useStyles();
-    const handleTabChange = (event, newValue) => {
-        setTabValue(newValue);
-    };
+    const location = useLocation();
     const history = useHistory();
+    const [value, setValue] = useState(NavBarItem[location.pathname]);
+    const classes = useStyles();
+    const handleChange = (e, newValue) => {
+        setValue(newValue);
+    const navigateTo = (pathname) => {
+        history.push(pathname);
+        handleChange(NavBarItem[pathname]);
+    };
     const {
         state: { bottomMode2 },
         changeBottomMode,
@@ -196,7 +206,6 @@ function Header() {
             changeBottomMode({ ...bottomMode2, Details: !bottomMode2.Details });
         }
     };
-    const location = useLocation();
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     let { degreeplanparent, degreeplanlist, evalModalState } = storeData;
 
@@ -269,7 +278,6 @@ function Header() {
         setModal3(false);
     };
 
-    const [inputName, setInputName] = useState("");
     const client = useApolloClient();
 
     // Where we collect feedback
@@ -323,6 +331,8 @@ function Header() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    console.log("VALUEEEE:", value);
+
     return (
         <div className="headerContainer">
             <Box
@@ -347,15 +357,15 @@ function Header() {
                     >
                         <LinkTab
                             label="Schedule"
-                            onClick={() => history.push("/schedule")}
+                            onClick={() => navigateTo("/schedule")}
                         />
                         <LinkTab
                             label="Degree Plan"
-                            onClick={() => history.push("/degree_plan")}
+                            onClick={() => navigateTo("/degree_plan")}
                         />
                         <LinkTab
                             label="About"
-                            onClick={() => history.push("/about")}
+                            onClick={() => navigateTo("/about")}
                         />
                     </Tabs>
                 </div>

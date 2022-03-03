@@ -353,12 +353,8 @@ const CourseList = ({
     // we need to check the object's value instead of directly checking searchType === ""
     if (Object.values(searchType)[0] === "") return <br />;
 
-    const errorMessage = (
-        <p>Something went wrong. Please refresh the page and try again 🥺</p>
-    );
-
     if (loading) return <p>Loading...</p>;
-    if (error) return errorMessage;
+    if (error) return error.message;
     if (!courseData) return errorMessage;
 
     // Once the data has loaded, we want to extract the course results

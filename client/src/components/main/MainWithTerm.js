@@ -118,7 +118,7 @@ const Main = ({}) => {
     });
 
     if (loading) return <LoadingScreen />;
-    if (error) return <Error />;
+    if (error) return <Error message={error.message}/>;
     if (!data) return <Error />;
 
     const schedule = data.scheduleOne;
