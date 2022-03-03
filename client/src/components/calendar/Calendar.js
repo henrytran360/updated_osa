@@ -163,7 +163,7 @@ const slotStyleGetter = (date) => {
     var style = {
         font: "Medium 23px/26px",
         letterSpacing: "0px",
-        color: "#338182",
+        color: "var(--quaternary-color)",
         opacity: 1,
     };
 
@@ -177,7 +177,7 @@ const dayStyleGetter = (date) => {
         textAlign: "center",
         font: "Medium 23px/26px",
         letterSpacing: "0px",
-        color: "#1DC2C4",
+        color: "var(--search-background-focused)",
         opacity: 1,
         // border: "1px dashed #E4E8EE",
         paddingTop: "16.5px",
@@ -201,7 +201,7 @@ const eventStyleGetter = (event) => {
         border: `2px solid ${borderColor}`,
         borderRadius: "10px",
         opacity: 1,
-        color: "#384569",
+        color: "var(--quaternary-color)",
         display: "block",
     };
 

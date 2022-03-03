@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import Title from "./Title";
-import LoginButton from "../login/LoginButton";
 import { Button, ButtonGroup, IconButton } from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -23,6 +22,7 @@ import Modal from "react-modal";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { GoDiffAdded } from "react-icons/go";
 import { AiOutlineEdit } from "react-icons/ai";
+import { Context as EmailContext } from "../../contexts/userEmailContext"
 
 import "./Header.global.css";
 // This import loads the firebase namespace along with all its type information.
@@ -169,6 +169,11 @@ const StyledTab = withStyles((theme) => ({
 }))((props) => <Tab {...props} />);
 
 function Header() {
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+    const {
+        state: { email },
+        getEmail,
+    } = useContext(EmailContext)
     const [tab_value, setTabValue] = React.useState(0);
     const classes = useStyles();
     const handleTabChange = (event, newValue) => {
@@ -283,9 +288,8 @@ function Header() {
 
         return icons.map((icon, index) => (
             <div
-                className={`icon-container-2${
-                    bottomMode2[`${values[index]}`] ? "-color" : ""
-                }`}
+                className={`icon-container-2${bottomMode2[`${values[index]}`] ? "-color" : ""
+                    }`}
                 key={index}
             >
                 <IconButton
@@ -449,10 +453,11 @@ function Header() {
                         </div>
                     )
                 )}
-
-                {/* <ThemeToggle /> */}
-                <SettingsModal />
-                <LoginButton></LoginButton>
+                    {/* <ThemeToggle /> */}
+                    <h3 className="emailh3">
+                        {email}
+                    </h3>
+                    <SettingsModal />
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
@@ -535,8 +540,8 @@ function Header() {
                                         alignItems: "center",
                                         zIndex:
                                             modalState ||
-                                            modalState2 ||
-                                            modalState3
+                                                modalState2 ||
+                                                modalState3
                                                 ? -99
                                                 : 10,
                                     }}
@@ -601,7 +606,9 @@ function Header() {
                     )}
                     <MenuItem>
                         <SettingsModal />
-                        <LoginButton></LoginButton>
+                        <h3>
+                            {email}
+                        </h3>
                     </MenuItem>
                 </Menu>
             </Box>

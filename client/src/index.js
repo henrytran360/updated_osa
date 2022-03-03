@@ -20,25 +20,28 @@ import { Provider as TermProvider } from "./contexts/termContext";
 import { Provider as CustomCourseProvider } from "./contexts/customCourseContext";
 import { Provider as BottomModeProvider } from "./contexts/bottomModeContext";
 import { Provider as CourseSearchProvider } from "./contexts/courseSearchContext";
+import { Provider as EmailProvider } from './contexts/userEmailContext'
 
 // Setup firebase for SAML
 import "./firebase";
 
 render(
-    <CourseSearchProvider>
-        <BottomModeProvider>
-            <CustomCourseProvider>
-                <TermProvider>
-                    <ApolloProvider client={client}>
-                        <Router history={history}>
-                            <ToastProvider>
-                                <Routes />
-                            </ToastProvider>
-                        </Router>
-                    </ApolloProvider>
-                </TermProvider>
-            </CustomCourseProvider>
-        </BottomModeProvider>
-    </CourseSearchProvider>,
+    <EmailProvider>
+        <CourseSearchProvider>
+            <BottomModeProvider>
+                <CustomCourseProvider>
+                    <TermProvider>
+                        <ApolloProvider client={client}>
+                            <Router history={history}>
+                                <ToastProvider>
+                                    <Routes />
+                                </ToastProvider>
+                            </Router>
+                        </ApolloProvider>
+                    </TermProvider>
+                </CustomCourseProvider>
+            </BottomModeProvider>
+        </CourseSearchProvider>
+    </EmailProvider>,
     document.querySelector("#app")
 );

@@ -15,7 +15,7 @@
     cursor: pointer;
 }
 
-.logoContainer > img {
+.logoContainer>img {
     max-width: 100%;
     max-height: 100%;
 }
@@ -64,7 +64,7 @@
     border: 1px solid var(--border-color);
 }
 
-.buttonGroup > .iconButton2 {
+.buttonGroup>.iconButton2 {
     border: 1px solid;
     height: 15px;
     border-radius: 5px 0px 0px 5px;
@@ -87,7 +87,7 @@
     justify-content: center;
 }
 
-.leftAlign > button {
+.leftAlign>button {
     width: auto;
     margin-left: 10px;
     /* margin: 0% 2% 0% 2%; */
@@ -205,11 +205,22 @@
     font-size: 15px;
     padding-left: 10px;
     width: 65%;
-    height: 40px;
-    margin-left: 20px;
 }
 
 .buttonContainer {
     width: 20%;
     height: 40px;
+}
+
+.closeSettings {
+    margin-top: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex
+}
+
+.emailh3 {
+    margin-right: 5px;
+    float: right;
+    align-items: right;
 }

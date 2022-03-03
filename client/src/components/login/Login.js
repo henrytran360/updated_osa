@@ -9,7 +9,7 @@ const Login = () => {
     return (
         <div className="loginContainer">
             <div className="loginText">
-                <h2>the app formerly known as schedule planner</h2>
+                <h2>giving the hammer to banner</h2>
                 <h4>brought to you by riceapps</h4>
             </div>
             <LoginButton></LoginButton>

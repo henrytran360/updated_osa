@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import ThemeToggle from "./ThemeToggle";
+import LoginButton from "../login/LoginButton";
+import FormControl from '@mui/material/FormControl';
 
 import { Button, IconButton } from "@material-ui/core";
 import ThemeSelect from "./ThemeSelect";
@@ -26,13 +28,13 @@ function SettingsModal(props) {
     const handleClose = () => setOpen(false);
 
     return (
-        <div style={{ marginRight: 10 }}>
+        <div>
             <IconButton
                 size="small"
                 style={{
                     backgroundColor: "var(--border-color)",
                     color: "var(--search-background-focused)",
-                    fontSize: 15,
+                    // fontSize: 15,
                 }}
                 onClick={handleOpen}
             >
@@ -45,16 +47,25 @@ function SettingsModal(props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Button
-                        style={{
-                            color: "var(--search-background-focused)",
-                            border: "1px solid var(--search-background-focused)",
-                        }}
-                        variant="outlined"
-                        onClick={() => window.open(feedbackURL, "_blank")}
-                    >
+                    <h2 id="modal-modal-title" variant="h6" component="h2">
+                        Authenticate
+                    </h2>
+                    <LoginButton />
+                    <h2 id="modal-modal-title" variant="h6" component="h2">
                         Feedback
-                    </Button>
+                    </h2>
+                    <FormControl fullWidth>
+                        <Button
+                            style={{
+                                color: "var(--search-background-focused)",
+                                border: "1px solid var(--search-background-focused)",
+                            }}
+                            variant="outlined"
+                            onClick={() => window.open(feedbackURL, "_blank")}
+                        >
+                            Feedback
+                        </Button>
+                    </FormControl>
                     <h2 id="modal-modal-title" variant="h6" component="h2">
                         Theme Options
                     </h2>
@@ -75,6 +86,18 @@ function SettingsModal(props) {
                             { value: "Purple", label: "Purple" },
                         ]}
                     />
+                    <div class="closeSettings">
+                        <Button
+                            style={{
+                                color: "var(--quaternary-bg-color)",
+                                border: "1px solid var(--quaternary-bg-color)",
+                            }}
+                            variant="outlined"
+                            onClick={handleClose}
+                        >
+                            Close Settings
+                        </Button>
+                    </div>
                 </Box>
             </Modal>
         </div>
