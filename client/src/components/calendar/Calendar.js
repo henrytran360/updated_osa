@@ -4,11 +4,7 @@ import { CourseWeek } from "./CourseWeek";
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./Calendar.css";
-<<<<<<< HEAD
-import Modal from 'react-modal';
-=======
 import Modal from "react-modal";
->>>>>>> c21071e (fix all header bugs)
 
 const localizer = momentLocalizer(moment);
 
@@ -94,10 +90,17 @@ const convertSectionToEvents = (section, session) => {
             .add(momentEnd.minute(), "minutes");
 
         let instructors_str = "";
-        for (let i = 0; i<session.instructors.length-1; i++){
-            instructors_str += session.instructors[i].firstName + " " + session.instructors[i].lastName + ", ";
+        for (let i = 0; i < session.instructors.length - 1; i++) {
+            instructors_str +=
+                session.instructors[i].firstName +
+                " " +
+                session.instructors[i].lastName +
+                ", ";
         }
-        instructors_str += session.instructors[session.instructors.length-1].firstName + " " + session.instructors[session.instructors.length-1].lastName;
+        instructors_str +=
+            session.instructors[session.instructors.length - 1].firstName +
+            " " +
+            session.instructors[session.instructors.length - 1].lastName;
 
         // let instructorName = "";
         // if (session.instructors[0]) {
@@ -107,7 +110,7 @@ const convertSectionToEvents = (section, session) => {
         //         session.instructors[0].lastName;
         // }
 
-        let coreqs_str = session.course.coreqs.join(' ');
+        let coreqs_str = session.course.coreqs.join(" ");
 
         events.push({
             id: id++,
@@ -249,34 +252,12 @@ const CustomClassEvent = ({ event }) => {
     const info = event.tooltip.split("\n");
     const longTitle = info[1];
     const CRN = info[2].split(": ")[1];
-    // const maxEnroll = info[4].split(": ")[1];
+    const maxEnroll = info[4].split(": ")[1];
     const source = event.source.days;
-    // const days = source.map((day) => dayCode2dayString[day] + " ");
+    const days = source.map((day) => dayCode2dayString[day] + " ");
 
     return (
         <div className="courseEventWrapper">
-<<<<<<< HEAD
-            <Modal isOpen={modalState} className='model-info-content' onRequestClose={closeModal}>
-                    <div className='course-info-content'>
-                        <div className='course-title'>{event.title}: {longTitle}</div>
-                        <div className='float-container'>
-                            <div className='float-child'>
-                                <div className="category"> {source} {event.desc} </div>
-                                <div className="category">CRN: {CRN} </div>
-                                <div className="category">Credits: {event.creditsMin} </div> 
-                                <div className="category">Distribution: {event.distribution}</div> 
-                                <div className="category">Prerequisites: {event.prereqs}</div>
-                                <div className="category">Corequisites: {event.coreqs}</div>
-                            </div>
-                            <div className='float-child'>
-                                <div className="category">Max Enrollment: {event.maxEnrollment}</div>
-                                <div className="category">Current Enrollment: {event.enrollment}</div>
-                                <div className="category">Max Waitlisted: {event.maxWaitlisted}</div>
-                                <div className="category">Waitlisted: {event.waitlisted}</div>
-                            </div>
-                        </div>
-                        <div className='course-instructor'>Course Instructor: {event.instructor} </div>
-=======
             <Modal
                 isOpen={modalState}
                 className="modal"
@@ -312,8 +293,8 @@ const CustomClassEvent = ({ event }) => {
                         <pre class="text">
                             <b> Corerequisites: </b>{" "}
                         </pre>
->>>>>>> c21071e (fix all header bugs)
                     </div>
+                </div>
             </Modal>
             <hr
                 style={{ backgroundColor: `${sidebarColor}` }}
