@@ -12,7 +12,7 @@ const Login = () => {
                 <h2>giving the hammer to banner</h2>
                 <h4>brought to you by riceapps</h4>
             </div>
-            <LoginButton></LoginButton>
+            <LoginButton full_width={false} />
         </div>
     );
 };

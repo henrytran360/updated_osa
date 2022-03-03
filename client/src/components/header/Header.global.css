@@ -111,25 +111,25 @@ body {
 .modalDegreePlanHeader {
     width: 400px;
     height: 150px;
-    border: 2px solid #149fa0;
+    border: 2px solid var(--border-color);
     border-radius: 5px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     overflow-y: auto;
-    background-color: #ddf5f6;
+    background-color: var(--tertiary-bg-color);
     z-index: -10;
 }
 
 .icon-container {
     width: 30px;
     height: 30px;
-    background-color: #ccf1f2;
+    background-color: var(--tertiary-bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #1dc2c4;
+    color: var(--search-background-focused);
     font-size: 15;
     border-radius: 5px;
 }
@@ -140,13 +140,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #1dc2c4;
+    color: var(--search-background-focused);
     font-size: 15;
     border-radius: 5px;
 }
 
 .icon-container-2-color {
-    background-color: #ccf1f2;
+    background-color: var(--tertiary-bg-color);
     border-radius: 5px;
 }
 

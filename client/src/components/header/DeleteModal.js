@@ -10,13 +10,13 @@ const useStyles = makeStyles({
         fontSize: 15,
     },
     button2: {
-        color: "#1DC2C4",
-        border: "1px solid #BBECED",
+        color: "var(--search-background-focused)",
+        border: "1px solid var(--border-color)",
         width: 150,
     },
     button3: {
-        color: "#1DC2C4",
-        border: "1px solid #1DC2C4",
+        color: "var(--search-background-focused)",
+        border: "1px solid var(--search-background-focused)",
         width: 80,
     },
     button4: {
@@ -26,8 +26,8 @@ const useStyles = makeStyles({
     },
     button5: {
         height: 50,
-        color: "#1DC2C4",
-        border: "1px solid #1DC2C4",
+        color: "var(--search-background-focused)",
+        border: "1px solid var(--search-background-focused)",
     },
 });
 const DeleteModal = ({
@@ -88,8 +88,8 @@ const DeleteModal = ({
                     </Button>
                     <Button
                         style={{
-                            color: "#1DC2C4",
-                            border: "1px solid 1DC2C4",
+                            color: "var(--search-background-focused)",
+                            border: "1px solid var(--search-background-focused)",
                         }}
                         className={classes.button5}
                         variant="outlined"

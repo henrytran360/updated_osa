@@ -58,7 +58,7 @@ function SettingsModal(props) {
                     <h2 id="modal-modal-title" variant="h6" component="h2">
                         Authenticate
                     </h2>
-                    <LoginButton />
+                    <LoginButton full_width={true} />
                     <h2 id="modal-modal-title" variant="h6" component="h2">
                         Feedback
                     </h2>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery, gql, useApolloClient } from "@apollo/client";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 // This import loads the firebase namespace along with all its type information.
@@ -18,14 +18,14 @@ const useStyles = makeStyles({
 });
 let user_email = localStorage.getItem("user_email");
 let logoutURL = "https://idp.rice.edu/idp/profile/cas/logout";
-function LoginButton() {
+function LoginButton(props) {
     // Get history object for redirection to auth page
     const classes = useStyles();
     const history = useHistory();
     const {
         state: { email },
         getEmail,
-    } = React.useContext(EmailContext)
+    } = useContext(EmailContext)
     const signInSAML = async () => {
         await firebase
             .auth()
@@ -100,12 +100,19 @@ function LoginButton() {
         }
         return ll_button;
     };
-
-    return (
-        <FormControl fullWidth>
-            {login_logout_button()}
-        </FormControl>
-    );
+    if (props.full_width) {
+        return (
+            <FormControl fullWidth>
+                {login_logout_button()}
+            </FormControl>
+        );
+    } else {
+        return (
+            <FormControl>
+                {login_logout_button()}
+            </FormControl>
+        );
+    }
 }
 // This is the function that redirects the user to the SAML login
 export default LoginButton;

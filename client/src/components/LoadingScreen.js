@@ -5,13 +5,17 @@ import { Backdrop, CircularProgress, makeStyles } from "@material-ui/core";
 const loadingTextOptions = [
     "eat. sleep. plan. repeat.",
     "time to hatch a plan.",
-    "built with ❤️ by Will Mundy, Jamie Tan, David Torres-Ramos, Manan Bajaj, Max Bowman, Peter Wang, and Skylar Neuendorff",
+    "built with ❤️ by Rice Apps",
+    "Hooray Rice Apps!",
+    "Objects and references ... trickle down variables",
+    "Automatic. Still is.",
+    "What do all the hens do on a Saturday night? Watch a chick flick."
 ];
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
-        color: "#fff",
+        color: "var(--background-color)",
     },
 }));
 

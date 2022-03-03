@@ -228,7 +228,10 @@ const REMOVE_DRAFT_SESSION = gql`
 const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
     let sessionSelected = false;
 
-    const bottomModeContext = useContext(BottomModeContext);
+    const {
+        state: { bottomModeContext },
+        changeBottomModeContext,
+    } = useContext(BottomModeContext);
 
     // Update draft sessions to only include valid sessions
     draftSessions = draftSessions.filter((draft) => draft.session);

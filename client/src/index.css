@@ -25,7 +25,7 @@ html, body, #app {
     --border-color: #bbeced;
     /* used for button borders */
     --search-button-bg: #42bebf60;
-    --shadow-color: rgba(0,0,0,0.15);
+    --shadow-color: rgba(0, 0, 0, 0.15);
     --search-background-focused: #1dc2c4;
 }
 
@@ -60,7 +60,7 @@ html[data-theme='Red'] {
     --selection-color: #ff9595;
     --border-color: #edbbbb;
     --search-button-bg: #bf464260;
-    --shadow-color: rgba(0,0,0,0.15);
+    --shadow-color: rgba(0, 0, 0, 0.15);
     --search-background-focused: #c4441d;
 }
 
@@ -99,7 +99,7 @@ html[data-theme='High Contrast'] {
 html[data-theme='Purple'] {
     --background-color: rgb(59, 0, 77);
     --secondary-bg-color: #794888;
-    --tertiary-bg-color: #fbf2fc;
+    --tertiary-bg-color: #601069;
     --quaternary-bg-color: #c734ec80;
     --primary-color: #e7d000;
     --secondary-color: #fbff00;

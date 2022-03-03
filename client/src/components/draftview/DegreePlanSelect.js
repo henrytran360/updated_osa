@@ -44,19 +44,19 @@ const customStyles = {
         return {
             ...styles,
             width: 200,
-            backgroundColor: isFocused ? "#1DC2C4" : "#BBECED",
-            color: "#FFF",
+            backgroundColor: isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+            color: "var(--background-color)",
             cursor: isDisabled ? "not-allowed" : "default",
         };
     },
     control: (base, state) => ({
         ...base,
-        color: "#1DC2C4",
+        color: "var(--search-background-focused)",
         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-        borderColor: state.isFocused ? "#BEECED" : "#BEECED",
+        borderColor: state.isFocused ? "var(--border-color)" : "var(--border-color)",
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
-            borderColor: state.isFocused ? "#1DC2C4" : "#BEECED",
+            borderColor: state.isFocused ? "var(--search-background-focused)" : "var(--border-color)",
         },
         width: 200,
     }),
@@ -148,8 +148,8 @@ const DegreePlanSelect = () => {
                         ...theme,
                         colors: {
                             text: "red",
-                            primary25: "#BBECED",
-                            primary: "#BBECED",
+                            primary25: "var(--border-color)",
+                            primary: "var(--border-color)",
                         },
                     })}
                     styles={customStyles}
