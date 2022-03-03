@@ -58,7 +58,6 @@ const convertSectionToEvents = (section, session) => {
     if (!section || !section.startTime || !section.endTime) {
         return events;
     }
-    console.log(session);
     // Get hexId of session
     let hexId = session.hexId;
 
@@ -252,47 +251,58 @@ const CustomClassEvent = ({ event }) => {
     const info = event.tooltip.split("\n");
     const longTitle = info[1];
     const CRN = info[2].split(": ")[1];
-    const maxEnroll = info[4].split(": ")[1];
+    // const maxEnroll = info[4].split(": ")[1];
     const source = event.source.days;
-    const days = source.map((day) => dayCode2dayString[day] + " ");
+    // const days = source.map((day) => dayCode2dayString[day] + " ");
 
     return (
         <div className="courseEventWrapper">
             <Modal
                 isOpen={modalState}
-                className="modal"
+                className="model-info-content"
                 onRequestClose={closeModal}
             >
-                <div className="courseInfoContent">
-                    <div>
-                        <pre class="text">
-                            <b>
-                                {event.title}: {longTitle}
-                            </b>
-                        </pre>
-                        <pre class="text">
-                            <b>
-                                {days} {event.desc}
-                            </b>
-                        </pre>
-                        <pre class="text">
-                            <b> CRN: </b>
-                            {CRN}{" "}
-                        </pre>
-                        <pre class="text">
-                            <b> Course Instructor: </b>
-                            {event.instructor}{" "}
-                        </pre>
-                        <pre class="text">
-                            <b> Max Enrollment: </b>
-                            {maxEnroll}
-                        </pre>
-                        <pre class="text">
-                            <b> Prerequisites: </b>
-                        </pre>
-                        <pre class="text">
-                            <b> Corerequisites: </b>{" "}
-                        </pre>
+                <div className="course-info-content">
+                    <div className="course-title">
+                        {event.title}: {longTitle}
+                    </div>
+                    <div className="float-container">
+                        <div className="float-child">
+                            <div className="category">
+                                {" "}
+                                {source} {event.desc}{" "}
+                            </div>
+                            <div className="category">CRN: {CRN} </div>
+                            <div className="category">
+                                Credits: {event.creditsMin}{" "}
+                            </div>
+                            <div className="category">
+                                Distribution: {event.distribution}
+                            </div>
+                            <div className="category">
+                                Prerequisites: {event.prereqs}
+                            </div>
+                            <div className="category">
+                                Corequisites: {event.coreqs}
+                            </div>
+                        </div>
+                        <div className="float-child">
+                            <div className="category">
+                                Max Enrollment: {event.maxEnrollment}
+                            </div>
+                            <div className="category">
+                                Current Enrollment: {event.enrollment}
+                            </div>
+                            <div className="category">
+                                Max Waitlisted: {event.maxWaitlisted}
+                            </div>
+                            <div className="category">
+                                Waitlisted: {event.waitlisted}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="course-instructor">
+                        Course Instructor: {event.instructor}{" "}
                     </div>
                 </div>
             </Modal>

@@ -5,7 +5,6 @@
 .course-eval-header {
     display: flex;
     flex-direction: row;
-    padding: 1rem;
     background-color: var(--background-color);
 }
 
@@ -51,7 +50,7 @@
     color: #338182;
 }
 
-.course-title {
+.course-title-eval {
     color: #1dc2c4;
 }
 

@@ -529,7 +529,7 @@ function Header() {
                         display: { xs: "block", md: "none" },
                     }}
                     MenuListProps={{
-                        classes: { fontFamily: classes.fontFam },
+                        classes: { root: classes.fontFam },
                     }}
                 >
                     <MenuItem onClick={() => history.push("/schedule")}>

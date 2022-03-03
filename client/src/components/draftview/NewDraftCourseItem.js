@@ -241,6 +241,27 @@ const NewDraftCourseItem = (props) => {
         setModal(false);
     };
 
+    const [modalState2, setModal2] = useState(false);
+
+    const openModal2 = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                evalModalState: true,
+            },
+        });
+        setModal2(true);
+    };
+    const closeModal2 = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                evalModalState: false,
+            },
+        });
+        setModal2(false);
+    };
+
     return (
         <div
             className={`draft-course-item-container ${
@@ -263,7 +284,7 @@ const NewDraftCourseItem = (props) => {
                             color: borderColor,
                             textDecoration: "underline",
                         }}
-                        onClick={openModal}
+                        onClick={openModal2}
                     >
                         {props.session.course.subject}{" "}
                         {props.session.course.courseNum}:{" "}
@@ -272,9 +293,9 @@ const NewDraftCourseItem = (props) => {
                 </div>
 
                 <Modal
-                    isOpen={modalState}
+                    isOpen={modalState2}
                     className="model-info-content"
-                    onRequestClose={closeModal}
+                    onRequestClose={closeModal2}
                 >
                     <div className="course-info-content">
                         <div className="course-title">

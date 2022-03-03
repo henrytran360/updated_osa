@@ -5,7 +5,7 @@ import Header from "./components/header/Header";
 import { render } from "react-dom";
 import { Router } from "react-router";
 import Routes from "./components/Routes";
-import Footer from "./components/footer/Footer"
+import Footer from "./components/footer/Footer";
 
 // Setup history
 import { createBrowserHistory } from "history";

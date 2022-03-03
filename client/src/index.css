@@ -1,4 +1,6 @@
-html, body, #app {
+html,
+body,
+#app {
     height: 100%;
 }
 
@@ -6,17 +8,17 @@ html, body, #app {
     --background-color: #fff;
     /* used for most backgrounds */
     --secondary-bg-color: #485888;
-    --tertiary-bg-color: #F2FAFC;
+    --tertiary-bg-color: #f2fafc;
     --quaternary-bg-color: #e35f4980;
-    --primary-color: #1EBFC2;
+    --primary-color: #1ebfc2;
     /* used for p tags */
-    --secondary-color: #12B0B2;
+    --secondary-color: #12b0b2;
     /* used for headings, navbar tabs */
-    --tertiary-color: #8E9EB2;
+    --tertiary-color: #8e9eb2;
     /* used for icon, course time */
     --quaternary-color: #384569;
     /* used for course code, course instructor, course event, login buttons */
-    --quinary-color: #42BEBF60;
+    --quinary-color: #42bebf60;
     /* used for search button */
     --link-color: #543fd7;
     /* used for a tags */
@@ -29,27 +31,27 @@ html, body, #app {
     --search-background-focused: #1dc2c4;
 }
 
-html[data-theme='Color Blind'] {
+html[data-theme="Color Blind"] {
     /* Design this theme */
     --background-color: #fff;
     --secondary-bg-color: #485888;
-    --tertiary-bg-color: #F2FAFC;
+    --tertiary-bg-color: #f2fafc;
     --primary-color: #107577;
-    --secondary-color: #12B0B2;
-    --tertiary-color: #8E9EB2;
+    --secondary-color: #12b0b2;
+    --tertiary-color: #8e9eb2;
     --quaternary-color: #384569;
-    --quinary-color: #42BEBF60;
+    --quinary-color: #42bebf60;
     --link-color: #543fd7;
     --selection-color: #9595ff;
     --border-color: #bbeced;
     --search-button-bg: #42bebf60;
-    --shadow-color: whitesmoke
+    --shadow-color: whitesmoke;
 }
 
-html[data-theme='Red'] {
+html[data-theme="Red"] {
     --background-color: rgb(255, 182, 182);
     --secondary-bg-color: #886e48;
-    --tertiary-bg-color: #F2FAFC;
+    --tertiary-bg-color: #f2fafc;
     --quaternary-bg-color: #ec4f3480;
     --primary-color: #c2371e;
     --secondary-color: #ff0000;
@@ -64,15 +66,15 @@ html[data-theme='Red'] {
     --search-background-focused: #c4441d;
 }
 
-html[data-theme='Dark'] {
+html[data-theme="Dark"] {
     --background-color: #242222;
     --secondary-bg-color: #374058;
     --tertiary-bg-color: #303435;
     --primary-color: #b0f4f5;
     --secondary-color: #5ccfd1;
-    --tertiary-color: #8E9EB2;
+    --tertiary-color: #8e9eb2;
     --quaternary-color: #868faa;
-    --quinary-color: #42BEBF60;
+    --quinary-color: #42bebf60;
     --link-color: #7b6ddb;
     --selection-color: #9595ff;
     --border-color: #bbeced;
@@ -80,7 +82,7 @@ html[data-theme='Dark'] {
     --shadow-color: rgba(255, 255, 255, 0.5);
 }
 
-html[data-theme='High Contrast'] {
+html[data-theme="High Contrast"] {
     --background-color: #000000;
     --secondary-bg-color: #292c35;
     --tertiary-bg-color: #303131;
@@ -93,10 +95,10 @@ html[data-theme='High Contrast'] {
     --selection-color: #a1a1c9;
     --border-color: #bbeced;
     --search-button-bg: #4bdd37fb;
-    --shadow-color: whitesmoke
+    --shadow-color: whitesmoke;
 }
 
-html[data-theme='Purple'] {
+html[data-theme="Purple"] {
     --background-color: rgb(59, 0, 77);
     --secondary-bg-color: #794888;
     --tertiary-bg-color: #601069;
@@ -127,20 +129,25 @@ body {
     padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: var(--secondary-color)
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--secondary-color);
 }
 
 p {
-    color: var(--primary-color)
+    color: var(--primary-color);
 }
 
 a {
-    color: var(--link-color)
+    color: var(--link-color);
 }
 
 ::selection {
-    background-color: var(--selection-color)
+    background-color: var(--selection-color);
 }
 
 * {
@@ -151,14 +158,16 @@ a {
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf")
+        format("truetype");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf")
+        format("truetype");
     font-weight: normal;
     font-style: italic;
 }
@@ -172,7 +181,8 @@ a {
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf")
+        format("truetype");
     font-weight: medium;
     font-style: normal;
 }
