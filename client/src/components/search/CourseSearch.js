@@ -704,10 +704,18 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
 
     // Don't show anything until departments & instructors are finished loading
     const errorDepartMessage = (
-        <p> Departments for this term are not availble at this moment. Please try another term 🥺</p>
+        <p>
+            {" "}
+            Departments for this term are not availble at this moment. Please
+            try another term 🥺
+        </p>
     );
     const errorInstrMessage = (
-        <p> Instructors for this term are not availble at this moment. Please try another term 🥺</p>
+        <p>
+            {" "}
+            Instructors for this term are not availble at this moment. Please
+            try another term 🥺
+        </p>
     );
     if (departmentsLoading || instructorsLoading)
         return (
@@ -715,8 +723,8 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                 <CircularProgress color="inherit" />
             </div>
         );
-    console.log(departmentsError);
-    console.log(instructorsError);
+    // console.log(departmentsError);
+    // console.log(instructorsError);
     // if (departmentsError || instructorsError) return errorMessage;
     if (departmentsError) return errorDepartMessage;
     if (instructorsError) return errorInstrMessage;
@@ -728,8 +736,6 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     return (
         <div className="searchBar">
             <div className="searchBar-content">
-
-
                 <div className="searchText">Search by:</div>
                 <div className="button-and-search">
                     <Select

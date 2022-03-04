@@ -89,17 +89,23 @@ const convertSectionToEvents = (section, session) => {
             .add(momentEnd.minute(), "minutes");
 
         let instructors_str = "";
-        for (let i = 0; i < session.instructors.length - 1; i++) {
-            instructors_str +=
-                session.instructors[i].firstName +
-                " " +
-                session.instructors[i].lastName +
-                ", ";
+        if (session) {
+            if (session.instructors.length > 0) {
+                for (let i = 0; i < session.instructors.length - 1; i++) {
+                    instructors_str +=
+                        session.instructors[i].firstName +
+                        " " +
+                        session.instructors[i].lastName +
+                        ", ";
+                }
+                instructors_str +=
+                    session.instructors[session.instructors.length - 1]
+                        .firstName +
+                    " " +
+                    session.instructors[session.instructors.length - 1]
+                        .lastName;
+            }
         }
-        instructors_str +=
-            session.instructors[session.instructors.length - 1].firstName +
-            " " +
-            session.instructors[session.instructors.length - 1].lastName;
 
         // let instructorName = "";
         // if (session.instructors[0]) {

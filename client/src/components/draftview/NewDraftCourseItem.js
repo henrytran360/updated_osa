@@ -200,19 +200,23 @@ const NewDraftCourseItem = (props) => {
         ":" +
         props.session.class.endTime.substring(2, 4);
     let instructors_str = "";
-    for (let i = 0; i < props.session.instructors.length - 1; i++) {
-        instructors_str +=
-            props.session.instructors[i].firstName +
-            " " +
-            props.session.instructors[i].lastName +
-            ", ";
+    if (props.session) {
+        if (props.session.instructors.length > 0) {
+            for (let i = 0; i < props.session.instructors.length - 1; i++) {
+                instructors_str +=
+                    props.session.instructors[i].firstName +
+                    " " +
+                    props.session.instructors[i].lastName +
+                    ", ";
+            }
+            instructors_str +=
+                props.session.instructors[props.session.instructors.length - 1]
+                    .firstName +
+                " " +
+                props.session.instructors[props.session.instructors.length - 1]
+                    .lastName;
+        }
     }
-    instructors_str +=
-        props.session.instructors[props.session.instructors.length - 1]
-            .firstName +
-        " " +
-        props.session.instructors[props.session.instructors.length - 1]
-            .lastName;
 
     let coreqs_str = "";
     for (let j = 0; j < props.session.course.coreqs.length; j++) {

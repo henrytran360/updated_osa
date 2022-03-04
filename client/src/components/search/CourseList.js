@@ -228,10 +228,7 @@ const REMOVE_DRAFT_SESSION = gql`
 const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
     let sessionSelected = false;
 
-    const {
-        state: { bottomModeContext },
-        changeBottomModeContext,
-    } = useContext(BottomModeContext);
+    const bottomModeContext = useContext(BottomModeContext);
 
     // Update draft sessions to only include valid sessions
     draftSessions = draftSessions.filter((draft) => draft.session);
@@ -256,6 +253,8 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
     ] = useMutation(REMOVE_DRAFT_SESSION, {
         variables: { scheduleID: scheduleID, sessionID: session._id },
     });
+
+    const [count, setCount] = useState(0);
 
     return (
         <div
@@ -293,7 +292,11 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
                         );
                         e.preventDefault();
                         // Execute mutation to add this session of the course to the user's draftsessions
-                        addDraftSession();
+                        if (count == 0) {
+                            addDraftSession();
+                            setCount(count + 1);
+                        }
+                        setCount(0);
                     }
                 }}
                 style={{ alignItems: "left" }}
@@ -356,8 +359,12 @@ const CourseList = ({
     // we need to check the object's value instead of directly checking searchType === ""
     if (Object.values(searchType)[0] === "") return <br />;
 
+    const errorMessage = (
+        <p>Something went wrong. Please refresh the page and try again 🥺</p>
+    );
+
     if (loading) return <p>Loading...</p>;
-    if (error) return error.message;
+    if (error) return errorMessage;
     if (!courseData) return errorMessage;
 
     // Once the data has loaded, we want to extract the course results
@@ -386,6 +393,7 @@ const CourseList = ({
                 (course) => course.sessions.length > 0
             );
     }
+    console.log("courseResults", courseResults);
 
     if (courseResults.length === 0)
         return <p>No Available Course In This Range</p>;

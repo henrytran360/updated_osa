@@ -4,11 +4,9 @@ import Box from "@mui/material/Box";
 import ThemeToggle from "./ThemeToggle";
 import LoginButton from "../login/LoginButton";
 import FormControl from "@mui/material/FormControl";
-
 import { Button, IconButton } from "@material-ui/core";
 import ThemeSelect from "./ThemeSelect";
 import SettingsIcon from "@mui/icons-material/Settings";
-
 function SettingsModal(props) {
     let feedbackURL = "https://forms.gle/tUiboF8FAQE4AjLs9";
     const style = {
@@ -22,11 +20,9 @@ function SettingsModal(props) {
         boxShadow: 24,
         p: 4,
     };
-
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     return (
         <div
             style={{
@@ -40,7 +36,7 @@ function SettingsModal(props) {
             <IconButton
                 size="small"
                 style={{
-                    backgroundColor: "var(--border-color)",
+                    backgroundColor: "var(--tertiary-bg-color)",
                     color: "var(--search-background-focused)",
                     // fontSize: 15,
                 }}
@@ -89,6 +85,7 @@ function SettingsModal(props) {
                     <ThemeSelect
                         themeCategory="Dark"
                         themeOptions={[
+                            { value: "Butter", label: "Butter" },
                             { value: "Dark", label: "Dark" },
                             { value: "High Contrast", label: "High Contrast" },
                             { value: "Purple", label: "Purple" },
@@ -111,5 +108,4 @@ function SettingsModal(props) {
         </div>
     );
 }
-
 export default SettingsModal;

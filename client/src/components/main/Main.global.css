@@ -2,27 +2,22 @@
     margin-left: 35px;
     margin-bottom: 10px;
 }
-
 .buttonGroup > .iconButton {
     border: 1px solid;
     height: 13px;
     border-radius: 5px 0px 0px 5px;
 }
-
 .iconButton:first-child {
     border-radius: 5px 0px 0px 5px;
 }
-
 .iconButton:last-child {
     border-radius: 0px 5px 5px 0px;
 }
-
 .iconButton:hover,
 .iconButton:focus,
 .iconButton:active {
     color: #e91e63;
 }
-
 .Container {
     display: flex;
     opacity: 1;
@@ -33,12 +28,11 @@
     justify-content: center;
     flex-direction: column;
 }
-
 .ContentContainer {
     display: flex;
     opacity: 1;
     width: 100%;
-    height: 100%;
+    /* height: 92%; */
     /* overflow-y: hidden; */
     overflow-x: hidden;
     border-top: 0.5px solid var(--border-color);

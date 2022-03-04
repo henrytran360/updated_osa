@@ -3,12 +3,11 @@ body,
 #app {
     height: 100%;
 }
-
 :root {
     --background-color: #fff;
     /* used for most backgrounds */
     --secondary-bg-color: #485888;
-    --tertiary-bg-color: #f2fafc;
+    --tertiary-bg-color: #d0f6ff;
     --quaternary-bg-color: #e35f4980;
     --primary-color: #1ebfc2;
     /* used for p tags */
@@ -30,7 +29,6 @@ body,
     --shadow-color: rgba(0, 0, 0, 0.15);
     --search-background-focused: #1dc2c4;
 }
-
 html[data-theme="Color Blind"] {
     /* Design this theme */
     --background-color: #fff;
@@ -47,11 +45,10 @@ html[data-theme="Color Blind"] {
     --search-button-bg: #42bebf60;
     --shadow-color: whitesmoke;
 }
-
 html[data-theme="Red"] {
-    --background-color: rgb(255, 182, 182);
+    --background-color: rgb(255, 168, 168);
     --secondary-bg-color: #886e48;
-    --tertiary-bg-color: #f2fafc;
+    --tertiary-bg-color: #e47676;
     --quaternary-bg-color: #ec4f3480;
     --primary-color: #c2371e;
     --secondary-color: #ff0000;
@@ -65,7 +62,6 @@ html[data-theme="Red"] {
     --shadow-color: rgba(0, 0, 0, 0.15);
     --search-background-focused: #c4441d;
 }
-
 html[data-theme="Dark"] {
     --background-color: #242222;
     --secondary-bg-color: #374058;
@@ -81,7 +77,6 @@ html[data-theme="Dark"] {
     --search-button-bg: #42bebf60;
     --shadow-color: rgba(255, 255, 255, 0.5);
 }
-
 html[data-theme="High Contrast"] {
     --background-color: #000000;
     --secondary-bg-color: #292c35;
@@ -97,7 +92,6 @@ html[data-theme="High Contrast"] {
     --search-button-bg: #4bdd37fb;
     --shadow-color: whitesmoke;
 }
-
 html[data-theme="Purple"] {
     --background-color: rgb(59, 0, 77);
     --secondary-bg-color: #794888;
@@ -115,11 +109,26 @@ html[data-theme="Purple"] {
     --shadow-color: rgba(221, 221, 221, 0.952);
     --search-background-focused: #fff23a;
 }
-
+html[data-theme="Butter"] {
+    --background-color: #262622;
+    --secondary-bg-color: #1b1b18;
+    --tertiary-bg-color: #151613;
+    --quaternary-bg-color: rgba(41, 39, 27, 0.94);
+    --primary-color: rgb(255, 251, 222, 94%);
+    --secondary-color: rgb(255, 251, 222, 60%);
+    --tertiary-color: #aeb28e;
+    --quaternary-color: #646938;
+    --quinary-color: #42bf4260;
+    --link-color: rgba(253, 242, 158, 0.94);
+    --selection-color: #ef73ff;
+    --border-color: #edeabb;
+    --search-button-bg: #bf464260;
+    --shadow-color: rgba(221, 221, 221, 0.952);
+    --search-background-focused: rgba(253, 242, 158, 0.94);
+}
 #app {
     transition: all 0.5s ease-in-out;
 }
-
 body {
     font-family: "Acari Sans", sans-serif;
     margin: 0;
@@ -128,7 +137,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
 h1,
 h2,
 h3,
@@ -137,25 +145,20 @@ h5,
 h6 {
     color: var(--secondary-color);
 }
-
 p {
     color: var(--primary-color);
 }
-
 a {
     color: var(--link-color);
 }
-
 ::selection {
     background-color: var(--selection-color);
 }
-
 * {
     scrollbar-width: 18px;
     /*thin;*/
     /* scrollbar-color: skyblue #000066; */
 }
-
 @font-face {
     font-family: "Acari Sans";
     src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf")
@@ -163,7 +166,6 @@ a {
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: "Acari Sans";
     src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf")
@@ -171,14 +173,12 @@ a {
     font-weight: normal;
     font-style: italic;
 }
-
 @font-face {
     font-family: "Acari Sans";
     src: url("./assets/fonts/acari-sans/AcariSans-Bold.ttf") format("truetype");
     font-weight: normal;
     font-style: bold;
 }
-
 @font-face {
     font-family: "Acari Sans";
     src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf")
