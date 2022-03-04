@@ -82,7 +82,7 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                         marginBottom: 10,
                         display: "flex",
                         alignItems: "center",
-                        height: "5%",
+                        height: "3%",
                         color: "var(--primary-color)",
                     }}
                 >
