@@ -3,6 +3,7 @@ import SwipeableViews from "react-swipeable-views";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Collapse from "@material-ui/core/Collapse";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Event } from "../../utils/analytics";
 import { classTimeString } from "../../utils/CourseTimeTransforms";
 import Detail from "./Detail";
@@ -363,7 +364,7 @@ const CourseList = ({
         <p>Something went wrong. Please refresh the page and try again 🥺</p>
     );
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p><CircularProgress /></p>;
     if (error) return errorMessage;
     if (!courseData) return errorMessage;
 

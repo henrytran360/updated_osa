@@ -98,7 +98,7 @@ const QUERY_USER_SCHEDULES = gql`
 `;
 
 // Toast for notifications
-const Main = ({}) => {
+const Main = ({ }) => {
     // Check for recent update from cache
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     let { term, recentUpdate } = storeData;
@@ -153,7 +153,7 @@ const Main = ({}) => {
                         bottomMode2.Calendar &&
                         bottomMode2.Details && (
                             <>
-                                <div style={{ width: "30%", height: "100%" }}>
+                                <div style={{ width: "30%" }}>
                                     <CourseSearch
                                         scheduleID={schedule._id}
                                         clickValue={bottomMode}
@@ -177,7 +177,7 @@ const Main = ({}) => {
                         bottomMode2.Calendar &&
                         !bottomMode2.Details && (
                             <>
-                                <div style={{ width: "40%", height: "100%" }}>
+                                <div style={{ width: "40%" }}>
                                     <CourseSearch
                                         scheduleID={schedule._id}
                                         clickValue={bottomMode}
@@ -195,7 +195,7 @@ const Main = ({}) => {
                         !bottomMode2.Calendar &&
                         bottomMode2.Details && (
                             <>
-                                <div style={{ width: "50%", height: "100%" }}>
+                                <div style={{ width: "50%" }}>
                                     <CourseSearch
                                         scheduleID={schedule._id}
                                         clickValue={bottomMode}
@@ -232,7 +232,7 @@ const Main = ({}) => {
                         !bottomMode2.Calendar &&
                         !bottomMode2.Details && (
                             <>
-                                <div style={{ width: "100%", height: "100%" }}>
+                                <div style={{ width: "100%" }}>
                                     <CourseSearch
                                         scheduleID={schedule._id}
                                         clickValue={bottomMode}
@@ -245,7 +245,7 @@ const Main = ({}) => {
                         bottomMode2.Calendar &&
                         !bottomMode2.Details && (
                             <>
-                                <div style={{ width: "100%", height: "100%" }}>
+                                <div style={{ width: "100%" }}>
                                     <CourseCalendar
                                         draftSessions={schedule.draftSessions}
                                     />
@@ -258,7 +258,7 @@ const Main = ({}) => {
                         !bottomMode2.Calendar &&
                         bottomMode2.Details && (
                             <>
-                                <div style={{ width: "100%", height: "100%" }}>
+                                <div style={{ width: "100%" }}>
                                     <NewClassSelector
                                         scheduleID={schedule._id}
                                         draftSessions={schedule.draftSessions}
@@ -267,7 +267,7 @@ const Main = ({}) => {
                             </>
                         )}
                 </div>
-                {/* <Footer /> */}
+                <Footer />
             </div>
         );
     };
@@ -278,8 +278,8 @@ const Main = ({}) => {
             style={{
                 display: "flex",
                 flexDirection: "column",
-                color: "#272D2D",
-                height: "100%",
+                color: "var(--quaternary-bg-color)",
+                // height: "100%",
             }}
         >
             {/* <div style={{ padding: "2%" }}>

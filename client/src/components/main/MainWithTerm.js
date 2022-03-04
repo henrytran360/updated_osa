@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import CourseCalendar from "../calendar/Calendar";
 import ClassSelector from "../draftview/ClassSelector";
+import Footer from "../footer/Footer";
 import CourseSearch from "../search/CourseSearch";
 import { useToasts } from "react-toast-notifications";
 import { useQuery, gql, useMutation } from "@apollo/client";
@@ -194,6 +195,7 @@ const Main = ({}) => {
             <BottomModeContext.Provider value={bottomMode}>
                 {renderContent()}
             </BottomModeContext.Provider>
+            <Footer />
         </div>
     );
 };

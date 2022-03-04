@@ -6,7 +6,5 @@
     justify-content: flex-end;
     align-items: center;
     text-align: center;
-    height: 8%;
-    position: absolute;
-    bottom: 0px;
+    /* height: 8%; */
 }
