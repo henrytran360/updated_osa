@@ -15,7 +15,7 @@
     font-style: normal;
     font-size: 15.75px;
     line-height: 19px;
-    color: var(--search-button-bg);
+    color: var(--secondary-color);
     cursor: pointer;
     border-radius: 5px;
     display: flex;

@@ -76,6 +76,33 @@
     flex-direction: column;
     justify-content: center; */
 }
+
+.buttonBottom {
+    width: 25%;
+
+    height: 35px;
+    left: 128px;
+    top: 511px;
+    border: 1.5px solid var(--tertiary-bg-color);
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    left: 10.64%;
+    right: 82.37%;
+    top: 52.58%;
+    bottom: 45.24%;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15.75px;
+    line-height: 19px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+}
 /* hover is a keyword */
 .button:hover {
     background-color: var(--primary-color);
@@ -124,6 +151,7 @@
     border-radius: 5px;
     overflow-y: auto;
     border: 2px solid var(--primary-color);
+    background: var(--background-color);
 }
 
 .textbox {

@@ -125,7 +125,7 @@ body {
 .icon-container {
     width: 30px;
     height: 30px;
-    background-color: var(--tertiary-bg-color);
+    background-color: var(--border-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -146,7 +146,7 @@ body {
 }
 
 .icon-container-2-color {
-    background-color: var(--tertiary-bg-color);
+    background-color: var(--border-color);
     border-radius: 5px;
 }
 

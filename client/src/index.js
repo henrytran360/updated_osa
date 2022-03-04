@@ -35,7 +35,7 @@ render(
                             <Router history={history}>
                                 <ToastProvider>
                                     <Routes />
-                                    <Footer />
+                                    {/* <Footer /> */}
                                 </ToastProvider>
                             </Router>
                         </ApolloProvider>

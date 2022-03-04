@@ -257,7 +257,7 @@ const SemesterBox = (props) => {
                     // onClick={() => history.push(`/schedule`)}
                     onClick={openModal2}
                 >
-                    Edit
+                    Edit Plan
                 </button>
 
                 <Modal
@@ -276,13 +276,13 @@ const SemesterBox = (props) => {
                     Notes
                 </button>
 
-                <button
+                {/* <button
                     className="button"
                     // style={{ width: "170px" }}
                     onClick={saveCustomCoursesToDatabase}
                 >
                     Save Custom
-                </button>
+                </button> */}
                 <Modal
                     isOpen={modalState}
                     className="modalNotes"
@@ -296,7 +296,7 @@ const SemesterBox = (props) => {
                     // style={{ width: "170px" }}
                     onClick={addCustomCourseAction}
                 >
-                    Custom Course
+                    Add Custom Course
                 </button>
             </div>
             <div className="semesterFlexBox">
@@ -338,6 +338,17 @@ const SemesterBox = (props) => {
                             />
                         );
                     })}
+                {extractedCustomCourseList.length > 0 ? (
+                    <button
+                        className="buttonBottom"
+                        // style={{ width: "170px" }}
+                        onClick={saveCustomCoursesToDatabase}
+                    >
+                        Save Custom
+                    </button>
+                ) : (
+                    <div></div>
+                )}
             </div>
         </div>
     );
