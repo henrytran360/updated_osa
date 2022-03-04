@@ -56,7 +56,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 const StyledHeaderTableCell = withStyles((theme) => ({
     root: {
-        color: "#697E99",
+        color: "var(--secondary-bg-color)",
         backgroundColor: "var(--background-color)",
         border: "0px",
     },

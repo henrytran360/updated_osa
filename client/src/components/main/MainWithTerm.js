@@ -169,7 +169,7 @@ const Main = ({}) => {
                 value={values[index]}
                 style={{
                     backgroundColor:
-                        bottomMode == values[index] ? "#697e99" : "",
+                        bottomMode == values[index] ? "var(--secondary-bg-color)" : "",
                 }}
             >
                 {console.log(bottomMode)}
@@ -179,7 +179,7 @@ const Main = ({}) => {
     };
 
     return (
-        <div className="App" style={{ display: "inline", color: "#272D2D" }}>
+        <div className="App" style={{ display: "inline", color: "var(--quaternary-bg-color)" }}>
             <Header curTerm={curTerm} />
 
             <div style={{ padding: "2%" }}>

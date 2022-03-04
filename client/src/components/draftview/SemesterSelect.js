@@ -45,7 +45,7 @@ const customStyles = {
     },
     control: (base, state) => ({
         ...base,
-        color: "#1DC2C4",
+        color: "var(--search-background-focused)",
         zIndex: 0,
         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
         borderColor: "var(--border-color)",

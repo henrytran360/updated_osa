@@ -79,7 +79,7 @@ const LeftCourseBox = (props) => {
                             style={{
                                 textDecoration: "underline",
                                 fontWeight: 900,
-                                color: "#12B0B2",
+                                color: "var(--link-color)",
                             }}
                             href={createURL(props.courseNum, props.subject)}
                             target="_blank"
