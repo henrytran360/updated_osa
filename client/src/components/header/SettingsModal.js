@@ -91,11 +91,11 @@ function SettingsModal(props) {
                             { value: "Purple", label: "Purple" },
                         ]}
                     />
-                    <div class="closeSettings">
+                    <div className="closeSettings">
                         <Button
                             style={{
-                                color: "var(--quaternary-bg-color)",
-                                border: "1px solid var(--quaternary-bg-color)",
+                                color: "var(--link-color)",
+                                border: "1px solid var(--link-color)",
                             }}
                             variant="outlined"
                             onClick={handleClose}

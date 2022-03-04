@@ -1,5 +1,6 @@
 .modal-container {
     z-index: 1;
+    background-color: var(--background-color);
 }
 
 .course-eval-header {
@@ -51,7 +52,7 @@
 }
 
 .course-title-eval {
-    color: #1dc2c4;
+    color: var(--search-background-focused);
 }
 
 .eval-exit {

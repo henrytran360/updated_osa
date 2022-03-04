@@ -102,7 +102,7 @@ html[data-theme="Purple"] {
     --tertiary-color: #aeb28e;
     --quaternary-color: #646938;
     --quinary-color: #42bf4260;
-    --link-color: #d7d43f;
+    --link-color: #3fc0d7;
     --selection-color: #ff9595;
     --border-color: #d9bbed;
     --search-button-bg: #bf464260;
@@ -124,7 +124,7 @@ html[data-theme="Butter"] {
     --border-color: #edeabb;
     --search-button-bg: #bf464260;
     --shadow-color: rgba(221, 221, 221, 0.952);
-    --search-background-focused: rgba(253, 242, 158, 0.94);
+    --search-background-focused: rgba(179, 168, 86, 0.94);
 }
 #app {
     transition: all 0.5s ease-in-out;
