@@ -191,7 +191,7 @@ const draftSessionsToEvents = (draftSessions) => {
 
 const slotStyleGetter = (date) => {
     var style = {
-        font: "Medium 23px/26px",
+        font: "Medium 28px/31px",
         letterSpacing: "0px",
         color: "var(--quaternary-color)",
         opacity: 1,
@@ -210,7 +210,6 @@ const dayStyleGetter = (date) => {
         color: "var(--search-background-focused)",
         opacity: 1,
         // border: "1px dashed #E4E8EE",
-        paddingTop: "16.5px",
         textTransform: "uppercase",
     };
 
@@ -244,6 +243,19 @@ const CustomClassEvent = ({ event }) => {
     let moduloValue = event.hexId % colorCombos.length;
 
     var sidebarColor = colorCombos[moduloValue][1];
+    /* Removing AM from the start time of a class and also removing 
+    an extra 0 if hour is a single digit */
+    let classTimeStart = event.desc.substr(0, 5);
+    let classTimeEnd = event.desc.substr(11);
+    if (classTimeStart.charAt(0) == '0')
+    {
+        classTimeStart = classTimeStart.substr(1);
+    }
+    if (classTimeEnd.charAt(0) == '0')
+    {
+        classTimeEnd = classTimeEnd.substr(1);
+    }
+    let classTime = classTimeStart + " - " + classTimeEnd;
 
     const [modalState, setModal] = useState(false);
     const openModal = () => {
@@ -318,7 +330,7 @@ const CustomClassEvent = ({ event }) => {
             />
             <div className="courseEvent" onClick={openModal}>
                 <p id="courseCode">{event.title}</p>
-                <p id="courseTime">{event.desc}</p>
+                <p id="courseTime">{classTime}</p>
                 <p id="courseInstructor">{event.instructor}</p>
             </div>
         </div>
@@ -331,12 +343,12 @@ const CourseCalendar = ({ draftSessions }) => {
             <Calendar
                 components={{ event: CustomClassEvent }}
                 events={draftSessionsToEvents(draftSessions)}
-                step={20}
+                step={30}
                 timeslots={2}
-                length={30}
                 localizer={localizer}
                 defaultView={Views.WEEK}
-                formats={{ dayFormat: "ddd" }} // Calendar columns show "MON", "TUES", ...
+                // Calendar columns show "MON", "TUES", ... and the time format is in 12 hours with only the hours displayed
+                formats={{  dayFormat: "ddd" , timeGutterFormat: 'ha'}}
                 views={{ month: false, week: CourseWeek, day: false }}
                 drilldownView={null}
                 defaultDate={moment("Sunday", "ddd")} // Always start on Sunday of the week
