@@ -9,7 +9,9 @@ const loadingTextOptions = [
     "Hooray Rice Apps!",
     "Objects and references ... trickle down variables",
     "Automatic. Still is.",
-    "What do all the hens do on a Saturday night? Watch a chick flick."
+    "What do all the hens do on a Saturday night? Watch a chick flick.",
+    "Hatch: Brought to you by KFC. (maybe one day)",
+    "Hatch: Brought to you by Chick-fil-A. (maybe one day)"
 ];
 
 const useStyles = makeStyles((theme) => ({

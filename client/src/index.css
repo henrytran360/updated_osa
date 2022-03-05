@@ -29,6 +29,16 @@ body,
     --search-button-bg: #42bebf60;
     --shadow-color: rgba(0, 0, 0, 0.15);
     --warning-color: #e9d50d;
+    --course-color1: #1E85E880;
+    --course-color2: #F5D581B3;
+    --course-color3: #E35F4980;
+    --course-color4: #76C5AFBF;
+    --course-color5: #000000FF;
+    --course-border1: #F2F9FF;
+    --course-border2: #FFFFF2;
+    --course-border3: #FFFCFB;
+    --course-border4: #FDFFFE;
+    --course-border5: #FFFFFF;
 
 }
 
