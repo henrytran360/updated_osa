@@ -1,16 +1,10 @@
-/* :root {
-    --main-text-color: #e35f49;
-    --main-bg-color: #697e99;
-    --secondary-bg-color: #f7fafc;
-} */
-
 .courseListContainer {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
     flex: 1;
-
+    /* height: 100%; */
     overflow-y: scroll;
     background-color: var(--main-bg-color);
 
@@ -49,13 +43,13 @@
 .courseRow .courseCode {
     text-align: left;
     /* text-decoration: underline; */
-    color: #384569;
+    color: var(--secondary-color);
     opacity: 1;
 }
 
 .courseRow > .courseName {
     text-align: left;
-    color: var(--bold-text-color);
+    color: var(--secondary-color);
     /* text-decoration: underline; */
     font: normal normal medium 23px/27px;
     letter-spacing: 0px;
@@ -71,7 +65,7 @@
     display: grid;
     grid-template-columns: 1fr 11fr;
 
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: var(--background-color) 0% 0% no-repeat padding-box;
     border-radius: 10px;
     opacity: 1;
     margin-bottom: 10px;
@@ -80,7 +74,7 @@
     text-align: left;
     font: normal normal normal 19px/27px;
     letter-spacing: 0px;
-    color: #697e99;
+    color: var(--tertiary-color);
     opacity: 1;
 
     align-items: baseline;

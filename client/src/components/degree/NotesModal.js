@@ -12,6 +12,7 @@ import { convertToHTML } from "draft-convert";
 import "draft-js/dist/Draft.css";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import "./NotesModal.css";
+import TermNumber from "../../constants/TermNumber";
 
 const BLOCK_TYPES = [
     { label: "H1", style: "header-one" },
@@ -216,13 +217,7 @@ export default function NotesModal(props) {
         if (props.term) {
             let y = props.term.substring(0, 4);
             let s = props.term.substring(4, 6);
-            if (s == "10") {
-                setSem("Fall");
-            } else if (s == "20") {
-                setSem("Spring");
-            } else {
-                setSem("Summer");
-            }
+            setSem(TermNumber.get(s));
             setYear(y);
         }
     }, [props.term]);

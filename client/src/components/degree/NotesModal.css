@@ -9,13 +9,13 @@
 .saveBtn {
     width: 50px;
     height: 35px;
-    border: 1.5px solid #e1e3e3;
+    border: 1.5px solid var(--tertiary-bg-color);
     box-sizing: border-box;
-    background-color: white;
+    background-color: var(--background-color);
     font-style: normal;
     font-size: 15.75px;
     line-height: 19px;
-    color: #149fa0;
+    color: var(--secondary-color);
     cursor: pointer;
     border-radius: 5px;
     display: flex;
@@ -23,7 +23,7 @@
     align-items: center;
 }
 .RichEditor-root {
-    background: #fff;
+    background: var(--background-color);
     font-family: "Georgia", serif;
     font-size: 14px;
     padding: 15px;
@@ -33,7 +33,7 @@
 }
 
 .RichEditor-editor {
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--background-color);
     cursor: text;
     font-size: 16px;
     margin-top: 10px;
@@ -55,8 +55,8 @@
 }
 
 .RichEditor-editor .RichEditor-blockquote {
-    border-left: 5px solid #eee;
-    color: #666;
+    border-left: 5px solid var(--background-color);
+    color: var(--tertiary-color);
     font-family: "Hoefler Text", "Georgia", serif;
     font-style: italic;
     margin: 16px 0;
@@ -64,7 +64,7 @@
 }
 
 .RichEditor-editor .public-DraftStyleDefault-pre {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--shadow-color);
     font-family: "Inconsolata", "Menlo", "Consolas", monospace;
     font-size: 16px;
     padding: 20px;
@@ -78,7 +78,7 @@
 }
 
 .RichEditor-styleButton {
-    color: #999;
+    color: var(--tertiary-color);
     cursor: pointer;
     margin-right: 16px;
     padding: 2px 0;
@@ -86,5 +86,5 @@
 }
 
 .RichEditor-activeButton {
-    color: #5890ff;
+    color: var(--link-color);
 }

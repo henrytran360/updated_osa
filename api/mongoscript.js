@@ -1,16 +1,20 @@
 //RUNNING THIS SCRIPT WILL CHANGE THE DATA IN MONGODB! DONT RUN IF YOU ARE NOT SURE
 
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 async function main() {
     const uri =
         "mongodb+srv://tigerking:wphPpplcHRwNdv29@riceapps2020-21-ppsrv.gcp.mongodb.net/hatch_staging?retryWrites=true&w=majority";
     const client = new MongoClient(uri);
     try {
         await client.connect();
+        //DO NOT RUN THESE FILES
         // await listDatabases(client);
         // await testCollection(client);
-        await addCourseName(client);
+        // await addCourseName(client);
         // await updateName(client);
+        await addDefaultDegreePlanForAll(client);
+        //await dropDegreePlanParentCollection(client);
+        // await addCourseNameEvals(client);
     } catch (e) {
         console.log(e);
     } finally {
@@ -44,13 +48,13 @@ async function testCollection(client) {
 
 async function updateName(client) {
     await client
-        .db("hatch_staging")
+        .db("hatch_prod")
         .collection("course_evaluations_new")
         .find()
         .snapshot()
         .forEach(function (elem) {
             client
-                .db("hatch_staging")
+                .db("hatch_prod")
                 .collection("course_evaluations_new")
                 .updateMany(
                     { _id: elem._id },
@@ -124,18 +128,71 @@ async function addCourseName(client) {
             let fullName = b + " " + c + " " + a;
             client
                 .db("hatch_staging")
-                .collection("courses")
+                .collection("sessions")
                 .updateOne(
+                    {
+                        course: elem._id,
+                    },
+                    {
+                        $set: {
+                            fullCourseName: fullName
+                                .replace(/\s+/g, "")
+                                .toLowerCase(),
+                        },
+                    }
+                );
+        });
+}
+
+async function addCourseNameEvals(client) {
+    await client
+        .db("hatch_staging")
+        .collection("course_evaluations_new")
+        .find()
+        .snapshot()
+        .forEach(function (elem) {
+            let a = elem.name;
+            let b = a.split(" ");
+            let courseName = b[0] + " " + b[1];
+            client
+                .db("hatch_staging")
+                .collection("course_evaluations_new")
+                .updateMany(
                     {
                         _id: elem._id,
                     },
                     {
                         $set: {
-                            fullCourseName: fullName,
+                            courseName: courseName,
                         },
                     }
                 );
         });
+}
+
+async function addDefaultDegreePlanForAll(client) {
+    await client
+        .db("hatch_staging")
+        .collection("users")
+        .find()
+        .snapshot()
+        .forEach(function (user) {
+            let userId = user._id;
+            client
+                .db("hatch_staging")
+                .collection("degreeplanparents")
+                .insertOne({
+                    name: "Default Plan",
+                    user: ObjectId(userId),
+                });
+        });
+}
+
+async function dropDegreePlanParentCollection(client) {
+    await client
+        .db("hatch_staging")
+        .collection("degreeplanparents")
+        .deleteMany({});
 }
 // let mongoose = require("mongoose");
 // let { MONGODB_CONNECTION_STRING } = require("./config");

@@ -11,24 +11,10 @@ const handleLogoClick = () => {
         window.open("https://medium.com/riceapps", "_blank")
     );
 };
-const DegreePlanHeader = () => {
-    const history = useHistory();
+const DegreePlanHeader = (props) => {
     return (
         <div className="DegreePlanNav">
-            <div className="logoContainer">
-                <img
-                    src={RiceAppsLogo}
-                    // style={styles.logo}
-                    onClick={() => handleLogoClick()}
-                />
-            </div>
-            <h1 className="title">My Degree Plan</h1>
-            <button
-                className="toschedule"
-                onClick={() => history.push("/schedule")}
-            >
-                Back To Schedule
-            </button>
+            <h1 className="title">{props.degreePlanName}</h1>
         </div>
     );
 };

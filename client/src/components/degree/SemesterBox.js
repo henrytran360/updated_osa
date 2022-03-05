@@ -6,29 +6,69 @@ import { useHistory } from "react-router";
 import Modal from "react-modal";
 import CustomCourseRow from "./CustomCourseRow";
 import { Context as CustomCourseContext } from "../../contexts/customCourseContext";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation, useApolloClient } from "@apollo/client";
 import EditSchedulePopUp from "./EditSchedulePopUp";
 import EditorJS from "@editorjs/editorjs";
 import NotesModal from "./NotesModal";
+import Alert from "@mui/material/Alert";
 
 // import CustomCourse from "./CustomCourse";
 
 let creditSum;
 
+const GET_LOCAL_DATA = gql`
+    query GetLocalData {
+        term @client
+        recentUpdate @client
+        degreeplanparent @client
+        degreeplanname @client
+        degreeplanlist @client
+        evalModalState @client
+        editModalState @client
+        notesModalState @client
+        eachCourseModalState @client
+    }
+`;
+
 const SemesterBox = (props) => {
+    const client = useApolloClient();
     // for the notes modal
     const [modalState, setModal] = useState(false);
     const [modalState2, setModal2] = useState(false);
     const openModal = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                notesModalState: true,
+            },
+        });
         setModal(true);
     };
     const openModal2 = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                editModalState: true,
+            },
+        });
         setModal2(true);
     };
     const closeModal = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                notesModalState: false,
+            },
+        });
         setModal(false);
     };
     const closeModal2 = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                editModalState: false,
+            },
+        });
         setModal2(false);
     };
     // for the notes content
@@ -41,6 +81,7 @@ const SemesterBox = (props) => {
     const { loading, error, data, refetch } = useQuery(props.query, {
         variables: { _id: props._id },
     });
+    if (error) return <Error message={error.message} />;
     const [updateCustomCourses, { loading2, error2, data2 }] = useMutation(
         props.mutation
     );
@@ -97,11 +138,14 @@ const SemesterBox = (props) => {
         setCustomCourseList(newCustomCourseList);
     };
 
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [successAlert, setSuccessAlert] = useState(false);
+
     const saveCustomCoursesToDatabase = () => {
         let checkValid = true;
         extractedCustomCourseList.forEach(function (course) {
             if (!course) {
-                alert("Please check all the custom courses");
+                setErrorAlert(true);
                 checkValid = false;
                 return;
             }
@@ -114,6 +158,7 @@ const SemesterBox = (props) => {
                 },
             });
             refetch();
+            setSuccessAlert(true);
         }
     };
 
@@ -154,7 +199,6 @@ const SemesterBox = (props) => {
                   distribution: courses.course
                       ? courses.course.distribution
                       : "N/A",
-
               }
             : {
                   subject: "N/A",
@@ -184,6 +228,21 @@ const SemesterBox = (props) => {
 
     return (
         <div className="bigBox">
+            {errorAlert && (
+                <Alert onClose={() => setErrorAlert(false)} severity="error">
+                    Please check all the custom courses
+                </Alert>
+            )}
+
+            {successAlert && (
+                <Alert
+                    onClose={() => setSuccessAlert(false)}
+                    severity="success"
+                >
+                    Your custom courses have been successfully saved!
+                </Alert>
+            )}
+
             <div className="buttonNav">
                 <button
                     onClick={props.deleteSem}
@@ -198,7 +257,7 @@ const SemesterBox = (props) => {
                     // onClick={() => history.push(`/schedule`)}
                     onClick={openModal2}
                 >
-                    Edit Schedule
+                    Edit Plan
                 </button>
 
                 <Modal
@@ -217,13 +276,13 @@ const SemesterBox = (props) => {
                     Notes
                 </button>
 
-                <button
+                {/* <button
                     className="button"
                     // style={{ width: "170px" }}
                     onClick={saveCustomCoursesToDatabase}
                 >
-                    Save Course
-                </button>
+                    Save Custom
+                </button> */}
                 <Modal
                     isOpen={modalState}
                     className="modalNotes"
@@ -237,7 +296,7 @@ const SemesterBox = (props) => {
                     // style={{ width: "170px" }}
                     onClick={addCustomCourseAction}
                 >
-                    Custom Course
+                    Add Custom Course
                 </button>
             </div>
             <div className="semesterFlexBox">
@@ -279,6 +338,17 @@ const SemesterBox = (props) => {
                             />
                         );
                     })}
+                {extractedCustomCourseList.length > 0 ? (
+                    <button
+                        className="buttonBottom"
+                        // style={{ width: "170px" }}
+                        onClick={saveCustomCoursesToDatabase}
+                    >
+                        Save Custom
+                    </button>
+                ) : (
+                    <div></div>
+                )}
             </div>
         </div>
     );

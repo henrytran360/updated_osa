@@ -6,7 +6,7 @@ const RightTitleBox = (props) => {
     return (
         <div className="rtbox">
             <div className="totalCredit">
-                {props.credits ? props.credits : ""} credits
+                {props.credits ? props.credits : "0"} credits
             </div>
         </div>
     );

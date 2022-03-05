@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Selection from "./Selection";
 import { initGA } from "../../utils/analytics";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import Button from "@material-ui/core/Button";
-import { createMuiTheme } from "@material-ui/core/styles";
+import customStyles from "./SelectStyles";
 import { ThemeProvider } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import "./CourseSearch.global.css";
 import CompiledLists from "./CompiledLists";
 import { CircularProgress } from "@material-ui/core";
+import Select from "react-select";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { IconButton } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Context as CourseSearchContext } from "../../contexts/courseSearchContext";
 
 /**
  * TODO: MAKE A FRAGMENT! THIS IS USED IN TWO PLACES
@@ -249,8 +254,89 @@ const COURSES_BY_INSTRUCTORS = gql`
     }
 `;
 
+const GET_COURES_BY_NAME = gql`
+    query GetCourseByName($inputName: String!, $term: Float!) {
+        courseMany(
+            filter: { courseNameRegExp: $inputName }
+            sort: COURSE_NUM_ASC
+        ) {
+            _id
+            subject
+            courseNum
+            longTitle
+            sessions(filter: { term: $term }) {
+                _id
+                term
+                crn
+                class {
+                    days
+                    startTime
+                    endTime
+                }
+                lab {
+                    days
+                    startTime
+                    endTime
+                }
+                instructors {
+                    firstName
+                    lastName
+                }
+                course {
+                    distribution
+                    prereqs
+                    coreqs
+                }
+                enrollment
+                maxEnrollment
+                crossEnrollment
+                maxCrossEnrollment
+                waitlisted
+                maxWaitlisted
+                instructionMethod
+            }
+        }
+    }
+`;
+
 const initialStartTime = "11:00";
 const initialEndTime = "12:00";
+
+// const customStyles = {
+//     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+//         return {
+//             ...styles,
+//             width: 140,
+//             backgroundColor: isFocused ? "var(--primary-color)" : "var(--border-color)",
+//             color: "var(--background-color)",
+//             cursor: isDisabled ? "not-allowed" : "default",
+//         };
+//     },
+//     control: (base, state) => ({
+//         ...base,
+//         color: "var(--background-color)",
+//         width: 140,
+//         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+//         backgroundColor: "var(--primary-color)",
+//         borderColor: "var(--border-color)",
+//         boxShadow: state.isFocused ? null : null,
+//         "&:hover": {
+//             borderColor: state.isFocused ? "var(--primary-color)" : "var(--border-color)",
+//         },
+//     }),
+//     singleValue: (provided, state) => {
+//         const opacity = state.isDisabled ? 0.5 : 1;
+//         const transition = "opacity 300ms";
+
+//         return { ...provided, opacity, transition };
+//     },
+// };
+
+const useStyles = makeStyles((theme) => ({
+    searchIconStyle: {
+        color: "var(--primary-color)",
+    },
+}));
 
 const CourseSearch = ({ scheduleID, clickValue }) => {
     const [getDepts, setDepts] = useState([]); // Used for the entire list of departments
@@ -260,8 +346,19 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     //INSTRUCTOR SEARCH
     const [getInstruct, setInstruct] = useState([]); // Used for the entire list of instructors
     const [getInst, setInst] = useState([]); // Used for selection of a particular instructor
+    const [getByName, setByName] = useState([]);
+    const [value, setValue] = useState("");
+    const [courseName, setCourseName] = useState("");
     const formatTime = (time) => {
         return time.replace(":", "");
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            loadData();
+            setCourseName(value.replace(/\s+/g, "").toLowerCase());
+            setButtonIndex(5);
+        }
     };
 
     const allDistributions = [
@@ -296,8 +393,8 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     ]); // store the selected time interval
 
     // Represents which button is currently clicked for styling and returning data
-    const [activeButtonIndex, setButtonIndex] = useState(0);
-
+    const [activeButtonIndex, setButtonIndex] = useState(5);
+    const classes = useStyles();
     const {
         data: { term },
     } = useQuery(GET_TERM); // Gets the term which we need to request subjects from
@@ -318,6 +415,21 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     } = useQuery(GET_INSTRUCTORS, {
         variables: { term },
     });
+    const [
+        loadData,
+        { data: courseDataByName, loading: loading2, error: error2 },
+    ] = useLazyQuery(GET_COURES_BY_NAME, {
+        variables: {
+            inputName: courseName.replace(/\s+/g, "").toLowerCase(),
+            term: term,
+        },
+    });
+
+    useEffect(() => {
+        if (courseDataByName) {
+            setByName(courseDataByName.courseMany);
+        }
+    }, [courseDataByName]);
 
     //deal with instructor names with different structures (ex. Benjamin C. Kerswell, Maria Fabiola Lopez Duran, Benjamin Fregly)
     //easier to split into first and last names for query in InstructorList
@@ -350,11 +462,12 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     // These variables are used in displaySearch function and displayCourseList function:
     // Department is used as a placeholder for Instructors for now
     const searchTypes = [
-        "Department",
-        "Distribution",
-        "Instructors",
-        "Course Time",
-        "Course Day",
+        { label: "Department", value: 0 },
+        { label: "Distribution", value: 1 },
+        { label: "Instructors", value: 2 },
+        { label: "Course Time", value: 3 },
+        { label: "Course Day", value: 4 },
+        { label: "Course Name", value: 5 },
     ];
     const allOptions = [
         getDepts,
@@ -362,9 +475,10 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         getInstruct,
         getDepts,
         allDaysLong,
+        getByName,
     ];
-    const allSelected = [getDept, getDist, getInst, getTime, getDay];
-    const setFuncs = [setDept, setDist, setInst, setTime, setDay];
+    const allSelected = [getDept, getDist, getInst, getTime, getDay, getByName];
+    const setFuncs = [setDept, setDist, setInst, setTime, setDay, setByName];
 
     const variables4Query = [
         ["subject"],
@@ -372,6 +486,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         ["firstName", "lastName"],
         ["startTime", "endTime"],
         ["days"], // this is not used in CompiledLists.js
+        ["inputName"],
     ];
 
     const queryFilters = [
@@ -380,6 +495,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         ["firstName", "lastName"],
         ["startTime", "endTime"],
         ["value"], // this is not used in CompiledLists.js
+        ["value"],
     ];
 
     const getQuery = [
@@ -388,6 +504,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         COURSES_BY_INSTRUCTORS,
         GET_TIME_INTERVAL_COURSES,
         GET_DAYS_COURSES,
+        GET_COURES_BY_NAME,
     ];
 
     /**
@@ -399,7 +516,6 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
             setDepts(departments.map((dept) => ({ label: dept, value: dept })));
         }
     }, [departmentsData]);
-
     //for instructor data
     useEffect(() => {
         if (instructorData) {
@@ -447,7 +563,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                     onClick={() => setButtonIndex(index)}
                     className={`searchButton ${selected}`}
                 >
-                    {type}
+                    {type.label}
                 </div>
             );
         });
@@ -481,7 +597,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
      * Displays the search component based on the user's search option
      */
     const displaySearch = () => {
-        const searchType = searchTypes[activeButtonIndex];
+        const searchType = searchTypes[activeButtonIndex].label;
         const option = allOptions[activeButtonIndex];
         const selected = allSelected[activeButtonIndex];
         const selection = (
@@ -506,7 +622,58 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
             </div>
         );
 
-        const displayArray = [selection, selection, selection, time, selection];
+        const search = (
+            <div className="seachCourseContainer">
+                <div className="searchInputsCourse">
+                    <input
+                        type="text"
+                        className="header-search"
+                        placeholder="Search courses"
+                        name="s"
+                        value={value}
+                        onChange={(e) =>
+                            setValue(
+                                e.target.value.replace(/\s+/g, "").toLowerCase()
+                            )
+                        }
+                        onKeyUp={handleKeyPress}
+                    />
+                </div>
+                <div
+                    style={{
+                        width: "10%",
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginLeft: 10,
+                    }}
+                >
+                    <IconButton
+                        size="medium"
+                        // onClick={handleClick}
+                        value={"Search"}
+                        className={classes.searchIconStyle}
+                        onClick={() => {
+                            setCourseName(value);
+                            setButtonIndex(5);
+                            loadData();
+                        }}
+                    >
+                        <SearchOutlinedIcon />
+                    </IconButton>
+                </div>
+            </div>
+        );
+
+        const displayArray = [
+            selection,
+            selection,
+            selection,
+            time,
+            selection,
+            search,
+        ];
 
         return displayArray[activeButtonIndex];
     };
@@ -536,8 +703,19 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     initGA();
 
     // Don't show anything until departments & instructors are finished loading
-    const errorMessage = (
-        <p>Something went wrong. Please refresh the page and try again 🥺</p>
+    const errorDepartMessage = (
+        <p>
+            {" "}
+            Departments for this term are not availble at this moment. Please
+            try another term 🥺
+        </p>
+    );
+    const errorInstrMessage = (
+        <p>
+            {" "}
+            Instructors for this term are not availble at this moment. Please
+            try another term 🥺
+        </p>
     );
     if (departmentsLoading || instructorsLoading)
         return (
@@ -545,16 +723,41 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                 <CircularProgress color="inherit" />
             </div>
         );
-    if (departmentsError || instructorsError) return errorMessage;
+    // console.log(departmentsError);
+    // console.log(instructorsError);
+    // if (departmentsError || instructorsError) return errorMessage;
+    if (departmentsError) return errorDepartMessage;
+    if (instructorsError) return errorInstrMessage;
+
+    const handleSearchChange = (newFilter) => {
+        setButtonIndex(newFilter.value);
+    };
 
     return (
         <div className="searchBar">
             <div className="searchBar-content">
-                <div className="filter">{displaySearch()}</div>
-                <div className="searchText">Search By:</div>
-                <div className="buttons">{renderSearchOptions()}</div>
+                <div className="searchText">Search by:</div>
+                <div className="button-and-search">
+                    <Select
+                        // className="react-select-container"
+                        value={searchTypes[activeButtonIndex]}
+                        onChange={handleSearchChange}
+                        options={searchTypes}
+                        theme={(theme) => ({
+                            ...theme,
+                            colors: {
+                                text: "white",
+                            },
+                        })}
+                        styles={customStyles}
+                    />
+                    <div className="filter2">{displaySearch()}</div>
+                </div>
+                {/* <div className="buttons">{renderSearchOptions()}</div> */}
                 <CompiledLists
                     scheduleID={scheduleID}
+                    getByName={courseDataByName}
+                    courseName={courseName}
                     selectedOptions={allSelected[activeButtonIndex]}
                     searchKey={variables4Query[activeButtonIndex]}
                     query={getQuery[activeButtonIndex]}

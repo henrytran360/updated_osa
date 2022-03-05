@@ -12,7 +12,7 @@ const authLink = setContext(async (_, { headers }) => {
     // get the authentication token from firebase if it exists
     const token = await firebase.auth().currentUser.getIdToken();
     // return the headers to the context so httpLink can read them
-    console.log(token);
+    // console.log(token);
     return {
         headers: {
             ...headers,
@@ -64,6 +64,13 @@ const initialState = {
     service: process.env.REACT_APP_SERVICE_URL,
     recentUpdate: false,
     term: 202220,
+    evalModalState: false,
+    degreeplanparent: "",
+    degreeplanname: "",
+    degreeplanlist: {},
+    editModalState: false,
+    notesModalState: false,
+    eachCourseModalState: false,
 };
 
 // Initialize cache with a state
@@ -73,6 +80,13 @@ client.writeQuery({
             service
             recentUpdate
             term
+            evalModalState
+            degreeplanparent
+            degreeplanname
+            degreeplanlist
+            editModalState
+            notesModalState
+            eachCourseModalState
         }
     `,
     data: initialState,

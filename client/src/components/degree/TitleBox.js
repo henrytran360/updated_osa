@@ -3,17 +3,10 @@ import LeftTitleBox from "./LeftTitleBox";
 import RightTitleBox from "./RightTitleBox";
 import "./RowBox.css";
 import SemesterBox from "./SemesterBox";
+import TermNumber from "../../constants/TermNumber";
 
 const TitleBox = (props) => {
-    let convertNumToSem = props["term"].substring(4);
-
-    if (convertNumToSem === "10") {
-        convertNumToSem = "Fall Semester";
-    } else if (convertNumToSem === "20") {
-        convertNumToSem = "Spring Semester";
-    } else {
-        convertNumToSem = "Summer Semester";
-    }
+    let convertNumToSem = TermNumber.get(props["term"].substring(4));
     return (
         <div className="rowBox">
             <LeftTitleBox

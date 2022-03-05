@@ -3,6 +3,8 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 // Course evals
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
+import Modal from "react-modal";
+import CourseEvalModal from "./CourseEvalModal";
 // Course visible
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
@@ -22,7 +24,8 @@ import { TableBody, withStyles } from "@material-ui/core";
 import CourseDetail from "./CourseDetail";
 import Detail from "../search/Detail";
 import { graphqlSync } from "graphql";
-
+import { selectionSetMatchesResult } from "@apollo/client/cache/inmemory/helpers";
+import "./DraftCourseItem.css";
 const detailStyle = {
     background: "#F6F8FC",
     color: "#6C7488",
@@ -189,6 +192,7 @@ const DraftCourseItem = ({
     course,
     prevTermCourses,
     instructorsList,
+    getEvaluationByCourse,
     idx,
 }) => {
     const emptyCellGenerator = (count) => {
@@ -289,10 +293,64 @@ const DraftCourseItem = ({
     };
 
     const togglePrereq = () => setOpen(!open);
-
-    const boolVisible = visible ? true : false;
+    const [boolVisible, setBoolVisible] = useState(true);
+    useEffect(() => {
+        setBoolVisible(visible ? true : false);
+    }, [visible]);
+    // const boolVisible = visible ? true : false;
 
     const instructorTooltips = instructorsToTooltips(session.instructors);
+
+    // function ToggleEvals() {
+    //     let subtitle;
+    //     const [modalIsOpen, setIsOpen] = React.useState(false);
+
+    //     function openModal() {
+    //       setIsOpen(true);
+    //     }
+
+    //     function afterOpenModal() {
+    //       // references are now sync'd and can be accessed.
+    //       subtitle.style.color = '#f00';
+    //     }
+
+    //     function closeModal() {
+    //       setIsOpen(false);
+    //     }
+    // }
+
+    //for the course info modal
+    const [modalState, setModal] = useState(false);
+    const openModal = () => {
+        setModal(true);
+    };
+    const closeModal = () => {
+        setModal(false);
+    };
+
+    // const {loadingEval, errorEval, dataEval} = useQuery(GET_EVALUATION_BY_COURSE, {
+
+    // });
+    //console.log(dataEval);
+
+    const { data: dataEval } = useQuery(getEvaluationByCourse, {
+        variables: { course: "COMP 140" },
+    });
+    // Bottom line crashes evals?
+    // console.log(dataEval.getEvaluationChartByCourse);
+
+    const [showEvalModal, setShowEvalModal] = useState(false);
+
+    const openEvalModal = () => {
+        setShowEvalModal(prev => !prev);
+    };
+
+    // const toggleEvals = (dataEval) => {
+    //     setModal(!modalState);
+    //     return (
+    //         <CourseEvalModal/>
+    //     );
+    // };
 
     return (
         <div className={`tableRow ${boolVisible ? "selected" : ""}`}>
@@ -341,9 +399,18 @@ const DraftCourseItem = ({
                             <QuestionAnswerIcon />
                         </IconButton>
                     </ReactGA.OutboundLink> */}
-                    <IconButton aria-label="evaluations">
-                        <QuestionAnswerIcon />
+                    <IconButton
+                        aria-label="evaluations"
+                        // onClick={ () => setModal(true) }
+                        onClick={openEvalModal}
+                    >
+                        <QuestionAnswerIcon />  
                     </IconButton>
+                    {/* <CourseEvalModal showModal={showEvalModal} setShowModal={setShowEvalModal} /> */}
+
+                    {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                        Course Eval Modal
+                    </Modal> */}
                 </Tooltip>
                 <IconButton
                     aria-label="expand row"
@@ -352,6 +419,13 @@ const DraftCourseItem = ({
                 >
                     {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
+                <Modal
+                    isOpen={modalState}
+                    className="modalEval"
+                    onRequestClose={closeModal}
+                >
+                    <CourseEvalModal />
+                </Modal>
             </div>
             <p>{session.crn}</p>
             {creditsDisplay(course.creditsMin, course.creditsMax)}
@@ -389,117 +463,117 @@ const DraftCourseItem = ({
         </div>
     );
 
-    return (
-        <StyledTableBody>
-            <StyledTableRow key={session.crn}>
-                <StyledTableCell padding="checkbox">
-                    <Checkbox
-                        checked={boolVisible}
-                        onClick={() => toggleVisibility()}
-                    />
-                </StyledTableCell>
-                <StyledTableCell align="right" component="th" scope="row">
-                    <Tooltip title="View Course Details">
-                        <a
-                            style={{ color: "#E35F49", textDecoration: "none" }}
-                            href={createURL(
-                                "202110",
-                                session.crn,
-                                URLTypes.DETAIL
-                            )}
-                            target="_blank"
-                        >
-                            {course.longTitle}
-                        </a>
-                    </Tooltip>
-                    <Tooltip title="View Evaluations">
-                        <ReactGA.OutboundLink
-                            eventLabel="course_evaluation"
-                            to={createURL("202110", session.crn, URLTypes.EVAL)}
-                            target="_blank"
-                        >
-                            <IconButton aria-label="evaluations">
-                                <QuestionAnswerIcon />
-                            </IconButton>
-                        </ReactGA.OutboundLink>
-                    </Tooltip>
-                    <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        onClick={togglePrereq}
-                    >
-                        {open ? (
-                            <KeyboardArrowUpIcon />
-                        ) : (
-                            <KeyboardArrowDownIcon />
-                        )}
-                    </IconButton>
-                </StyledTableCell>
-                <StyledTableCell align="right">{session.crn}</StyledTableCell>
-                <StyledTableCell align="right">
-                    {creditsDisplay(course.creditsMin, course.creditsMax)}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                    {course.distribution}
-                </StyledTableCell>
-                {createSectionTimeCells(session.class)}
-                {createSectionTimeCells(session.lab)}
-                <StyledTableCell align="right">
-                    {session.instructors.map((instructor, index) => {
-                        let webId = webIds(instructor, index);
-                        return (
-                            <Tooltip
-                                title="View Instructor Evaluation"
-                                key={`${webId}-${index}`}
-                            >
-                                <ReactGA.OutboundLink
-                                    style={{
-                                        color: "#272D2D",
-                                        textDecoration: "none",
-                                    }}
-                                    eventLabel="instructor_evaluation"
-                                    to={createInstructorURL("202110", webId)}
-                                    target="_blank"
-                                >
-                                    <span style={{ color: "272D2D" }}>
-                                        {instructorToName(instructor)}
-                                    </span>
-                                </ReactGA.OutboundLink>
-                            </Tooltip>
-                        );
-                    })}
-                    {/* {instructorsToNames(session.instructors).join(", ")} */}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                    <Tooltip title="Delete">
-                        <IconButton
-                            aria-label="delete"
-                            onClick={() => removeDraftSession()}
-                        >
-                            <DeleteIcon />
-                        </IconButton>
-                    </Tooltip>
-                </StyledTableCell>
-            </StyledTableRow>
-            {/* <CourseDetail
-                key={idx}
-                course={course}
-                session={session}
-                instructorsToNames={instructorsToNames}
-                open={open}
-                classTimeString={classTimeString}
-            /> */}
-            {/* <Detail
-                style={detailStyle}
-                key={idx}
-                course={course}
-                session={session}
-                instructorsToNames={instructorsToNames}
-                open={open}
-                classTimeString={classTimeString}
-            /> */}
-        </StyledTableBody>
-    );
+    // return (
+    //     <StyledTableBody>
+    //         <StyledTableRow key={session.crn}>
+    //             <StyledTableCell padding="checkbox">
+    //                 <Checkbox
+    //                     checked={boolVisible}
+    //                     onClick={() => toggleVisibility()}
+    //                 />
+    //             </StyledTableCell>
+    //             <StyledTableCell align="right" component="th" scope="row">
+    //                 <Tooltip title="View Course Details">
+    //                     <a
+    //                         style={{ color: "#E35F49", textDecoration: "none" }}
+    //                         href={createURL(
+    //                             "202110",
+    //                             session.crn,
+    //                             URLTypes.DETAIL
+    //                         )}
+    //                         target="_blank"
+    //                     >
+    //                         {course.longTitle}
+    //                     </a>
+    //                 </Tooltip>
+    //                 <Tooltip title="View Evaluations">
+    //                     <ReactGA.OutboundLink
+    //                         eventLabel="course_evaluation"
+    //                         to={createURL("202110", session.crn, URLTypes.EVAL)}
+    //                         target="_blank"
+    //                     >
+    //                         <IconButton aria-label="evaluations">
+    //                             <QuestionAnswerIcon />
+    //                         </IconButton>
+    //                     </ReactGA.OutboundLink>
+    //                 </Tooltip>
+    //                 <IconButton
+    //                     aria-label="expand row"
+    //                     size="small"
+    //                     onClick={togglePrereq}
+    //                 >
+    //                     {open ? (
+    //                         <KeyboardArrowUpIcon />
+    //                     ) : (
+    //                         <KeyboardArrowDownIcon />
+    //                     )}
+    //                 </IconButton>
+    //             </StyledTableCell>
+    //             <StyledTableCell align="right">{session.crn}</StyledTableCell>
+    //             <StyledTableCell align="right">
+    //                 {creditsDisplay(course.creditsMin, course.creditsMax)}
+    //             </StyledTableCell>
+    //             <StyledTableCell align="right">
+    //                 {course.distribution}
+    //             </StyledTableCell>
+    //             {createSectionTimeCells(session.class)}
+    //             {createSectionTimeCells(session.lab)}
+    //             <StyledTableCell align="right">
+    //                 {session.instructors.map((instructor, index) => {
+    //                     let webId = webIds(instructor, index);
+    //                     return (
+    //                         <Tooltip
+    //                             title="View Instructor Evaluation"
+    //                             key={`${webId}-${index}`}
+    //                         >
+    //                             <ReactGA.OutboundLink
+    //                                 style={{
+    //                                     color: "#272D2D",
+    //                                     textDecoration: "none",
+    //                                 }}
+    //                                 eventLabel="instructor_evaluation"
+    //                                 to={createInstructorURL("202110", webId)}
+    //                                 target="_blank"
+    //                             >
+    //                                 <span style={{ color: "272D2D" }}>
+    //                                     {instructorToName(instructor)}
+    //                                 </span>
+    //                             </ReactGA.OutboundLink>
+    //                         </Tooltip>
+    //                     );
+    //                 })}
+    //                 {/* {instructorsToNames(session.instructors).join(", ")} */}
+    //             </StyledTableCell>
+    //             <StyledTableCell align="right">
+    //                 <Tooltip title="Delete">
+    //                     <IconButton
+    //                         aria-label="delete"
+    //                         onClick={() => removeDraftSession()}
+    //                     >
+    //                         <DeleteIcon />
+    //                     </IconButton>
+    //                 </Tooltip>
+    //             </StyledTableCell>
+    //         </StyledTableRow>
+    //         {/* <CourseDetail
+    //             key={idx}
+    //             course={course}
+    //             session={session}
+    //             instructorsToNames={instructorsToNames}
+    //             open={open}
+    //             classTimeString={classTimeString}
+    //         /> */}
+    //         {/* <Detail
+    //             style={detailStyle}
+    //             key={idx}
+    //             course={course}
+    //             session={session}
+    //             instructorsToNames={instructorsToNames}
+    //             open={open}
+    //             classTimeString={classTimeString}
+    //         /> */}
+    //     </StyledTableBody>
+    // );
 };
 
 export default DraftCourseItem;

@@ -14,11 +14,10 @@
 }
 .deleteButton {
     width: 5%;
-
     height: 35px;
-    border: 1.5px solid #e1e3e3;
+    border: 1.5px solid var(--tertiary-bg-color);
     box-sizing: border-box;
-    background-color: white;
+    background-color: var(--background-color);
     left: 10.64%;
     right: 82.37%;
     top: 52.58%;
@@ -27,7 +26,7 @@
     font-weight: 600;
     font-size: 15.75px;
     line-height: 19px;
-    color: #149fa0;
+    color: var(--primary-color);
     margin-bottom: 10px;
     cursor: pointer;
     border-radius: 5px;
@@ -36,9 +35,9 @@
     width: 33%;
 
     height: 35px;
-    border: 1.5px solid #e1e3e3;
+    border: 1.5px solid var(--tertiary-bg-color);
     box-sizing: border-box;
-    background-color: white;
+    background-color: var(--background-color);
     left: 10.64%;
     right: 82.37%;
     top: 52.58%;
@@ -47,7 +46,7 @@
     font-weight: 600;
     font-size: 15.75px;
     line-height: 19px;
-    color: #149fa0;
+    color: var(--primary-color);
     margin-bottom: 10px;
     cursor: pointer;
     border-radius: 5px;
@@ -58,9 +57,9 @@
     height: 35px;
     left: 128px;
     top: 511px;
-    border: 1.5px solid #e1e3e3;
+    border: 1.5px solid var(--tertiary-bg-color);
     box-sizing: border-box;
-    background-color: white;
+    background-color: var(--background-color);
     left: 10.64%;
     right: 82.37%;
     top: 52.58%;
@@ -69,7 +68,7 @@
     font-weight: 600;
     font-size: 15.75px;
     line-height: 19px;
-    color: #149fa0;
+    color: var(--primary-color);
     margin-bottom: 10px;
     cursor: pointer;
     border-radius: 5px;
@@ -77,18 +76,45 @@
     flex-direction: column;
     justify-content: center; */
 }
+
+.buttonBottom {
+    width: 25%;
+
+    height: 35px;
+    left: 128px;
+    top: 511px;
+    border: 1.5px solid var(--tertiary-bg-color);
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    left: 10.64%;
+    right: 82.37%;
+    top: 52.58%;
+    bottom: 45.24%;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15.75px;
+    line-height: 19px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+}
 /* hover is a keyword */
 .button:hover {
-    background-color: #149fa0;
-    color: #e1e3e3;
+    background-color: var(--primary-color);
+    color: var(--tertiary-bg-color);
 }
 .deleteButton:hover {
-    background-color: #149fa0;
-    color: #e1e3e3;
+    background-color: var(--primary-color);
+    color: var(--tertiary-bg-color);
 }
 .customButton:hover {
-    background-color: #149fa0;
-    color: #e1e3e3;
+    background-color: var(--primary-color);
+    color: var(--tertiary-bg-color);
 }
 .bigBox {
     width: 570px;
@@ -96,20 +122,20 @@
     /* border: 1.5px solid #d45b0b; */
     margin-top: 50px;
     margin-left: 50px;
-    margin-right: 25px;
+    margin-right: 50px;
 }
 
 .modalDegreePlan {
     width: 1300px;
     height: 600px;
-    border: 2px solid #149fa0;
+    border: 2px solid var(--primary-color);
     border-radius: 5px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     overflow-y: auto;
-    background-color: #ddf5f6;
+    background-color: var(--tertiary-bg-color);
     z-index: -99;
 }
 
@@ -124,7 +150,8 @@
     border-color: transparent;
     border-radius: 5px;
     overflow-y: auto;
-    border: 2px solid #149fa0;
+    border: 2px solid var(--primary-color);
+    background: var(--background-color);
 }
 
 .textbox {

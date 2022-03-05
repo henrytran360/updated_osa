@@ -3,6 +3,7 @@ import SwipeableViews from "react-swipeable-views";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Collapse from "@material-ui/core/Collapse";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Event } from "../../utils/analytics";
 import { classTimeString } from "../../utils/CourseTimeTransforms";
 import Detail from "./Detail";
@@ -18,6 +19,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 
 import "./CourseList.global.css";
 import { BottomModeContext } from "../main/Main";
+import { Context as CourseSearchContext } from "../../contexts/courseSearchContext";
 
 const detailStyle = {
     fontSize: "10px",
@@ -158,6 +160,51 @@ const QUERY_DRAFT_SESSIONS = gql`
     }
 `;
 
+const GET_COURES_BY_NAME = gql`
+    query GetCourseByName($inputName: String!, $term: Float!) {
+        courseMany(
+            filter: { courseNameRegExp: $inputName }
+            sort: COURSE_NUM_ASC
+        ) {
+            _id
+            subject
+            courseNum
+            longTitle
+            sessions(filter: { term: $term }) {
+                _id
+                term
+                crn
+                class {
+                    days
+                    startTime
+                    endTime
+                }
+                lab {
+                    days
+                    startTime
+                    endTime
+                }
+                instructors {
+                    firstName
+                    lastName
+                }
+                course {
+                    distribution
+                    prereqs
+                    coreqs
+                }
+                enrollment
+                maxEnrollment
+                crossEnrollment
+                maxCrossEnrollment
+                waitlisted
+                maxWaitlisted
+                instructionMethod
+            }
+        }
+    }
+`;
+
 /**
  * This is found in DraftCourseItem.js too; should be in utils
  */
@@ -185,7 +232,7 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
     const bottomModeContext = useContext(BottomModeContext);
 
     // Update draft sessions to only include valid sessions
-    draftSessions = draftSessions.filter(draft => draft.session);
+    draftSessions = draftSessions.filter((draft) => draft.session);
 
     // Check if this course is in draftSessions
     for (let draftSession of draftSessions) {
@@ -208,6 +255,8 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
         variables: { scheduleID: scheduleID, sessionID: session._id },
     });
 
+    const [count, setCount] = useState(0);
+
     return (
         <div
             className="detailBox"
@@ -217,7 +266,7 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
             <input
                 type="checkbox"
                 checked={sessionSelected}
-                onChange={() => {
+                onChange={(e) => {
                     // Simple transformation of CRN to a string
                     let crnString = String.toString(session.crn);
 
@@ -242,9 +291,13 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
                             "Add Course to Schedule: " + crnString,
                             crnString
                         );
-
+                        e.preventDefault();
                         // Execute mutation to add this session of the course to the user's draftsessions
-                        addDraftSession();
+                        if (count == 0) {
+                            addDraftSession();
+                            setCount(count + 1);
+                        }
+                        setCount(0);
                     }
                 }}
                 style={{ alignItems: "left" }}
@@ -272,13 +325,19 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
     );
 };
 
-const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
+const CourseList = ({
+    clickValue,
+    scheduleID,
+    query,
+    searchType,
+    idx,
+    getByName,
+}) => {
     const [courseSelected, setCourseSelected] = useState([]);
 
     // Get term from local state management
     const { data: termData } = useQuery(GET_TERM);
     let { term } = termData;
-    console.log(term);
 
     let courseResults;
     let draftSessions;
@@ -296,8 +355,7 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
     } = useQuery(query, {
         variables: { ...searchType, term: term },
     });
-    console.log("term:", term);
-    console.log("courseData:", courseData);
+
     // Since searchType is passed in as an object with the value as the query returned value,
     // we need to check the object's value instead of directly checking searchType === ""
     if (Object.values(searchType)[0] === "") return <br />;
@@ -306,7 +364,7 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
         <p>Something went wrong. Please refresh the page and try again 🥺</p>
     );
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p><CircularProgress /></p>;
     if (error) return errorMessage;
     if (!courseData) return errorMessage;
 
@@ -336,7 +394,7 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
                 (course) => course.sessions.length > 0
             );
     }
-    console.log(courseResults);
+    console.log("courseResults", courseResults);
 
     if (courseResults.length === 0)
         return <p>No Available Course In This Range</p>;
@@ -431,6 +489,10 @@ const CourseList = ({ clickValue, scheduleID, query, searchType, idx }) => {
                                     aria-label="expand row"
                                     size="small"
                                     onClick={() => toggleCourseInfo(id)}
+                                    style={{
+                                        color: "var(--quaternary-color)",
+                                        fontSize: 15,
+                                    }}
                                 >
                                     {courseSelected.includes(id) ? (
                                         <KeyboardArrowUpIcon />

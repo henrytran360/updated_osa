@@ -7,5 +7,6 @@ const url = MONGODB_CONNECTION_STRING
 mongoose.connect(url);
 
 mongoose.connection.on("connected", function() {
-  console.log("Mongoose connected to " + url);
+  console.log("Mongoose connected");
+  // console.log("Mongoose connected to " + url);
 });

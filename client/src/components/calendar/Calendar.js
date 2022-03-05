@@ -4,6 +4,8 @@ import { CourseWeek } from "./CourseWeek";
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./Calendar.css";
+import { colorCombos } from "./colors"
+import Modal from "react-modal";
 
 const localizer = momentLocalizer(moment);
 
@@ -20,14 +22,6 @@ const dayCode2dayString = {
     U: "Sunday",
 };
 
-// color combos order: [background, border]
-const colorCombos = [
-    ["#F2F9FF", "#1E85E880"], // light blue
-    ["#FFFFF2", "#F5D581B3"], // light yellow
-    ["#FFFCFB", "#E35F4980"], // light orange
-    ["#FDFFFE", "#76C5AFBF"], // light green
-    ["#FFFFFF", "#000000FF"], // white / black
-];
 
 const courseToCourseLabel = (course) => {
     return course.subject + " " + course.courseNum;
@@ -53,10 +47,10 @@ const courseToTooltipLabel = (session) => {
 
 const convertSectionToEvents = (section, session) => {
     let events = [];
-    if (!section || (!section.startTime || !section.endTime)) {
+    let uniqueEvents;
+    if (!section || !section.startTime || !section.endTime) {
         return events;
     }
-
     // Get hexId of session
     let hexId = session.hexId;
 
@@ -87,13 +81,34 @@ const convertSectionToEvents = (section, session) => {
             .add(momentEnd.hour(), "hours")
             .add(momentEnd.minute(), "minutes");
 
-        let instructorName = "";
-        if (session.instructors[0]) {
-            instructorName =
-                session.instructors[0].firstName +
-                " " +
-                session.instructors[0].lastName;
+        let instructors_str = "";
+        if (session) {
+            if (session.instructors.length > 0) {
+                for (let i = 0; i < session.instructors.length - 1; i++) {
+                    instructors_str +=
+                        session.instructors[i].firstName +
+                        " " +
+                        session.instructors[i].lastName +
+                        ", ";
+                }
+                instructors_str +=
+                    session.instructors[session.instructors.length - 1]
+                        .firstName +
+                    " " +
+                    session.instructors[session.instructors.length - 1]
+                        .lastName;
+            }
         }
+
+        // let instructorName = "";
+        // if (session.instructors[0]) {
+        //     instructorName =
+        //         session.instructors[0].firstName +
+        //         " " +
+        //         session.instructors[0].lastName;
+        // }
+
+        let coreqs_str = session.course.coreqs.join(" ");
 
         events.push({
             id: id++,
@@ -101,12 +116,21 @@ const convertSectionToEvents = (section, session) => {
             desc: `${eventStart.format("hh:mm a")} - ${eventEnd.format(
                 "hh:mm a"
             )}`,
-            instructor: instructorName,
+            instructor: instructors_str,
             source: section,
             start: eventStart.toDate(),
             end: eventEnd.toDate(),
             hexId: hexId,
             tooltip: tooltipLabel,
+            prereqs: session.course.prereqs,
+            coreqs: coreqs_str,
+            creditsMax: session.course.creditsMax,
+            creditsMin: session.course.creditsMin,
+            enrollment: session.enrollment,
+            maxEnrollment: session.maxEnrollment,
+            maxWaitlisted: session.maxWaitlisted,
+            waitlisted: session.waitlisted,
+            distribution: session.course.distribution,
         });
     }
     return events;
@@ -128,9 +152,14 @@ const draftSessionsToEvents = (draftSessions) => {
 
     for (let draftSession of draftSessions) {
         // Check that session is visible. If not, don't show on calendar
+        let courseNumId = draftSession.session.crn;
         if (draftSession.visible) {
             // Also add hexId to object for consistent color
-            let session = {...draftSession.session, hexId: hexId };
+            let session = {
+                ...draftSession.session,
+                hexId: hexId,
+                courseNumId: courseNumId,
+            };
             // First convert classes
             events = events.concat(
                 convertSectionToEvents(session.class, session)
@@ -142,15 +171,22 @@ const draftSessionsToEvents = (draftSessions) => {
         }
         hexId++;
     }
-
-    return events;
+    const uniqueArray = events.filter((value, index) => {
+        return (
+            index ===
+            events.findIndex((obj) => {
+                return obj.start.getTime() === value.start.getTime();
+            })
+        );
+    });
+    return uniqueArray;
 };
 
 const slotStyleGetter = (date) => {
     var style = {
-        font: "Medium 23px/26px",
+        font: "Medium 28px/31px",
         letterSpacing: "0px",
-        color: "#8E9EB2",
+        color: "var(--quaternary-color)",
         opacity: 1,
     };
 
@@ -164,10 +200,10 @@ const dayStyleGetter = (date) => {
         textAlign: "center",
         font: "Medium 23px/26px",
         letterSpacing: "0px",
-        color: "#8E9EB2",
+        color: "var(--primary-color)",
         opacity: 1,
-        border: "1px dashed #E4E8EE",
-        paddingTop: "16.5px",
+        // border: "1px dashed #E4E8EE",
+        textTransform: "uppercase",
     };
 
     return {
@@ -187,7 +223,7 @@ const eventStyleGetter = (event) => {
         border: `2px solid ${borderColor}`,
         borderRadius: "10px",
         opacity: 1,
-        color: "#384569",
+        color: "var(--quaternary-color)",
         display: "block",
     };
 
@@ -200,16 +236,92 @@ const CustomClassEvent = ({ event }) => {
     let moduloValue = event.hexId % colorCombos.length;
 
     var sidebarColor = colorCombos[moduloValue][1];
+    /* Removing AM from the start time of a class and also removing 
+    an extra 0 if hour is a single digit */
+    let classTimeStart = event.desc.substr(0, 5);
+    let classTimeEnd = event.desc.substr(11);
+    if (classTimeStart.charAt(0) == '0') {
+        classTimeStart = classTimeStart.substr(1);
+    }
+    if (classTimeEnd.charAt(0) == '0') {
+        classTimeEnd = classTimeEnd.substr(1);
+    }
+    let classTime = classTimeStart + " - " + classTimeEnd;
+
+    const [modalState, setModal] = useState(false);
+    const openModal = () => {
+        setModal(true);
+    };
+    const closeModal = () => {
+        setModal(false);
+    };
+
+    //getting course info for the popup (expanded detail for each course)
+    const info = event.tooltip.split("\n");
+    const longTitle = info[1];
+    const CRN = info[2].split(": ")[1];
+    // const maxEnroll = info[4].split(": ")[1];
+    const source = event.source.days;
+    // const days = source.map((day) => dayCode2dayString[day] + " ");
 
     return (
         <div className="courseEventWrapper">
+            <Modal
+                isOpen={modalState}
+                className="model-info-content"
+                onRequestClose={closeModal}
+            >
+                <div className="course-info-content">
+                    <div className="course-title">
+                        {event.title}: {longTitle}
+                    </div>
+                    <div className="float-container">
+                        <div className="float-child">
+                            <div className="category">
+                                {" "}
+                                {source} {event.desc}{" "}
+                            </div>
+                            <div className="category">CRN: {CRN} </div>
+                            <div className="category">
+                                Credits: {event.creditsMin}{" "}
+                            </div>
+                            <div className="category">
+                                Distribution: {event.distribution}
+                            </div>
+                            <div className="category">
+                                Prerequisites: {event.prereqs}
+                            </div>
+                            <div className="category">
+                                Corequisites: {event.coreqs}
+                            </div>
+                        </div>
+                        <div className="float-child">
+                            <div className="category">
+                                Max Enrollment: {event.maxEnrollment}
+                            </div>
+                            <div className="category">
+                                Current Enrollment: {event.enrollment}
+                            </div>
+                            <div className="category">
+                                Max Waitlisted: {event.maxWaitlisted}
+                            </div>
+                            <div className="category">
+                                Waitlisted: {event.waitlisted}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="course-instructor">
+                        Course Instructor: {event.instructor}{" "}
+                    </div>
+                </div>
+            </Modal>
             <hr
                 style={{ backgroundColor: `${sidebarColor}` }}
                 className="courseEventBar"
             />
-            <div className="courseEvent">
+            <div className="courseEvent" onClick={openModal}>
                 <p id="courseCode">{event.title}</p>
-                <p id="courseTime">{event.desc}</p>
+                <p id="courseTime">{classTime}</p>
                 <p id="courseInstructor">{event.instructor}</p>
             </div>
         </div>
@@ -222,11 +334,12 @@ const CourseCalendar = ({ draftSessions }) => {
             <Calendar
                 components={{ event: CustomClassEvent }}
                 events={draftSessionsToEvents(draftSessions)}
-                step={15}
+                step={30}
                 timeslots={2}
                 localizer={localizer}
                 defaultView={Views.WEEK}
-                formats={{ dayFormat: "ddd" }} // Calendar columns show "MON", "TUES", ...
+                // Calendar columns show "MON", "TUES", ... and the time format is in 12 hours with only the hours displayed
+                formats={{ dayFormat: "ddd", timeGutterFormat: 'ha' }}
                 views={{ month: false, week: CourseWeek, day: false }}
                 drilldownView={null}
                 defaultDate={moment("Sunday", "ddd")} // Always start on Sunday of the week

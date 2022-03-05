@@ -54,7 +54,7 @@ const PrivateRoute = ({ children, ...rest }) => {
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                console.log("User!");
+                // console.log("User!");
                 setLoggedIn(true);
             } else {
                 setLoggedIn(false);
@@ -99,7 +99,7 @@ const Routes = ({}) => {
                 <DegreePlan />
             </PrivateRoute>
             <Route>
-                <Error />
+                <Error message="page"/>
             </Route>
         </Switch>
     );

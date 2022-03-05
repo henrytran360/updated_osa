@@ -1,0 +1,296 @@
+<SUBJECTS term="202220">
+  <SUBJECT code="AAAS">
+    <VAL>AAAS</VAL>
+    <OPT>African &amp; African Amer Studies (AAAS)</OPT>African &amp; African Amer Studies</SUBJECT>
+  <SUBJECT code="AFSC">
+    <VAL>AFSC</VAL>
+    <OPT>Air Force Science (AFSC)</OPT>Air Force Science</SUBJECT>
+  <SUBJECT code="ANTH">
+    <VAL>ANTH</VAL>
+    <OPT>Anthropology (ANTH)</OPT>Anthropology</SUBJECT>
+  <SUBJECT code="APPL">
+    <VAL>APPL</VAL>
+    <OPT>Applied Physics (APPL)</OPT>Applied Physics</SUBJECT>
+  <SUBJECT code="ARAB">
+    <VAL>ARAB</VAL>
+    <OPT>Arabic (ARAB)</OPT>Arabic</SUBJECT>
+  <SUBJECT code="ARCH">
+    <VAL>ARCH</VAL>
+    <OPT>Architecture (ARCH)</OPT>Architecture</SUBJECT>
+  <SUBJECT code="HART">
+    <VAL>HART</VAL>
+    <OPT>Art History (HART)</OPT>Art History</SUBJECT>
+  <SUBJECT code="ASIA">
+    <VAL>ASIA</VAL>
+    <OPT>Asian Studies (ASIA)</OPT>Asian Studies</SUBJECT>
+  <SUBJECT code="ASTR">
+    <VAL>ASTR</VAL>
+    <OPT>Astronomy (ASTR)</OPT>Astronomy</SUBJECT>
+  <SUBJECT code="BIOE">
+    <VAL>BIOE</VAL>
+    <OPT>Bioengineering (BIOE)</OPT>Bioengineering</SUBJECT>
+  <SUBJECT code="BIOS">
+    <VAL>BIOS</VAL>
+    <OPT>Biosciences (BIOS)</OPT>Biosciences</SUBJECT>
+  <SUBJECT code="BUSI">
+    <VAL>BUSI</VAL>
+    <OPT>Business (BUSI)</OPT>Business</SUBJECT>
+  <SUBJECT code="RCEL">
+    <VAL>RCEL</VAL>
+    <OPT>Center Engineering Leadership (RCEL)</OPT>Center Engineering Leadership</SUBJECT>
+  <SUBJECT code="LEAD">
+    <VAL>LEAD</VAL>
+    <OPT>Center for Civic Leadership (LEAD)</OPT>Center for Civic Leadership</SUBJECT>
+  <SUBJECT code="CHBE">
+    <VAL>CHBE</VAL>
+    <OPT>Chemical &amp; Biomolecular Eng (CHBE)</OPT>Chemical &amp; Biomolecular Eng</SUBJECT>
+  <SUBJECT code="CHEM">
+    <VAL>CHEM</VAL>
+    <OPT>Chemistry (CHEM)</OPT>Chemistry</SUBJECT>
+  <SUBJECT code="CHIN">
+    <VAL>CHIN</VAL>
+    <OPT>Chinese (CHIN)</OPT>Chinese</SUBJECT>
+  <SUBJECT code="CMST">
+    <VAL>CMST</VAL>
+    <OPT>Cinema and Media Studies (CMST)</OPT>Cinema and Media Studies</SUBJECT>
+  <SUBJECT code="CEVE">
+    <VAL>CEVE</VAL>
+    <OPT>Civil and Environmental Eng (CEVE)</OPT>Civil and Environmental Eng</SUBJECT>
+  <SUBJECT code="CLAS">
+    <VAL>CLAS</VAL>
+    <OPT>Classical Studies (CLAS)</OPT>Classical Studies</SUBJECT>
+  <SUBJECT code="CLIC">
+    <VAL>CLIC</VAL>
+    <OPT>Cntr Lang &amp; Intercultural Comm (CLIC)</OPT>Cntr Lang &amp; Intercultural Comm</SUBJECT>
+  <SUBJECT code="CSCI">
+    <VAL>CSCI</VAL>
+    <OPT>Cognitive Sciences (CSCI)</OPT>Cognitive Sciences</SUBJECT>
+  <SUBJECT code="COLL">
+    <VAL>COLL</VAL>
+    <OPT>College Course (COLL)</OPT>College Course</SUBJECT>
+  <SUBJECT code="COMM">
+    <VAL>COMM</VAL>
+    <OPT>Communication (COMM)</OPT>Communication</SUBJECT>
+  <SUBJECT code="CAAM">
+    <VAL>CAAM</VAL>
+    <OPT>Comp. &amp; Applied Mathematics (CAAM)</OPT>Comp. &amp; Applied Mathematics</SUBJECT>
+  <SUBJECT code="COMP">
+    <VAL>COMP</VAL>
+    <OPT>Computer Science (COMP)</OPT>Computer Science</SUBJECT>
+  <SUBJECT code="DSCI">
+    <VAL>DSCI</VAL>
+    <OPT>Data Science (DSCI)</OPT>Data Science</SUBJECT>
+  <SUBJECT code="DSRT">
+    <VAL>DSRT</VAL>
+    <OPT>Dissertation/Thesis Submission (DSRT)</OPT>Dissertation/Thesis Submission</SUBJECT>
+  <SUBJECT code="EEPS">
+    <VAL>EEPS</VAL>
+    <OPT>Earth/Environmnt/Planetary Sci (EEPS)</OPT>Earth/Environmnt/Planetary Sci</SUBJECT>
+  <SUBJECT code="ECON">
+    <VAL>ECON</VAL>
+    <OPT>Economics (ECON)</OPT>Economics</SUBJECT>
+  <SUBJECT code="EDUC">
+    <VAL>EDUC</VAL>
+    <OPT>Education (EDUC)</OPT>Education</SUBJECT>
+  <SUBJECT code="ELEC">
+    <VAL>ELEC</VAL>
+    <OPT>Electrical &amp; Comp. Engineering (ELEC)</OPT>Electrical &amp; Comp. Engineering</SUBJECT>
+  <SUBJECT code="EMSP">
+    <VAL>EMSP</VAL>
+    <OPT>Emergency Med Studies/Practice (EMSP)</OPT>Emergency Med Studies/Practice</SUBJECT>
+  <SUBJECT code="ENGI">
+    <VAL>ENGI</VAL>
+    <OPT>Engineering (ENGI)</OPT>Engineering</SUBJECT>
+  <SUBJECT code="ENGL">
+    <VAL>ENGL</VAL>
+    <OPT>English (ENGL)</OPT>English</SUBJECT>
+  <SUBJECT code="ENST">
+    <VAL>ENST</VAL>
+    <OPT>Environmental Studies (ENST)</OPT>Environmental Studies</SUBJECT>
+  <SUBJECT code="EURO">
+    <VAL>EURO</VAL>
+    <OPT>European Studies (EURO)</OPT>European Studies</SUBJECT>
+  <SUBJECT code="EMBA">
+    <VAL>EMBA</VAL>
+    <OPT>Executive Management (EMBA)</OPT>Executive Management</SUBJECT>
+  <SUBJECT code="FILM">
+    <VAL>FILM</VAL>
+    <OPT>Film (FILM)</OPT>Film</SUBJECT>
+  <SUBJECT code="FWIS">
+    <VAL>FWIS</VAL>
+    <OPT>First-Yr Writing Intensive Sem (FWIS)</OPT>First-Yr Writing Intensive Sem</SUBJECT>
+  <SUBJECT code="FREN">
+    <VAL>FREN</VAL>
+    <OPT>French Studies (FREN)</OPT>French Studies</SUBJECT>
+  <SUBJECT code="GERM">
+    <VAL>GERM</VAL>
+    <OPT>German (GERM)</OPT>German</SUBJECT>
+  <SUBJECT code="GLBL">
+    <VAL>GLBL</VAL>
+    <OPT>Global Affairs (GLBL)</OPT>Global Affairs</SUBJECT>
+  <SUBJECT code="GLHT">
+    <VAL>GLHT</VAL>
+    <OPT>Global Health Technologies (GLHT)</OPT>Global Health Technologies</SUBJECT>
+  <SUBJECT code="GREE">
+    <VAL>GREE</VAL>
+    <OPT>Greek (GREE)</OPT>Greek</SUBJECT>
+  <SUBJECT code="HEAL">
+    <VAL>HEAL</VAL>
+    <OPT>Health Sciences (HEAL)</OPT>Health Sciences</SUBJECT>
+  <SUBJECT code="HIST">
+    <VAL>HIST</VAL>
+    <OPT>History (HIST)</OPT>History</SUBJECT>
+  <SUBJECT code="HONS">
+    <VAL>HONS</VAL>
+    <OPT>Honors Program (HONS)</OPT>Honors Program</SUBJECT>
+  <SUBJECT code="HUMA">
+    <VAL>HUMA</VAL>
+    <OPT>Humanities (HUMA)</OPT>Humanities</SUBJECT>
+  <SUBJECT code="INDE">
+    <VAL>INDE</VAL>
+    <OPT>Industrial Engineering (INDE)</OPT>Industrial Engineering</SUBJECT>
+  <SUBJECT code="ITAL">
+    <VAL>ITAL</VAL>
+    <OPT>Italian Language and Culture (ITAL)</OPT>Italian Language and Culture</SUBJECT>
+  <SUBJECT code="JAPA">
+    <VAL>JAPA</VAL>
+    <OPT>Japanese (JAPA)</OPT>Japanese</SUBJECT>
+  <SUBJECT code="JWST">
+    <VAL>JWST</VAL>
+    <OPT>Jewish Studies (JWST)</OPT>Jewish Studies</SUBJECT>
+  <SUBJECT code="KINE">
+    <VAL>KINE</VAL>
+    <OPT>Kinesiology (KINE)</OPT>Kinesiology</SUBJECT>
+  <SUBJECT code="KORE">
+    <VAL>KORE</VAL>
+    <OPT>Korean (KORE)</OPT>Korean</SUBJECT>
+  <SUBJECT code="LATI">
+    <VAL>LATI</VAL>
+    <OPT>Latin (LATI)</OPT>Latin</SUBJECT>
+  <SUBJECT code="MLSC">
+    <VAL>MLSC</VAL>
+    <OPT>Liberal Studies Core/Capstone (MLSC)</OPT>Liberal Studies Core/Capstone</SUBJECT>
+  <SUBJECT code="LPAP">
+    <VAL>LPAP</VAL>
+    <OPT>Lifetime Phys Activity Program (LPAP)</OPT>Lifetime Phys Activity Program</SUBJECT>
+  <SUBJECT code="LING">
+    <VAL>LING</VAL>
+    <OPT>Linguistics (LING)</OPT>Linguistics</SUBJECT>
+  <SUBJECT code="MGMP">
+    <VAL>MGMP</VAL>
+    <OPT>MBA for Professionals-Evening (MGMP)</OPT>MBA for Professionals-Evening</SUBJECT>
+  <SUBJECT code="MGMW">
+    <VAL>MGMW</VAL>
+    <OPT>MBA for Professionals-Weekend (MGMW)</OPT>MBA for Professionals-Weekend</SUBJECT>
+  <SUBJECT code="MGMT">
+    <VAL>MGMT</VAL>
+    <OPT>Management (MGMT)</OPT>Management</SUBJECT>
+  <SUBJECT code="MEOS">
+    <VAL>MEOS</VAL>
+    <OPT>Managerial Econ &amp; Org Sciences (MEOS)</OPT>Managerial Econ &amp; Org Sciences</SUBJECT>
+  <SUBJECT code="MACC">
+    <VAL>MACC</VAL>
+    <OPT>Master Accounting (MACC)</OPT>Master Accounting</SUBJECT>
+  <SUBJECT code="MSNE">
+    <VAL>MSNE</VAL>
+    <OPT>Materials Science &amp; NanoEng (MSNE)</OPT>Materials Science &amp; NanoEng</SUBJECT>
+  <SUBJECT code="MATH">
+    <VAL>MATH</VAL>
+    <OPT>Mathematics (MATH)</OPT>Mathematics</SUBJECT>
+  <SUBJECT code="MECH">
+    <VAL>MECH</VAL>
+    <OPT>Mechanical Engineering (MECH)</OPT>Mechanical Engineering</SUBJECT>
+  <SUBJECT code="MDHM">
+    <VAL>MDHM</VAL>
+    <OPT>Medical Humanities (MDHM)</OPT>Medical Humanities</SUBJECT>
+  <SUBJECT code="MDEM">
+    <VAL>MDEM</VAL>
+    <OPT>Medieval/Early Modern Studies (MDEM)</OPT>Medieval/Early Modern Studies</SUBJECT>
+  <SUBJECT code="MILI">
+    <VAL>MILI</VAL>
+    <OPT>Military Science (MILI)</OPT>Military Science</SUBJECT>
+  <SUBJECT code="MUCH">
+    <VAL>MUCH</VAL>
+    <OPT>Museums and Cultural Heritage (MUCH)</OPT>Museums and Cultural Heritage</SUBJECT>
+  <SUBJECT code="MUSI">
+    <VAL>MUSI</VAL>
+    <OPT>Music (MUSI)</OPT>Music</SUBJECT>
+  <SUBJECT code="NSCI">
+    <VAL>NSCI</VAL>
+    <OPT>Natural Sciences (NSCI)</OPT>Natural Sciences</SUBJECT>
+  <SUBJECT code="NAVA">
+    <VAL>NAVA</VAL>
+    <OPT>Naval Science (NAVA)</OPT>Naval Science</SUBJECT>
+  <SUBJECT code="NEUR">
+    <VAL>NEUR</VAL>
+    <OPT>Neuroscience (NEUR)</OPT>Neuroscience</SUBJECT>
+  <SUBJECT code="PHIL">
+    <VAL>PHIL</VAL>
+    <OPT>Philosophy (PHIL)</OPT>Philosophy</SUBJECT>
+  <SUBJECT code="FOTO">
+    <VAL>FOTO</VAL>
+    <OPT>Photography (FOTO)</OPT>Photography</SUBJECT>
+  <SUBJECT code="PHYS">
+    <VAL>PHYS</VAL>
+    <OPT>Physics (PHYS)</OPT>Physics</SUBJECT>
+  <SUBJECT code="POLI">
+    <VAL>POLI</VAL>
+    <OPT>Political Science (POLI)</OPT>Political Science</SUBJECT>
+  <SUBJECT code="PLST">
+    <VAL>PLST</VAL>
+    <OPT>Politics, Law, Social Thought (PLST)</OPT>Politics, Law, Social Thought</SUBJECT>
+  <SUBJECT code="PORT">
+    <VAL>PORT</VAL>
+    <OPT>Portuguese (PORT)</OPT>Portuguese</SUBJECT>
+  <SUBJECT code="PJHC">
+    <VAL>PJHC</VAL>
+    <OPT>Poverty/Justice/Hum Capability (PJHC)</OPT>Poverty/Justice/Hum Capability</SUBJECT>
+  <SUBJECT code="PSYC">
+    <VAL>PSYC</VAL>
+    <OPT>Psychology (PSYC)</OPT>Psychology</SUBJECT>
+  <SUBJECT code="RELI">
+    <VAL>RELI</VAL>
+    <OPT>Religion (RELI)</OPT>Religion</SUBJECT>
+  <SUBJECT code="RUSS">
+    <VAL>RUSS</VAL>
+    <OPT>Russian (RUSS)</OPT>Russian</SUBJECT>
+  <SUBJECT code="SOPA">
+    <VAL>SOPA</VAL>
+    <OPT>Social Policy Analysis (SOPA)</OPT>Social Policy Analysis</SUBJECT>
+  <SUBJECT code="SOPE">
+    <VAL>SOPE</VAL>
+    <OPT>Social Policy Evaluation (SOPE)</OPT>Social Policy Evaluation</SUBJECT>
+  <SUBJECT code="SOSC">
+    <VAL>SOSC</VAL>
+    <OPT>Social Sciences (SOSC)</OPT>Social Sciences</SUBJECT>
+  <SUBJECT code="SOCI">
+    <VAL>SOCI</VAL>
+    <OPT>Sociology (SOCI)</OPT>Sociology</SUBJECT>
+  <SUBJECT code="SPAN">
+    <VAL>SPAN</VAL>
+    <OPT>Spanish (SPAN)</OPT>Spanish</SUBJECT>
+  <SUBJECT code="SPPO">
+    <VAL>SPPO</VAL>
+    <OPT>Spanish and Portuguese (SPPO)</OPT>Spanish and Portuguese</SUBJECT>
+  <SUBJECT code="SMGT">
+    <VAL>SMGT</VAL>
+    <OPT>Sport Management (SMGT)</OPT>Sport Management</SUBJECT>
+  <SUBJECT code="STAT">
+    <VAL>STAT</VAL>
+    <OPT>Statistics (STAT)</OPT>Statistics</SUBJECT>
+  <SUBJECT code="SSPB">
+    <VAL>SSPB</VAL>
+    <OPT>Systems/Synthetic/Phys Biology (SSPB)</OPT>Systems/Synthetic/Phys Biology</SUBJECT>
+  <SUBJECT code="THEA">
+    <VAL>THEA</VAL>
+    <OPT>Theatre (THEA)</OPT>Theatre</SUBJECT>
+  <SUBJECT code="UNIV">
+    <VAL>UNIV</VAL>
+    <OPT>University Courses (UNIV)</OPT>University Courses</SUBJECT>
+  <SUBJECT code="ARTS">
+    <VAL>ARTS</VAL>
+    <OPT>Visual Arts (ARTS)</OPT>Visual Arts</SUBJECT>
+  <SUBJECT code="SWGS">
+    <VAL>SWGS</VAL>
+    <OPT>Women, Gender, &amp; Sexuality (SWGS)</OPT>Women, Gender, &amp; Sexuality</SUBJECT>
+</SUBJECTS>

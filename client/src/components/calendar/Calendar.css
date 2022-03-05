@@ -2,13 +2,79 @@
 .rbc-allday-cell {
     display: none;
 }
+
+/* Hides unwanted border in the calendar */
 .rbc-time-view .rbc-header {
-    border-bottom: none;
+    border: none;
+}
+
+/* Hides unwanted border in the calendar */
+.rbc-time-view {
+    border: none;
+    margin-top: 10px;
+}
+
+/* Hides unwanted border in the calendar */
+.rbc-time-content {
+    border: none;
+}
+
+/* Hides unwanted border in the calendar */
+.rbc-time-header-content {
+    border-left: none;
+}
+
+/* Adds left and right borders between days in the calendar */
+.rbc-time-content > * + * > * {
+    border-left: 0.5px solid var(--shadow-color);
+    border-right: 0.5px solid var(--shadow-color);
 }
 
 /* Hide the time label on the event object */
 .rbc-day-slot .rbc-event-label {
     display: none;
+}
+
+.rbc-day-slot .rbc-time-slot {
+    border-top: 1px dotted var(--shadow-color);;
+}
+
+/* Hide the current time indicator */
+.rbc-current-time-indicator {
+    display: none;
+}
+
+/* Adds padding between time labels and calendar box */
+.rbc-label {
+    padding-right: 10px;
+}
+
+/* Don't highlight the current day */
+.rbc-today {
+    background-color: var(--background-color);
+}
+
+/* Adjusts the width of the time slots on the calendar */
+.rbc-day-slot .rbc-timeslot-group {
+    min-height: 70px;
+    border-top: 1px dotted var(--shadow-color);
+    border-bottom: 1px dotted var(--shadow-color);
+}
+
+/* Adjusts the height of the time slots */
+.rbc-timeslot-group {
+    min-height: 70px;
+    border: none;
+}
+
+/* Adjusts text in the course boxes */
+.rbc-event {
+    padding: 0px 0px;
+    font-size: 14px;
+}
+
+.rbc-day-slot .rbc-events-container {
+    margin-right: 0px
 }
 
 /* Styles for calendar events (courses/labs) on the calendar */
@@ -32,23 +98,23 @@
 
 .courseEventBar {
     width: 4px;
-    background-color: #e35f4980;
+    background-color: var(--quaternary-bg-color);
     border: 0px;
     border-radius: 10px;
     opacity: 1;
 
-    margin-right: 10px;
+    margin-right: 6px;
 }
 
 .courseEvent > #courseCode {
     text-decoration: underline;
-    color: #384569;
+    color: var(--primary-color);
     font-size: 1em;
     line-height: 3px;
 }
 
 .courseEvent > #courseTime {
-    color: #8e9eb2;
+    color: var(--tertiary-color);
     margin-top: 2px;
     flex-grow: 1;
     font-size: 0.7em;
@@ -56,10 +122,28 @@
 }
 
 .courseEvent > #courseInstructor {
-    color: #384569;
+    color: var(--primary-color);
     margin-top: 3px;
 
     font-size: 0.7em;
     line-height: 1px;
 }
 
+.model-info {
+    /* width: 545px; */
+    width: 50vw;
+    height: 400px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--secondary-bg-color);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -272px;
+    margin-top: -135px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

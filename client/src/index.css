@@ -1,37 +1,220 @@
-html, body, #app {
-  height: 100%;
+html,
+body,
+#app {
+    height: 100%;
 }
 
-@font-face {
-  font-family: "Acari Sans";
-  src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+:root {
+    --background-color: #fff;
+    /* used for most backgrounds */
+    --secondary-bg-color: #485888;
+    --tertiary-bg-color: #d0f6ff;
+    --quaternary-bg-color: #e35f4980;
+    --primary-color: #1ebfc2;
+    /* used for p tags */
+    --secondary-color: #12b0b2;
+    /* used for headings, navbar tabs */
+    --tertiary-color: #8e9eb2;
+    /* used for icon, course time */
+    --quaternary-color: #384569;
+    /* used for course code, course instructor, course event, login buttons */
+    --quinary-color: #42bebf60;
+    /* used for search button */
+    --link-color: #543fd7;
+    /* used for a tags */
+    --selection-color: #5a5af7;
+    /* used for text selection */
+    --border-color: #bbeced;
+    /* used for button borders */
+    --search-button-bg: #42bebf60;
+    --shadow-color: rgba(0, 0, 0, 0.15);
+    --warning-color: #e9d50d;
+    --course-color1: 30, 133, 232;
+    --course-color2: 245, 213, 129;
+    --course-color3: 227, 95, 73;
+    --course-color4: 118, 197, 175;
+    --course-color5: 236, 202, 90;
+    --opacity-course: 0.95;
+    --opacity-bg: 0.15;
+    --course-c1: rgba(var(--course-color1), var(--opacity-course));
+    --course-c2: rgba(var(--course-color2), var(--opacity-course));
+    --course-c3: rgba(var(--course-color3), var(--opacity-course));
+    --course-c4: rgba(var(--course-color4), var(--opacity-course));
+    --course-c5: rgba(var(--course-color5), var(--opacity-course));
+    --course-bg1: rgba(var(--course-color1), var(--opacity-bg));
+    --course-bg2: rgba(var(--course-color2), var(--opacity-bg));
+    --course-bg3: rgba(var(--course-color3), var(--opacity-bg));
+    --course-bg4: rgba(var(--course-color4), var(--opacity-bg));
+    --course-bg5: rgba(var(--course-color5), var(--opacity-bg));
+
 }
 
-@font-face {
-  font-family: "Acari Sans";
-  src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf") format("truetype");
-  font-weight: normal;
-  font-style: italic;
+html[data-theme="Color Blind"] {
+    /* Design this theme */
+    --background-color: #fff;
+    --secondary-bg-color: #485888;
+    --tertiary-bg-color: #f2fafc;
+    --primary-color: #107577;
+    --secondary-color: #12b0b2;
+    --tertiary-color: #8e9eb2;
+    --quaternary-color: #384569;
+    --quinary-color: #42bebf60;
+    --link-color: #543fd7;
+    --selection-color: #9595ff;
+    --border-color: #bbeced;
+    --search-button-bg: #42bebf60;
+    --shadow-color: rgba(0, 0, 0, 0.15);
 }
 
-@font-face {
-  font-family: "Acari Sans";
-  src: url("./assets/fonts/acari-sans/AcariSans-Bold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: bold;
+html[data-theme="Red"] {
+    --background-color: rgb(255, 168, 168);
+    --secondary-bg-color: #886e48;
+    --tertiary-bg-color: #e47676;
+    --quaternary-bg-color: #ec4f3480;
+    --primary-color: #c2371e;
+    --secondary-color: #ff0000;
+    --tertiary-color: #b28f8e;
+    --quaternary-color: #646938;
+    --quinary-color: #42bf7260;
+    --link-color: #543fd7;
+    --selection-color: #ff9595;
+    --border-color: #edbbbb;
+    --search-button-bg: #bf464260;
+    --shadow-color: rgba(0, 0, 0, 0.15);
+    --opacity-bg: 0.35;
 }
 
-@font-face {
-  font-family: "Acari Sans";
-  src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf") format("truetype");
-  font-weight: medium;
-  font-style: normal;
+html[data-theme="Dark"] {
+    --background-color: #242222;
+    --secondary-bg-color: #374058;
+    --tertiary-bg-color: #303435;
+    --primary-color: #b0f4f5;
+    --secondary-color: #5ccfd1;
+    --tertiary-color: #8e9eb2;
+    --quaternary-color: #868faa;
+    --quinary-color: #42bebf60;
+    --link-color: #7b6ddb;
+    --selection-color: #9595ff;
+    --border-color: #bbeced;
+    --search-button-bg: #42bebf60;
+    --shadow-color: rgba(255, 255, 255, 0.5);
+}
+
+html[data-theme="High Contrast"] {
+    --background-color: #000000;
+    --secondary-bg-color: #292c35;
+    --tertiary-bg-color: #303131;
+    --primary-color: #fcff4e;
+    --secondary-color: #81cdff;
+    --tertiary-color: #d0e5fd;
+    --quaternary-color: #9aaeec;
+    --quinary-color: #4affffa4;
+    --link-color: #a99bff;
+    --selection-color: #a1a1c9;
+    --border-color: #bbeced;
+    --search-button-bg: #4bdd37fb;
+    --shadow-color: whitesmoke;
+}
+
+html[data-theme="Purple"] {
+    --background-color: rgb(59, 0, 77);
+    --secondary-bg-color: #794888;
+    --tertiary-bg-color: #601069;
+    --quaternary-bg-color: #c734ec80;
+    --primary-color: #e7d000;
+    --secondary-color: #fbff00;
+    --tertiary-color: #aeb28e;
+    --quaternary-color: #646938;
+    --quinary-color: #42bf4260;
+    --link-color: #3fc0d7;
+    --selection-color: #ff9595;
+    --border-color: #d9bbed;
+    --search-button-bg: #bf464260;
+    --shadow-color: rgba(221, 221, 221, 0.952);
+    --opacity-bg: 0.3;
+}
+
+html[data-theme="Butter"] {
+    --background-color: #262622;
+    --secondary-bg-color: #1b1b18;
+    --tertiary-bg-color: #151613;
+    --quaternary-bg-color: rgba(41, 39, 27, 0.94);
+    --primary-color: rgba(179, 168, 86, 0.94);
+    --secondary-color: rgb(255, 251, 222, 60%);
+    --tertiary-color: #aeb28e;
+    --quaternary-color: #646938;
+    --quinary-color: #42bf4260;
+    --link-color: rgba(253, 242, 158, 0.94);
+    --selection-color: #ef73ff;
+    --border-color: #edeabb;
+    --search-button-bg: #bf464260;
+    --shadow-color: rgba(221, 221, 221, 0.952);
+}
+
+#app {
+    transition: all 0.5s ease-in-out;
 }
 
 body {
-  font-family: 'Acari Sans';
-  margin: 0;
-  padding: 0;
+    font-family: "Acari Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--secondary-color);
+}
+
+p {
+    color: var(--primary-color);
+}
+
+a {
+    color: var(--link-color);
+}
+
+::selection {
+    background-color: var(--selection-color);
+}
+
+* {
+    scrollbar-width: 18px;
+    /*thin;*/
+    /* scrollbar-color: skyblue #000066; */
+}
+
+@font-face {
+    font-family: "Acari Sans";
+    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Acari Sans";
+    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Acari Sans";
+    src: url("./assets/fonts/acari-sans/AcariSans-Bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: bold;
+}
+
+@font-face {
+    font-family: "Acari Sans";
+    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf") format("truetype");
+    font-weight: medium;
+    font-style: normal;
 }

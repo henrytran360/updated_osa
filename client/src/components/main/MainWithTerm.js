@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import CourseCalendar from "../calendar/Calendar";
 import ClassSelector from "../draftview/ClassSelector";
+import Footer from "../footer/Footer";
 import CourseSearch from "../search/CourseSearch";
 import { useToasts } from "react-toast-notifications";
 import { useQuery, gql, useMutation } from "@apollo/client";
@@ -118,7 +119,7 @@ const Main = ({}) => {
     });
 
     if (loading) return <LoadingScreen />;
-    if (error) return <Error />;
+    if (error) return <Error message={error.message}/>;
     if (!data) return <Error />;
 
     const schedule = data.scheduleOne;
@@ -169,7 +170,7 @@ const Main = ({}) => {
                 value={values[index]}
                 style={{
                     backgroundColor:
-                        bottomMode == values[index] ? "#697e99" : "",
+                        bottomMode == values[index] ? "var(--secondary-bg-color)" : "",
                 }}
             >
                 {console.log(bottomMode)}
@@ -179,7 +180,7 @@ const Main = ({}) => {
     };
 
     return (
-        <div className="App" style={{ display: "inline", color: "#272D2D" }}>
+        <div className="App" style={{ display: "inline", color: "var(--quaternary-bg-color)" }}>
             <Header curTerm={curTerm} />
 
             <div style={{ padding: "2%" }}>
@@ -194,6 +195,7 @@ const Main = ({}) => {
             <BottomModeContext.Provider value={bottomMode}>
                 {renderContent()}
             </BottomModeContext.Provider>
+            <Footer />
         </div>
     );
 };

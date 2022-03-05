@@ -39,7 +39,7 @@ const styles = {
 // Styled rows
 const StyledTableHeader = withStyles((theme) => ({
     root: {
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "var(--background-color)",
         borderRadius: "15px",
         border: "0px",
         opacity: 1,
@@ -56,8 +56,8 @@ const StyledTableRow = withStyles((theme) => ({
 
 const StyledHeaderTableCell = withStyles((theme) => ({
     root: {
-        color: "#697E99",
-        backgroundColor: "#FFFFFF",
+        color: "var(--secondary-bg-color)",
+        backgroundColor: "var(--background-color)",
         border: "0px",
     },
 }))(TableCell);
@@ -96,6 +96,34 @@ const GET_LOCAL_DATA = gql`
     query GetLocalData {
         term @client
         recentUpdate @client
+    }
+`;
+
+const GET_EVALUATION_CHART_BY_COURSE = gql`
+    query getEvaluationChartByCourse($course: String!) {
+        getEvaluationChartByCourse(course: $course) {
+            courseName
+            expected_pf {
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            expected_grade {
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            comments {
+                text
+                time
+            }
+            term
+            enrolled_amount
+        }
     }
 `;
 
@@ -177,13 +205,16 @@ const ClassSelector = ({ draftSessions, scheduleID }) => {
                             course={draftSession.session.course}
                             prevTermCourses={prevTermCourses.prevTermCourses}
                             instructorsList={instructorsList}
+                            getEvaluationByCourse={
+                                GET_EVALUATION_CHART_BY_COURSE
+                            }
                             scheduleID={scheduleID}
                         />
                     ))
                 )}
                 <div className="tableFooter">
                     Visible Credit Hours: {visibleCreditTotal}
-                    <hr />
+                    <br />
                     Total Credit Hours: {absoluteCreditTotal}
                 </div>
             </div>

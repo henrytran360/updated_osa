@@ -31,7 +31,7 @@ const Auth = () => {
 
     const { data, loading, error } = useQuery(VERIFY_TOKEN);
 
-    if (error) return <Error />;
+    if (error) return <Error message={error.message}/>;
     if (loading) return <LoadingScreen />;
     if (!data) return <h2>No data returned...</h2>;
 

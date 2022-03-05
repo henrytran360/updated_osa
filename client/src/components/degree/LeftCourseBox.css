@@ -1,20 +1,21 @@
 .lcbox {
     position: relative;
-    width: 440px;
+    width: 80%;
     height: 48px;
     left: 1px;
     top: -2px;
-    border-bottom: 1.5px solid #e1e3e3;
-    border-left: 1.5px solid #e1e3e3;
+    border-bottom: 1.5px solid var(--border-color);
+    border-left: 1.5px solid var(--border-color);
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
     column-gap: 0.875rem;
+    text-overflow: "ellipsis";
 }
 .courseName:hover {
-    color: #338182;
+    color: var(--quinary-color);
 }
 .courseCode {
     height: 19px;
@@ -23,7 +24,7 @@
     font-size: 16px;
     line-height: 19px;
     padding-top: 3px;
-    color: #338182;
+    color: var(--quinary-color);
 }
 .courseName {
     height: 19px;
@@ -31,14 +32,14 @@
     padding-top: 3px;
     font-size: 16px;
     line-height: 19px;
-    color: #63ccce;
+    color: var(--secondary-color);
 }
 .modal {
     width: 545px;
     height: 300px;
-    border: 2px solid #149fa0;
+    border: 2px solid var(--primary-color);
     border-radius: 5px;
-
+    background-color: var(--border-color);
     position: absolute;
     left: 50%;
     top: 50%;
@@ -53,6 +54,7 @@
 .courseInfoContent {
     width: 90%;
     height: 100%;
+    font-family: "Acari Sans";
     font-style: normal;
     font-size: 16px;
     display: flex;
@@ -63,7 +65,7 @@
 .closeBtn:before {
     cursor: pointer;
     content: "\00d7";
-    color: black;
+    color: var(--shadow-color);
     font-size: 400;
     font-weight: 500;
     display: flex;
@@ -73,27 +75,24 @@
 
 .customCourseCode {
     position: relative;
-    left: -5px;
     height: 19px;
-    width: 85px;
+    width: 80px;
     font-style: normal;
     font-size: 16px;
     line-height: 19px;
     padding-top: 3px;
-    color: #338182;
-    font-weight: bold;
+    color: var(--primary-color);
     border-color: transparent;
     border-radius: 5px;
 }
 
 .customCourseName {
     height: 19px;
-    width: 240px;
     font-style: normal;
     padding-top: 3px;
     font-size: 16px;
     line-height: 19px;
-    color: #63ccce;
+    color: var(--secondary-color);
     text-decoration: underline;
     border-color: transparent;
     border-radius: 5px;

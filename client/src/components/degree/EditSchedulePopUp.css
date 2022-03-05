@@ -9,14 +9,12 @@
 .searchInputs {
     display: flex;
     border-radius: 2px;
-    border: 1px solid rgb(55, 54, 54);
+    border: 1px solid var(--secondary-bg-color);
     height: 60%;
 }
 .searchInputs input {
     border: 0;
     border-radius: 2px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
     font-size: 18px;
     padding: 15px;
     height: auto;
@@ -26,7 +24,7 @@
 .searchIcon {
     height: 100%;
     width: 45px;
-    background-color: white;
+    background-color: var(--background-color);
     display: grid;
     place-items: center;
 }
@@ -69,7 +67,7 @@
 .SearchResult {
     width: 35%;
     height: 100%;
-    box-shadow: rgba(0, 0, 0, 0.255) 0px 5px 14px 0px;
+    box-shadow: var(--shadow-color) 0px 5px 14px 0px;
     padding: 1.25rem;
     border-radius: 4px;
     display: flex;
@@ -81,10 +79,10 @@
 .Cart {
     width: 65%;
     height: 100%;
-    box-shadow: rgba(0, 0, 0, 0.255) 0px 5px 14px 0px;
+    box-shadow: var(--shadow-color) 0px 5px 14px 0px;
     padding: 1.25rem;
     border-radius: 4px;
-    background-color: white;
+    background-color: var(--background-color);
     overflow-y: scroll;
 }
 

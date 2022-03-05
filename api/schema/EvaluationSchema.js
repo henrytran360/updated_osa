@@ -5,7 +5,6 @@ import {
 } from "../models/EvaluationChartModel";
 
 import { User, UserTC } from "../models/UserModel";
-import { getPreviousTermCourses, getSubjects } from "../utils/courseUtils";
 
 EvaluationTC.addResolver({
     name: "getAllEvaluation",

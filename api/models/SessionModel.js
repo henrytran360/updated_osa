@@ -35,6 +35,7 @@ var SessionSchema = new Schema({
     course: { type: Schema.Types.ObjectID, ref: Course },
     instructors: [{ type: Schema.Types.ObjectID, ref: Instructor }],
     instructionMethod: String,
+    fullCourseName: String,
 });
 
 export const Session = mongoose.model("sessions", SessionSchema);

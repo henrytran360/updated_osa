@@ -131,6 +131,14 @@ const CourseQuery = {
             },
         })
         .addFilterArg({
+            name: "courseNameRegExp", // From here: https://github.com/graphql-compose/graphql-compose-examples/blob/master/examples/northwind/models/product.js#L38,L49
+            type: "String",
+            description: "Search for a course by a RegExp of its title",
+            query: (query, value) => {
+                query.fullCourseName = new RegExp("^.*" + value + ".*", "i"); // case insensitive regex search
+            },
+        })
+        .addFilterArg({
             name: "courseCodeRegExp", // From here: https://github.com/graphql-compose/graphql-compose-examples/blob/master/examples/northwind/models/product.js#L38,L49
             type: "String",
             description:
