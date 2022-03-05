@@ -1,8 +1,8 @@
 // color combos order: [background, border]
 export const colorCombos = [
-    ["var(--course-border1)", "var(--course-color1)"],
-    ["var(--course-border2)", "var(--course-color2)"],
-    ["var(--course-border3)", "var(--course-color3)"],
-    ["var(--course-border4)", "var(--course-color4)"],
-    ["var(--course-border5)", "var(--course-color5)"],
+    ["var(--course-bg1)", "var(--course-c1)"],
+    ["var(--course-bg2)", "var(--course-c2)"],
+    ["var(--course-bg3)", "var(--course-c3)"],
+    ["var(--course-bg4)", "var(--course-c4)"],
+    ["var(--course-bg5)", "var(--course-c5)"],
 ];
