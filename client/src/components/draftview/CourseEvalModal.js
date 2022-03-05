@@ -541,7 +541,7 @@ const CourseEvalModal = (props) => {
                                         >
                                             <Font
                                                 size="17px"
-                                                color={"#338182"}
+                                                color={"var(--primary-color)"}
                                                 family={"Acari Sans"}
                                             />
                                             <Border visible={false} />
@@ -559,7 +559,7 @@ const CourseEvalModal = (props) => {
                                 <Title text="Expected Grade (Letter)">
                                     <Font
                                         size="15px"
-                                        color={"#165859"}
+                                        color={"var(--secondary-color)"}
                                         family={"Acari Sans"}
                                     />
                                 </Title>
@@ -568,7 +568,7 @@ const CourseEvalModal = (props) => {
                                     <Label>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -581,7 +581,7 @@ const CourseEvalModal = (props) => {
                                     <Label customizeText={customizeText}>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -621,7 +621,7 @@ const CourseEvalModal = (props) => {
                                         >
                                             <Font
                                                 size="17px"
-                                                color={"#338182"}
+                                                color={"var(--primary-color)"}
                                                 family={"Acari Sans"}
                                             />
                                             <Border visible={false} />
@@ -639,7 +639,7 @@ const CourseEvalModal = (props) => {
                                 <Title text="Expected Grade (P/F)">
                                     <Font
                                         size="15px"
-                                        color={"#165859"}
+                                        color={"var(--secondary-color)"}
                                         family={"Acari Sans"}
                                     />
                                 </Title>
@@ -648,7 +648,7 @@ const CourseEvalModal = (props) => {
                                     <Label>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -661,7 +661,7 @@ const CourseEvalModal = (props) => {
                                     <Label customizeText={customizeText}>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -698,7 +698,7 @@ const CourseEvalModal = (props) => {
                                         >
                                             <Font
                                                 size="17px"
-                                                color={"#338182"}
+                                                color={"var(--primary-color)"}
                                                 family={"Acari Sans"}
                                             />
                                             <Border visible={false} />
@@ -716,7 +716,7 @@ const CourseEvalModal = (props) => {
                                 <Title text="Organization: The organization of this course was:">
                                     <Font
                                         size="15px"
-                                        color={"#165859"}
+                                        color={"var(--secondary-color)"}
                                         family={"Acari Sans"}
                                     />
                                 </Title>
@@ -725,7 +725,7 @@ const CourseEvalModal = (props) => {
                                     <Label>
                                         <Font
                                             size="12px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -738,7 +738,7 @@ const CourseEvalModal = (props) => {
                                     <Label customizeText={customizeText}>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -775,7 +775,7 @@ const CourseEvalModal = (props) => {
                                         >
                                             <Font
                                                 size="17px"
-                                                color={"#338182"}
+                                                color={"var(--primary-color)"}
                                                 family={"Acari Sans"}
                                             />
                                             <Border visible={false} />
@@ -793,7 +793,7 @@ const CourseEvalModal = (props) => {
                                 <Title text="Assignments: The contribution that the graded work made to the learning experience was:">
                                     <Font
                                         size="15px"
-                                        color={"#165859"}
+                                        color={"var(--secondary-color)"}
                                         family={"Acari Sans"}
                                     />
                                 </Title>
@@ -802,7 +802,7 @@ const CourseEvalModal = (props) => {
                                     <Label>
                                         <Font
                                             size="12px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -815,7 +815,7 @@ const CourseEvalModal = (props) => {
                                     <Label customizeText={customizeText}>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -852,7 +852,7 @@ const CourseEvalModal = (props) => {
                                         >
                                             <Font
                                                 size="17px"
-                                                color={"#338182"}
+                                                color={"var(--primary-color)"}
                                                 family={"Acari Sans"}
                                             />
                                             <Border visible={false} />
@@ -870,7 +870,7 @@ const CourseEvalModal = (props) => {
                                 <Title text="Overall, I would rate the quality of this course as:">
                                     <Font
                                         size="15px"
-                                        color={"#165859"}
+                                        color={"var(--secondary-color)"}
                                         family={"Acari Sans"}
                                     />
                                 </Title>
@@ -879,7 +879,7 @@ const CourseEvalModal = (props) => {
                                     <Label>
                                         <Font
                                             size="12px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -892,7 +892,7 @@ const CourseEvalModal = (props) => {
                                     <Label customizeText={customizeText}>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -929,7 +929,7 @@ const CourseEvalModal = (props) => {
                                         >
                                             <Font
                                                 size="17px"
-                                                color={"#338182"}
+                                                color={"var(--primary-color)"}
                                                 family={"Acari Sans"}
                                             />
                                             <Border visible={false} />
@@ -947,7 +947,7 @@ const CourseEvalModal = (props) => {
                                 <Title text="Challenge: I was challenged to extend my capabilities or to develop new ones:">
                                     <Font
                                         size="15px"
-                                        color={"#165859"}
+                                        color={"var(--secondary-color)"}
                                         family={"Acari Sans"}
                                     />
                                 </Title>
@@ -956,7 +956,7 @@ const CourseEvalModal = (props) => {
                                     <Label>
                                         <Font
                                             size="11px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -969,7 +969,7 @@ const CourseEvalModal = (props) => {
                                     <Label customizeText={customizeText}>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -1006,7 +1006,7 @@ const CourseEvalModal = (props) => {
                                         >
                                             <Font
                                                 size="17px"
-                                                color={"#338182"}
+                                                color={"var(--primary-color)"}
                                                 family={"Acari Sans"}
                                             />
                                             <Border visible={false} />
@@ -1024,7 +1024,7 @@ const CourseEvalModal = (props) => {
                                 <Title text="I am taking this course because it satisfies:">
                                     <Font
                                         size="15px"
-                                        color={"#165859"}
+                                        color={"var(--secondary-color)"}
                                         family={"Acari Sans"}
                                     />
                                 </Title>
@@ -1033,7 +1033,7 @@ const CourseEvalModal = (props) => {
                                     <Label>
                                         <Font
                                             size="12px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -1046,7 +1046,7 @@ const CourseEvalModal = (props) => {
                                     <Label customizeText={customizeText}>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -1083,7 +1083,7 @@ const CourseEvalModal = (props) => {
                                         >
                                             <Font
                                                 size="17px"
-                                                color={"#338182"}
+                                                color={"var(--primary-color)"}
                                                 family={"Acari Sans"}
                                             />
                                             <Border visible={false} />
@@ -1101,7 +1101,7 @@ const CourseEvalModal = (props) => {
                                 <Title text="Workload: The workload for this course compared to others at Rice was:">
                                     <Font
                                         size="15px"
-                                        color={"#165859"}
+                                        color={"var(--secondary-color)"}
                                         family={"Acari Sans"}
                                     />
                                 </Title>
@@ -1110,7 +1110,7 @@ const CourseEvalModal = (props) => {
                                     <Label>
                                         <Font
                                             size="10.5px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>
@@ -1123,7 +1123,7 @@ const CourseEvalModal = (props) => {
                                     <Label customizeText={customizeText}>
                                         <Font
                                             size="15px"
-                                            color={"#338182"}
+                                            color={"var(--primary-color)"}
                                             family={"Acari Sans"}
                                         />
                                     </Label>

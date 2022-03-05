@@ -12,9 +12,9 @@
 .eval-warning {
     display: flex;
     flex-direction: row;
-    background-color: #faf3a9;
+    background-color: var(--warning-color);
     padding: 0;
-    border: 2px solid #f3e12e;
+    border: 2px solid var(--tertiary-bg-color);
     border-radius: 5px;
 }
 
