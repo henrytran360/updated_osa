@@ -41,11 +41,11 @@ body,
     --course-c3: rgba(var(--course-color3), var(--opacity-course));
     --course-c4: rgba(var(--course-color4), var(--opacity-course));
     --course-c5: rgba(var(--course-color5), var(--opacity-course));
-    --course-bg1: rgba(var(--course-color1), var(--opacity));
-    --course-bg2: rgba(var(--course-color2), var(--opacity));
-    --course-bg3: rgba(var(--course-color3), var(--opacity));
-    --course-bg4: rgba(var(--course-color4), var(--opacity));
-    --course-bg5: rgba(var(--course-color5), var(--opacity));
+    --course-bg1: rgba(var(--course-color1), var(--opacity-bg));
+    --course-bg2: rgba(var(--course-color2), var(--opacity-bg));
+    --course-bg3: rgba(var(--course-color3), var(--opacity-bg));
+    --course-bg4: rgba(var(--course-color4), var(--opacity-bg));
+    --course-bg5: rgba(var(--course-color5), var(--opacity-bg));
 
 }
 
