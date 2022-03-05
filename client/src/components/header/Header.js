@@ -364,7 +364,7 @@ function Header() {
     return (
         <div className="headerContainer">
             <Box
-                sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+                sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}
                 className="justifyItems"
             >
                 <div className="titleContainer">
@@ -500,7 +500,7 @@ function Header() {
                 <h4 className="emailHeading">{email}</h4>
                 <SettingsModal />
             </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
                 <IconButton
                     size="medium"
                     aria-label="account of current user"
