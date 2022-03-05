@@ -11,6 +11,7 @@
 /* Hides unwanted border in the calendar */
 .rbc-time-view {
     border: none;
+    margin-top: 10px;
 }
 
 /* Hides unwanted border in the calendar */
@@ -23,14 +24,29 @@
     border-left: none;
 }
 
+/* Adds left and right borders between days in the calendar */
+.rbc-time-content > * + * > * {
+    border-left: 0.5px solid #DDD;
+    border-right: 0.5px solid #DDD;
+}
+
 /* Hide the time label on the event object */
 .rbc-day-slot .rbc-event-label {
     display: none;
 }
 
+.rbc-day-slot .rbc-time-slot {
+    border-top: 1px dotted #DDD;
+}
+
 /* Hide the current time indicator */
 .rbc-current-time-indicator {
     display: none;
+}
+
+/* Adds padding between time labels and calendar box */
+.rbc-label {
+    padding-right: 10px;
 }
 
 /* Don't highlight the current day */
@@ -57,9 +73,8 @@
     font-size: 14px;
 }
 
-/* Aligns the time slot labels to the right */
-.rbc-time-slot {
-    align-self: flex-end;
+.rbc-day-slot .rbc-events-container {
+    margin-right: 0px
 }
 
 /* Styles for calendar events (courses/labs) on the calendar */
