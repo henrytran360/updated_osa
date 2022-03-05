@@ -192,13 +192,13 @@ const NewDraftCourseItem = (props) => {
 
     //getting course info for the popup (expanded detail for each course)
     const start_time =
-        props.session.class.startTime.substring(0, 2) +
+        props.session.class.startTime?.substring(0, 2) +
         ":" +
-        props.session.class.startTime.substring(2, 4);
+        props.session.class.startTime?.substring(2, 4);
     const end_time =
-        props.session.class.endTime.substring(0, 2) +
+        props.session.class.endTime?.substring(0, 2) +
         ":" +
-        props.session.class.endTime.substring(2, 4);
+        props.session.class.endTime?.substring(2, 4);
     let instructors_str = "";
     if (props.session) {
         if (props.session.instructors.length > 0) {

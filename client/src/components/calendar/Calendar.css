@@ -2,8 +2,32 @@
 .rbc-allday-cell {
     display: none;
 }
+
+/* Hides unwanted border in the calendar */
 .rbc-time-view .rbc-header {
-    border-bottom: none;
+    border: none;
+}
+
+/* Hides unwanted border in the calendar */
+.rbc-time-view {
+    border: none;
+    margin-top: 10px;
+}
+
+/* Hides unwanted border in the calendar */
+.rbc-time-content {
+    border: none;
+}
+
+/* Hides unwanted border in the calendar */
+.rbc-time-header-content {
+    border-left: none;
+}
+
+/* Adds left and right borders between days in the calendar */
+.rbc-time-content > * + * > * {
+    border-left: 0.5px solid #DDD;
+    border-right: 0.5px solid #DDD;
 }
 
 /* Hide the time label on the event object */
@@ -11,14 +35,46 @@
     display: none;
 }
 
+.rbc-day-slot .rbc-time-slot {
+    border-top: 1px dotted #DDD;
+}
+
 /* Hide the current time indicator */
 .rbc-current-time-indicator {
     display: none;
 }
 
+/* Adds padding between time labels and calendar box */
+.rbc-label {
+    padding-right: 10px;
+}
+
 /* Don't highlight the current day */
 .rbc-today {
     background-color: var(--background-color);
+}
+
+/* Adjusts the width of the time slots on the calendar */
+.rbc-day-slot .rbc-timeslot-group {
+    min-height: 70px;
+    border-top: 1px dotted #DDD;
+    border-bottom: 1px dotted #DDD;
+}
+
+/* Adjusts the height of the time slots */
+.rbc-timeslot-group {
+    min-height: 70px;
+    border: none;
+}
+
+/* Adjusts text in the course boxes */
+.rbc-event {
+    padding: 0px 0px;
+    font-size: 14px;
+}
+
+.rbc-day-slot .rbc-events-container {
+    margin-right: 0px
 }
 
 /* Styles for calendar events (courses/labs) on the calendar */
@@ -47,7 +103,7 @@
     border-radius: 10px;
     opacity: 1;
 
-    margin-right: 10px;
+    margin-right: 6px;
 }
 
 .courseEvent > #courseCode {
