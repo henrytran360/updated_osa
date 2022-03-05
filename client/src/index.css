@@ -63,7 +63,7 @@ html[data-theme="Color Blind"] {
     --selection-color: #9595ff;
     --border-color: #bbeced;
     --search-button-bg: #42bebf60;
-    --shadow-color: whitesmoke;
+    --shadow-color: rgba(0, 0, 0, 0.15);
 }
 
 html[data-theme="Red"] {
@@ -81,6 +81,7 @@ html[data-theme="Red"] {
     --border-color: #edbbbb;
     --search-button-bg: #bf464260;
     --shadow-color: rgba(0, 0, 0, 0.15);
+    --opacity-bg: 0.35;
 }
 
 html[data-theme="Dark"] {
@@ -130,6 +131,7 @@ html[data-theme="Purple"] {
     --border-color: #d9bbed;
     --search-button-bg: #bf464260;
     --shadow-color: rgba(221, 221, 221, 0.952);
+    --opacity-bg: 0.3;
 }
 
 html[data-theme="Butter"] {

@@ -26,8 +26,8 @@
 
 /* Adds left and right borders between days in the calendar */
 .rbc-time-content > * + * > * {
-    border-left: 0.5px solid #DDD;
-    border-right: 0.5px solid #DDD;
+    border-left: 0.5px solid var(--shadow-color);
+    border-right: 0.5px solid var(--shadow-color);
 }
 
 /* Hide the time label on the event object */
@@ -36,7 +36,7 @@
 }
 
 .rbc-day-slot .rbc-time-slot {
-    border-top: 1px dotted #DDD;
+    border-top: 1px dotted var(--shadow-color);;
 }
 
 /* Hide the current time indicator */
@@ -57,8 +57,8 @@
 /* Adjusts the width of the time slots on the calendar */
 .rbc-day-slot .rbc-timeslot-group {
     min-height: 70px;
-    border-top: 1px dotted #DDD;
-    border-bottom: 1px dotted #DDD;
+    border-top: 1px dotted var(--shadow-color);
+    border-bottom: 1px dotted var(--shadow-color);
 }
 
 /* Adjusts the height of the time slots */
@@ -108,7 +108,7 @@
 
 .courseEvent > #courseCode {
     text-decoration: underline;
-    color: var(--quaternary-color);
+    color: var(--primary-color);
     font-size: 1em;
     line-height: 3px;
 }
