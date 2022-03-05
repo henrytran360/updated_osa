@@ -10,22 +10,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import CourseEvalModal from "./CourseEvalModal";
-
-const colorCombos = [
-    ["#F2F9FF", "#00A2F2"], // blue
-    ["#FFFFF2", "#E8B134"], // yellow
-    ["#FFFCFB", "#EC3F63"], // orange
-    ["#FDFFFE", "#1EBFC2"], // light green
-    ["#FFFFFF", "#696969"], // white / darkgrey
-];
-
-// const colorCombos = [
-//     ["#F2F9FF", "#1E85E880"], // light blue
-//     ["#FFFFF2", "#F5D581B3"], // light yellow
-//     ["#FFFCFB", "#E35F4980"], // light orange
-//     ["#FDFFFE", "#76C5AFBF"], // light green
-//     ["#FFFFFF", "#000000FF"], // white / black
-// ];
+import { colorCombos } from '../calendar/colors'
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -268,9 +253,8 @@ const NewDraftCourseItem = (props) => {
 
     return (
         <div
-            className={`draft-course-item-container ${
-                boolVisible ? "" : "selected2"
-            }`}
+            className={`draft-course-item-container ${boolVisible ? "" : "selected2"
+                }`}
             style={{ boxShadow: "var(--shadow-color) 0 1.95px 0" }}
         >
             <div className="draft-course-top">
@@ -443,16 +427,16 @@ const NewDraftCourseItem = (props) => {
                 >
                     {props.session.class.startTime
                         ? classTimeString(
-                              props.session.class.startTime,
-                              props.session.class.endTime
-                          )
+                            props.session.class.startTime,
+                            props.session.class.endTime
+                        )
                         : "No time available"}{" "}
                     |{" "}
                     {firstInstructor
                         ? firstInstructor &&
-                          firstInstructor.firstName +
-                              " " +
-                              firstInstructor.lastName
+                        firstInstructor.firstName +
+                        " " +
+                        firstInstructor.lastName
                         : "No Instructors"}{" "}
                     | CRN: {props.session.crn}
                 </span>

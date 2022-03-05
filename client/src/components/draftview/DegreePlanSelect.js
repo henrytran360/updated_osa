@@ -44,19 +44,19 @@ const customStyles = {
         return {
             ...styles,
             width: 200,
-            backgroundColor: isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+            backgroundColor: isFocused ? "var(--primary-color)" : "var(--border-color)",
             color: "var(--background-color)",
             cursor: isDisabled ? "not-allowed" : "default",
         };
     },
     control: (base, state) => ({
         ...base,
-        color: "var(--search-background-focused)",
+        color: "var(--primary-color)",
         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
         borderColor: state.isFocused ? "var(--border-color)" : "var(--border-color)",
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
-            borderColor: state.isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+            borderColor: state.isFocused ? "var(--primary-color)" : "var(--border-color)",
         },
         width: 200,
     }),

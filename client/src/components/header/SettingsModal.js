@@ -37,7 +37,7 @@ function SettingsModal(props) {
                 size="small"
                 style={{
                     backgroundColor: "var(--tertiary-bg-color)",
-                    color: "var(--search-background-focused)",
+                    color: "var(--primary-color)",
                     // fontSize: 15,
                 }}
                 onClick={handleOpen}
@@ -61,8 +61,8 @@ function SettingsModal(props) {
                     <FormControl fullWidth>
                         <Button
                             style={{
-                                color: "var(--search-background-focused)",
-                                border: "1px solid var(--search-background-focused)",
+                                color: "var(--primary-color)",
+                                border: "1px solid var(--primary-color)",
                             }}
                             variant="outlined"
                             onClick={() => window.open(feedbackURL, "_blank")}

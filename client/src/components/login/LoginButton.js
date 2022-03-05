@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 
 const useStyles = makeStyles({
     button: {
-        color: "var(--search-background-focused)",
+        color: "var(--primary-color)",
     },
     marginRight: 10,
 });
@@ -72,8 +72,8 @@ function LoginButton(props) {
         let ll_button = (
             <Button
                 style={{
-                    color: "var(--search-background-focused)",
-                    border: "1px solid var(--search-background-focused)",
+                    color: "var(--primary-color)",
+                    border: "1px solid var(--primary-color)",
                 }}
                 className={classes.button}
                 variant="outlined"
@@ -87,8 +87,8 @@ function LoginButton(props) {
             ll_button = (
                 <Button
                     style={{
-                        color: "var(--search-background-focused)",
-                        border: "1px solid var(--search-background-focused)",
+                        color: "var(--primary-color)",
+                        border: "1px solid var(--primary-color)",
                     }}
                     className={classes.button}
                     variant="outlined"

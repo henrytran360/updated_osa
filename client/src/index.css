@@ -28,8 +28,8 @@ body,
     /* used for button borders */
     --search-button-bg: #42bebf60;
     --shadow-color: rgba(0, 0, 0, 0.15);
-    --search-background-focused: #1dc2c4;
     --warning-color: #e9d50d;
+
 }
 
 html[data-theme="Color Blind"] {
@@ -64,7 +64,6 @@ html[data-theme="Red"] {
     --border-color: #edbbbb;
     --search-button-bg: #bf464260;
     --shadow-color: rgba(0, 0, 0, 0.15);
-    --search-background-focused: #c4441d;
 }
 
 html[data-theme="Dark"] {
@@ -114,7 +113,6 @@ html[data-theme="Purple"] {
     --border-color: #d9bbed;
     --search-button-bg: #bf464260;
     --shadow-color: rgba(221, 221, 221, 0.952);
-    --search-background-focused: #fff23a;
 }
 
 html[data-theme="Butter"] {
@@ -122,7 +120,7 @@ html[data-theme="Butter"] {
     --secondary-bg-color: #1b1b18;
     --tertiary-bg-color: #151613;
     --quaternary-bg-color: rgba(41, 39, 27, 0.94);
-    --primary-color: rgb(255, 251, 222, 94%);
+    --primary-color: rgba(179, 168, 86, 0.94);
     --secondary-color: rgb(255, 251, 222, 60%);
     --tertiary-color: #aeb28e;
     --quaternary-color: #646938;
@@ -132,7 +130,6 @@ html[data-theme="Butter"] {
     --border-color: #edeabb;
     --search-button-bg: #bf464260;
     --shadow-color: rgba(221, 221, 221, 0.952);
-    --search-background-focused: rgba(179, 168, 86, 0.94);
 }
 
 #app {

@@ -6,17 +6,17 @@ import { gql, useQuery, useMutation, useApolloClient } from "@apollo/client";
 
 const useStyles = makeStyles({
     button: {
-        color: "var(--search-background-focused)",
+        color: "var(--primary-color)",
         fontSize: 15,
     },
     button2: {
-        color: "var(--search-background-focused)",
+        color: "var(--primary-color)",
         border: "1px solid var(--border-color)",
         width: 150,
     },
     button3: {
-        color: "var(--search-background-focused)",
-        border: "1px solid var(--search-background-focused)",
+        color: "var(--primary-color)",
+        border: "1px solid var(--primary-color)",
         width: 80,
     },
     button4: {
@@ -26,8 +26,8 @@ const useStyles = makeStyles({
     },
     button5: {
         height: 50,
-        color: "var(--search-background-focused)",
-        border: "1px solid var(--search-background-focused)",
+        color: "var(--primary-color)",
+        border: "1px solid var(--primary-color)",
     },
 });
 const UpdateModal = ({
@@ -64,8 +64,8 @@ const UpdateModal = ({
                     <div className="buttonContainer">
                         <Button
                             style={{
-                                color: "var(--search-background-focused)",
-                                border: "1px solid var(--search-background-focused)",
+                                color: "var(--primary-color)",
+                                border: "1px solid var(--primary-color)",
                             }}
                             className={classes.button3}
                             variant="outlined"

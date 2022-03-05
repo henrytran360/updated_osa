@@ -37,7 +37,7 @@ const customStyles = {
             ...styles,
             width: 200,
             backgroundColor: isFocused
-                ? "var(--search-background-focused)"
+                ? "var(--primary-color)"
                 : "var(--border-color)",
             color: "var(--background-color)",
             cursor: isDisabled ? "not-allowed" : "default",
@@ -45,7 +45,7 @@ const customStyles = {
     },
     control: (base, state) => ({
         ...base,
-        color: "var(--search-background-focused)",
+        color: "var(--primary-color)",
         zIndex: 0,
         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
         borderColor: "var(--border-color)",
@@ -56,7 +56,7 @@ const customStyles = {
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
             borderColor: state.isFocused
-                ? "var(--search-background-focused)"
+                ? "var(--primary-color)"
                 : "var(--border-color)",
         },
     }),

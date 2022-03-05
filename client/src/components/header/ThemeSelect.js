@@ -17,8 +17,8 @@ function ThemeSelect(props) {
         buttons.push(
             <Button
                 style={{
-                    color: "var(--search-background-focused)",
-                    border: "1px solid var(--search-background-focused)",
+                    color: "var(--primary-color)",
+                    border: "1px solid var(--primary-color)",
                 }}
                 variant="outlined"
                 onClick={() => handleChange(theme)} key={theme}>

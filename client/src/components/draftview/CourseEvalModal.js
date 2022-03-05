@@ -553,7 +553,7 @@ const CourseEvalModal = (props) => {
                                     hoverMode="none"
                                     valueField="value"
                                     argumentField="argument"
-                                    color={"var(--search-background-focused)"}
+                                    color={"var(--primary-color)"}
                                     name="Value"
                                 />
                                 <Title text="Expected Grade (Letter)">
@@ -633,7 +633,7 @@ const CourseEvalModal = (props) => {
                                     hoverMode="none"
                                     valueField="value"
                                     argumentField="argument"
-                                    color={"var(--search-background-focused)"}
+                                    color={"var(--primary-color)"}
                                     name="Value"
                                 />
                                 <Title text="Expected Grade (P/F)">
@@ -710,7 +710,7 @@ const CourseEvalModal = (props) => {
                                     hoverMode="none"
                                     valueField="value"
                                     argumentField="argument"
-                                    color={"var(--search-background-focused)"}
+                                    color={"var(--primary-color)"}
                                     name="Value"
                                 />
                                 <Title text="Organization: The organization of this course was:">
@@ -787,7 +787,7 @@ const CourseEvalModal = (props) => {
                                     hoverMode="none"
                                     valueField="value"
                                     argumentField="argument"
-                                    color={"var(--search-background-focused)"}
+                                    color={"var(--primary-color)"}
                                     name="Value"
                                 />
                                 <Title text="Assignments: The contribution that the graded work made to the learning experience was:">
@@ -864,7 +864,7 @@ const CourseEvalModal = (props) => {
                                     hoverMode="none"
                                     valueField="value"
                                     argumentField="argument"
-                                    color={"var(--search-background-focused)"}
+                                    color={"var(--primary-color)"}
                                     name="Value"
                                 />
                                 <Title text="Overall, I would rate the quality of this course as:">
@@ -941,7 +941,7 @@ const CourseEvalModal = (props) => {
                                     hoverMode="none"
                                     valueField="value"
                                     argumentField="argument"
-                                    color={"var(--search-background-focused)"}
+                                    color={"var(--primary-color)"}
                                     name="Value"
                                 />
                                 <Title text="Challenge: I was challenged to extend my capabilities or to develop new ones:">
@@ -1018,7 +1018,7 @@ const CourseEvalModal = (props) => {
                                     hoverMode="none"
                                     valueField="value"
                                     argumentField="argument"
-                                    color={"var(--search-background-focused)"}
+                                    color={"var(--primary-color)"}
                                     name="Value"
                                 />
                                 <Title text="I am taking this course because it satisfies:">
@@ -1095,7 +1095,7 @@ const CourseEvalModal = (props) => {
                                     hoverMode="none"
                                     valueField="value"
                                     argumentField="argument"
-                                    color={"var(--search-background-focused)"}
+                                    color={"var(--primary-color)"}
                                     name="Value"
                                 />
                                 <Title text="Workload: The workload for this course compared to others at Rice was:">

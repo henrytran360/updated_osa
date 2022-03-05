@@ -307,7 +307,7 @@ const initialEndTime = "12:00";
 //         return {
 //             ...styles,
 //             width: 140,
-//             backgroundColor: isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+//             backgroundColor: isFocused ? "var(--primary-color)" : "var(--border-color)",
 //             color: "var(--background-color)",
 //             cursor: isDisabled ? "not-allowed" : "default",
 //         };
@@ -321,7 +321,7 @@ const initialEndTime = "12:00";
 //         borderColor: "var(--border-color)",
 //         boxShadow: state.isFocused ? null : null,
 //         "&:hover": {
-//             borderColor: state.isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+//             borderColor: state.isFocused ? "var(--primary-color)" : "var(--border-color)",
 //         },
 //     }),
 //     singleValue: (provided, state) => {
@@ -334,7 +334,7 @@ const initialEndTime = "12:00";
 
 const useStyles = makeStyles((theme) => ({
     searchIconStyle: {
-        color: "var(--search-background-focused)",
+        color: "var(--primary-color)",
     },
 }));
 

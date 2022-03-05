@@ -37,7 +37,7 @@
 .modal {
     width: 545px;
     height: 300px;
-    border: 2px solid var(--search-background-focused);
+    border: 2px solid var(--primary-color);
     border-radius: 5px;
     background-color: var(--border-color);
     position: absolute;

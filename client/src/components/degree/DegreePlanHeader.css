@@ -42,6 +42,6 @@
 }
 
 .toschedule:hover {
-    background-color: var(--search-background-focused);
+    background-color: var(--primary-color);
     color: var(--tertiary-bg-color);
 }

@@ -38,17 +38,17 @@ import DeleteModal from "./DeleteModal";
 
 const useStyles = makeStyles({
     button: {
-        color: "var(--search-background-focused)",
+        color: "var(--primary-color)",
         fontSize: 15,
     },
     button2: {
-        color: "var(--search-background-focused)",
+        color: "var(--primary-color)",
         border: "1px solid var(--border-color)",
         width: 150,
     },
     button3: {
-        color: "var(--search-background-focused)",
-        border: "1px solid var(--search-background-focused)",
+        color: "var(--primary-color)",
+        border: "1px solid var(--primary-color)",
         width: 80,
     },
     button4: {
@@ -58,8 +58,8 @@ const useStyles = makeStyles({
     },
     button5: {
         height: 50,
-        color: "var(--search-background-focused)",
-        border: "1px solid var(--search-background-focused)",
+        color: "var(--primary-color)",
+        border: "1px solid var(--primary-color)",
     },
     fontFam: {
         fontFamily: `"Acari Sans", sans-serif`,
@@ -165,7 +165,7 @@ function LinkTab(props) {
 const StyledTab = withStyles((theme) => ({
     root: {
         textTransform: "none",
-        color: "var(--search-background-focused)",
+        color: "var(--primary-color)",
         fontWeight: theme.typography.fontWeightRegular,
         fontSize: theme.typography.pxToRem(15),
         marginRight: theme.spacing(1),
@@ -378,7 +378,7 @@ function Header() {
                         TabIndicatorProps={{
                             style: {
                                 backgroundColor:
-                                    "var(--search-background-focused)",
+                                    "var(--primary-color)",
                             },
                         }}
                         aria-label="nav tabs"

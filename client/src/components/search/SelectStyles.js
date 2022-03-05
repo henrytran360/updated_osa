@@ -4,7 +4,7 @@ function option_width(width) {
             return {
                 ...styles,
                 width: 140,
-                backgroundColor: isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+                backgroundColor: isFocused ? "var(--primary-color)" : "var(--border-color)",
                 color: "var(--background-color)",
                 cursor: isDisabled ? "not-allowed" : "default",
             };
@@ -14,7 +14,7 @@ function option_width(width) {
         return (styles, { data, isDisabled, isFocused, isSelected }) => {
             return {
                 ...styles,
-                backgroundColor: isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+                backgroundColor: isFocused ? "var(--primary-color)" : "var(--border-color)",
                 color: "var(--background-color)",
                 cursor: isDisabled ? "not-allowed" : "default",
             };
@@ -33,7 +33,7 @@ function control_width(width) {
             borderColor: "var(--border-color)",
             boxShadow: state.isFocused ? null : null,
             "&:hover": {
-                borderColor: state.isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+                borderColor: state.isFocused ? "var(--primary-color)" : "var(--border-color)",
             },
         })
     } else {
@@ -45,7 +45,7 @@ function control_width(width) {
             borderColor: "var(--border-color)",
             boxShadow: state.isFocused ? null : null,
             "&:hover": {
-                borderColor: state.isFocused ? "var(--search-background-focused)" : "var(--border-color)",
+                borderColor: state.isFocused ? "var(--primary-color)" : "var(--border-color)",
             },
         })
     }
