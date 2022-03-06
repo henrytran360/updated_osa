@@ -4,7 +4,7 @@ import { CourseWeek } from "./CourseWeek";
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./Calendar.css";
-import { colorCombos } from "./colors"
+import { colorCombos } from "./colors";
 import Modal from "react-modal";
 
 const localizer = momentLocalizer(moment);
@@ -21,7 +21,6 @@ const dayCode2dayString = {
     S: "Saturday",
     U: "Sunday",
 };
-
 
 const courseToCourseLabel = (course) => {
     return course.subject + " " + course.courseNum;
@@ -240,10 +239,10 @@ const CustomClassEvent = ({ event }) => {
     an extra 0 if hour is a single digit */
     let classTimeStart = event.desc.substr(0, 5);
     let classTimeEnd = event.desc.substr(11);
-    if (classTimeStart.charAt(0) == '0') {
+    if (classTimeStart.charAt(0) == "0") {
         classTimeStart = classTimeStart.substr(1);
     }
-    if (classTimeEnd.charAt(0) == '0') {
+    if (classTimeEnd.charAt(0) == "0") {
         classTimeEnd = classTimeEnd.substr(1);
     }
     let classTime = classTimeStart + " - " + classTimeEnd;
@@ -339,7 +338,7 @@ const CourseCalendar = ({ draftSessions }) => {
                 localizer={localizer}
                 defaultView={Views.WEEK}
                 // Calendar columns show "MON", "TUES", ... and the time format is in 12 hours with only the hours displayed
-                formats={{ dayFormat: "ddd", timeGutterFormat: 'ha' }}
+                formats={{ dayFormat: "ddd", timeGutterFormat: "ha" }}
                 views={{ month: false, week: CourseWeek, day: false }}
                 drilldownView={null}
                 defaultDate={moment("Sunday", "ddd")} // Always start on Sunday of the week
