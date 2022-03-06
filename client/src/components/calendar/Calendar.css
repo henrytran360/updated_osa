@@ -57,8 +57,8 @@
 /* Adjusts the width of the time slots on the calendar */
 .rbc-day-slot .rbc-timeslot-group {
     min-height: 70px;
-    border-top: 1px dotted var(--shadow-color);
-    border-bottom: 1px dotted var(--shadow-color);
+    /* border-top: 1px dotted var(--shadow-color);
+    border-bottom: 1px dotted var(--shadow-color); */
 }
 
 /* Adjusts the height of the time slots */

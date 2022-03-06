@@ -46,7 +46,6 @@ body,
     --course-bg3: rgba(var(--course-color3), var(--opacity-bg));
     --course-bg4: rgba(var(--course-color4), var(--opacity-bg));
     --course-bg5: rgba(var(--course-color5), var(--opacity-bg));
-
 }
 
 html[data-theme="Color Blind"] {
@@ -193,14 +192,16 @@ a {
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf")
+        format("truetype");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf")
+        format("truetype");
     font-weight: normal;
     font-style: italic;
 }
@@ -214,7 +215,8 @@ a {
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf")
+        format("truetype");
     font-weight: medium;
     font-style: normal;
 }
