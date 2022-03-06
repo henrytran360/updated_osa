@@ -79,10 +79,9 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
             <div className="classSelectorContent">
                 <div
                     style={{
-                        marginBottom: 10,
                         display: "flex",
                         alignItems: "center",
-                        height: "3%",
+                        height: 40,
                         color: "var(--primary-color)",
                     }}
                 >
@@ -117,9 +116,11 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                         ))}
                 <div
                     className="tableFooter"
-                    style={{
-                        zIndex: evalModalState ? -99 : 10,
-                    }}
+                    style={
+                        {
+                            // zIndex: evalModalState ? -99 : 10,
+                        }
+                    }
                 >
                     Visible Credit Hours: {visibleCreditTotal}
                     <br />
