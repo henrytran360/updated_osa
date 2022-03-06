@@ -118,7 +118,7 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                 <div
                     className="tableFooter"
                     style={{
-                        // zIndex: evalModalState ? -99 : 10,
+                        zIndex: evalModalState ? -99 : 10,
                     }}
                 >
                     Visible Credit Hours: {visibleCreditTotal}
