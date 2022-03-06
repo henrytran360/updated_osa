@@ -172,14 +172,14 @@ async function addCourseNameEvals(client) {
 
 async function addDefaultDegreePlanForAll(client) {
     await client
-        .db("hatch_staging")
+        .db("hatch_prod")
         .collection("users")
         .find()
         .snapshot()
         .forEach(function (user) {
             let userId = user._id;
             client
-                .db("hatch_staging")
+                .db("hatch_prod")
                 .collection("degreeplanparents")
                 .insertOne({
                     name: "Default Plan",

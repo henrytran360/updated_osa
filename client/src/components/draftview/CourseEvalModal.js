@@ -7,6 +7,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import { ImWarning } from "react-icons/im";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
+import { AiOutlineWarning } from "react-icons/ai";
 
 import Chart, {
     ArgumentAxis,
@@ -437,7 +438,7 @@ const CourseEvalModal = (props) => {
             {warningState ? (
                 <div className="eval-warning">
                     <div className="warning-icon">
-                        <ImWarning color="var(--warning-color)" size={40} />
+                        <AiOutlineWarning color="red" size={40} />
                     </div>
                     <p className="warning-text">
                         These evaluations are intended to be available only to
