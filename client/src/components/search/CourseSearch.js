@@ -631,11 +631,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                         placeholder="Search courses"
                         name="s"
                         value={value}
-                        onChange={(e) =>
-                            setValue(
-                                e.target.value.replace(/\s+/g, "").toLowerCase()
-                            )
-                        }
+                        onChange={(e) => setValue(e.target.value)}
                         onKeyUp={handleKeyPress}
                     />
                 </div>
@@ -655,7 +651,9 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
                         value={"Search"}
                         className={classes.searchIconStyle}
                         onClick={() => {
-                            setCourseName(value);
+                            setCourseName(
+                                value.replace(/\s+/g, "").toLowerCase()
+                            );
                             setButtonIndex(5);
                             loadData();
                         }}
