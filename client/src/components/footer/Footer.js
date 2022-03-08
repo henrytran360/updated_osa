@@ -7,9 +7,9 @@ const Footer = () => {
     return (
         <div className="footerContainer">
             <h4>
-                Made with
-                <BsFillHeartFill size={10} color="red" style={{ marginLeft: '3px', marginRight: '3px' }} />by Rice Apps <br></br>
-                Let us know if you have any feedback on our product{" "}
+                made with
+                <BsFillHeartFill size={10} color="red" style={{ marginLeft: '3px', marginRight: '3px' }} />by riceapps <br></br>
+                let us know if you have any feedback on our product{" "}
                 <a href={feedbackURL} target="_blank">here</a>
             </h4>
         </div>

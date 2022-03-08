@@ -17,7 +17,7 @@ function About() {
                 <h1>about us!</h1>
                 <p>
                     an ambitious team of students from{" "}
-                    <a href="https://riceapps.org/" target="_blank">
+                    <a href="https://medium.com/riceapps" target="_blank">
                         <b>riceapps</b>
                     </a>{" "}
                     that set out to build a course scheduler for the students,

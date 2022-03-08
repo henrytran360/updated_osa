@@ -87,7 +87,7 @@
     font-style: normal;
     font-size: 15px;
     line-height: 19px;
-    z-index: 3;
+    z-index: 2;
 }
 .saveBtn:hover {
     background-color: var(--tertiary-bg-color);

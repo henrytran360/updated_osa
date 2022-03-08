@@ -199,7 +199,7 @@ const dayStyleGetter = (date) => {
         textAlign: "center",
         font: "Medium 23px/26px",
         letterSpacing: "0px",
-        color: "var(--primary-color)",
+        color: "var(--search-background-focused)",
         opacity: 1,
         // border: "1px dashed #E4E8EE",
         textTransform: "uppercase",
