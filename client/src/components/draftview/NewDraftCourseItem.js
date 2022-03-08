@@ -10,6 +10,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import CourseEvalModal from "./CourseEvalModal";
+import { BsBoxArrowUpRight } from 'react-icons/bs';
 import { colorCombos } from '../calendar/colors'
 
 function getRandomInt(min, max) {
@@ -142,10 +143,15 @@ const TOGGLE_DRAFT_SESSION_VISIBILITY = gql`
 const GET_LOCAL_DATA = gql`
     query GetLocalData {
         evalModalState @client
+        term @client
+        recentUpdate @client
     }
 `;
 
 const NewDraftCourseItem = (props) => {
+    let { data: storeData } = useQuery(GET_LOCAL_DATA);
+    let { term, recentUpdate } = storeData;
+
     const client = useApolloClient();
 
     const [firstInstructor, setFirstInstructor] = useState({});
@@ -292,6 +298,7 @@ const NewDraftCourseItem = (props) => {
                                 {props.session.course.courseNum}:{" "}
                                 {props.session.course.longTitle}
                             </b>
+                            <a style={{marginLeft:"1rem"}}href={"https://courses.rice.edu/courses/!SWKSCAT.cat?p_action=COURSE&p_term=" + term + "&p_crn=" + props.session.crn} target="_blank">  <BsBoxArrowUpRight /></a>
                         </div>
                         <div className="float-container">
                             <div className="float-child">
