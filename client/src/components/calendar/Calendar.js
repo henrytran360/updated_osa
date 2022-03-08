@@ -183,9 +183,9 @@ const draftSessionsToEvents = (draftSessions) => {
 
 const slotStyleGetter = (date) => {
     var style = {
-        font: "Medium 28px/31px",
+        font: "Medium 23px/26px",
         letterSpacing: "0px",
-        color: "var(--quaternary-color)",
+        color: "var(--primary-color)",
         opacity: 1,
     };
 

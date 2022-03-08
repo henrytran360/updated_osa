@@ -168,8 +168,11 @@ html[data-theme="Butter"] {
     transition: all 0.5s ease-in-out;
 }
 
-body {
+* {
     font-family: "Acari Sans", sans-serif;
+}
+
+body {
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
