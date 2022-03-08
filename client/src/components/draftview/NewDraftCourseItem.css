@@ -34,7 +34,9 @@
 .model-info-content {
     /* width: 545px; */
     width: 50vw;
-    height: 50vh;
+    /* height: 50vh; */
+    height: auto;
+    padding: 2rem 0;
     border: 2px solid var(--border-color);
     border-radius: 5px;
     background-color: var(--background-color);
@@ -117,7 +119,7 @@
     border-color: transparent;
     border-radius: 5px;
     overflow-y: auto;
-    border: 2px solid #149fa0;
-    background-color: white;
+    border: 2px solid var(--border-color);
+    background-color: var(--background-color);
     z-index: 99;
 }

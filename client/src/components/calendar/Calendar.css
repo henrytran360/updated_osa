@@ -46,7 +46,9 @@
 
 /* Adds padding between time labels and calendar box */
 .rbc-label {
-    padding-right: 10px;
+    padding-right: 5px;
+    float: right;
+    font-size: .9rem;
 }
 
 /* Don't highlight the current day */

@@ -5,13 +5,13 @@ import { Backdrop, CircularProgress, makeStyles } from "@material-ui/core";
 const loadingTextOptions = [
     "eat. sleep. plan. repeat.",
     "time to hatch a plan.",
-    "built with ❤️ by Rice Apps",
-    "Hooray Rice Apps!",
-    "Objects and references ... trickle down variables",
-    "Automatic. Still is.",
-    "What do all the hens do on a Saturday night? Watch a chick flick.",
-    "Hatch: Brought to you by KFC. (maybe one day)",
-    "Hatch: Brought to you by Chick-fil-A. (maybe one day)"
+    "built with ❤️ by riceapps",
+    "hooray riceapps!",
+    "objects and references ... trickle down variables",
+    "automatic. still is.",
+    "what do all the hens do on a Saturday night? watch a chick flick.",
+    "hatch: brought to you by KFC. (maybe one day).",
+    "you can save 15% or more on course planning."
 ];
 
 const useStyles = makeStyles((theme) => ({

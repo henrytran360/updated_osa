@@ -48,7 +48,7 @@
 }
 
 .course-num {
-    color: #338182;
+    color: var(--secondary-color);
 }
 
 .course-title-eval {
@@ -64,7 +64,7 @@
 }
 
 .course-details {
-    color: #898e91;
+    color: var(--tertiary-color);
     font-size: 20px;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .header-border {
-    border: 1px solid #f2f3f3;
+    border: 1px solid var(--border-color);
     margin-bottom: 2rem;
 }
 
@@ -114,13 +114,13 @@
     height: 320px;
     width: auto;
     padding: 0.5rem;
-    border: 1.5px solid #c3c6c8;
+    border: 1.5px solid var(--border-color);
     margin: 0.5rem;
     border-radius: 1px;
 }
 
 .chart-txt {
-    color: #165859;
+    color: var(--primary-color);
     padding: 5px;
     margin: 0;
 }
