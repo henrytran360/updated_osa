@@ -71,7 +71,10 @@ const customStyles = {
 const SemesterSelect = () => {
     const client = useApolloClient();
     const [updateSchedules, setUpdatedSchedules] = useState([
+        { label: "Fall 2022", value: 202310 },
         { label: "Spring 2022", value: 202220 },
+        { label: "Fall 2021", value: 202210 },
+        { label: "Spring 2021", value: 202120 },
     ]);
     const [userId, setUserId] = useState("");
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
@@ -86,7 +89,7 @@ const SemesterSelect = () => {
             tempData.map((object) => {
                 if (object.term.substring(4) == "10")
                     tempSchedules.push({
-                        label: "Fall " + object.term.substring(0, 4),
+                        label: "Fall " + String(parseInt(object.term.substring(0, 4)) - 1),
                         value: parseInt(object.term),
                     });
                 else if (object.term.substring(4) == "20")
