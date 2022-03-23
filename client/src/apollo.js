@@ -63,7 +63,7 @@ export const client = new ApolloClient({
 const initialState = {
     service: process.env.REACT_APP_SERVICE_URL,
     recentUpdate: false,
-    term: 202220,
+    term: 202310,
     evalModalState: false,
     degreeplanparent: "",
     degreeplanname: "",

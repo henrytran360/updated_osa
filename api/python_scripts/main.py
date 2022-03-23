@@ -148,7 +148,7 @@ def parse_file(file, current_data):
         '''
         # Dist fetch
         dist_node = course.find("dists")
-        print(course)
+        # print(course)
         if (dist_node):
             course_invariants["distribution"] = convert_distribution(
                 dist_node.find("dist").get("code"))
@@ -289,8 +289,8 @@ def aggregate_parsed_files(file_names):
 
 def main():
     print("start")
-    output_dir = "./python_scripts/"
-    output_loc = os.path.join(output_dir, "output12.json")
+    output_dir = "."
+    output_loc = os.path.join(output_dir, "3-23-2022-1-45pm.json")
     terms = ["202310"]
     # terms = ["201810", "201820", "201910", "201920", "202010", "202020", "202110"]
     url = "https://courses.rice.edu/courses/!swkscat.cat?format=XML&p_action=COURSE&p_term="
@@ -301,17 +301,17 @@ def main():
 
     for term in terms:
         print(term)
-        term_url = url + term
-        courses = requests.get(term_url)
-        print("Made request")
+        # term_url = url + term
+        # courses = requests.get(term_url)
+        # print("Made request")
         xml_filename = datetime.date.today()
-        with open(output_dir + str(xml_filename) + ".xml", mode="w+") as fp:
-            fp.write(courses.text)
-            # wait for write
-            fp.flush()
-            # reset position to start
-            fp.seek(0)
-        # with tempfile.TemporaryFile(mode='r+') as fp:
+        # with open(output_dir + str(xml_filename) + ".xml", mode="w+") as fp:
+        #     fp.write(courses.text)
+        #     # wait for write
+        #     fp.flush()
+        #     # reset position to start
+        #     fp.seek(0)
+        # # with tempfile.TemporaryFile(mode='r+') as fp:
         with open(output_dir + str(xml_filename) + ".xml", "r") as fp:
             # print("Writing to tempfile")
 
@@ -321,13 +321,13 @@ def main():
             json_data = parse_file(fp, current_data)
 
             # Dump to JSON
-    #         with open(output_loc, "a+") as output_file:
-    #             json.dump(json_data, output_file)
-    #             # output_file.write(",\n")
-    #             # print("finishied writing this term")
+            with open(output_loc, "a+") as output_file:
+                json.dump(json_data, output_file)
+                # output_file.write(",\n")
+                # print("finishied writing this term")
 
-    # with open(output_loc, "a+") as output_file:
-    #     output_file.write("]")
+    with open(output_loc, "a+") as output_file:
+        output_file.write("]")
 
     # XML is destroyed
 

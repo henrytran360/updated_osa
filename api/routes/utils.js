@@ -2,7 +2,7 @@ const Course = require("../models/CourseModel").Course;
 const Instructor = require("../models/InstructorModel").Instructor;
 const Session = require("../models/SessionModel").Session;
 
-var BIGJSON = require("../python_scripts/output10.json");
+var BIGJSON = require("../python_scripts/3-23-2022-1-45pm.json");
 
 const splitCourseCode = (courseCode) => {
     let courseArr = courseCode.split(" ");

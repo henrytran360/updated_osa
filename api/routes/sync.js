@@ -3,7 +3,7 @@ const { fork, execFile } = require("child_process");
 var express = require("express");
 var router = express.Router();
 
-// var BIGJSON = require("../python_scripts/Holy Grail 2020-04-18.json")
+var BIGJSON = require("../python_scripts/3-23-2022-1-45pm.json")
 
 router.post("/", async (req, res, next) => {
     // Execute query on Python to fetch XML, transform into JSON
