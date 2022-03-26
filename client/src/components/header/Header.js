@@ -497,8 +497,8 @@ function Header() {
                     <div style={{ width: "35%" }}></div>
                 )}
                 {/* <ThemeToggle /> */}
-                <h4 className="emailHeading">{email}</h4>
-                <SettingsModal />
+                {/* <h4 className="emailHeading">{email}</h4> */}
+                <SettingsModal email={email}/>
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
                 <IconButton
@@ -649,7 +649,7 @@ function Header() {
                         )
                     )}
                     <MenuItem>
-                        <SettingsModal />
+                        <SettingsModal email={email}/>
                         <h4 className="emailHeading">{email}</h4>
                     </MenuItem>
                 </Menu>
