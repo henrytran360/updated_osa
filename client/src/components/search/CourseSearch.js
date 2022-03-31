@@ -393,7 +393,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     ]); // store the selected time interval
 
     // Represents which button is currently clicked for styling and returning data
-    const [activeButtonIndex, setButtonIndex] = useState(5);
+    const [activeButtonIndex, setButtonIndex] = useState(0);
     const classes = useStyles();
     const {
         data: { term },
