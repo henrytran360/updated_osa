@@ -408,11 +408,14 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     });
 
     //get instructor data
-    const {
-        data: instructorData,
-        loading: instructorsLoading,
-        error: instructorsError,
-    } = useQuery(GET_INSTRUCTORS, {
+    const [
+        loadDataInstructor,
+        {
+            data: instructorData,
+            loading: instructorsLoading,
+            error: instructorsError,
+        },
+    ] = useLazyQuery(GET_INSTRUCTORS, {
         variables: { term },
     });
     const [
@@ -430,6 +433,12 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
             setByName(courseDataByName.courseMany);
         }
     }, [courseDataByName]);
+
+    useEffect(() => {
+        if (activeButtonIndex == 2) {
+            loadDataInstructor();
+        }
+    }, [activeButtonIndex]);
 
     //deal with instructor names with different structures (ex. Benjamin C. Kerswell, Maria Fabiola Lopez Duran, Benjamin Fregly)
     //easier to split into first and last names for query in InstructorList
@@ -473,7 +482,8 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         getDepts,
         allDistributions,
         getInstruct,
-        getDepts,
+        getTime,
+        // getDepts,
         allDaysLong,
         getByName,
     ];
@@ -548,26 +558,26 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         setTime([{ ...getTime[0], endTime: formatTime(selectedTime) }]);
     };
 
-    const renderSearchOptions = () => {
-        return searchTypes.map((type, index) => {
-            /**
-             * If the current index of the element is the same as the
-             * active button index, then the button color is primary.
-             * Otherwise, the button color is secondary.
-             *
-             */
-            const selected = index === activeButtonIndex ? "selected" : "";
+    // const renderSearchOptions = () => {
+    //     return searchTypes.map((type, index) => {
+    //         /**
+    //          * If the current index of the element is the same as the
+    //          * active button index, then the button color is primary.
+    //          * Otherwise, the button color is secondary.
+    //          *
+    //          */
+    //         const selected = index === activeButtonIndex ? "selected" : "";
 
-            return (
-                <div
-                    onClick={() => setButtonIndex(index)}
-                    className={`searchButton ${selected}`}
-                >
-                    {type.label}
-                </div>
-            );
-        });
-    };
+    //         return (
+    //             <div
+    //                 onClick={() => setButtonIndex(index)}
+    //                 className={`searchButton ${selected}`}
+    //             >
+    //                 {type.label}
+    //             </div>
+    //         );
+    //     });
+    // };
 
     /**
      * Display the time textfield for user to select time range for the search
@@ -680,22 +690,22 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
      * Displays the course list component based on whether user is searching
      * by distribution or by department
      */
-    const displayCourseList = () => {
-        return (
-            <CourseList
-                clickValue={clickValue}
-                scheduleID={scheduleID}
-                query={getQuery[activeButtonIndex]}
-                searchType={variables4Query[activeButtonIndex]}
-                idx={activeButtonIndex}
-            />
-            //<div></div>
-        );
+    // const displayCourseList = () => {
+    //     return (
+    //         <CourseList
+    //             clickValue={clickValue}
+    //             scheduleID={scheduleID}
+    //             query={getQuery[activeButtonIndex]}
+    //             searchType={variables4Query[activeButtonIndex]}
+    //             idx={activeButtonIndex}
+    //         />
+    //         //<div></div>
+    //     );
 
-        const displayArray = [selection, selection, selection, time, selection];
+    //     const displayArray = [selection, selection, selection, time, selection];
 
-        return displayArray[activeButtonIndex];
-    };
+    //     return displayArray[activeButtonIndex];
+    // };
 
     // Initialize Google Analytics
     initGA();

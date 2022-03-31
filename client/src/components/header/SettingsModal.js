@@ -26,7 +26,7 @@ function SettingsModal(props) {
     return (
         <div
             style={{
-                width: "6%",
+                width: "15%",
                 height: "100%",
                 display: "flex",
                 justifyContent: "flex-end",

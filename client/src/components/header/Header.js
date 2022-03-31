@@ -377,8 +377,7 @@ function Header() {
                         indicatorColor="primary"
                         TabIndicatorProps={{
                             style: {
-                                backgroundColor:
-                                    "var(--primary-color)",
+                                backgroundColor: "var(--primary-color)",
                             },
                         }}
                         aria-label="nav tabs"
@@ -498,7 +497,8 @@ function Header() {
                 )}
                 {/* <ThemeToggle /> */}
                 {/* <h4 className="emailHeading">{email}</h4> */}
-                <SettingsModal email={email}/>
+                {/* <div style={{ width: "20%" }}></div> */}
+                <SettingsModal email={email} />
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
                 <IconButton
@@ -649,7 +649,7 @@ function Header() {
                         )
                     )}
                     <MenuItem>
-                        <SettingsModal email={email}/>
+                        <SettingsModal email={email} />
                         <h4 className="emailHeading">{email}</h4>
                     </MenuItem>
                 </Menu>
