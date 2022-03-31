@@ -98,7 +98,7 @@ const QUERY_USER_SCHEDULES = gql`
 `;
 
 // Toast for notifications
-const Main = ({ }) => {
+const Main = ({}) => {
     // Check for recent update from cache
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
     let { term, recentUpdate } = storeData;
@@ -153,7 +153,7 @@ const Main = ({ }) => {
                         bottomMode2.Calendar &&
                         bottomMode2.Details && (
                             <>
-                                <div style={{ width: "30%" }}>
+                                <div style={{ width: "30%", height: "80vh" }}>
                                     <CourseSearch
                                         scheduleID={schedule._id}
                                         clickValue={bottomMode}
@@ -164,7 +164,7 @@ const Main = ({ }) => {
                                         draftSessions={schedule.draftSessions}
                                     />
                                 </div>
-                                <div style={{ width: "30%" }}>
+                                <div style={{ width: "30%", height: "80vh" }}>
                                     <NewClassSelector
                                         scheduleID={schedule._id}
                                         draftSessions={schedule.draftSessions}
