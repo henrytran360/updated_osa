@@ -26,7 +26,7 @@ function SettingsModal(props) {
     return (
         <div
             style={{
-                width: "6%",
+                width: "15%",
                 height: "100%",
                 display: "flex",
                 justifyContent: "flex-end",
@@ -54,7 +54,22 @@ function SettingsModal(props) {
                     <h2 id="modal-modal-title" variant="h6" component="h2">
                         Authenticate
                     </h2>
+                    <p>Currently logged in as {props.email}</p>
                     <LoginButton full_width={true} />
+                    <h2 id="modal-modal-title" variant="h6" component="h2">
+                        Theme Options
+                    </h2>
+                    <ThemeSelect
+                        themeOptions={[
+                            { value: "Light", label: "Light" },
+                            { value: "Color Blind", label: "Color Blind" },
+                            { value: "Red", label: "Red" },
+                            { value: "Butter", label: "Butter" },
+                            { value: "Dark", label: "Dark" },
+                            { value: "High Contrast", label: "High Contrast" },
+                            { value: "Purple", label: "Purple" },
+                        ]}
+                    />
                     <h2 id="modal-modal-title" variant="h6" component="h2">
                         Feedback
                     </h2>
@@ -70,39 +85,6 @@ function SettingsModal(props) {
                             Feedback
                         </Button>
                     </FormControl>
-                    <h2 id="modal-modal-title" variant="h6" component="h2">
-                        Theme Options
-                    </h2>
-                    {/* <ThemeToggle /> */}
-                    <ThemeSelect
-                        themeCategory="Light"
-                        themeOptions={[
-                            { value: "Light", label: "Light" },
-                            { value: "Color Blind", label: "Color Blind" },
-                            { value: "Red", label: "Red" },
-                        ]}
-                    />
-                    <ThemeSelect
-                        themeCategory="Dark"
-                        themeOptions={[
-                            { value: "Butter", label: "Butter" },
-                            { value: "Dark", label: "Dark" },
-                            { value: "High Contrast", label: "High Contrast" },
-                            { value: "Purple", label: "Purple" },
-                        ]}
-                    />
-                    <div className="closeSettings">
-                        <Button
-                            style={{
-                                color: "var(--link-color)",
-                                border: "1px solid var(--link-color)",
-                            }}
-                            variant="outlined"
-                            onClick={handleClose}
-                        >
-                            Close Settings
-                        </Button>
-                    </div>
                 </Box>
             </Modal>
         </div>

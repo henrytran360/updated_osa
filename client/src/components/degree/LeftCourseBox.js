@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./LeftCourseBox.css";
 import Modal from "react-modal";
 import { gql, useQuery, useMutation, useApolloClient } from "@apollo/client";
+import { BsBoxArrowUpRight } from 'react-icons/bs';
 
 const createURL = (courseNum, subject) => {
     return `https://courses.rice.edu/courses/courses/!SWKSCAT.cat?p_action=CATALIST&p_acyr_code=2022&p_crse_numb=${courseNum}&p_subj=${subject}`;
@@ -9,9 +10,13 @@ const createURL = (courseNum, subject) => {
 const GET_LOCAL_DATA = gql`
     query GetLocalData {
         eachCourseModalState @client
+        term @client
     }
 `;
 const LeftCourseBox = (props) => {
+    let { data: storeData } = useQuery(GET_LOCAL_DATA);
+    let { term } = storeData;
+
     const client = useApolloClient();
     //for the course info modal
     const [modalState, setModal] = useState(false);
@@ -39,7 +44,7 @@ const LeftCourseBox = (props) => {
 
     if (prereqs === undefined || prereqs.length == 0) prereqs = "None";
     if (coreqs === undefined || coreqs.length == 0) coreqs = "None";
-
+    console.log(props);
     return (
         <div className="lcbox">
             <div className="courseCode">
@@ -50,42 +55,35 @@ const LeftCourseBox = (props) => {
             </a>
             <Modal
                 isOpen={modalState}
-                className="modal"
+                className="model-info-content"
                 onRequestClose={
                     closeModal
                 } /*style={{wordWrap: "break-all", whiteSpace: 'unset'}}*/
             >
-                <div className="courseInfoContent">
+                <div className="course-info-content">
                     {/* <pre class="text"><b>  Course Instructor:</b> <ul> {props['instructorName'].map((name)=>{
                     <li>{name}</li>
                 })} </ul></pre> */}
-                    <pre class="text">
-                        <b>COURSE CODE:</b> {props.subject} {props.courseNum}
-                    </pre>
-                    <pre class="text">
-                        <b>TITLE: </b> {props.longTitle}
-                    </pre>
-                    <pre class="text">
+                    <div className="course-title">
+                        {props.subject} {props.courseNum}: {props.longTitle}
+                        <a 
+                        style={{marginLeft:"1rem"}}
+                        href={createURL(props.courseNum, props.subject)} 
+                        target="_blank">  
+                        <BsBoxArrowUpRight />
+                        </a>
+                    </div>
+                    <pre class="category">
                         <b>DISTRIBUTION: </b> {props.distribution}
                     </pre>
-                    <pre class="text">
+                    <pre class="category">
                         <b>CREDITS: </b> {props.credits}
                     </pre>
-                    <pre class="text">
+                    <pre class="category">
                         <b>PREREQS: </b> {props.prereqs}
                     </pre>
-                    <pre class="text">
-                        <a
-                            style={{
-                                textDecoration: "underline",
-                                fontWeight: 900,
-                                color: "var(--link-color)",
-                            }}
-                            href={createURL(props.courseNum, props.subject)}
-                            target="_blank"
-                        >
-                            MORE INFO
-                        </a>
+                    <pre class="category">
+                        <b>COREQS: </b> {props.coreqs}
                     </pre>
                 </div>
             </Modal>

@@ -71,6 +71,7 @@ const initialState = {
     editModalState: false,
     notesModalState: false,
     eachCourseModalState: false,
+    theme:{ value: "Light", label: "Light" },
 };
 
 // Initialize cache with a state
@@ -87,6 +88,7 @@ client.writeQuery({
             editModalState
             notesModalState
             eachCourseModalState
+            theme
         }
     `,
     data: initialState,

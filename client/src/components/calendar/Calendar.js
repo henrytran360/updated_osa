@@ -7,7 +7,7 @@ import "./Calendar.css";
 import { colorCombos } from "./colors";
 import Modal from "react-modal";
 import { gql, useQuery } from "@apollo/client";
-import { BsBoxArrowUpRight } from 'react-icons/bs';
+import { BsBoxArrowUpRight } from "react-icons/bs";
 
 const localizer = momentLocalizer(moment);
 
@@ -176,7 +176,10 @@ const draftSessionsToEvents = (draftSessions) => {
         return (
             index ===
             events.findIndex((obj) => {
-                return obj.start.getTime() === value.start.getTime();
+                return (
+                    obj.start.getTime() === value.start.getTime() &&
+                    obj.title == value.title
+                );
             })
         );
     });
@@ -203,7 +206,7 @@ const dayStyleGetter = (date) => {
         letterSpacing: "0px",
         color: "var(--search-background-focused)",
         opacity: 1,
-        // border: "1px dashed #E4E8EE",
+        borderBottom: "1px solid #E4E8EE",
         textTransform: "uppercase",
     };
 
@@ -275,7 +278,6 @@ const CustomClassEvent = ({ event }) => {
     // const maxEnroll = info[4].split(": ")[1];
     const source = event.source.days;
     // const days = source.map((day) => dayCode2dayString[day] + " ");
-
     return (
         <div className="courseEventWrapper">
             <Modal
@@ -286,7 +288,19 @@ const CustomClassEvent = ({ event }) => {
                 <div className="course-info-content">
                     <div className="course-title">
                         {event.title}: {longTitle}
-                        <a style={{marginLeft:"1rem"}}href={"https://courses.rice.edu/courses/!SWKSCAT.cat?p_action=COURSE&p_term=" + term + "&p_crn=" + CRN} target="_blank">  <BsBoxArrowUpRight /></a>
+                        <a
+                            style={{ marginLeft: "1rem" }}
+                            href={
+                                "https://courses.rice.edu/courses/!SWKSCAT.cat?p_action=COURSE&p_term=" +
+                                term +
+                                "&p_crn=" +
+                                CRN
+                            }
+                            target="_blank"
+                        >
+                            {" "}
+                            <BsBoxArrowUpRight />
+                        </a>
                     </div>
                     <div className="float-container">
                         <div className="float-child">
