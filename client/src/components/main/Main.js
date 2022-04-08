@@ -141,7 +141,6 @@ const Main = ({}) => {
         state: { bottomMode2 },
         changeBottomMode,
     } = useContext(BottomModeContexts);
-    console.log(bottomMode2);
 
     const renderContent = () => {
         return (

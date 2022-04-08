@@ -83,6 +83,7 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                         alignItems: "center",
                         height: 40,
                         color: "var(--primary-color)",
+                        marginBottom: 20,
                     }}
                 >
                     <span className="heading">SELECTED</span>

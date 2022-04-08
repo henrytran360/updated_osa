@@ -10,8 +10,8 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import CourseEvalModal from "./CourseEvalModal";
-import { BsBoxArrowUpRight } from 'react-icons/bs';
-import { colorCombos } from '../calendar/colors'
+import { BsBoxArrowUpRight } from "react-icons/bs";
+import { colorCombos } from "../calendar/colors";
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -259,8 +259,9 @@ const NewDraftCourseItem = (props) => {
 
     return (
         <div
-            className={`draft-course-item-container ${boolVisible ? "" : "selected2"
-                }`}
+            className={`draft-course-item-container ${
+                boolVisible ? "" : "selected2"
+            }`}
             style={{ boxShadow: "var(--shadow-color) 0 1.95px 0" }}
         >
             <div className="draft-course-top">
@@ -277,6 +278,7 @@ const NewDraftCourseItem = (props) => {
                         style={{
                             color: borderColor,
                             textDecoration: "underline",
+                            fontSize: 14,
                         }}
                         onClick={openModal2}
                     >
@@ -298,7 +300,19 @@ const NewDraftCourseItem = (props) => {
                                 {props.session.course.courseNum}:{" "}
                                 {props.session.course.longTitle}
                             </b>
-                            <a style={{marginLeft:"1rem"}}href={"https://courses.rice.edu/courses/!SWKSCAT.cat?p_action=COURSE&p_term=" + term + "&p_crn=" + props.session.crn} target="_blank">  <BsBoxArrowUpRight /></a>
+                            <a
+                                style={{ marginLeft: "1rem" }}
+                                href={
+                                    "https://courses.rice.edu/courses/!SWKSCAT.cat?p_action=COURSE&p_term=" +
+                                    term +
+                                    "&p_crn=" +
+                                    props.session.crn
+                                }
+                                target="_blank"
+                            >
+                                {" "}
+                                <BsBoxArrowUpRight />
+                            </a>
                         </div>
                         <div className="float-container">
                             <div className="float-child">
@@ -434,16 +448,16 @@ const NewDraftCourseItem = (props) => {
                 >
                     {props.session.class.startTime
                         ? classTimeString(
-                            props.session.class.startTime,
-                            props.session.class.endTime
-                        )
+                              props.session.class.startTime,
+                              props.session.class.endTime
+                          )
                         : "No time available"}{" "}
                     |{" "}
                     {firstInstructor
                         ? firstInstructor &&
-                        firstInstructor.firstName +
-                        " " +
-                        firstInstructor.lastName
+                          firstInstructor.firstName +
+                              " " +
+                              firstInstructor.lastName
                         : "No Instructors"}{" "}
                     | CRN: {props.session.crn}
                 </span>
