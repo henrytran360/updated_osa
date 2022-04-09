@@ -4,14 +4,34 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
 
 import "./MinimizedDetail.global.css";
+
+const GET_LOCAL_DATA = gql`
+    query GetLocalData {
+        evalModalState @client
+    }
+`;
 
 /* Return a div for each row */
 const formatDiv = (bold, normalTxt) => {
     return (
         <Fragment>
-            <p className="sessionInfoText"><b>{bold}</b> {normalTxt}</p>
+            <p className="sessionInfoText">
+                <b>{bold}</b> {normalTxt}
+            </p>
+        </Fragment>
+    );
+};
+
+/* Return a div for each row */
+const formatDivLink = (bold, onClickFunc) => {
+    return (
+        <Fragment>
+            <p className="sessionInfoText infoLink" onClick={onClickFunc}>
+                <b>{bold}</b>
+            </p>
         </Fragment>
     );
 };
@@ -39,6 +59,7 @@ const MinimizedDetail = ({
     style,
 }) => {
     const [getOpen, setOpen] = useState(false);
+    const client = useApolloClient();
 
     const Times = (section) => {
         if (!section.startTime || !section.endTime) {
@@ -65,9 +86,9 @@ const MinimizedDetail = ({
             return formatDiv(
                 "Instructional Method:",
                 replaceNull(session.instructionMethod)
-            )
+            );
         }
-    }
+    };
     const longTitle = (course) => {
         if (course.course) {
             return formatDiv("Long Title:", course.course.longTitle);
@@ -95,14 +116,22 @@ const MinimizedDetail = ({
             return null;
         }
     };
-
+    const openEvaluations = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                evalModalState: true,
+            },
+        });
+    };
     return (
         <div className="minimizedMinimizedDetailContainer">
             {formatDiv("Class Time:", Times(session.class))}
             {Instructors(session)}
             {InstructionMethod(session)}
+            {formatDivLink("See Evaluations", openEvaluations)}
             <Collapse in={getOpen} timeout={500} unmountOnExit>
-            {showAdditionalInfo()}
+                {showAdditionalInfo()}
             </Collapse>
             <IconButton
                 className="sessionMoreInfo"

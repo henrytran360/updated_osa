@@ -14,3 +14,10 @@
 .sessionInfoText {
     margin: 0;
 }
+.infoLink{
+    text-decoration: underline;
+}
+
+.infoLink:hover{
+    cursor: pointer;
+}

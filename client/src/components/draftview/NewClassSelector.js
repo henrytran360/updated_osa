@@ -1,5 +1,5 @@
 import { CircularProgress } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./NewClassSelector.css";
 import NewDraftCourseItem from "./NewDraftCourseItem";
 import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
@@ -41,24 +41,9 @@ const get_eval = gql`
 
 const NewClassSelector = ({ draftSessions, scheduleID }) => {
     const client = useApolloClient();
-    let visibleCreditTotal = draftSessions.reduce(
-        (totalCredits, draftSession) => {
-            if (draftSession.visible) {
-                return totalCredits + draftSession.session.course.creditsMin;
-            } else {
-                return totalCredits;
-            }
-        },
-        0
-    );
+    const [visibleCreditTotal, setVisibleCreditTotal] = useState(0);
+    const [absoluteCreditTotal, setAbsoluteCreditTotal] = useState(0);
 
-    // Calculate absolute total credit hours
-    let absoluteCreditTotal = draftSessions.reduce(
-        (totalCredits, draftSession) => {
-            return totalCredits + draftSession.session.course.creditsMin;
-        },
-        0
-    );
     useEffect(() => {
         if (draftSessions) {
             draftSessions = draftSessions.filter((value, index) => {
@@ -76,6 +61,31 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                     draftSessionsMain: draftSessions,
                 },
             });
+            let visibleCreditTotal = draftSessions.reduce(
+                (totalCredits, draftSession) => {
+                    if (draftSession.visible) {
+                        return (
+                            totalCredits +
+                            draftSession.session.course.creditsMin
+                        );
+                    } else {
+                        return totalCredits;
+                    }
+                },
+                0
+            );
+
+            // Calculate absolute total credit hours
+            let absoluteCreditTotal = draftSessions.reduce(
+                (totalCredits, draftSession) => {
+                    return (
+                        totalCredits + draftSession.session.course.creditsMin
+                    );
+                },
+                0
+            );
+            setAbsoluteCreditTotal(absoluteCreditTotal);
+            setVisibleCreditTotal(visibleCreditTotal);
         }
     }, [draftSessions]);
 
@@ -88,13 +98,14 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                 <div
                     style={{
                         display: "flex",
-                        alignItems: "center",
-                        height: 40,
+                        alignItems: "flex-end",
+                        height: 20,
                         color: "var(--primary-color)",
-                        marginBottom: 20,
+                        marginBottom: 10,
+                        marginTop: 10,
                     }}
                 >
-                    <span className="heading">SELECTED</span>
+                    <span className="heading">SELECTED COURSES</span>
                 </div>
                 {draftSessions &&
                     draftSessions

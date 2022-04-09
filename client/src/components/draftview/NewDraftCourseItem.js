@@ -150,7 +150,7 @@ const GET_LOCAL_DATA = gql`
 
 const NewDraftCourseItem = (props) => {
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { term, recentUpdate } = storeData;
+    let { term, recentUpdate, evalModalState } = storeData;
 
     const client = useApolloClient();
 
@@ -385,7 +385,7 @@ const NewDraftCourseItem = (props) => {
                     }}
                 >
                     <Modal
-                        isOpen={modalState}
+                        isOpen={modalState | evalModalState}
                         className="evaluation-modal"
                         ariaHideApp={false}
                         onRequestClose={closeModal}
@@ -443,7 +443,7 @@ const NewDraftCourseItem = (props) => {
                 <span
                     style={{
                         color: "var(--tertiary-color)",
-                        fontSize: 12,
+                        fontSize: 14,
                     }}
                 >
                     {props.session.class.startTime
@@ -459,7 +459,6 @@ const NewDraftCourseItem = (props) => {
                               " " +
                               firstInstructor.lastName
                         : "No Instructors"}{" "}
-                    | CRN: {props.session.crn}
                 </span>
             </div>
         </div>

@@ -11,11 +11,11 @@
 
 .draft-course-top {
     width: 100%;
-    height: 60%;
+    height: 55%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 
 .draft-course-top:hover {
@@ -24,11 +24,11 @@
 
 .draft-course-bottom {
     width: 100%;
-    height: 40%;
+    height: 45%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 
 .model-info-content {

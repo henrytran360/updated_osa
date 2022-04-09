@@ -119,15 +119,14 @@
     color: var(--tertiary-color);
     margin-top: 2px;
     flex-grow: 1;
-    font-size: 0.7em;
+    font-size: 0.9em;
     line-height: 1px;
 }
 
 .courseEvent > #courseInstructor {
     color: var(--primary-color);
     margin-top: 3px;
-
-    font-size: 0.7em;
+    font-size: 0.9em;
     line-height: 1px;
 }
 

@@ -158,12 +158,12 @@ const Main = ({}) => {
                                     clickValue={bottomMode}
                                 />
                             </div>
-                            <div style={{ width: "40%", height: "80vh" }}>
+                            <div style={{ width: "45%", height: "80vh" }}>
                                 <CourseCalendar
                                     draftSessions={schedule.draftSessions}
                                 />
                             </div>
-                            <div style={{ width: "30%", height: "80vh" }}>
+                            <div style={{ width: "25%", height: "80vh" }}>
                                 <NewClassSelector
                                     scheduleID={schedule._id}
                                     draftSessions={schedule.draftSessions}

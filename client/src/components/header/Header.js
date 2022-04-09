@@ -410,7 +410,7 @@ function Header() {
                         }}
                     >
                         <SemesterSelect></SemesterSelect>
-                        <div className="buttonSelect">{renderIcons()}</div>
+                        {/* <div className="buttonSelect">{renderIcons()}</div> */}
                     </div>
                 ) : location.pathname == "/degree_plan" ? (
                     <div

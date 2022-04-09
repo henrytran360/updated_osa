@@ -745,6 +745,7 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
         <div className="searchBar">
             <div className="searchBar-content">
                 <div className="searchText">Search by:</div>
+                
                 <div className="button-and-search">
                     <Select
                         // className="react-select-container"
