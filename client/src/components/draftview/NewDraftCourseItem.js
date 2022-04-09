@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "./NewDraftCourseItem.css";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import { classTimeString } from "../../utils/CourseTimeTransforms";
 import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import ListAltIcon from "@mui/icons-material/ListAlt";
+import BarChartIcon from '@mui/icons-material/BarChart';
 import CourseEvalModal from "./CourseEvalModal";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { GrClose } from "react-icons/gr";
@@ -371,7 +371,7 @@ const NewDraftCourseItem = (props) => {
                             style={{ backgroundColor: "transparent" }}
                             onClick={openModal}
                         >
-                            <ListAltIcon />
+                            <BarChartIcon />
                         </IconButton>
                     </Tooltip>
                     <Tooltip className="iconButton" title="Hide">
@@ -398,7 +398,7 @@ const NewDraftCourseItem = (props) => {
                             disableRipple
                             onClick={() => removeDraftSession()}
                         >
-                            <RemoveCircleOutlineIcon color="warning" />
+                            <DeleteIcon color="warning" />
                         </IconButton>
                     </Tooltip>
                 </div>

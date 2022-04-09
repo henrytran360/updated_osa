@@ -19,9 +19,10 @@ import { Context as BottomModeContext } from "../../contexts/bottomModeContext";
 import SettingsModal from "./SettingsModal";
 import ThemeToggle from "./ThemeToggle";
 import Modal from "react-modal";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { GoDiffAdded } from "react-icons/go";
-import { AiOutlineEdit } from "react-icons/ai";
+import Tooltip from "@material-ui/core/Tooltip";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { Context as EmailContext } from "../../contexts/userEmailContext";
 
 import "./Header.global.css";
@@ -448,25 +449,32 @@ function Header() {
                             <DegreePlanSelect></DegreePlanSelect>
                         </div>
                         <div className="icon-box">
+
                             <div className="icon-container">
-                                <RiDeleteBinLine
-                                    onClick={() => setModal3(true)}
-                                    size={20}
-                                />
+                                <Tooltip title="Delete Plan">
+                                    <DeleteOutlineIcon
+                                        onClick={() => setModal3(true)}
+                                        size={20}
+                                    />
+                                </Tooltip>
                             </div>
 
                             <div className="icon-container">
-                                <AiOutlineEdit
-                                    onClick={() => setModal2(true)}
-                                    size={20}
-                                />
+                                <Tooltip title="Edit Plan">
+                                    <ModeEditOutlinedIcon
+                                        onClick={() => setModal2(true)}
+                                        size={20}
+                                    />
+                                </Tooltip>
                             </div>
 
                             <div className="icon-container">
-                                <GoDiffAdded
-                                    onClick={() => setModal(true)}
-                                    size={20}
-                                />
+                                <Tooltip title="Add New Plan">
+                                    <AddCircleOutlineOutlinedIcon
+                                        onClick={() => setModal(true)}
+                                        size={20}
+                                    />
+                                </Tooltip>
                             </div>
                         </div>
                         <CreateModal
@@ -599,24 +607,30 @@ function Header() {
                                 </div>
                                 <div className="icon-box">
                                     <div className="icon-container">
-                                        <RiDeleteBinLine
-                                            onClick={() => setModal3(true)}
-                                            size={20}
-                                        />
+                                        <Tooltip title="Delete Plan">
+                                            <DeleteOutlineIcon
+                                                onClick={() => setModal3(true)}
+                                                size={20}
+                                            />
+                                        </Tooltip>
                                     </div>
 
                                     <div className="icon-container">
-                                        <AiOutlineEdit
-                                            onClick={() => setModal2(true)}
-                                            size={20}
-                                        />
+                                        <Tooltip title="Edit Plan">
+                                            <ModeEditOutlinedIcon
+                                                onClick={() => setModal2(true)}
+                                                size={20}
+                                            />
+                                        </Tooltip>
                                     </div>
 
                                     <div className="icon-container">
-                                        <GoDiffAdded
-                                            onClick={() => setModal(true)}
-                                            size={20}
-                                        />
+                                        <Tooltip title="Add New Plan">
+                                            <AddCircleOutlineOutlinedIcon
+                                                onClick={() => setModal(true)}
+                                                size={20}
+                                            />
+                                        </Tooltip>
                                     </div>
                                 </div>
                                 <MenuItem>
