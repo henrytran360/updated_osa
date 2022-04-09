@@ -10,17 +10,10 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import CourseEvalModal from "./CourseEvalModal";
-<<<<<<< HEAD
-import { BsBoxArrowUpRight } from 'react-icons/bs';
-import { colorCombos } from '../calendar/colors';
-import CourseDetailModal from '../draftview/CourseDetailModal.js';
-
-=======
 import { BsBoxArrowUpRight } from "react-icons/bs";
-import { GrClose } from "react-icons/gr";
 import { colorCombos } from "../calendar/colors";
+import CourseDetailModal from "../draftview/CourseDetailModal.js";
 import CloseIcon from "@mui/icons-material/Close";
->>>>>>> 7035e9a (fix evaluations + course modal)
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -198,7 +191,12 @@ const NewDraftCourseItem = (props) => {
     const boolVisible = props.visible ? true : false;
 
     //Getting course info for the popup (expanded detail for each course)
-    const title = props.session.course.subject + ' ' + props.session.course.courseNum + ': ' + props.session.course.longTitle;
+    const title =
+        props.session.course.subject +
+        " " +
+        props.session.course.courseNum +
+        ": " +
+        props.session.course.longTitle;
     const start_time =
         props.session.class.startTime?.substring(0, 2) +
         ":" +
@@ -207,7 +205,8 @@ const NewDraftCourseItem = (props) => {
         props.session.class.endTime?.substring(0, 2) +
         ":" +
         props.session.class.endTime?.substring(2, 4);
-    const time = props.session.class.days.join('') + ' ' + start_time + ' - ' + end_time;
+    const time =
+        props.session.class.days.join("") + " " + start_time + " - " + end_time;
     let instructors_str = "";
     if (props.session) {
         if (props.session.instructors.length > 0) {
@@ -305,26 +304,39 @@ const NewDraftCourseItem = (props) => {
                         {props.session.course.longTitle}
                     </span>
                 </div>
-                <Modal 
+                <Modal
                     isOpen={modalState2}
                     className="model-info-content"
                     onRequestClose={closeModal2}
                 >
-                    <CourseDetailModal 
-                        title = {title}
-                        crn = {props.session.crn}
-                        time = {time}
-                        creditsMin = {props.session.creditsMin}
-                        distribution = {props.session.course.distribution}
-                        prereqs = {props.session.course.prereqs}
-                        coreqs = {coreqs_str}
-                        maxEnrollment = {props.session.maxEnrollment}
-                        enrollment = {props.session.enrollment}
-                        maxWaitlisted = {props.session.maxWaitlisted}
-                        waitlisted = {props.session.waitlisted}
-                        instructors = {instructors_str}
-                        term = {term}
+                    <CourseDetailModal
+                        title={title}
+                        crn={props.session.crn}
+                        time={time}
+                        creditsMin={props.session.creditsMin}
+                        distribution={props.session.course.distribution}
+                        prereqs={props.session.course.prereqs}
+                        coreqs={coreqs_str}
+                        maxEnrollment={props.session.maxEnrollment}
+                        enrollment={props.session.enrollment}
+                        maxWaitlisted={props.session.maxWaitlisted}
+                        waitlisted={props.session.waitlisted}
+                        instructors={instructors_str}
+                        term={term}
                     />
+                    <div className="closeModalButton">
+                        <Tooltip className="iconButton" title="Close">
+                            <IconButton
+                                aria-label="delete"
+                                size="small"
+                                disableFocusRipple
+                                disableRipple
+                                onClick={() => closeModal2()}
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </div>
                 </Modal>
                 <div
                     style={{
@@ -341,14 +353,14 @@ const NewDraftCourseItem = (props) => {
                         // ariaHideApp={false}
                         onRequestClose={closeModal}
                     >
-                        {/* <CourseEvalModal
+                        <CourseEvalModal
                             query={GET_EVALUATION_CHART_BY_COURSE}
                             courseSubject={props.session.course.subject}
                             courseNum={props.session.course.courseNum}
                             courseTitle={props.session.course.longTitle}
                             courseProf={firstInstructor}
                             closeModal={closeModal}
-                        /> */}
+                        />
                     </Modal>
                     <Tooltip className="iconButton" title="Evaluations">
                         <IconButton

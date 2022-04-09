@@ -7,14 +7,10 @@ import "./Calendar.css";
 import { colorCombos } from "./colors";
 import Modal from "react-modal";
 import { gql, useQuery } from "@apollo/client";
-<<<<<<< HEAD
-import { BsBoxArrowUpRight } from 'react-icons/bs';
-import CourseDetailModal from '../draftview/CourseDetailModal.js';
-=======
+import CourseDetailModal from "../draftview/CourseDetailModal.js";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { IconButton, Tooltip } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
->>>>>>> 7035e9a (fix evaluations + course modal)
 
 const localizer = momentLocalizer(moment);
 
@@ -280,35 +276,48 @@ const CustomClassEvent = ({ event }) => {
 
     //Getting course info for the popup (expanded detail for each course)
     const info = event.tooltip.split("\n");
-    const title = event.title + ': ' + info[1];
+    const title = event.title + ": " + info[1];
     const CRN = info[2].split(": ")[1];
-    const time = event.source.days + ' ' + event.desc;
+    const time = event.source.days + " " + event.desc;
     // const maxEnroll = info[4].split(": ")[1];
     const source = event.source.days;
     // const days = source.map((day) => dayCode2dayString[day] + " ");
     return (
         <div className="courseEventWrapper">
-            <Modal 
+            <Modal
                 isOpen={modalState}
                 className="model-info-content"
                 onRequestClose={closeModal}
                 autoFocus={false}
             >
-                <CourseDetailModal 
-                    title = {title}
-                    crn = {CRN}
-                    time = {time}
-                    creditsMin = {event.creditsMin}
-                    distribution = {event.distribution}
-                    prereqs = {event.prereqs}
-                    coreqs = {event.coreqs}
-                    maxEnrollment = {event.maxEnrollment}
-                    enrollment = {event.enrollment}
-                    maxWaitlisted = {event.maxWaitlisted}
-                    waitlisted = {event.waitlisted}
-                    instructors = {event.instructor}
-                    term = {term}
+                <CourseDetailModal
+                    title={title}
+                    crn={CRN}
+                    time={time}
+                    creditsMin={event.creditsMin}
+                    distribution={event.distribution}
+                    prereqs={event.prereqs}
+                    coreqs={event.coreqs}
+                    maxEnrollment={event.maxEnrollment}
+                    enrollment={event.enrollment}
+                    maxWaitlisted={event.maxWaitlisted}
+                    waitlisted={event.waitlisted}
+                    instructors={event.instructor}
+                    term={term}
                 />
+                <div className="closeModalButton">
+                    <Tooltip className="iconButton" title="Close">
+                        <IconButton
+                            aria-label="delete"
+                            size="small"
+                            disableFocusRipple
+                            disableRipple
+                            onClick={() => closeModal()}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Tooltip>
+                </div>
             </Modal>
             <hr
                 style={{ backgroundColor: `${sidebarColor}` }}

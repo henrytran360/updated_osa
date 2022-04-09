@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./CourseDetailModal.css";
 import { BsBoxArrowUpRight } from "react-icons/bs";
+import { IconButton, Tooltip } from "@material-ui/core";
+import CloseIcon from "@mui/icons-material/Close";
 
 const CourseDetailModal = (props) => {
     //props: title, time, crn, creditsMin, distribution,
@@ -22,19 +24,6 @@ const CourseDetailModal = (props) => {
                     {" "}
                     <BsBoxArrowUpRight />
                 </a>
-            </div>
-            <div className="closeModalButton">
-                <Tooltip className="iconButton" title="Close">
-                    <IconButton
-                        aria-label="delete"
-                        size="small"
-                        disableFocusRipple
-                        disableRipple
-                        onClick={() => closeModal()}
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                </Tooltip>
             </div>
             <div className="float-container">
                 <div className="float-child">
