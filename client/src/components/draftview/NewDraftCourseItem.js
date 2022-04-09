@@ -354,14 +354,14 @@ const NewDraftCourseItem = (props) => {
                         // ariaHideApp={false}
                         onRequestClose={closeModal}
                     >
-                        <CourseEvalModal
+                        {/* <CourseEvalModal
                             query={GET_EVALUATION_CHART_BY_COURSE}
                             courseSubject={props.session.course.subject}
                             courseNum={props.session.course.courseNum}
                             courseTitle={props.session.course.longTitle}
                             courseProf={firstInstructor}
                             closeModal={closeModal}
-                        />
+                        /> */}
                     </Modal>
                     <Tooltip className="iconButton" title="Evaluations">
                         <IconButton

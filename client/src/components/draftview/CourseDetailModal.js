@@ -28,46 +28,74 @@ const CourseDetailModal = (props) => {
             <div className="float-container">
                 <div className="float-child">
                     <div className="category">
-                        <b>{props.time}</b>
+                        <b>Time:</b>
+                            <span className='detail-content'>
+                                {props.time}
+                            </span>
                     </div>
                     <div className="category">
-                        <b>CRN: </b>
-                        {props.crn}
+                        <b>CRN:</b>
+                        <span className='detail-content'>
+                            {props.crn}
+                        </span>
                     </div>
                     <div className="category">
-                        <b>Credits: </b>
-                        {props.creditsMin}
+                        <b>Credits:</b>
+                        <span className='detail-content'>
+                            {props.creditsMin}
+                        </span>
                     </div>
                     <div className="category">
-                        <b>Distribution: </b>
-                        {props.distribution}
+                        <b>Distribution:</b>
+                        <span className='detail-content'>
+                            {props.distribution}
+                        </span>
                     </div>
                     <div className="category">
-                        <b>Prerequisites: {props.prereqs}</b>
+                        <b>Prerequisites:{" "}</b>
+                            <span className='detail-content'>
+                                {props.prereqs}
+                            </span>
                     </div>
                     <div className="category">
-                        <b>Corequisites: {props.coreqs}</b>
+                        <b>Corequisites:</b>
+                        <span className='detail-content'> 
+                            {props.coreqs}
+                        </span>
                     </div>
                 </div>
                 <div className="float-child">
                     <div className="category">
-                        <b>Max Enrollment: </b>
-                        {props.maxEnrollment}
+                        <b>Max Enrollment:</b>
+                        <span className='detail-content'> 
+                            {props.maxEnrollment}
+                        </span>
                     </div>
                     <div className="category">
-                        <b>Current Enrollment: {props.enrollment}</b>
+                        <b>Current Enrollment:{" "}</b>
+                            <span className='detail-content'> 
+                                {props.enrollment}
+                            </span>
                     </div>
                     <div className="category">
-                        <b>Max Waitlisted: {props.maxWaitlisted}</b>
+                        <b> Max Waitlisted:{" "}</b>
+                            <span className='detail-content'> 
+                                {props.maxWaitlisted}
+                            </span>
                     </div>
                     <div className="category">
-                        <b>Waitlisted: {props.waitlisted}</b>
+                        <b>Waitlisted:</b>
+                        <span className='detail-content'> 
+                            {props.waitlisted}
+                        </span>
                     </div>
                 </div>
             </div>
             <div className="course-instructor">
-                <b>Course Instructor: </b>
-                {props.instructors}
+                <b>Course Instructor:</b>
+                <span className='detail-content'>
+                    {props.instructors}
+                </span>
             </div>
         </div>
     );

@@ -1,3 +1,8 @@
+.detail-content{
+    color: var(--tertiary-color);
+    margin-left: 5px;
+}
+
 .model-info-content {
     /* width: 545px; */
     width: 50vw;

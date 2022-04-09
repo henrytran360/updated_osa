@@ -285,7 +285,7 @@ const CustomClassEvent = ({ event }) => {
     // const days = source.map((day) => dayCode2dayString[day] + " ");
     return (
         <div className="courseEventWrapper">
-            <Modal
+            <Modal 
                 isOpen={modalState}
                 className="model-info-content"
                 onRequestClose={closeModal}
