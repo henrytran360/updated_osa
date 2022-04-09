@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import SemesterBox from "../degree/SemesterBox";
 import "./CourseEval.css";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useApolloClient } from "@apollo/client";
 import { IoCloseOutline } from "react-icons/io5";
 import { ImWarning } from "react-icons/im";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -25,6 +25,8 @@ import Chart, {
 } from "devextreme-react/chart";
 
 const CourseEvalModal = (props) => {
+    const client = useApolloClient();
+
     const thisCourse = props.courseSubject + " " + props.courseNum;
 
     const {
@@ -52,10 +54,22 @@ const CourseEvalModal = (props) => {
         setResponseState(true);
     };
 
-    const [warningState, setWarningState] = useState(true);
+    const GET_LOCAL_DATA = gql`
+        query GetLocalData {
+            warningState @client
+        }
+    `;
+
+    const { data: localQueryData } = useQuery(GET_LOCAL_DATA);
+
+    let { warningState } = localQueryData;
 
     const closeWarning = () => {
-        setWarningState(false);
+      client.writeQuery({
+        query: GET_LOCAL_DATA,
+        data: { warningState: false },
+      });
+      warningState = false;
     };
 
     //Data for class comments

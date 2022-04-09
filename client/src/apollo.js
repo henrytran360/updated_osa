@@ -74,6 +74,7 @@ const initialState = {
     eachCourseModalState: false,
     draftSessionsMain: [],
     theme: { value: "Light", label: "Light" },
+    warningState: true,
 };
 
 // Initialize cache with a state
@@ -93,6 +94,7 @@ client.writeQuery({
             eachCourseModalState
             draftSessionsMain
             theme
+            warningState
         }
     `,
     data: initialState,
