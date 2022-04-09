@@ -23,7 +23,7 @@ const authLink = setContext(async (_, { headers }) => {
 
 // HTTP Backend Link
 const httpLink = new HttpLink({
-    uri: process.env.REACT_APP_GRAPHQL_URL
+    uri: process.env.REACT_APP_GRAPHQL_URL,
     // uri: "http://localhost:3000/graphql",
     // uri: "/graphql",
 });
@@ -71,7 +71,8 @@ const initialState = {
     editModalState: false,
     notesModalState: false,
     eachCourseModalState: false,
-    theme:{ value: "Light", label: "Light" },
+    draftSessionsMain: [],
+    theme: { value: "Light", label: "Light" },
 };
 
 // Initialize cache with a state
@@ -88,6 +89,7 @@ client.writeQuery({
             editModalState
             notesModalState
             eachCourseModalState
+            draftSessionsMain
             theme
         }
     `,

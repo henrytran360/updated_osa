@@ -2,11 +2,12 @@ import { CircularProgress } from "@material-ui/core";
 import React, { useEffect } from "react";
 import "./NewClassSelector.css";
 import NewDraftCourseItem from "./NewDraftCourseItem";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
 
 const GET_LOCAL_DATA = gql`
     query GetLocalData {
         evalModalState @client
+        draftSessionsMain @client
     }
 `;
 
@@ -39,6 +40,7 @@ const get_eval = gql`
 `;
 
 const NewClassSelector = ({ draftSessions, scheduleID }) => {
+    const client = useApolloClient();
     let visibleCreditTotal = draftSessions.reduce(
         (totalCredits, draftSession) => {
             if (draftSession.visible) {
@@ -68,11 +70,17 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                 );
             });
             draftSessions = draftSessions.filter((draft) => draft.session);
+            client.writeQuery({
+                query: GET_LOCAL_DATA,
+                data: {
+                    draftSessionsMain: draftSessions,
+                },
+            });
         }
     }, [draftSessions]);
 
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { evalModalState } = storeData;
+    let { evalModalState, draftSessionsMain } = storeData;
 
     return (
         <div className="classSelectorContainer">

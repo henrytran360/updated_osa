@@ -364,7 +364,12 @@ const CourseList = ({
         <p>Something went wrong. Please refresh the page and try again 🥺</p>
     );
 
-    if (loading) return <p><CircularProgress /></p>;
+    if (loading)
+        return (
+            <p>
+                <CircularProgress />
+            </p>
+        );
     if (error) return errorMessage;
     if (!courseData) return errorMessage;
 
@@ -388,13 +393,11 @@ const CourseList = ({
                 .filter((course) => course.sessions.length > 0);
             break;
         default:
-            console.log("hello");
             courseResults = courseData?.courseMany;
             courseResults = courseResults.filter(
                 (course) => course.sessions.length > 0
             );
     }
-    console.log("courseResults", courseResults);
 
     if (courseResults.length === 0)
         return <p>No Available Course In This Range</p>;
