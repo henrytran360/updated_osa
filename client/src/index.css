@@ -13,7 +13,7 @@ body,
     --quaternary-bg-color: #e35f4980;
     --primary-color: #1ebfc2;
     /* used for p tags */
-    --secondary-color: #12b0b2;
+    --secondary-color: #338182;
     /* used for headings, navbar tabs */
     --tertiary-color: #8e9eb2;
     /* used for icon, course time */
@@ -243,14 +243,16 @@ a {
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf")
+        format("truetype");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf")
+        format("truetype");
     font-weight: normal;
     font-style: italic;
 }
@@ -264,7 +266,8 @@ a {
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf")
+        format("truetype");
     font-weight: medium;
     font-style: normal;
 }
