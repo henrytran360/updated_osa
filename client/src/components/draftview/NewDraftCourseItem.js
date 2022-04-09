@@ -10,8 +10,9 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import CourseEvalModal from "./CourseEvalModal";
-import { BsBoxArrowUpRight } from "react-icons/bs";
-import { colorCombos } from "../calendar/colors";
+import { BsBoxArrowUpRight } from 'react-icons/bs';
+import { colorCombos } from '../calendar/colors';
+import CourseDetailModal from '../draftview/CourseDetailModal.js';
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -183,7 +184,8 @@ const NewDraftCourseItem = (props) => {
 
     const boolVisible = props.visible ? true : false;
 
-    //getting course info for the popup (expanded detail for each course)
+    //Getting course info for the popup (expanded detail for each course)
+    const title = props.session.course.subject + ' ' + props.session.course.courseNum + ': ' + props.session.course.longTitle;
     const start_time =
         props.session.class.startTime?.substring(0, 2) +
         ":" +
@@ -192,6 +194,7 @@ const NewDraftCourseItem = (props) => {
         props.session.class.endTime?.substring(0, 2) +
         ":" +
         props.session.class.endTime?.substring(2, 4);
+    const time = props.session.class.days.join('') + ' ' + start_time + ' - ' + end_time;
     let instructors_str = "";
     if (props.session) {
         if (props.session.instructors.length > 0) {
@@ -210,7 +213,6 @@ const NewDraftCourseItem = (props) => {
                     .lastName;
         }
     }
-
     let coreqs_str = "";
     for (let j = 0; j < props.session.course.coreqs.length; j++) {
         coreqs_str += props.session.course.coreqs[j] + "\n";
@@ -289,94 +291,27 @@ const NewDraftCourseItem = (props) => {
                         {props.session.course.longTitle}
                     </span>
                 </div>
-
-                <Modal
+                <Modal 
                     isOpen={modalState2}
                     className="model-info-content"
                     onRequestClose={closeModal2}
                 >
-                    <div className="course-info-content">
-                        <div className="course-title">
-                            <b>
-                                {props.session.course.subject}{" "}
-                                {props.session.course.courseNum}:{" "}
-                                {props.session.course.longTitle}
-                            </b>
-                            <a
-                                style={{ marginLeft: "1rem" }}
-                                href={
-                                    "https://courses.rice.edu/courses/!SWKSCAT.cat?p_action=COURSE&p_term=" +
-                                    term +
-                                    "&p_crn=" +
-                                    props.session.crn
-                                }
-                                target="_blank"
-                            >
-                                {" "}
-                                <BsBoxArrowUpRight />
-                            </a>
-                        </div>
-                        <div className="float-container">
-                            <div className="float-child">
-                                <div className="category">
-                                    <b>
-                                        {props.session.class.days.join("")}{" "}
-                                        {start_time} - {end_time}
-                                    </b>
-                                </div>
-                                <div className="category">
-                                    <b>CRN: </b>
-                                    {props.session.crn}
-                                </div>
-                                <div className="category">
-                                    <b>Credits: </b>
-                                    {props.session.course.creditsMin}
-                                </div>
-                                <div className="category">
-                                    <b>Distribution: </b>
-                                    {props.session.course.distribution}
-                                </div>
-                                <div className="category">
-                                    <b>
-                                        Prerequisites:{" "}
-                                        {props.session.course.prereqs}
-                                    </b>
-                                </div>
-                                <div className="category">
-                                    <b>Corequisites: {coreqs_str}</b>
-                                </div>
-                            </div>
-                            <div className="float-child">
-                                <div className="category">
-                                    <b>Max Enrollment: </b>
-                                    {props.session.maxEnrollment}
-                                </div>
-                                <div className="category">
-                                    <b>
-                                        Current Enrollment:{" "}
-                                        {props.session.enrollment}
-                                    </b>
-                                </div>
-                                <div className="category">
-                                    <b>
-                                        Max Waitlisted:{" "}
-                                        {props.session.maxWaitlisted}
-                                    </b>
-                                </div>
-                                <div className="category">
-                                    <b>
-                                        Waitlisted: {props.session.waitlisted}
-                                    </b>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="course-instructor">
-                            <b>Course Instructor: </b>
-                            {instructors_str}
-                        </div>
-                    </div>
+                    <CourseDetailModal 
+                        title = {title}
+                        crn = {props.session.crn}
+                        time = {time}
+                        creditsMin = {props.session.creditsMin}
+                        distribution = {props.session.course.distribution}
+                        prereqs = {props.session.course.prereqs}
+                        coreqs = {coreqs_str}
+                        maxEnrollment = {props.session.maxEnrollment}
+                        enrollment = {props.session.enrollment}
+                        maxWaitlisted = {props.session.maxWaitlisted}
+                        waitlisted = {props.session.waitlisted}
+                        instructors = {instructors_str}
+                        term = {term}
+                    />
                 </Modal>
-
                 <div
                     style={{
                         width: "28%",
@@ -392,14 +327,14 @@ const NewDraftCourseItem = (props) => {
                         // ariaHideApp={false}
                         onRequestClose={closeModal}
                     >
-                        <CourseEvalModal
+                        {/* <CourseEvalModal
                             query={GET_EVALUATION_CHART_BY_COURSE}
                             courseSubject={props.session.course.subject}
                             courseNum={props.session.course.courseNum}
                             courseTitle={props.session.course.longTitle}
                             courseProf={firstInstructor}
                             closeModal={closeModal}
-                        />
+                        /> */}
                     </Modal>
                     <Tooltip className="iconButton" title="Evaluations">
                         <IconButton
