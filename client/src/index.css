@@ -180,6 +180,13 @@ body {
     padding: 0;
 }
 
+/* disables bouncy scrolling for macOS when scrolling through panels */
+html, body {
+    height: 100%;
+    width: 100%;
+    /* overflow-y: hidden; */
+}
+
 h1,
 h2,
 h3,
@@ -210,6 +217,29 @@ a {
 .ReactModal__Overlay {
     background-color: rgba(var(--bg), 0.5) !important;
 }
+
+/* SCROLLBAR */
+
+*::-webkit-scrollbar {
+    display: none;
+  }
+.scrollbar::-webkit-scrollbar, .rbc-time-content::-webkit-scrollbar, .courseListContainer::-webkit-scrollbar {
+    display: block;
+    width: 5px;
+    height: 5px;
+  }
+.scrollbar::-webkit-scrollbar-track, .rbc-time-content::-webkit-scrollbar-track {
+    display: block;
+    background-color: var(--shadow-color);
+    border-radius: 10px;
+    opacity: .75;
+  }
+.scrollbar::-webkit-scrollbar-thumb, .rbc-time-content::-webkit-scrollbar-thumb {
+    display: block;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    opacity: .75
+  }
 
 @font-face {
     font-family: "Acari Sans";

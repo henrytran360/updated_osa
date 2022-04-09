@@ -4,6 +4,8 @@ import "./NewClassSelector.css";
 import NewDraftCourseItem from "./NewDraftCourseItem";
 import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
 
+import useWindowDimensions from "../useWindowDimensions";
+
 const GET_LOCAL_DATA = gql`
     query GetLocalData {
         evalModalState @client
@@ -40,6 +42,8 @@ const get_eval = gql`
 `;
 
 const NewClassSelector = ({ draftSessions, scheduleID }) => {
+    const {width, height} = useWindowDimensions();
+
     const client = useApolloClient();
     const [visibleCreditTotal, setVisibleCreditTotal] = useState(0);
     const [absoluteCreditTotal, setAbsoluteCreditTotal] = useState(0);
@@ -93,8 +97,8 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
     let { evalModalState, draftSessionsMain } = storeData;
 
     return (
-        <div className="classSelectorContainer">
-            <div className="classSelectorContent">
+        <div className="classSelectorContainer" style = {{height: height - 121}}>
+            <div className="classSelectorContent scrollbar">
                 <div
                     style={{
                         display: "flex",

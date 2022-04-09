@@ -9,6 +9,7 @@ import Modal from "react-modal";
 import { gql, useQuery } from "@apollo/client";
 import CourseDetailModal from "../draftview/CourseDetailModal.js";
 import { BsBoxArrowUpRight } from "react-icons/bs";
+import useWindowDimensions from "../useWindowDimensions";
 import { IconButton, Tooltip } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -333,8 +334,11 @@ const CustomClassEvent = ({ event }) => {
 };
 
 const CourseCalendar = ({ draftSessions }) => {
+    const { height, width } = useWindowDimensions();
+
     return (
-        <div className="courseCalendar">
+        /* 121 = size of the footer (60) + header (60) + 1 for spacing */
+        <div className="courseCalendar" style = {{height: height - 121}}>
             <Calendar
                 components={{ event: CustomClassEvent }}
                 events={draftSessionsToEvents(draftSessions)}

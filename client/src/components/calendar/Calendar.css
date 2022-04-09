@@ -1,3 +1,7 @@
+.rbc-calendar {
+    /* height: 90vh!important; */
+}
+
 /* Hide the all day row at the top */
 .rbc-allday-cell {
     display: none;

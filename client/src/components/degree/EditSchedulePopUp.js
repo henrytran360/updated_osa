@@ -79,7 +79,7 @@ const EditSchedulePopUp = ({ term, _id }) => {
 
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
-            setCourseName(value);
+            setCourseName(value.replace(/\s+/g, "").toLowerCase());
         }
     };
 
@@ -103,6 +103,13 @@ const EditSchedulePopUp = ({ term, _id }) => {
         }
     }, [term]);
 
+    console.log(
+        courseList.filter(
+            (course) =>
+                course.fullCourseName && course.fullCourseName.includes("univ")
+        )
+    );
+
     return (
         <div className="container2">
             <div className="SearchBar">
@@ -111,10 +118,7 @@ const EditSchedulePopUp = ({ term, _id }) => {
                         {year} {sem} Semester
                     </span>
                 </div>
-                <div
-                    className="searchInputs"
-                    onClick={() => setCourseName(value)}
-                >
+                <div className="searchInputs">
                     <input
                         type="text"
                         className="header-search"
@@ -125,7 +129,14 @@ const EditSchedulePopUp = ({ term, _id }) => {
                         onKeyUp={handleKeyPress}
                     />
                     <div className="searchIcon">
-                        <AiOutlineSearch size={25} />
+                        <AiOutlineSearch
+                            size={25}
+                            onClick={() =>
+                                setCourseName(
+                                    value.replace(/\s+/g, "").toLowerCase()
+                                )
+                            }
+                        />
                     </div>
                 </div>
             </div>
@@ -137,27 +148,21 @@ const EditSchedulePopUp = ({ term, _id }) => {
                         <div className="checkBoxHead">ADD</div>
                     </div>
                     <div className="listCourseSearch">
-                        {courseList &&
+                        {courseList.length > 0 &&
                             (courseName
-                                ? courseList.filter((course) =>
-                                      course.fullCourseName
-                                          .replace(/\s+/g, "")
-                                          .toLowerCase()
-                                          .includes(
+                                ? courseList.filter(
+                                      (course) =>
+                                          course.fullCourseName &&
+                                          course.fullCourseName.includes(
                                               courseName
-                                                  .toLowerCase()
-                                                  .replace(/\s+/g, "")
                                           )
                                   )
                                     ? courseList
-                                          .filter((course) =>
-                                              course.fullCourseName
-                                                  .replace(/\s+/g, "")
-                                                  .toLowerCase()
-                                                  .includes(
+                                          .filter(
+                                              (course) =>
+                                                  course.fullCourseName &&
+                                                  course.fullCourseName.includes(
                                                       courseName
-                                                          .toLowerCase()
-                                                          .replace(/\s+/g, "")
                                                   )
                                           )
                                           .map((course) => {

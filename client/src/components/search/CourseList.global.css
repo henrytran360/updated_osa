@@ -4,26 +4,11 @@
     align-items: flex-start;
     width: 100%;
     flex: 1;
-    /* height: 100%; */
-    overflow-y: scroll;
     background-color: var(--main-bg-color);
 
     /* border-bottom: 1px solid var(--secondary-bg-color); */
     padding-bottom: 25px;
 }
-
-/* .courseListContainer::-webkit-scrollbar {
-    width: 8px; 
-}
-.courseListContainer::-webkit-scrollbar-track {
-    background: #ffffff; 
-}
-
-.courseListContainer::-webkit-scrollbar-thumb {
-    background: var(--main-bg-color) 0% 0% no-repeat padding-box;
-    border-radius: 20px;
-    opacity: 1;
-} */
 
 .courseRow {
     display: grid;

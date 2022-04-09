@@ -15,6 +15,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { Context as BottomModeContexts } from "../../contexts/bottomModeContext";
 
 import "./Main.global.css";
+
 import Error from "../error/Error";
 import NewClassSelector from "../draftview/NewClassSelector";
 import Footer from "../footer/Footer";
@@ -152,7 +153,7 @@ const Main = ({}) => {
                     {/* all 3 open */}
                     {draftSessionsMain.length > 0 ? (
                         <>
-                            <div style={{ width: "30%", height: "80vh" }}>
+                            <div style={{ width: "30%"}}>
                                 <CourseSearch
                                     scheduleID={schedule._id}
                                     clickValue={bottomMode}
@@ -172,7 +173,7 @@ const Main = ({}) => {
                         </>
                     ) : (
                         <>
-                            <div style={{ width: "40%", height: "80vh" }}>
+                            <div style={{ width: "40%"}}>
                                 <CourseSearch
                                     scheduleID={schedule._id}
                                     clickValue={bottomMode}
