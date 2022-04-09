@@ -406,7 +406,10 @@ function Header() {
                             flexDirection: "row",
                             justifyContent: "space-around",
                             alignItems: "center",
-                            zIndex: evalModalState ? -99 : 10,
+                            zIndex:
+                                evalModalState || eachCourseModalState
+                                    ? -99
+                                    : 10,
                         }}
                     >
                         <SemesterSelect></SemesterSelect>

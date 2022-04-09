@@ -145,12 +145,14 @@ const GET_LOCAL_DATA = gql`
         evalModalState @client
         term @client
         recentUpdate @client
+        eachCourseModalState @client
     }
 `;
 
 const NewDraftCourseItem = (props) => {
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { term, recentUpdate, evalModalState } = storeData;
+    let { term, recentUpdate, evalModalState, eachCourseModalState } =
+        storeData;
 
     const client = useApolloClient();
 
@@ -242,7 +244,7 @@ const NewDraftCourseItem = (props) => {
         client.writeQuery({
             query: GET_LOCAL_DATA,
             data: {
-                evalModalState: true,
+                eachCourseModalState: true,
             },
         });
         setModal2(true);
@@ -251,7 +253,7 @@ const NewDraftCourseItem = (props) => {
         client.writeQuery({
             query: GET_LOCAL_DATA,
             data: {
-                evalModalState: false,
+                eachCourseModalState: false,
             },
         });
         setModal2(false);
@@ -387,7 +389,7 @@ const NewDraftCourseItem = (props) => {
                     <Modal
                         isOpen={modalState | evalModalState}
                         className="evaluation-modal"
-                        ariaHideApp={false}
+                        // ariaHideApp={false}
                         onRequestClose={closeModal}
                     >
                         <CourseEvalModal
