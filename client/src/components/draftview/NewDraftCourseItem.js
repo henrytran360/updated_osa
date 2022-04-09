@@ -11,6 +11,7 @@ import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import CourseEvalModal from "./CourseEvalModal";
 import { BsBoxArrowUpRight } from "react-icons/bs";
+import { GrClose } from "react-icons/gr";
 import { colorCombos } from "../calendar/colors";
 import CourseDetailModal from "../draftview/CourseDetailModal.js";
 import CloseIcon from "@mui/icons-material/Close";
