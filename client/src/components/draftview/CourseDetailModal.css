@@ -36,6 +36,12 @@
     align-items: center;
 }
 
+.closeModalButton {
+    position: absolute;
+    top: 30px;
+    right: 30px
+}
+
 .course-title {
     font-size: 20px;
     width: 100%;

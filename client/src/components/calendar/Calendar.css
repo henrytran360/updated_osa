@@ -130,11 +130,17 @@
     line-height: 1px;
 }
 
+.closeModalButton{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
 .model-info {
     /* width: 545px; */
     width: 50vw;
     height: 400px;
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--primary-color);
     border-radius: 5px;
     background-color: var(--secondary-bg-color);
     position: absolute;

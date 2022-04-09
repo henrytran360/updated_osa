@@ -11,6 +11,7 @@ import "./MinimizedDetail.global.css";
 const GET_LOCAL_DATA = gql`
     query GetLocalData {
         evalModalState @client
+        evalModalStateDetail @client
     }
 `;
 
@@ -120,7 +121,7 @@ const MinimizedDetail = ({
         client.writeQuery({
             query: GET_LOCAL_DATA,
             data: {
-                evalModalState: true,
+                evalModalStateDetail: true,
             },
         });
     };

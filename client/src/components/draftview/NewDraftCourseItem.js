@@ -10,10 +10,17 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import CourseEvalModal from "./CourseEvalModal";
+<<<<<<< HEAD
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import { colorCombos } from '../calendar/colors';
 import CourseDetailModal from '../draftview/CourseDetailModal.js';
 
+=======
+import { BsBoxArrowUpRight } from "react-icons/bs";
+import { GrClose } from "react-icons/gr";
+import { colorCombos } from "../calendar/colors";
+import CloseIcon from "@mui/icons-material/Close";
+>>>>>>> 7035e9a (fix evaluations + course modal)
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -147,13 +154,19 @@ const GET_LOCAL_DATA = gql`
         term @client
         recentUpdate @client
         eachCourseModalState @client
+        evalModalStateDetail @client
     }
 `;
 
 const NewDraftCourseItem = (props) => {
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { term, recentUpdate, evalModalState, eachCourseModalState } =
-        storeData;
+    let {
+        term,
+        recentUpdate,
+        evalModalState,
+        eachCourseModalState,
+        evalModalStateDetail,
+    } = storeData;
 
     const client = useApolloClient();
 
@@ -235,6 +248,7 @@ const NewDraftCourseItem = (props) => {
             query: GET_LOCAL_DATA,
             data: {
                 evalModalState: false,
+                evalModalStateDetail: false,
             },
         });
         setModal(false);
@@ -322,7 +336,7 @@ const NewDraftCourseItem = (props) => {
                     }}
                 >
                     <Modal
-                        isOpen={modalState | evalModalState}
+                        isOpen={modalState | evalModalStateDetail}
                         className="evaluation-modal"
                         // ariaHideApp={false}
                         onRequestClose={closeModal}

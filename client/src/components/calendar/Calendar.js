@@ -7,8 +7,14 @@ import "./Calendar.css";
 import { colorCombos } from "./colors";
 import Modal from "react-modal";
 import { gql, useQuery } from "@apollo/client";
+<<<<<<< HEAD
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import CourseDetailModal from '../draftview/CourseDetailModal.js';
+=======
+import { BsBoxArrowUpRight } from "react-icons/bs";
+import { IconButton, Tooltip } from "@material-ui/core";
+import CloseIcon from "@mui/icons-material/Close";
+>>>>>>> 7035e9a (fix evaluations + course modal)
 
 const localizer = momentLocalizer(moment);
 
@@ -286,6 +292,7 @@ const CustomClassEvent = ({ event }) => {
                 isOpen={modalState}
                 className="model-info-content"
                 onRequestClose={closeModal}
+                autoFocus={false}
             >
                 <CourseDetailModal 
                     title = {title}

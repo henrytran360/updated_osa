@@ -158,12 +158,12 @@ const Main = ({}) => {
                                     clickValue={bottomMode}
                                 />
                             </div>
-                            <div style={{ width: "45%", height: "80vh" }}>
+                            <div style={{ width: "45%" }}>
                                 <CourseCalendar
                                     draftSessions={schedule.draftSessions}
                                 />
                             </div>
-                            <div style={{ width: "25%", height: "80vh" }}>
+                            <div style={{ width: "25%" }}>
                                 <NewClassSelector
                                     scheduleID={schedule._id}
                                     draftSessions={schedule.draftSessions}
@@ -178,12 +178,12 @@ const Main = ({}) => {
                                     clickValue={bottomMode}
                                 />
                             </div>
-                            <div style={{ width: "60%", height: "80vh" }}>
+                            <div style={{ width: "60%" }}>
                                 <CourseCalendar
                                     draftSessions={schedule.draftSessions}
                                 />
                             </div>
-                            <div style={{ width: "0%", height: "80vh" }}>
+                            <div style={{ width: "0%" }}>
                                 <NewClassSelector
                                     scheduleID={schedule._id}
                                     draftSessions={schedule.draftSessions}

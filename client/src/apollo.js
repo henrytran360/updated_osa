@@ -65,6 +65,7 @@ const initialState = {
     recentUpdate: false,
     term: 202220,
     evalModalState: false,
+    evalModalStateDetail: false,
     degreeplanparent: "",
     degreeplanname: "",
     degreeplanlist: {},
@@ -83,6 +84,7 @@ client.writeQuery({
             recentUpdate
             term
             evalModalState
+            evalModalStateDetail
             degreeplanparent
             degreeplanname
             degreeplanlist
