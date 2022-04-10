@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "./NewDraftCourseItem.css";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import { classTimeString } from "../../utils/CourseTimeTransforms";
 import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import BarChartIcon from '@mui/icons-material/BarChart';
+import BarChartIcon from "@mui/icons-material/BarChart";
 import CourseEvalModal from "./CourseEvalModal";
-import { BsBoxArrowUpRight } from "react-icons/bs";
-import { GrClose } from "react-icons/gr";
 import { colorCombos } from "../calendar/colors";
 import CourseDetailModal from "../draftview/CourseDetailModal.js";
 import CloseIcon from "@mui/icons-material/Close";
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -349,7 +348,7 @@ const NewDraftCourseItem = (props) => {
                     }}
                 >
                     <Modal
-                        isOpen={modalState | evalModalStateDetail}
+                        isOpen={modalState}
                         className="evaluation-modal"
                         // ariaHideApp={false}
                         onRequestClose={closeModal}

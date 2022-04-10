@@ -133,3 +133,7 @@
     background-color: var(--background-color);
     z-index: 99;
 }
+
+.evaluation-modal:focus{
+    outline: none !important;
+}

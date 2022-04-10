@@ -20,9 +20,9 @@ import SettingsModal from "./SettingsModal";
 import ThemeToggle from "./ThemeToggle";
 import Modal from "react-modal";
 import Tooltip from "@material-ui/core/Tooltip";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Context as EmailContext } from "../../contexts/userEmailContext";
 
 import "./Header.global.css";
@@ -387,10 +387,10 @@ function Header() {
                             label="Schedule"
                             onClick={() => navigateTo("/schedule")}
                         />
-                        <LinkTab
+                        {/* <LinkTab
                             label="Degree Plan"
                             onClick={() => navigateTo("/degree_plan")}
-                        />
+                        /> */}
                         <LinkTab
                             label="About"
                             onClick={() => navigateTo("/about")}
@@ -449,7 +449,6 @@ function Header() {
                             <DegreePlanSelect></DegreePlanSelect>
                         </div>
                         <div className="icon-box">
-
                             <div className="icon-container">
                                 <Tooltip title="Delete Plan">
                                     <DeleteOutlineIcon

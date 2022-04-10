@@ -1,17 +1,105 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Collapse from "@material-ui/core/Collapse";
 
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
+import Modal from "react-modal";
 
 import "./MinimizedDetail.global.css";
+import CourseEvalModal from "../draftview/CourseEvalModal";
 
 const GET_LOCAL_DATA = gql`
     query GetLocalData {
         evalModalState @client
         evalModalStateDetail @client
+    }
+`;
+
+const GET_EVALUATION_CHART_BY_COURSE = gql`
+    query getEvaluationChartByCourse($course: String!) {
+        getEvaluationChartByCourse(course: $course) {
+            courseName
+            term
+            enrolled_amount
+            organization {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            assignments {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            overall {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            challenge {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            workload {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            why_taking {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            expected_grade {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            expected_pf {
+                class_mean
+                responses
+                score_1
+                score_2
+                score_3
+                score_4
+                score_5
+            }
+            comments {
+                text
+                time
+            }
+        }
     }
 `;
 
@@ -61,6 +149,28 @@ const MinimizedDetail = ({
 }) => {
     const [getOpen, setOpen] = useState(false);
     const client = useApolloClient();
+    const [modalState, setModal] = useState(false);
+    const [firstInstructor, setFirstInstructor] = useState({});
+
+    const openModal = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                evalModalState: true,
+            },
+        });
+        setModal(true);
+    };
+    const closeModal = () => {
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: {
+                evalModalState: false,
+                evalModalStateDetail: false,
+            },
+        });
+        setModal(false);
+    };
 
     const Times = (section) => {
         if (!section.startTime || !section.endTime) {
@@ -125,12 +235,18 @@ const MinimizedDetail = ({
             },
         });
     };
+    useEffect(() => {
+        if (session && session.instructors) {
+            setFirstInstructor(session.instructors[0]);
+        }
+    }, [session]);
+
     return (
         <div className="minimizedMinimizedDetailContainer">
             {formatDiv("Class Time:", Times(session.class))}
             {Instructors(session)}
             {InstructionMethod(session)}
-            {formatDivLink("See Evaluations", openEvaluations)}
+            {formatDivLink("See Evaluations", openModal)}
             <Collapse in={getOpen} timeout={500} unmountOnExit>
                 {showAdditionalInfo()}
             </Collapse>
@@ -142,6 +258,21 @@ const MinimizedDetail = ({
             >
                 {getOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
+            <Modal
+                isOpen={modalState}
+                className="evaluation-modal"
+                // ariaHideApp={false}
+                onRequestClose={closeModal}
+            >
+                <CourseEvalModal
+                    query={GET_EVALUATION_CHART_BY_COURSE}
+                    courseSubject={course.subject}
+                    courseNum={course.courseNum}
+                    courseTitle={course.longTitle}
+                    courseProf={firstInstructor}
+                    closeModal={closeModal}
+                />
+            </Modal>
         </div>
     );
 };
