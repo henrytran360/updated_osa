@@ -86,7 +86,7 @@ const SemesterSelect = () => {
             tempData.map((object) => {
                 if (object.term.substring(4) == "10")
                     tempSchedules.push({
-                        label: "Fall " + object.term.substring(0, 4),
+                        label: "Fall " + String(parseInt(object.term.substring(0, 4)) - 1),
                         value: parseInt(object.term),
                     });
                 else if (object.term.substring(4) == "20")
