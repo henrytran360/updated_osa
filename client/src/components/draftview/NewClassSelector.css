@@ -1,6 +1,5 @@
 .classSelectorContainer {
     box-sizing: border-box;
-    height: 100%;
 }
 
 .classSelectorContent {
@@ -9,4 +8,25 @@
     flex-direction: column;
     box-sizing: border-box;
     height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+/* 
+.classSelectorContent::-webkit-scrollbar {
+    display: block;
+    width: 5px;
+    height: 5px;
+}
+
+.classSelectorContent::-webkit-scrollbar-thumb {
+    display: block;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+.classSelectorContent::-webkit-scrollbar-track {
+    display: block;
+    background-color: var(--shadow-color);
+    border-radius: 10px;
+    opacity: .75
+} */

@@ -424,7 +424,7 @@ const DraftCourseItem = ({
                     className="modalEval"
                     onRequestClose={closeModal}
                 >
-                    <CourseEvalModal />
+                    <CourseEvalModal closeModal={closeModal} />
                 </Modal>
             </div>
             <p>{session.crn}</p>

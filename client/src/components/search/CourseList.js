@@ -255,8 +255,6 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
         variables: { scheduleID: scheduleID, sessionID: session._id },
     });
 
-    const [count, setCount] = useState(0);
-
     return (
         <div
             className="detailBox"
@@ -277,13 +275,8 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
                             "Remove Course from Schedule: " + crnString,
                             crnString
                         );
-
-                        console.log("Boom.");
-
                         // Execute mutation to remove this session of the course from user's draftsessions
                         removeDraftSession();
-
-                        console.log("No errors...?");
                     } else {
                         // Track add with GA
                         Event(
@@ -293,11 +286,7 @@ const SessionItem = ({ scheduleID, course, session, draftSessions }) => {
                         );
                         e.preventDefault();
                         // Execute mutation to add this session of the course to the user's draftsessions
-                        if (count == 0) {
-                            addDraftSession();
-                            setCount(count + 1);
-                        }
-                        setCount(0);
+                        addDraftSession();
                     }
                 }}
                 style={{ alignItems: "left" }}
@@ -364,7 +353,12 @@ const CourseList = ({
         <p>Something went wrong. Please refresh the page and try again 🥺</p>
     );
 
-    if (loading) return <p><CircularProgress /></p>;
+    if (loading)
+        return (
+            <p>
+                <CircularProgress />
+            </p>
+        );
     if (error) return errorMessage;
     if (!courseData) return errorMessage;
 
@@ -388,13 +382,11 @@ const CourseList = ({
                 .filter((course) => course.sessions.length > 0);
             break;
         default:
-            console.log("hello");
             courseResults = courseData?.courseMany;
             courseResults = courseResults.filter(
                 (course) => course.sessions.length > 0
             );
     }
-    console.log("courseResults", courseResults);
 
     if (courseResults.length === 0)
         return <p>No Available Course In This Range</p>;

@@ -15,6 +15,7 @@ import { IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Context as CourseSearchContext } from "../../contexts/courseSearchContext";
 
+import useWindowDimensions from "../useWindowDimensions";
 /**
  * TODO: MAKE A FRAGMENT! THIS IS USED IN TWO PLACES
  * Gets the term from local state management
@@ -339,6 +340,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CourseSearch = ({ scheduleID, clickValue }) => {
+    const {width, height} = useWindowDimensions();
+    
     const [getDepts, setDepts] = useState([]); // Used for the entire list of departments
     const [getDept, setDept] = useState([]); // Used for selection of a particular department
     const [getDist, setDist] = useState([]); // Used for selection of a particular distribution
@@ -742,9 +745,10 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     };
 
     return (
-        <div className="searchBar">
+        <div className="searchBar" style = {{height: height - 121}}>
             <div className="searchBar-content">
                 <div className="searchText">Search by:</div>
+                
                 <div className="button-and-search">
                     <Select
                         // className="react-select-container"

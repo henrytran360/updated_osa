@@ -95,11 +95,11 @@ const Routes = ({}) => {
             <PrivateRoute exact path="/">
                 <Redirect to="/schedule" />
             </PrivateRoute>
-            <PrivateRoute path="/degree_plan">
+            {/* <PrivateRoute path="/degree_plan">
                 <DegreePlan />
-            </PrivateRoute>
+            </PrivateRoute> */}
             <Route>
-                <Error message="page"/>
+                <Error message="page" />
             </Route>
         </Switch>
     );

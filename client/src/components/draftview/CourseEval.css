@@ -14,8 +14,8 @@
     flex-direction: row;
     background-color: var(--warning-color);
     padding: 0;
-    border: 2px solid var(--tertiary-bg-color);
-    border-radius: 5px;
+    border: 2px solid var(--warning-color);
+    border-radius: 2px;
 }
 
 .warning-icon {
@@ -31,8 +31,8 @@
     margin: 0;
     color: black;
 }
-.exit-warning {
-    float: left;
+.exit {
+    float: right;
     margin: 0.5rem;
 }
 
@@ -120,7 +120,7 @@
 }
 
 .chart-txt {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     padding: 5px;
     margin: 0;
 }
@@ -131,7 +131,7 @@
     border-top: 1.5px solid var(--background-color);
 }
 .comment-even {
-    background-color: var(--background-color);
+    background-color: var(--tertiary-bg-color);
 }
 .time-stamp {
     padding-top: 5px;

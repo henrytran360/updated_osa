@@ -7,7 +7,11 @@ import "./Calendar.css";
 import { colorCombos } from "./colors";
 import Modal from "react-modal";
 import { gql, useQuery } from "@apollo/client";
+import CourseDetailModal from "../draftview/CourseDetailModal.js";
 import { BsBoxArrowUpRight } from "react-icons/bs";
+import useWindowDimensions from "../useWindowDimensions";
+import { IconButton, Tooltip } from "@material-ui/core";
+import CloseIcon from "@mui/icons-material/Close";
 
 const localizer = momentLocalizer(moment);
 
@@ -271,75 +275,49 @@ const CustomClassEvent = ({ event }) => {
         setModal(false);
     };
 
-    //getting course info for the popup (expanded detail for each course)
+    //Getting course info for the popup (expanded detail for each course)
     const info = event.tooltip.split("\n");
-    const longTitle = info[1];
+    const title = event.title + ": " + info[1];
     const CRN = info[2].split(": ")[1];
+    const time = event.source.days + " " + event.desc;
     // const maxEnroll = info[4].split(": ")[1];
     const source = event.source.days;
     // const days = source.map((day) => dayCode2dayString[day] + " ");
     return (
         <div className="courseEventWrapper">
-            <Modal
+            <Modal 
                 isOpen={modalState}
                 className="model-info-content"
                 onRequestClose={closeModal}
+                autoFocus={false}
             >
-                <div className="course-info-content">
-                    <div className="course-title">
-                        {event.title}: {longTitle}
-                        <a
-                            style={{ marginLeft: "1rem" }}
-                            href={
-                                "https://courses.rice.edu/courses/!SWKSCAT.cat?p_action=COURSE&p_term=" +
-                                term +
-                                "&p_crn=" +
-                                CRN
-                            }
-                            target="_blank"
+                <CourseDetailModal
+                    title={title}
+                    crn={CRN}
+                    time={time}
+                    creditsMin={event.creditsMin}
+                    distribution={event.distribution}
+                    prereqs={event.prereqs}
+                    coreqs={event.coreqs}
+                    maxEnrollment={event.maxEnrollment}
+                    enrollment={event.enrollment}
+                    maxWaitlisted={event.maxWaitlisted}
+                    waitlisted={event.waitlisted}
+                    instructors={event.instructor}
+                    term={term}
+                />
+                <div className="closeModalButton">
+                    <Tooltip className="iconButton" title="Close">
+                        <IconButton
+                            aria-label="delete"
+                            size="small"
+                            disableFocusRipple
+                            disableRipple
+                            onClick={() => closeModal()}
                         >
-                            {" "}
-                            <BsBoxArrowUpRight />
-                        </a>
-                    </div>
-                    <div className="float-container">
-                        <div className="float-child">
-                            <div className="category">
-                                {" "}
-                                {source} {event.desc}{" "}
-                            </div>
-                            <div className="category">CRN: {CRN} </div>
-                            <div className="category">
-                                Credits: {event.creditsMin}{" "}
-                            </div>
-                            <div className="category">
-                                Distribution: {event.distribution}
-                            </div>
-                            <div className="category">
-                                Prerequisites: {event.prereqs}
-                            </div>
-                            <div className="category">
-                                Corequisites: {event.coreqs}
-                            </div>
-                        </div>
-                        <div className="float-child">
-                            <div className="category">
-                                Max Enrollment: {event.maxEnrollment}
-                            </div>
-                            <div className="category">
-                                Current Enrollment: {event.enrollment}
-                            </div>
-                            <div className="category">
-                                Max Waitlisted: {event.maxWaitlisted}
-                            </div>
-                            <div className="category">
-                                Waitlisted: {event.waitlisted}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="course-instructor">
-                        Course Instructor: {event.instructor}{" "}
-                    </div>
+                            <CloseIcon />
+                        </IconButton>
+                    </Tooltip>
                 </div>
             </Modal>
             <hr
@@ -356,8 +334,11 @@ const CustomClassEvent = ({ event }) => {
 };
 
 const CourseCalendar = ({ draftSessions }) => {
+    const { height, width } = useWindowDimensions();
+
     return (
-        <div className="courseCalendar">
+        /* 121 = size of the footer (60) + header (60) + 1 for spacing */
+        <div className="courseCalendar" style = {{height: height - 121}}>
             <Calendar
                 components={{ event: CustomClassEvent }}
                 events={draftSessionsToEvents(draftSessions)}

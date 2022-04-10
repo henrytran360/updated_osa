@@ -12,7 +12,7 @@ const authLink = setContext(async (_, { headers }) => {
     // get the authentication token from firebase if it exists
     const token = await firebase.auth().currentUser.getIdToken();
     // return the headers to the context so httpLink can read them
-    // console.log(token);
+    console.log(token);
     return {
         headers: {
             ...headers,
@@ -23,7 +23,7 @@ const authLink = setContext(async (_, { headers }) => {
 
 // HTTP Backend Link
 const httpLink = new HttpLink({
-    uri: process.env.REACT_APP_GRAPHQL_URL
+    uri: process.env.REACT_APP_GRAPHQL_URL,
     // uri: "http://localhost:3000/graphql",
     // uri: "/graphql",
 });
@@ -65,13 +65,16 @@ const initialState = {
     recentUpdate: false,
     term: 202310,
     evalModalState: false,
+    evalModalStateDetail: false,
     degreeplanparent: "",
     degreeplanname: "",
     degreeplanlist: {},
     editModalState: false,
     notesModalState: false,
     eachCourseModalState: false,
-    theme:{ value: "Light", label: "Light" },
+    draftSessionsMain: [],
+    theme: { value: "Light", label: "Light" },
+    warningState: true,
 };
 
 // Initialize cache with a state
@@ -82,13 +85,16 @@ client.writeQuery({
             recentUpdate
             term
             evalModalState
+            evalModalStateDetail
             degreeplanparent
             degreeplanname
             degreeplanlist
             editModalState
             notesModalState
             eachCourseModalState
+            draftSessionsMain
             theme
+            warningState
         }
     `,
     data: initialState,

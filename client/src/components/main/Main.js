@@ -15,6 +15,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { Context as BottomModeContexts } from "../../contexts/bottomModeContext";
 
 import "./Main.global.css";
+
 import Error from "../error/Error";
 import NewClassSelector from "../draftview/NewClassSelector";
 import Footer from "../footer/Footer";
@@ -74,6 +75,7 @@ const GET_LOCAL_DATA = gql`
     query GetLocalData {
         term @client
         recentUpdate @client
+        draftSessionsMain @client
     }
 `;
 
@@ -101,11 +103,12 @@ const QUERY_USER_SCHEDULES = gql`
 const Main = ({}) => {
     // Check for recent update from cache
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { term, recentUpdate } = storeData;
+    let { term, recentUpdate, draftSessionsMain } = storeData;
     const [bottomMode, setBottomMode] = useState("Calendar");
     // Need to be able to update recentUpdate field on the user when they dismiss
     let [seenRecentUpdate] = useMutation(SEEN_RECENT_UPDATE);
 
+    // console.log(draftSessionsMain);
     // Add toast
     let { addToast } = useToasts();
 
@@ -141,7 +144,6 @@ const Main = ({}) => {
         state: { bottomMode2 },
         changeBottomMode,
     } = useContext(BottomModeContexts);
-    console.log(bottomMode2);
 
     const renderContent = () => {
         return (
@@ -149,123 +151,47 @@ const Main = ({}) => {
                 <Header />
                 <div className="ContentContainer">
                     {/* all 3 open */}
-                    {bottomMode2.Search &&
-                        bottomMode2.Calendar &&
-                        bottomMode2.Details && (
-                            <>
-                                <div style={{ width: "30%", height: "80vh" }}>
-                                    <CourseSearch
-                                        scheduleID={schedule._id}
-                                        clickValue={bottomMode}
-                                    />
-                                </div>
-                                <div style={{ width: "40%" }}>
-                                    <CourseCalendar
-                                        draftSessions={schedule.draftSessions}
-                                    />
-                                </div>
-                                <div style={{ width: "30%", height: "80vh" }}>
-                                    <NewClassSelector
-                                        scheduleID={schedule._id}
-                                        draftSessions={schedule.draftSessions}
-                                    />
-                                </div>
-                            </>
-                        )}
-                    {/* search + calender open */}
-                    {bottomMode2.Search &&
-                        bottomMode2.Calendar &&
-                        !bottomMode2.Details && (
-                            <>
-                                <div style={{ width: "40%" }}>
-                                    <CourseSearch
-                                        scheduleID={schedule._id}
-                                        clickValue={bottomMode}
-                                    />
-                                </div>
-                                <div style={{ width: "60%" }}>
-                                    <CourseCalendar
-                                        draftSessions={schedule.draftSessions}
-                                    />
-                                </div>
-                            </>
-                        )}
-                    {/* search + details open */}
-                    {bottomMode2.Search &&
-                        !bottomMode2.Calendar &&
-                        bottomMode2.Details && (
-                            <>
-                                <div style={{ width: "50%" }}>
-                                    <CourseSearch
-                                        scheduleID={schedule._id}
-                                        clickValue={bottomMode}
-                                    />
-                                </div>
-                                <div style={{ width: "50%" }}>
-                                    <NewClassSelector
-                                        scheduleID={schedule._id}
-                                        draftSessions={schedule.draftSessions}
-                                    />
-                                </div>
-                            </>
-                        )}
-                    {/* calendar + details open */}
-                    {!bottomMode2.Search &&
-                        bottomMode2.Calendar &&
-                        bottomMode2.Details && (
-                            <>
-                                <div style={{ width: "60%" }}>
-                                    <CourseCalendar
-                                        draftSessions={schedule.draftSessions}
-                                    />
-                                </div>
-                                <div style={{ width: "40%" }}>
-                                    <NewClassSelector
-                                        scheduleID={schedule._id}
-                                        draftSessions={schedule.draftSessions}
-                                    />
-                                </div>
-                            </>
-                        )}
-                    {/* only search */}
-                    {bottomMode2.Search &&
-                        !bottomMode2.Calendar &&
-                        !bottomMode2.Details && (
-                            <>
-                                <div style={{ width: "100%" }}>
-                                    <CourseSearch
-                                        scheduleID={schedule._id}
-                                        clickValue={bottomMode}
-                                    />
-                                </div>
-                            </>
-                        )}
-                    {/* only calendar */}
-                    {!bottomMode2.Search &&
-                        bottomMode2.Calendar &&
-                        !bottomMode2.Details && (
-                            <>
-                                <div style={{ width: "100%" }}>
-                                    <CourseCalendar
-                                        draftSessions={schedule.draftSessions}
-                                    />
-                                </div>
-                            </>
-                        )}
-                    {/* only details */}
-                    {schedule &&
-                        !bottomMode2.Search &&
-                        !bottomMode2.Calendar &&
-                        bottomMode2.Details && (
-                            <>
-                                <div style={{ width: "100%" }}>
-                                    <NewClassSelector
-                                        scheduleID={schedule._id}
-                                        draftSessions={schedule.draftSessions}
-                                    />
-                                </div>
-                            </>
-                        )}
+                    {draftSessionsMain.length > 0 ? (
+                        <>
+                            <div style={{ width: "30%"}}>
+                                <CourseSearch
+                                    scheduleID={schedule._id}
+                                    clickValue={bottomMode}
+                                />
+                            </div>
+                            <div style={{ width: "45%" }}>
+                                <CourseCalendar
+                                    draftSessions={schedule.draftSessions}
+                                />
+                            </div>
+                            <div style={{ width: "25%" }}>
+                                <NewClassSelector
+                                    scheduleID={schedule._id}
+                                    draftSessions={schedule.draftSessions}
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div style={{ width: "40%"}}>
+                                <CourseSearch
+                                    scheduleID={schedule._id}
+                                    clickValue={bottomMode}
+                                />
+                            </div>
+                            <div style={{ width: "60%" }}>
+                                <CourseCalendar
+                                    draftSessions={schedule.draftSessions}
+                                />
+                            </div>
+                            <div style={{ width: "0%" }}>
+                                <NewClassSelector
+                                    scheduleID={schedule._id}
+                                    draftSessions={schedule.draftSessions}
+                                />
+                            </div>
+                        </>
+                    )}
                 </div>
                 <Footer />
             </div>

@@ -1,12 +1,15 @@
 import { CircularProgress } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./NewClassSelector.css";
 import NewDraftCourseItem from "./NewDraftCourseItem";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
+
+import useWindowDimensions from "../useWindowDimensions";
 
 const GET_LOCAL_DATA = gql`
     query GetLocalData {
         evalModalState @client
+        draftSessionsMain @client
     }
 `;
 
@@ -39,24 +42,12 @@ const get_eval = gql`
 `;
 
 const NewClassSelector = ({ draftSessions, scheduleID }) => {
-    let visibleCreditTotal = draftSessions.reduce(
-        (totalCredits, draftSession) => {
-            if (draftSession.visible) {
-                return totalCredits + draftSession.session.course.creditsMin;
-            } else {
-                return totalCredits;
-            }
-        },
-        0
-    );
+    const {width, height} = useWindowDimensions();
 
-    // Calculate absolute total credit hours
-    let absoluteCreditTotal = draftSessions.reduce(
-        (totalCredits, draftSession) => {
-            return totalCredits + draftSession.session.course.creditsMin;
-        },
-        0
-    );
+    const client = useApolloClient();
+    const [visibleCreditTotal, setVisibleCreditTotal] = useState(0);
+    const [absoluteCreditTotal, setAbsoluteCreditTotal] = useState(0);
+
     useEffect(() => {
         if (draftSessions) {
             draftSessions = draftSessions.filter((value, index) => {
@@ -68,24 +59,57 @@ const NewClassSelector = ({ draftSessions, scheduleID }) => {
                 );
             });
             draftSessions = draftSessions.filter((draft) => draft.session);
+            client.writeQuery({
+                query: GET_LOCAL_DATA,
+                data: {
+                    draftSessionsMain: draftSessions,
+                },
+            });
+            let visibleCreditTotal = draftSessions.reduce(
+                (totalCredits, draftSession) => {
+                    if (draftSession.visible) {
+                        return (
+                            totalCredits +
+                            draftSession.session.course.creditsMin
+                        );
+                    } else {
+                        return totalCredits;
+                    }
+                },
+                0
+            );
+
+            // Calculate absolute total credit hours
+            let absoluteCreditTotal = draftSessions.reduce(
+                (totalCredits, draftSession) => {
+                    return (
+                        totalCredits + draftSession.session.course.creditsMin
+                    );
+                },
+                0
+            );
+            setAbsoluteCreditTotal(absoluteCreditTotal);
+            setVisibleCreditTotal(visibleCreditTotal);
         }
     }, [draftSessions]);
 
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
-    let { evalModalState } = storeData;
+    let { evalModalState, draftSessionsMain } = storeData;
 
     return (
-        <div className="classSelectorContainer">
-            <div className="classSelectorContent">
+        <div className="classSelectorContainer" style = {{height: height - 121}}>
+            <div className="classSelectorContent scrollbar">
                 <div
                     style={{
                         display: "flex",
-                        alignItems: "center",
-                        height: 40,
+                        alignItems: "flex-end",
+                        height: 20,
                         color: "var(--primary-color)",
+                        marginBottom: 10,
+                        marginTop: 10,
                     }}
                 >
-                    <span className="heading">SELECTED</span>
+                    <span className="heading">SELECTED COURSES</span>
                 </div>
                 {draftSessions &&
                     draftSessions

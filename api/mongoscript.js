@@ -11,8 +11,9 @@ async function main() {
         // await listDatabases(client);
         // await testCollection(client);
         // await addCourseName(client);
+        await addCourseSemesterValue(client);
         // await updateName(client);
-        await addDefaultDegreePlanForAll(client);
+        // await addDefaultDegreePlanForAll(client);
         //await dropDegreePlanParentCollection(client);
         // await addCourseNameEvals(client);
     } catch (e) {
@@ -164,6 +165,36 @@ async function addCourseNameEvals(client) {
                     {
                         $set: {
                             courseName: courseName,
+                        },
+                    }
+                );
+        });
+}
+
+async function addCourseSemesterValue(client) {
+    await client
+        .db("hatch_staging")
+        .collection("course_evaluations_new")
+        .find()
+        .snapshot()
+        .forEach(function (elem) {
+            let a = elem.term.split(" ");
+            let value;
+            if (a[0] == "Fall") {
+                value = parseInt(a[2] * 100 + 20);
+            } else {
+                value = parseInt(a[2] * 100 + 10);
+            }
+            client
+                .db("hatch_staging")
+                .collection("course_evaluations_new")
+                .updateMany(
+                    {
+                        term: "Fall Semester 2021",
+                    },
+                    {
+                        $set: {
+                            termValue: 202120,
                         },
                     }
                 );

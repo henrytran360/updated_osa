@@ -1,16 +1,16 @@
 import React from "react";
 import CourseList from "./CourseList";
-import SwipeableViews from "react-swipeable-views";
 import "./CompiledLists.global.css";
 
 const styles = {
     slideContainer: {
         height: 500,
-        WebkitOverflowScrolling: "touch", // iOS momentum scrolling
+        // WebkitOverflowScrolling: "touch", // iOS momentum scrolling
     },
     slideContainerNoHeight: {
-        WebkitOverflowScrolling: "touch", // iOS momentum scrolling
+        // WebkitOverflowScrolling: "touch", // iOS momentum scrolling
         height: "100%",
+        overflowY: "scroll",
     },
 };
 
@@ -46,8 +46,8 @@ const displayDaysCourseList = (
 
         let searchType = { days: daysArray };
         return (
-            <SwipeableViews containerStyle={styles.slideContainerNoHeight}>
-                <div className="courseListsContainer">
+            <div className="scrollbar" style={styles.slideContainerNoHeight}>
+                <div className= "courseListsContainer">
                     <CourseList
                         scheduleID={scheduleID}
                         query={query}
@@ -57,14 +57,14 @@ const displayDaysCourseList = (
                         getByName={getByName}
                     />
                 </div>
-            </SwipeableViews>
+            </div>
         );
     }
     // This is to ensure that the search result section will always show up even though there's nothing yet
     return (
-        <SwipeableViews containerStyle={styles.slideContainerNoHeight}>
+        <div className="scrollbar" style={styles.slideContainerNoHeight}>
             <div></div>
-        </SwipeableViews>
+        </div>
     );
 };
 
@@ -78,7 +78,7 @@ const displayNameSearchCourseList = (
     if (courseName) {
         let searchType = { inputName: courseName };
         return (
-            <SwipeableViews containerStyle={styles.slideContainerNoHeight}>
+            <div className="scrollbar" style={styles.slideContainerNoHeight}>
                 <div className="courseListsContainer">
                     <CourseList
                         scheduleID={scheduleID}
@@ -89,14 +89,14 @@ const displayNameSearchCourseList = (
                         getByName={getByName}
                     />
                 </div>
-            </SwipeableViews>
+            </div>
         );
     }
     // This is to ensure that the search result section will always show up even though there's nothing yet
     return (
-        <SwipeableViews containerStyle={styles.slideContainerNoHeight}>
+        <div className="scrollbar" style={styles.slideContainerNoHeight}>
             <div></div>
-        </SwipeableViews>
+        </div>
     );
 };
 
@@ -135,7 +135,7 @@ const CompiledLists = ({
     let optionValues = getValues(selectedOptions, searchKey, queryFilters);
 
     return (
-        <SwipeableViews containerStyle={styles.slideContainerNoHeight}>
+        <div className="scrollbar" style={styles.slideContainerNoHeight}>
             <div className="courseListsContainer">
                 {
                     // return a CourseList for each of the selected options
@@ -157,7 +157,7 @@ const CompiledLists = ({
                     })
                 }
             </div>
-        </SwipeableViews>
+        </div>
     );
 };
 

@@ -13,7 +13,7 @@ body,
     --quaternary-bg-color: #e35f4980;
     --primary-color: #1ebfc2;
     /* used for p tags */
-    --secondary-color: #12b0b2;
+    --secondary-color: #338182;
     /* used for headings, navbar tabs */
     --tertiary-color: #8e9eb2;
     /* used for icon, course time */
@@ -180,6 +180,13 @@ body {
     padding: 0;
 }
 
+/* disables bouncy scrolling for macOS when scrolling through panels */
+html, body {
+    height: 100%;
+    width: 100%;
+    /* overflow-y: hidden; */
+}
+
 h1,
 h2,
 h3,
@@ -211,16 +218,41 @@ a {
     background-color: rgba(var(--bg), 0.5) !important;
 }
 
+/* SCROLLBAR */
+
+*::-webkit-scrollbar {
+    display: none;
+  }
+.scrollbar::-webkit-scrollbar, .rbc-time-content::-webkit-scrollbar, .courseListContainer::-webkit-scrollbar {
+    display: block;
+    width: 5px;
+    height: 5px;
+  }
+.scrollbar::-webkit-scrollbar-track, .rbc-time-content::-webkit-scrollbar-track {
+    display: block;
+    background-color: var(--shadow-color);
+    border-radius: 10px;
+    opacity: .75;
+  }
+.scrollbar::-webkit-scrollbar-thumb, .rbc-time-content::-webkit-scrollbar-thumb {
+    display: block;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    opacity: .75
+  }
+
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Regular.ttf")
+        format("truetype");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Italic.ttf")
+        format("truetype");
     font-weight: normal;
     font-style: italic;
 }
@@ -234,7 +266,8 @@ a {
 
 @font-face {
     font-family: "Acari Sans";
-    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf") format("truetype");
+    src: url("./assets/fonts/acari-sans/AcariSans-Medium.ttf")
+        format("truetype");
     font-weight: medium;
     font-style: normal;
 }

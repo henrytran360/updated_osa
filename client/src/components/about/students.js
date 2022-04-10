@@ -16,7 +16,11 @@ export const students = [
     {
         team: "2021-2022",
         people: [
-            { name: "Nathaniel Hejduk", title: "Team Lead", photo: Nathaniel_Hejduk },
+            {
+                name: "Nathaniel Hejduk",
+                title: "Team Lead",
+                photo: Nathaniel_Hejduk,
+            },
             {
                 name: "Quang Nguyen",
                 title: "Team Lead",
@@ -25,7 +29,7 @@ export const students = [
             {
                 name: "Jingwen Hu",
                 title: "Product Manager",
-                photo: Jing_Hu
+                photo: Jing_Hu,
             },
             {
                 name: "Yuka Aoyama",
@@ -35,22 +39,57 @@ export const students = [
             {
                 name: "Aidan Gerber",
                 title: "Developer",
-                photo: Aidan_Gerber
+                photo: Aidan_Gerber,
             },
             {
                 name: "Aravind Kuchibhatla",
                 title: "Developer",
-                photo: Aravind_Kuchibhatla
+                photo: Aravind_Kuchibhatla,
             },
             {
                 name: "Theo Schweizer",
                 title: "Developer",
-                photo: Theo_Schweizer
+                photo: Theo_Schweizer,
             },
             {
                 name: "Ariana Wang",
                 title: "Developer/Designer",
-                photo: Ariana_Wang
+                photo: Ariana_Wang,
+            },
+        ],
+    },
+    {
+        team: "RiceApps OSA 2021",
+        people: [
+            {
+                name: "Quang Nguyen",
+                title: "Mentor",
+                photo: "",
+            },
+            {
+                name: "Anthony Yan",
+                title: "Mentor",
+                photo: "",
+            },
+            {
+                name: "Chelsea Zhao",
+                title: "Contributor",
+                photo: "",
+            },
+            {
+                name: "Daphne Yang",
+                title: "Contributor",
+                photo: "",
+            },
+            {
+                name: "Eric Yang",
+                title: "Contributor",
+                photo: "",
+            },
+            {
+                name: "Ananya Vaidya",
+                title: "Contributor",
+                photo: "",
             },
         ],
     },

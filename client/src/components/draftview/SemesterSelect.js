@@ -71,10 +71,7 @@ const customStyles = {
 const SemesterSelect = () => {
     const client = useApolloClient();
     const [updateSchedules, setUpdatedSchedules] = useState([
-        { label: "Fall 2022", value: 202310 },
-        { label: "Spring 2022", value: 202220 },
-        { label: "Fall 2021", value: 202210 },
-        { label: "Spring 2021", value: 202120 },
+        { label: "Fall 2022", value: 202210 },
     ]);
     const [userId, setUserId] = useState("");
     let { data: storeData } = useQuery(GET_LOCAL_DATA);
