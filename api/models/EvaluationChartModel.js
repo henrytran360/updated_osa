@@ -28,6 +28,7 @@ var EvaluationChartSchema = new Schema({
     enrolled_amount: String,
     instructor: String,
     courseName: String,
+    termValue: Number,
     organization: { type: ChartSchema },
     assignments: { type: ChartSchema },
     overall: { type: ChartSchema },
