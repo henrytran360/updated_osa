@@ -173,7 +173,7 @@ async function addCourseNameEvals(client) {
 
 async function addCourseSemesterValue(client) {
     await client
-        .db("hatch_staging")
+        .db("hatch_prod")
         .collection("course_evaluations_new")
         .find()
         .snapshot()
@@ -186,7 +186,7 @@ async function addCourseSemesterValue(client) {
                 value = parseInt(a[2] * 100 + 10);
             }
             client
-                .db("hatch_staging")
+                .db("hatch_prod")
                 .collection("course_evaluations_new")
                 .updateMany(
                     {

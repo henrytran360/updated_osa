@@ -44,7 +44,6 @@ const CourseEvalModal = (props) => {
     }, [evalLoading, evalError, evalData]);
 
     const [evalDataState, setEvalDataState] = useState([]);
-
     const [responseState, setResponseState] = useState(true);
 
     const openComments = () => {
@@ -65,11 +64,11 @@ const CourseEvalModal = (props) => {
     let { warningState } = localQueryData;
 
     const closeWarning = () => {
-      client.writeQuery({
-        query: GET_LOCAL_DATA,
-        data: { warningState: false },
-      });
-      warningState = false;
+        client.writeQuery({
+            query: GET_LOCAL_DATA,
+            data: { warningState: false },
+        });
+        warningState = false;
     };
 
     //Data for class comments
@@ -80,53 +79,53 @@ const CourseEvalModal = (props) => {
 
     const [compiledEvalData, setCompiledEvalData] = useState([
         {
-            "data": [], 
-            "mean": 0,
-            "responses": 0, 
-            "title": "Title"
-        }, 
-        {
-            "data": [], 
-            "mean": 0,
-            "responses": 0, 
-            "title": "Title"
+            data: [],
+            mean: 0,
+            responses: 0,
+            title: "Title",
         },
         {
-            "data": [], 
-            "mean": 0,
-            "responses": 0, 
-            "title": "Title"
+            data: [],
+            mean: 0,
+            responses: 0,
+            title: "Title",
         },
         {
-            "data": [], 
-            "mean": 0,
-            "responses": 0, 
-            "title": "Title"
+            data: [],
+            mean: 0,
+            responses: 0,
+            title: "Title",
         },
         {
-            "data": [], 
-            "mean": 0,
-            "responses": 0, 
-            "title": "Title"
+            data: [],
+            mean: 0,
+            responses: 0,
+            title: "Title",
         },
         {
-            "data": [], 
-            "mean": 0,
-            "responses": 0, 
-            "title": "Title"
+            data: [],
+            mean: 0,
+            responses: 0,
+            title: "Title",
         },
         {
-            "data": [], 
-            "mean": 0,
-            "responses": 0, 
-            "title": "Title"
+            data: [],
+            mean: 0,
+            responses: 0,
+            title: "Title",
         },
         {
-            "data": [], 
-            "mean": 0,
-            "responses": 0, 
-            "title": "Title"
-        }
+            data: [],
+            mean: 0,
+            responses: 0,
+            title: "Title",
+        },
+        {
+            data: [],
+            mean: 0,
+            responses: 0,
+            title: "Title",
+        },
     ]);
 
     useEffect(() => {
@@ -179,10 +178,10 @@ const CourseEvalModal = (props) => {
             ];
 
             allEvalData.push({
-                "data": expectedGradeArr, 
-                "mean": expectedGradeMeanT,
-                "responses": expectedGradeResT, 
-                "title": "Expected Grade (Letter)"
+                data: expectedGradeArr,
+                mean: expectedGradeMeanT,
+                responses: expectedGradeResT,
+                title: "Expected Grade (Letter)",
             });
 
             // get expected grade p/f
@@ -227,10 +226,10 @@ const CourseEvalModal = (props) => {
             ];
 
             allEvalData.push({
-                "data": expectedGradePFArr, 
-                "mean": expectedGradePFMeanT,
-                "responses": expectedGradePFResT, 
-                "title": "Expected Grade (P/F)"
+                data: expectedGradePFArr,
+                mean: expectedGradePFMeanT,
+                responses: expectedGradePFResT,
+                title: "Expected Grade (P/F)",
             });
 
             //Get class organization data
@@ -275,10 +274,10 @@ const CourseEvalModal = (props) => {
             ];
 
             allEvalData.push({
-                "data": organizationArr, 
-                "mean": organizationMeanT,
-                "responses": organizationResT, 
-                "title": "Organization: The organization of this course was:"
+                data: organizationArr,
+                mean: organizationMeanT,
+                responses: organizationResT,
+                title: "Organization: The organization of this course was:",
             });
 
             //Get class assignments data
@@ -323,10 +322,10 @@ const CourseEvalModal = (props) => {
             ];
 
             allEvalData.push({
-                "data": assignmentsArr, 
-                "mean": assignmentsMeanT,
-                "responses": assignmentsResT, 
-                "title": "Assignments: The ontribution that the coursework made to the course was:"
+                data: assignmentsArr,
+                mean: assignmentsMeanT,
+                responses: assignmentsResT,
+                title: "Assignments: The contribution that the coursework made to the course was:",
             });
 
             //Get class quality data
@@ -359,10 +358,10 @@ const CourseEvalModal = (props) => {
             ];
 
             allEvalData.push({
-                "data": qualityArr, 
-                "mean": qualityMeanT,
-                "responses": qualityResT, 
-                "title": "Overall, I would rate the quality of this course as:"
+                data: qualityArr,
+                mean: qualityMeanT,
+                responses: qualityResT,
+                title: "Overall, I would rate the quality of this course as:",
             });
 
             //Get class challenge data
@@ -397,10 +396,10 @@ const CourseEvalModal = (props) => {
             ];
 
             allEvalData.push({
-                "data": challengeArr, 
-                "mean": challengeMeanT,
-                "responses": challengeResT, 
-                "title": "Challenge: I was challenged to extend my capabilities or to develop new ones:"
+                data: challengeArr,
+                mean: challengeMeanT,
+                responses: challengeResT,
+                title: "Challenge: I was challenged to extend my capabilities or to develop new ones:",
             });
 
             //Get class workload data
@@ -435,10 +434,10 @@ const CourseEvalModal = (props) => {
             ];
 
             allEvalData.push({
-                "data": workloadArr, 
-                "mean": workloadMeanT,
-                "responses": workloadResT, 
-                "title": "Workload: The workload of this course compared to others was:",
+                data: workloadArr,
+                mean: workloadMeanT,
+                responses: workloadResT,
+                title: "Workload: The workload of this course compared to others was:",
             });
 
             //Get class why taking data
@@ -473,10 +472,10 @@ const CourseEvalModal = (props) => {
             ];
 
             allEvalData.push({
-                "data": whyTakingArr,
-                "mean": whyTakingMeanT,
-                "responses": whyTakingResT, 
-                "title": "I am taking this course because it satisfies:"
+                data: whyTakingArr,
+                mean: whyTakingMeanT,
+                responses: whyTakingResT,
+                title: "I am taking this course because it satisfies:",
             });
 
             //Get class comments
@@ -486,96 +485,90 @@ const CourseEvalModal = (props) => {
             setComments(commentsArr);
 
             setCompiledEvalData(allEvalData);
-        
         }
-        
     }, [evalDataState, evalData]);
 
     const customizeText = (arg) => {
         return `${arg.valueText}%`;
     };
-    
-    const charts = compiledEvalData.map((item)=>{
-        return(
+
+    const charts = compiledEvalData.map((item) => {
+        return (
             <div className="chart-container">
-                                <p className="chart-txt">
-                                    Class Mean:&nbsp;{item.mean}&nbsp;&nbsp;
-                                    Rice Mean: 1.34
-                                    <br />
-                                    Responses:&nbsp;{item.responses}
-                                </p>
-                                <Chart dataSource={item.data} height={"100px"}>
-                                    <CommonAnnotationSettings
-                                        type="text"
-                                        series="Value"
-                                        allowDragging={false}
-                                        color={"transparent"}
-                                    ></CommonAnnotationSettings>
-                                    {item.data
-                                        .filter((vals) => {
-                                            return vals.value > 0;
-                                        })
-                                        .map((vals) => (
-                                            <Annotation
-                                                argument={vals.argument}
-                                                key={vals.argument}
-                                                text={vals.value}
-                                                color={"transparent"}
-                                                arrowLength={0}
-                                            >
-                                                <Font
-                                                    size="17px"
-                                                    color={"var(--secondary-color)"}
-                                                    family={"Acari Sans"}
-                                                />
-                                                <Border visible={false} />
-                                                <Shadow opacity={0} />
-                                            </Annotation>
-                                        ))}
-                                    <Series
-                                        type="bar"
-                                        hoverMode="none"
-                                        valueField="value"
-                                        argumentField="argument"
-                                        color={"var(--primary-color)"}
-                                        name="Value"
-                                    />
-                                    <Title text={item.title}>
-                                        <Font
-                                            size="15px"
-                                            color={"var(--secondary-color)"}
-                                            family={"Acari Sans"}
-                                        />
-                                    </Title>
+                <p className="chart-txt">
+                    Class Mean:&nbsp;{item.mean}&nbsp;&nbsp; Rice Mean: 1.34
+                    <br />
+                    Responses:&nbsp;{item.responses}
+                </p>
+                <Chart dataSource={item.data} height={"100px"}>
+                    <CommonAnnotationSettings
+                        type="text"
+                        series="Value"
+                        allowDragging={false}
+                        color={"transparent"}
+                    ></CommonAnnotationSettings>
+                    {item.data
+                        .filter((vals) => {
+                            return vals.value > 0;
+                        })
+                        .map((vals) => (
+                            <Annotation
+                                argument={vals.argument}
+                                key={vals.argument}
+                                text={vals.value}
+                                color={"transparent"}
+                                arrowLength={0}
+                            >
+                                <Font
+                                    size="17px"
+                                    color={"var(--secondary-color)"}
+                                    family={"Acari Sans"}
+                                />
+                                <Border visible={false} />
+                                <Shadow opacity={0} />
+                            </Annotation>
+                        ))}
+                    <Series
+                        type="bar"
+                        hoverMode="none"
+                        valueField="value"
+                        argumentField="argument"
+                        color={"var(--primary-color)"}
+                        name="Value"
+                    />
+                    <Title text={item.title}>
+                        <Font
+                            size="15px"
+                            color={"var(--secondary-color)"}
+                            family={"Acari Sans"}
+                        />
+                    </Title>
 
-                                    <ArgumentAxis>
-                                        <Label>
-                                            <Font
-                                                size="12px"
-                                                color={"var(--secondary-color)"}
-                                                family={"Acari Sans"}
-                                            />
-                                        </Label>
-                                    </ArgumentAxis>
+                    <ArgumentAxis>
+                        <Label>
+                            <Font
+                                size="12px"
+                                color={"var(--secondary-color)"}
+                                family={"Acari Sans"}
+                            />
+                        </Label>
+                    </ArgumentAxis>
 
-                                    <ValueAxis
-                                        visualRange={[0, 100]}
-                                        visible={false}
-                                    >
-                                        <Label customizeText={customizeText}>
-                                            <Font
-                                                size="15px"
-                                                color={"var(--secondary-color)"}
-                                                family={"Acari Sans"}
-                                            />
-                                        </Label>
-                                    </ValueAxis>
-                                    <Legend visible={false} />
-                                    <Size height={270} width={360} />
-                                </Chart>
-                            </div>
+                    <ValueAxis visualRange={[0, 100]} visible={false}>
+                        <Label customizeText={customizeText}>
+                            <Font
+                                size="15px"
+                                color={"var(--secondary-color)"}
+                                family={"Acari Sans"}
+                            />
+                        </Label>
+                    </ValueAxis>
+                    <Legend visible={false} />
+                    <Size height={270} width={360} />
+                </Chart>
+            </div>
         );
-    })
+    });
 
     return (
         <div className="modal-container">
@@ -608,19 +601,19 @@ const CourseEvalModal = (props) => {
                 </div>
             ) : (
                 <div className="exit">
-                        <IconButton
-                            disableFocusRipple
-                            disableRipple
-                            style={{
-                                backgroundColor: "transparent",
-                                padding: "0",
-                                margin: "0",
-                            }}
-                            onClick={props.closeModal}
-                        >
-                            <IoCloseOutline color="#898e91" size={30} />
-                        </IconButton>
-                    </div>
+                    <IconButton
+                        disableFocusRipple
+                        disableRipple
+                        style={{
+                            backgroundColor: "transparent",
+                            padding: "0",
+                            margin: "0",
+                        }}
+                        onClick={props.closeModal}
+                    >
+                        <IoCloseOutline color="#898e91" size={30} />
+                    </IconButton>
+                </div>
             )}
             <div className="course-info">
                 <div className="course-eval-header">
@@ -670,10 +663,7 @@ const CourseEvalModal = (props) => {
             {responseState ? (
                 <div className="chart-padding">
                     <div className="header-border" />
-                    <div className="charts-display">
-                        {charts}
-
-                    </div>
+                    <div className="charts-display">{charts}</div>
                 </div>
             ) : (
                 <div>
