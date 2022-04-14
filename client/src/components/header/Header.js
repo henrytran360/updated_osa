@@ -308,6 +308,7 @@ function Header() {
         setModal3(false);
     };
 
+
     const client = useApolloClient();
 
     // Where we collect feedback
@@ -665,7 +666,9 @@ function Header() {
                         )
                     )}
                     <MenuItem>
-                        <SettingsModal email={email} />
+                        <SettingsModal 
+                            email={email} 
+                        />
                         <h4 className="emailHeading">{email}</h4>
                     </MenuItem>
                 </Menu>

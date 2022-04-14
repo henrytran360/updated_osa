@@ -25,6 +25,19 @@ import Chart, {
 } from "devextreme-react/chart";
 
 const CourseEvalModal = (props) => {
+    const exitStyle = {
+        float: "right",
+        backgroundColor: "transparent",
+        margin: "1rem",
+    };
+    const exitStyleHover = {
+        float: "right",
+        backgroundColor: "#eeeeee",
+        borderRadius:"4px",
+        margin: "1rem",
+    };
+    const[exitHover, setExitHover] = useState(false);
+
     const client = useApolloClient();
 
     const thisCourse = props.courseSubject + " " + props.courseNum;
@@ -607,8 +620,8 @@ const CourseEvalModal = (props) => {
                     </div>
                 </div>
             ) : (
-                <div className="exit">
-                        <IconButton
+                <div style={exitHover ? exitStyleHover : exitStyle}>
+                    <IconButton
                             disableFocusRipple
                             disableRipple
                             style={{
@@ -616,9 +629,11 @@ const CourseEvalModal = (props) => {
                                 padding: "0",
                                 margin: "0",
                             }}
+                            onMouseOver={() => setExitHover(true)}
+                            onMouseLeave={() => setExitHover(false)}
                             onClick={props.closeModal}
                         >
-                            <IoCloseOutline color="#898e91" size={30} />
+                            <IoCloseOutline color={exitHover ? "var(--primary-color)" : "#8e9eb2"} size={30} />
                         </IconButton>
                     </div>
             )}

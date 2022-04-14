@@ -34,6 +34,7 @@
 .exit {
     float: right;
     margin: 0.5rem;
+    border-radius: "10px";
 }
 
 .course-info {
