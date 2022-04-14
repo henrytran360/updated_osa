@@ -526,7 +526,12 @@ const CourseSearch = ({ scheduleID, clickValue }) => {
     useEffect(() => {
         if (departmentsData) {
             let { departments } = departmentsData;
-            setDepts(departments.map((dept) => ({ label: dept, value: dept })));
+            const deptsArr = [];
+            departments.map((dept)=>{
+                deptsArr.push(dept);
+            });
+            deptsArr.sort();
+            setDepts(deptsArr.map((dept) => ({ label: dept, value: dept })));
         }
     }, [departmentsData]);
     //for instructor data
