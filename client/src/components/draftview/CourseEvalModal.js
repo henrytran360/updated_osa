@@ -93,49 +93,41 @@ const CourseEvalModal = (props) => {
     const [compiledEvalData, setCompiledEvalData] = useState([
         {
             "data": [], 
-            "mean": 0,
             "responses": 0, 
             "title": "Title"
         }, 
         {
             "data": [], 
-            "mean": 0,
             "responses": 0, 
             "title": "Title"
         },
         {
             "data": [], 
-            "mean": 0,
             "responses": 0, 
             "title": "Title"
         },
         {
             "data": [], 
-            "mean": 0,
             "responses": 0, 
             "title": "Title"
         },
         {
             "data": [], 
-            "mean": 0,
             "responses": 0, 
             "title": "Title"
         },
         {
             "data": [], 
-            "mean": 0,
             "responses": 0, 
             "title": "Title"
         },
         {
             "data": [], 
-            "mean": 0,
             "responses": 0, 
             "title": "Title"
         },
         {
             "data": [], 
-            "mean": 0,
             "responses": 0, 
             "title": "Title"
         }
@@ -151,9 +143,6 @@ const CourseEvalModal = (props) => {
 
             //Get expected grade data
             let curExpectedGrade = evalDataState.expected_grade;
-            let expectedGradeMeanT = curExpectedGrade
-                ? parseFloat(curExpectedGrade.class_mean)
-                : 0;
             let expectedGradeResT = curExpectedGrade
                 ? parseFloat(curExpectedGrade.responses)
                 : 0;
@@ -192,16 +181,12 @@ const CourseEvalModal = (props) => {
 
             allEvalData.push({
                 "data": expectedGradeArr, 
-                "mean": expectedGradeMeanT,
                 "responses": expectedGradeResT, 
                 "title": "Expected Grade (Letter)"
             });
 
             // get expected grade p/f
             let curExpectedGradePF = evalDataState.expected_pf;
-            let expectedGradePFMeanT = curExpectedGradePF
-                ? parseFloat(curExpectedGradePF.class_mean)
-                : 0;
             let expectedGradePFResT = curExpectedGradePF
                 ? parseFloat(curExpectedGradePF.responses)
                 : 0;
@@ -240,16 +225,12 @@ const CourseEvalModal = (props) => {
 
             allEvalData.push({
                 "data": expectedGradePFArr, 
-                "mean": expectedGradePFMeanT,
                 "responses": expectedGradePFResT, 
                 "title": "Expected Grade (P/F)"
             });
 
             //Get class organization data
             let curOrganization = evalDataState.organization;
-            let organizationMeanT = curOrganization
-                ? parseFloat(curOrganization.class_mean)
-                : 0;
             let organizationResT = curOrganization
                 ? parseFloat(curOrganization.responses)
                 : 0;
@@ -288,16 +269,12 @@ const CourseEvalModal = (props) => {
 
             allEvalData.push({
                 "data": organizationArr, 
-                "mean": organizationMeanT,
                 "responses": organizationResT, 
                 "title": "Organization: The organization of this course was:"
             });
 
             //Get class assignments data
             let curAssignments = evalDataState.assignments;
-            let assignmentsMeanT = curAssignments
-                ? parseFloat(curAssignments.class_mean)
-                : 0;
             let assignmentsResT = curAssignments
                 ? parseFloat(curAssignments.responses)
                 : 0;
@@ -336,16 +313,12 @@ const CourseEvalModal = (props) => {
 
             allEvalData.push({
                 "data": assignmentsArr, 
-                "mean": assignmentsMeanT,
                 "responses": assignmentsResT, 
                 "title": "Assignments: The contribution that the coursework made to the course was:"
             });
 
             //Get class quality data
             let curQuality = evalDataState.overall;
-            let qualityMeanT = curQuality
-                ? parseFloat(curQuality.class_mean)
-                : 0;
             let qualityResT = curQuality ? parseFloat(curQuality.responses) : 0;
             let qualityArr = [
                 {
@@ -372,16 +345,12 @@ const CourseEvalModal = (props) => {
 
             allEvalData.push({
                 "data": qualityArr, 
-                "mean": qualityMeanT,
                 "responses": qualityResT, 
                 "title": "Overall, I would rate the quality of this course as:"
             });
 
             //Get class challenge data
             let curChallege = evalDataState.challenge;
-            let challengeMeanT = curChallege
-                ? parseFloat(curChallege.class_mean)
-                : 0;
             let challengeResT = curChallege
                 ? parseFloat(curChallege.responses)
                 : 0;
@@ -409,17 +378,13 @@ const CourseEvalModal = (props) => {
             ];
 
             allEvalData.push({
-                "data": challengeArr, 
-                "mean": challengeMeanT,
+                "data": challengeArr,
                 "responses": challengeResT, 
                 "title": "Challenge: I was challenged to extend my capabilities or to develop new ones:"
             });
 
             //Get class workload data
             let curWorkload = evalDataState.workload;
-            let workloadMeanT = curWorkload
-                ? parseFloat(curWorkload.class_mean)
-                : 0;
             let workloadResT = curWorkload
                 ? parseFloat(curWorkload.responses)
                 : 0;
@@ -448,16 +413,12 @@ const CourseEvalModal = (props) => {
 
             allEvalData.push({
                 "data": workloadArr, 
-                "mean": workloadMeanT,
                 "responses": workloadResT, 
                 "title": "Workload: The workload of this course compared to others was:",
             });
 
             //Get class why taking data
             let curWhyTaking = evalDataState.why_taking;
-            let whyTakingMeanT = curWhyTaking
-                ? parseFloat(curWhyTaking.class_mean)
-                : 0;
             let whyTakingResT = curWhyTaking
                 ? parseFloat(curWhyTaking.responses)
                 : 0;
@@ -486,7 +447,6 @@ const CourseEvalModal = (props) => {
 
             allEvalData.push({
                 "data": whyTakingArr,
-                "mean": whyTakingMeanT,
                 "responses": whyTakingResT, 
                 "title": "I am taking this course because it satisfies:"
             });
@@ -510,12 +470,6 @@ const CourseEvalModal = (props) => {
     const charts = compiledEvalData.map((item)=>{
         return(
             <div className="chart-container">
-                                <p className="chart-txt">
-                                    Class Mean:&nbsp;{item.mean}&nbsp;&nbsp;
-                                    Rice Mean: 1.34
-                                    <br />
-                                    Responses:&nbsp;{item.responses}
-                                </p>
                                 <Chart dataSource={item.data} height={"100px"}>
                                     <CommonAnnotationSettings
                                         type="text"
@@ -585,6 +539,9 @@ const CourseEvalModal = (props) => {
                                     <Legend visible={false} />
                                     <Size height={270} width={360} />
                                 </Chart>
+                                <p className="chart-txt">
+                                    Responses:&nbsp;{item.responses}
+                                </p>
                             </div>
         );
     });
