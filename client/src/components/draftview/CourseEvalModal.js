@@ -57,7 +57,6 @@ const CourseEvalModal = (props) => {
     }, [evalLoading, evalError, evalData]);
 
     const [evalDataState, setEvalDataState] = useState([]);
-
     const [responseState, setResponseState] = useState(true);
 
     const openComments = () => {
@@ -339,7 +338,7 @@ const CourseEvalModal = (props) => {
                 "data": assignmentsArr, 
                 "mean": assignmentsMeanT,
                 "responses": assignmentsResT, 
-                "title": "Assignments: The ontribution that the coursework made to the course was:"
+                "title": "Assignments: The contribution that the coursework made to the course was:"
             });
 
             //Get class quality data
@@ -589,6 +588,84 @@ const CourseEvalModal = (props) => {
                             </div>
         );
     })
+
+    const charts = compiledEvalData.map((item) => {
+        return (
+            <div className="chart-container">
+                <p className="chart-txt">
+                    Class Mean:&nbsp;{item.mean}&nbsp;&nbsp; Rice Mean: 1.34
+                    <br />
+                    Responses:&nbsp;{item.responses}
+                </p>
+                <Chart dataSource={item.data} height={"100px"}>
+                    <CommonAnnotationSettings
+                        type="text"
+                        series="Value"
+                        allowDragging={false}
+                        color={"transparent"}
+                    ></CommonAnnotationSettings>
+                    {item.data
+                        .filter((vals) => {
+                            return vals.value > 0;
+                        })
+                        .map((vals) => (
+                            <Annotation
+                                argument={vals.argument}
+                                key={vals.argument}
+                                text={vals.value}
+                                color={"transparent"}
+                                arrowLength={0}
+                            >
+                                <Font
+                                    size="17px"
+                                    color={"var(--secondary-color)"}
+                                    family={"Acari Sans"}
+                                />
+                                <Border visible={false} />
+                                <Shadow opacity={0} />
+                            </Annotation>
+                        ))}
+                    <Series
+                        type="bar"
+                        hoverMode="none"
+                        valueField="value"
+                        argumentField="argument"
+                        color={"var(--primary-color)"}
+                        name="Value"
+                    />
+                    <Title text={item.title}>
+                        <Font
+                            size="15px"
+                            color={"var(--secondary-color)"}
+                            family={"Acari Sans"}
+                        />
+                    </Title>
+
+                    <ArgumentAxis>
+                        <Label>
+                            <Font
+                                size="12px"
+                                color={"var(--secondary-color)"}
+                                family={"Acari Sans"}
+                            />
+                        </Label>
+                    </ArgumentAxis>
+
+                    <ValueAxis visualRange={[0, 100]} visible={false}>
+                        <Label customizeText={customizeText}>
+                            <Font
+                                size="15px"
+                                color={"var(--secondary-color)"}
+                                family={"Acari Sans"}
+                            />
+                        </Label>
+                    </ValueAxis>
+                    <Legend visible={false} />
+                    <Size height={270} width={360} />
+                </Chart>
+            </div>
+        );
+    });
 
     return (
         <div className="modal-container">
