@@ -313,7 +313,7 @@ const NewDraftCourseItem = (props) => {
                         title={title}
                         crn={props.session.crn}
                         time={time}
-                        creditsMin={props.session.creditsMin}
+                        creditsMin={props.session.course.creditsMin}
                         distribution={props.session.course.distribution}
                         prereqs={props.session.course.prereqs}
                         coreqs={coreqs_str}
