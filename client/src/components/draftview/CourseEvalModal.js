@@ -58,12 +58,24 @@ const CourseEvalModal = (props) => {
 
     const [evalDataState, setEvalDataState] = useState([]);
     const [responseState, setResponseState] = useState(true);
+    const [commentState, setCommentState] = useState(false);
+    const [dataState, setDataState] = useState(false);
+
 
     const openComments = () => {
+        setCommentState(true);
         setResponseState(false);
+        setDataState(false);
     };
     const openResponse = () => {
         setResponseState(true);
+        setCommentState(false);
+        setDataState(false);
+    };
+    const openData = () => {
+        setDataState(true);
+        setCommentState(false);
+        setResponseState(false);
     };
 
     const GET_LOCAL_DATA = gql`
@@ -466,6 +478,46 @@ const CourseEvalModal = (props) => {
     const customizeText = (arg) => {
         return `${arg.valueText}%`;
     };
+
+    const renderTabs = () => {
+        if (responseState) {
+            return (
+                <div className="chart-padding">
+                    <div className="header-border" />
+                    <div className="charts-display">
+                        {charts}
+
+                    </div>
+                </div>
+            )
+        }
+        else if (dataState) {
+            return (
+                <div>
+                    this is dataState
+                </div>
+            )
+        }
+        else {
+            return (
+            <div>
+                {comments.map((item, index) => {
+                    return (
+                        <div
+                            className={`comment-container ${
+                                index % 2 == 0 ? "comment-even" : ""
+                            }`}
+                            key={index}
+                        >
+                            <div>{item.text}</div>
+                            <div className="time-stamp">{item.time}</div>
+                        </div>
+                    );
+                })}
+            </div>
+            )
+        }
+    }
     
     const charts = compiledEvalData.map((item)=>{
         return(
@@ -628,9 +680,19 @@ const CourseEvalModal = (props) => {
                     </button>
                     <button
                         className={`${
-                            responseState
-                                ? "eval-tabs-unclicked"
-                                : "eval-tabs-clicked"
+                            dataState
+                                ? "eval-tabs-clicked"
+                                : "eval-tabs-unclicked"
+                        }`}
+                        onClick={openData}
+                    >
+                        Course Data
+                    </button>
+                    <button
+                        className={`${
+                            commentState
+                                ? "eval-tabs-clicked"
+                                : "eval-tabs-unclicked"
                         }`}
                         onClick={openComments}
                     >
@@ -638,31 +700,7 @@ const CourseEvalModal = (props) => {
                     </button>
                 </div>
             </div>
-            {responseState ? (
-                <div className="chart-padding">
-                    <div className="header-border" />
-                    <div className="charts-display">
-                        {charts}
-
-                    </div>
-                </div>
-            ) : (
-                <div>
-                    {comments.map((item, index) => {
-                        return (
-                            <div
-                                className={`comment-container ${
-                                    index % 2 == 0 ? "comment-even" : ""
-                                }`}
-                                key={index}
-                            >
-                                <div>{item.text}</div>
-                                <div className="time-stamp">{item.time}</div>
-                            </div>
-                        );
-                    })}
-                </div>
-            )}
+            {renderTabs()}
         </div>
     );
 };
