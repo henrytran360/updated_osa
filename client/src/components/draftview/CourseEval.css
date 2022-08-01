@@ -140,3 +140,70 @@
     color: var(--tertiary-color);
     text-align: right;
 }
+
+.CircularProgressbar-path {
+    stroke: red;
+}
+.CircularProgressbar-trail {
+    stroke: gray;
+}
+.CircularProgressbar-text {
+    fill: yellow;
+}
+.CircularProgressbar-background {
+    fill: green;
+}
+
+.CourseDataTab {
+    display:flex;
+    background-color: aqua;
+    justify-content: left;
+    flex-direction: row;
+    margin-left: 2rem;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.CircularPlotsContainer {
+    display:flex;
+    background-color: purple;
+    flex-wrap: wrap;
+    justify-content: left; /* horizontal, equidistant */
+    flex-direction: row;
+    width: 50%;
+    height: 100%;
+}
+
+.CircularPlot {
+    display:flex;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 200px;
+    /* margin-top: 8px;
+    padding: 0 4px;
+    border-radius: 10px; */
+    
+}
+
+.NumericDataContainer {
+    display:flex;
+    background-color: red;
+
+}
+
+.NumericData {
+    
+}
+
+/*.CircularProgressbar-position {
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    row-gap: 30px;
+}*/

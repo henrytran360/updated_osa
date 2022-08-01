@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import SemesterBox from "../degree/SemesterBox";
-import "./CourseEval.css";
 import { gql, useQuery, useApolloClient } from "@apollo/client";
 import { IoCloseOutline } from "react-icons/io5";
 import { ImWarning } from "react-icons/im";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import { AiOutlineWarning } from "react-icons/ai";
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import "./CourseEval.css";
+import VisibilitySensor from "react-visibility-sensor"; 
 
 import Chart, {
     ArgumentAxis,
@@ -478,7 +481,6 @@ const CourseEvalModal = (props) => {
     const customizeText = (arg) => {
         return `${arg.valueText}%`;
     };
-
     const renderTabs = () => {
         if (responseState) {
             return (
@@ -492,10 +494,134 @@ const CourseEvalModal = (props) => {
             )
         }
         else if (dataState) {
+            
             return (
-                <div>
-                    this is dataState
+                <div class="CourseDataTab">
+                    <div class="CircularPlotsContainer">
+                        <div class="CircularPlot">
+                            {/* <p>This should animate only when visible</p> */}
+                            <VisibilitySensor>
+                            {({ isVisible }) => {
+                                const percentage = isVisible ? 90 : 0;
+                                return (
+                                <CircularProgressbar
+                                    styles={{width: "50px"}} 
+                                    value={percentage}
+                                    text={`${percentage}%`}
+                                />
+                                );
+                            }}
+                            </VisibilitySensor>
+                            <div style={{marginLeft: 20}}>
+                                <p>Course Difficulty</p>
+                            </div>
+                        </div>
+
+                        <div class="CircularPlot">
+                            {/* <p>This should animate only when visible</p> */}
+                            <VisibilitySensor>
+                            {({ isVisible }) => {
+                                const percentage = isVisible ? 90 : 0;
+                                return (
+                                <CircularProgressbar
+                                    styles={{width: 120, height: 120}}
+                                    value={percentage}
+                                    text={`${percentage}%`}
+                                />
+                                );
+                            }}
+                            </VisibilitySensor>
+                            <div style={{marginLeft: 20}}>
+                                <p>Instructor Difficulty</p>
+                            </div>
+                        </div>
+
+                        <div class="CircularPlot">
+                            {/* <p>This should animate only when visible</p> */}
+                            <VisibilitySensor>
+                            {({ isVisible }) => {
+                                const percentage = isVisible ? 90 : 0;
+                                return (
+                                <CircularProgressbar
+                                    styles={{width: 120, height: 120}}
+                                    value={percentage}
+                                    text={`${percentage}%`}
+                                />
+                                );
+                            }}
+                            </VisibilitySensor>
+                            <div style={{marginLeft: 20}}>
+                                <p>Course Quality</p>
+                            </div>
+                        </div>
+
+                        <div class="CircularPlot">
+                            {/* <p>This should animate only when visible</p> */}
+                            <VisibilitySensor>
+                            {({ isVisible }) => {
+                                const percentage = isVisible ? 90 : 0;
+                                return (
+                                <CircularProgressbar
+                                    styles={{width: 120, height: 120}}
+                                    value={percentage}
+                                    text={`${percentage}%`}
+                                />
+                                );
+                            }}
+                            </VisibilitySensor>
+                            <div style={{marginLeft: 0}}>
+                                <p>Work Required</p>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <div class="NumericDataContainer">
+                        <p>this is numeric data</p>
+                    </div>
+
                 </div>
+
+
+
+
+
+                // <div class="CircularProgressbar-position">
+                //     <div style={{ width: "75px"}} class="CircularProgressbar-path">
+                //         <p>This should animate only when visible</p>
+                //         <VisibilitySensor>
+                //         {({ isVisible }) => {
+                //             const percentage = isVisible ? 90 : 0;
+                //             return (
+                //             <CircularProgressbar
+                //                 value={percentage}
+                //                 text={`${percentage}%`}
+                            
+                //             />
+                            
+                //             );
+                //         }}
+                //         </VisibilitySensor>
+                //     </div>
+                    
+                //     <div style={{ width: "75px"}} class="CircularProgressbar-trail">
+                //         <VisibilitySensor>
+                //         {({ isVisible }) => {
+                //             const percentage = isVisible ? 90 : 0;
+                //             return (
+                //             <CircularProgressbar
+                //                 value={percentage}
+                //                 text={`${percentage}%`}
+                            
+                //             />
+                            
+                //             );
+                //         }}
+                //         </VisibilitySensor>
+                //     </div>
+                        
+                // </div>
             )
         }
         else {
