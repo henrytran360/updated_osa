@@ -156,7 +156,7 @@
 
 .CourseDataTab {
     display:flex;
-    background-color: aqua;
+    /* background-color: aqua; */
     justify-content: left;
     flex-direction: row;
     margin-left: 2rem;
@@ -167,35 +167,59 @@
 
 .CircularPlotsContainer {
     display:flex;
-    background-color: purple;
+    /* background-color: purple; */
     flex-wrap: wrap;
-    justify-content: left; /* horizontal, equidistant */
+    justify-content: center; /* horizontal, equidistant */
     flex-direction: row;
-    width: 50%;
-    height: 100%;
+    width: 40%;
+    height: 10%;
+    padding: 1px;
 }
 
 .CircularPlot {
-    display:flex;
-    background-color: black;
+    display: flex;
+    /* background-color: black; */
     justify-content: center;
     align-items: center;
-    flex-direction: row;
-    width: 200px;
-    /* margin-top: 8px;
-    padding: 0 4px;
+    width: 25%;
+    text-align: left;
+    font-family: Arial;
+    color: gray;
+    font-size: 120%;
+    box-sizing: border-box;
+    padding: 10px;
+    /* object-fit: cover;
+    margin-top: 8px;
     border-radius: 10px; */
+
     
 }
 
 .NumericDataContainer {
-    display:flex;
-    background-color: red;
-
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: red; */
+    flex-direction: column;
+    justify-content: left;
+    width: 50%;
 }
 
 .NumericData {
-    
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    align-items: center;
+    column-gap: 10px;
+}
+
+p.NumericDataValue{
+    color: purple;
+    font-size: 160%;
+}
+
+p.NumericDataName{
+    color: blue;
+    font-size: 120%;
 }
 
 /*.CircularProgressbar-position {

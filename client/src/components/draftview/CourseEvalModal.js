@@ -505,16 +505,16 @@ const CourseEvalModal = (props) => {
                                 const percentage = isVisible ? 90 : 0;
                                 return (
                                 <CircularProgressbar
-                                    styles={{width: "50px"}} 
+                                    styles={{width:"50px", text: {fill: '#8e9eb5'}, path: {stroke: `rgba(100,180,160, ${percentage / 100})`}}}
                                     value={percentage}
                                     text={`${percentage}%`}
                                 />
                                 );
                             }}
                             </VisibilitySensor>
-                            <div style={{marginLeft: 20}}>
-                                <p>Course Difficulty</p>
-                            </div>
+                        </div>
+                        <div class="CircularPlot">
+                            <p style={{color:"#8e9eb5"}}>Course Difficulty</p>
                         </div>
 
                         <div class="CircularPlot">
@@ -524,16 +524,16 @@ const CourseEvalModal = (props) => {
                                 const percentage = isVisible ? 90 : 0;
                                 return (
                                 <CircularProgressbar
-                                    styles={{width: 120, height: 120}}
+                                    styles={{width:"50px", text: {fill: '#8e9eb5'}, path: {stroke: `rgba(100,180,160, ${percentage / 100})`}}}
                                     value={percentage}
                                     text={`${percentage}%`}
                                 />
                                 );
                             }}
                             </VisibilitySensor>
-                            <div style={{marginLeft: 20}}>
-                                <p>Instructor Difficulty</p>
-                            </div>
+                        </div>
+                        <div class="CircularPlot" >
+                            <p style={{color:"#8e9eb5"}}>Instructor Difficulty</p>
                         </div>
 
                         <div class="CircularPlot">
@@ -543,16 +543,16 @@ const CourseEvalModal = (props) => {
                                 const percentage = isVisible ? 90 : 0;
                                 return (
                                 <CircularProgressbar
-                                    styles={{width: 120, height: 120}}
+                                    styles={{width:"50px", text: {fill: '#8e9eb5'}, path: {stroke: `rgba(120,90,240, ${percentage / 100})`}}}
                                     value={percentage}
                                     text={`${percentage}%`}
                                 />
                                 );
                             }}
                             </VisibilitySensor>
-                            <div style={{marginLeft: 20}}>
-                                <p>Course Quality</p>
-                            </div>
+                        </div>
+                        <div class="CircularPlot">
+                            <p style={{color:"#8e9eb5"}}>Course Quality</p>
                         </div>
 
                         <div class="CircularPlot">
@@ -562,25 +562,45 @@ const CourseEvalModal = (props) => {
                                 const percentage = isVisible ? 90 : 0;
                                 return (
                                 <CircularProgressbar
-                                    styles={{width: 120, height: 120}}
+                                    styles={{width:"50px", text: {fill: '#8e9eb5'}, path: {stroke: `rgba(120,90,240, ${percentage / 100})`}}}
                                     value={percentage}
                                     text={`${percentage}%`}
                                 />
                                 );
                             }}
                             </VisibilitySensor>
-                            <div style={{marginLeft: 0}}>
-                                <p>Work Required</p>
-                            </div>
+                        </div>
+                        <div class="CircularPlot">
+                            <p style={{color:"#8e9eb5"}}>Work Required</p>
                         </div>
                         
                         
                     </div>
                     
                     <div class="NumericDataContainer">
-                        <p>this is numeric data</p>
-                    </div>
+                        <div class="NumericData">
+                            <p class="NumericDataValue">6.5</p>
+                            <p class="NumericDataName">Total credits</p>
+                        </div>
 
+
+                        <div class="NumericData">
+                            <p class="NumericDataValue">5.9</p>
+                            <p class="NumericDataName">max hours a day</p>
+                        </div>
+
+
+                        <div class="NumericData">
+                            <p class="NumericDataValue">4.2</p>
+                            <p class="NumericDataName">avg. hours a day</p>
+                        </div>
+
+
+                        <div class="NumericData">
+                            <p class="NumericDataValue">20.8</p>
+                            <p class="NumericDataName">total hours of class</p>
+                        </div>
+                    </div>
                 </div>
 
 
