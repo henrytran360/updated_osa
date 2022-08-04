@@ -155,8 +155,7 @@
 }
 
 .CourseDataTab {
-    display:flex;
-    /* background-color: aqua; */
+    display: flex;
     justify-content: left;
     flex-direction: row;
     margin-left: 2rem;
@@ -166,39 +165,38 @@
 }
 
 .CircularPlotsContainer {
-    display:flex;
-    /* background-color: purple; */
+    display: flex;
     flex-wrap: wrap;
     justify-content: center; /* horizontal, equidistant */
     flex-direction: row;
     width: 40%;
-    height: 10%;
     padding: 1px;
 }
 
 .CircularPlot {
     display: flex;
-    /* background-color: black; */
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     width: 25%;
     text-align: left;
     font-family: Arial;
-    color: gray;
-    font-size: 120%;
+    /* color: gray; */
+    font-size: 110%;
     box-sizing: border-box;
-    padding: 10px;
-    /* object-fit: cover;
-    margin-top: 8px;
-    border-radius: 10px; */
-
-    
+    padding: 10px; 
 }
+
+@media (max-width: 1000px) {
+    .CircularPlot {
+      width: 50%;
+    }
+  }
+  
 
 .NumericDataContainer {
     display: flex;
     flex-wrap: wrap;
-    /* background-color: red; */
     flex-direction: column;
     justify-content: left;
     width: 50%;
@@ -206,19 +204,19 @@
 
 .NumericData {
     display: flex;
-    flex-wrap: wrap;
     width: auto;
     align-items: center;
     column-gap: 10px;
+    margin-left: 20px;
 }
 
 p.NumericDataValue{
-    color: purple;
+    color: #936AE1;
     font-size: 160%;
 }
 
 p.NumericDataName{
-    color: blue;
+    color: #8e9eb5;
     font-size: 120%;
 }
 

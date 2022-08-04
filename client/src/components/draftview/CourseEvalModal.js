@@ -580,7 +580,7 @@ const CourseEvalModal = (props) => {
                     <div class="NumericDataContainer">
                         <div class="NumericData">
                             <p class="NumericDataValue">6.5</p>
-                            <p class="NumericDataName">Total credits</p>
+                            <p class="NumericDataName">total credits</p>
                         </div>
 
 
